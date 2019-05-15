@@ -28,6 +28,8 @@ City Match is an effort to improve the user experience of City Rank through addi
 
 ## Thumb Ninja
 
+![alt](docs/img/thumb-ninja.png)
+
 My focus shifts from stage to a nearby table where a woman whips out her phone and fluidly navigates through texts and images, powered by the sultry grace of her thumb. There's an ease and comfort here that seem very natural. I want City Match to be that easy to navigate. In the morning, I come up with this:
 
 ![alt](docs/img/ui-design.jpg)
