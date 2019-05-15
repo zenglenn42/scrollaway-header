@@ -20,7 +20,7 @@ I'm not sure what the band thinks of all this singular devotion. I'm guessing a 
 
 In a world of options, can big-data help us find the place where we'll feel most at home?
 
-[https://github.com/zenglenn42/CityRank/blob/master/README.md](City Rank), a 2-week software bootcamp project, explored that idea a bit. However there's only so much that can be done in such a short time.
+[City Rank](https://github.com/zenglenn42/CityRank/blob/master/README.md), a 2-week software bootcamp project, explored that idea a bit. However there's only so much that can be done in such a short time.
 
 City Match is an effort to improve the user experience of City Rank through additional front-end design and thoughtful implementation of desired features.
 
