@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .block {
+        margin: 5vh auto;
+      }
+      .fab {
+        position: absolute;
+        bottom: -2em;
+        border-radius: 2em;
+        height: 4em;
+        width: 4em;
+        background-color: green;
+        left: calc(50% - 2em);
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body
+    style="background-color: teal;display:flex; flex-direction:column; min-height: 100vh;"
+  >
+    <header style="background-color: rebeccapurple; color: white;">
+      header
+    </header>
+    <main style="position: relative; background-color:white; flex: 1">
+      main
+      <div
+        class="block"
+        style="background-color: slategray; height: 30vh; width: 50vw;"
+      ></div>
+      <div
+        class="block"
+        style="background-color: slateblue; height: 30vh; width: 50vw;"
+      ></div>
+      <div class="fab">fab</div>
+    </main>
+    <footer style="background-color: black; color: white;">
+      <p>footer</p>
+      <p>more footer stuff</p>
+    </footer>
+  </body>
+</html>

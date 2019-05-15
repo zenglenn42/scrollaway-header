@@ -48,3 +48,9 @@ Three screens. A landing page, a preference page, and a results page, all thumb-
 - map view
 
 On desktop, I could see offering more than one view at a time. But right now, I'm thinking about mobile mostly. That's the plan.
+
+## Flexy FAB
+
+Here's my first cut at a pure CSS floating action button centered about the footer edge. This is done with flexbox and absolute positioning.
+
+![alt](docs/img/fab-study-1.png)
