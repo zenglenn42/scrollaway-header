@@ -8,6 +8,7 @@
     <style>
       .block {
         margin: 5vh auto;
+        font-family: sans-serif;
       }
       .fab {
         position: absolute;
@@ -21,21 +22,32 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        font-family: sans-serif;
+      }
+      .section-text {
+        padding: 0.125em 0.5em;
+        font-family: sans-serif;
+        margin: 0.125em 0.125em;
       }
     </style>
   </head>
   <body
     style="background-color: teal;display:flex; flex-direction:column; min-height: 100vh;"
   >
-    <header style="background-color: rebeccapurple; color: white;">
+    <header
+      class="section-text"
+      style="background-color: rebeccapurple; color: white;"
+    >
       header
     </header>
     <main style="position: relative; background-color:white; flex: 1">
-      main
+      <span class="section-text">main</span>
       <div
         class="block"
-        style="background-color: slategray; height: 30vh; width: 50vw;"
-      ></div>
+        style="background-color: slategray; height: 30vh; width: 50vw; text-align: center;"
+      >
+        <p style="padding: 1em;">landing text goes here :-)</p>
+      </div>
       <div
         class="block"
         style="background-color: slateblue; height: 30vh; width: 50vw;"
@@ -43,8 +55,10 @@
       <div class="fab">fab</div>
     </main>
     <footer style="background-color: black; color: white;">
-      <p>footer</p>
-      <p>more footer stuff</p>
+      <p class="section-text">footer</p>
+      <p class="section-text" style="font-size: 0.6em;">
+        &copy; Incremental Industries 2019
+      </p>
     </footer>
   </body>
 </html>
