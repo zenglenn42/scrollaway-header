@@ -71,7 +71,7 @@ I discover flex-ratio (fr) units and my grid-cells nicely fit to the viewport, p
 
 ![alt](docs/img/grid-play-2.png)
 
-But with preference cards I'll be using to host the sliders, I want something that will collapse down to fit at least 1 card width on mobile platforms. I'm thinking auto-fit might be the key. Exploring that next.
+But with the preference cards that host the sliders, I want something that collapses down to fit at least 1 card width on mobile platforms. I'm thinking auto-fit might be the key. Exploring that next.
 
 ## Not a Horrible CSS Grid
 
