@@ -79,4 +79,6 @@ After much point, click, and cursing, I have a responsive grid. It still has iss
 
 ![alt](docs/img/grid-study-2.png)
 
-Ruefully, I notice my slider cards are often not within thumb range with the current layout. :-/ But I've burned my layout energy for the day and I'm ready to relax. CSS is an interesting goddess. She enables much, but you have to prove yourself worthy.
+Ruefully, I notice my slider cards often don't fall within thumb range with the current positioning. :-/ But I've burned my layout energy for the day and I'm ready to relax. CSS is an interesting goddess. She enables much, but you have to prove yourself worthy.
+
+Oh, btw, I've added some fu to get my fab button to shrink and grow in proportion to the viewport, but with size limiters at both extremes to keep things from getting ridiculous on retina or large displays.
