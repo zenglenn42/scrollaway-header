@@ -49,8 +49,22 @@ Three screens. A landing page, a preference page, and a results page, all thumb-
 
 On desktop, I could see offering more than one view at a time. But right now, I'm thinking about mobile mostly. That's the plan.
 
-## Flexy FAB
+Even though playing with Material Design components is a major goal of this UI redesign, I still want to make sure I understand some of the underlying layout tools offered by vanilla CSS (especially since MDL builds atop those tools).
 
-Here's my first cut at a pure CSS floating action button centered about the footer edge. This is done with flexbox and absolute positioning.
+## Flexy FAB Landing Page
+
+Here's my first cut at a pure CSS floating action button centered about the footer edge. This is done with flexbox and absolute positioning and a sweet little calc expression to center the fab at (50% - 1/2 button width).
 
 ![alt](docs/img/fab-study-1.png)
+
+## Grid-based Preference Page
+
+I'll employ some kind of responsive grid layout for the preference slider cards.
+
+My first stab at a cell illustrates how grid geometries can easily spill over the available space:
+
+![alt](docs/img/grid-play-1.png)
+
+I discover flex-ratio (fr) units and my grid-cells nicely fit to available space, preserving ratios:
+
+![alt](docs/img/grid-play-2.png)
