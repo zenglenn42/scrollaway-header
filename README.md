@@ -72,3 +72,11 @@ I discover flex-ratio (fr) units and my grid-cells nicely fit to the viewport, p
 ![alt](docs/img/grid-play-2.png)
 
 But with preference cards I'll be using to host the sliders, I want something that will collapse down to fit at least 1 card width on mobile platforms. I'm thinking auto-fit might be the key. Exploring that next.
+
+## Not a Horrible CSS Grid
+
+After much point, click, and cursing, I have a responsive grid. It still has issues, like not respecting the 'overflow' policy of the parent div such that my footer, with it's tasty overlapping 'next' button, gets pushed off-screen whereas I would just like extra content cards to scroll nicely. If I am able to re-achieve the sticky footer, it would make sense to parent the fab off of /that/ instead of something that could scroll away. I'll have to think about it.
+
+![alt](docs/img/grid-study-2.png)
+
+Ruefully, I notice my slider cards are often not within thumb range with the current layout. :-/ But I've burned my layout energy for the day and I'm ready to relax. CSS is an interesting goddess. She enables much, but you have to prove yourself worthy.
