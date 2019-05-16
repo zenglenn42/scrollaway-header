@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .block {
+        margin: 5vh auto;
+        height: 30vh;
+        width: 70vw;
+        overflow: scroll;
+      }
+      .main {
+        position: relative;
+        background-color: white;
+        flex: 1;
+      }
+      .fab {
+        position: absolute;
+        bottom: -7vw;
+        border-radius: 7vw;
+        height: 14vw;
+        width: 14vw;
+        background-color: green;
+        color: white;
+        left: calc(50% - 7vw);
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      /* Establish max-fab dimensions. */
+      @media screen and (min-width: 22em) {
+        .fab {
+          bottom: -1.6em;
+          border-radius: 1.6em;
+          height: 3.2em;
+          width: 3.2em;
+          left: calc(50% - 1.6em);
+        }
+      }
+      /* Establish min-fab dimensions. */
+      @media screen and (max-width: 19em) {
+        .fab {
+          bottom: -1.4em;
+          border-radius: 1.4em;
+          height: 2.8em;
+          width: 2.8em;
+          left: calc(50% - 1.4em);
+        }
+      }
+      .section-text {
+        padding: 0.125em 0.5em;
+        margin: 0.125em 0.125em;
+      }
+      .grid-layout {
+        display: grid;
+        grid-template-rows: 1fr 2fr 1fr;
+        grid-template-columns: 1fr 2fr 1fr;
+      }
+    </style>
+  </head>
+  <body
+    style="background-color: teal;display:flex; flex-direction:column; min-height: 100vh; margin: 0;"
+  >
+    <header
+      class="section-text"
+      style="background-color: rebeccapurple; color: white;"
+    >
+      header
+    </header>
+    <main class="main">
+      <span class="section-text">main</span>
+
+      <div class="grid-layout">
+        <div id="one" style="background-color: lightcoral;">1</div>
+        <div id="two" style="background-color: lightseagreen">2</div>
+        <div id="three" style="background-color: lightskyblue">3</div>
+        <div id="four" style="background-color: lightslategray">4</div>
+        <div id="five" style="background-color: lightsteelblue">5</div>
+      </div>
+
+      <div class="fab">fab</div>
+    </main>
+    <footer style="background-color: black; color: white;">
+      <p class="section-text">footer</p>
+      <p class="section-text" style="font-size: 0.6em;">
+        &copy; Incremental Industries 2019
+      </p>
+    </footer>
+  </body>
+</html>
