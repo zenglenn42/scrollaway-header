@@ -92,7 +92,7 @@ Oh, btw, I've added some fu to get my fab button to shrink and grow in proportio
 
 ## Grid-based Results Page
 
-This is a wholesale grab of the preferences page for the content area, but tuck a nifty flex row below it for buttons that will control the view on our results data. The buttons will morph to icons in time.
+This is a wholesale grab of the preferences page for the content area, but I tuck a nifty flex row below it for buttons that will control the view on our results data. The buttons will morph to icons in time.
 
 I also subtly tweaked the colors to go with my pastel motif. Not sure I'll keep these, but they are more pleasing than what I had above. I basically softened up the header, footer, and fab colors. It's all very Miami. :-)
 
