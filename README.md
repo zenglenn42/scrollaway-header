@@ -57,7 +57,7 @@ Here's my first cut at a pure CSS floating action button centered about the foot
 
 I'll probably employ a media query to limit the max-size of the button on larger viewports, otherwise I get a truncated button. Not horrible, but also not great.
 
-![alt](docs/img/fab-study-1.png)
+![alt](docs/img/flex-landing.png)
 
 ## Grid-based Preference Page
 
@@ -77,7 +77,7 @@ But with the preference cards that host the sliders, I want something that colla
 
 After much point, click, and cursing, I have a responsive grid. It also scrolls nicely within it's own div so the footer and fab button below that div always stay visible even with a lot of content.
 
-![alt](docs/img/grid-study-2.png)
+![alt](docs/img/grid-prefs.png)
 
 Ruefully, I notice my slider cards often don't fall within thumb range with the current positioning. :-/ But I've burned my layout energy for the day and I'm ready to relax. CSS is an interesting goddess. She enables much, but you have to prove yourself worthy.
 
@@ -85,3 +85,11 @@ Ruefully, I notice my slider cards often don't fall within thumb range with the 
 [Image](https://flic.kr/p/xWDRiU) courtesy Debansu Saha (by NC-SA-2.0 license).
 
 Oh, btw, I've added some fu to get my fab button to shrink and grow in proportion to the viewport, but with size limiters at both extremes to keep things from getting ridiculous on retina or large displays.
+
+## Grid-based Results Page
+
+This is a wholesale grab of the preferences page for the content area, but tuck a nifty flex row below it for buttons that will control the view on our results data. The buttons will morph to icons in time.
+
+I also subtly tweaked the colors to go with my pastel motif. Not sure I'll keep these, but they are more pleasing than what I had above. I basically softened up the header, footer, and fab colors. It's all very Miami. :-)
+
+![alt](docs/img/grid-results.png)
