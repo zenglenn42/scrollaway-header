@@ -44,7 +44,13 @@ In the morning, I come up with this:
 
 ![alt](docs/img/ui-design.jpg)
 
-Three screens. A landing page, a preference page, and a results page, all thumb-navigable by a floating action button near the footer. The results page also features multiple views on the same data:
+Three screens:
+
+- landing page
+- preference page
+- results page
+
+all thumb-navigable by a floating action button near the footer. The results page also features multiple views on the same data:
 
 - list view
 - image view
@@ -57,7 +63,7 @@ Even though playing with [Material Design components](https://getmdl.io/componen
 
 ## Flexy FAB Landing Page
 
-Here's my first cut at a pure CSS floating action button centered about the footer edge. This is done with flexbox and absolute positioning and a sweet little calc expression to center the fab at (50% - 1/2 button width). With some SASS variabiles, I could make this more DRY.
+Here's my first cut at a pure CSS floating action button centered about the footer edge. This is done with flexbox and absolute positioning and a sweet little calc expression to center the fab at (50% - 1/2 button width). With some SASS variables, I could make this more DRY.
 
 I'll probably employ a media query to limit the max-size of the button on larger viewports, otherwise I get a truncated button. Not horrible, but also not great.
 
