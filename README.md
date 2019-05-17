@@ -49,7 +49,7 @@ Three screens. A landing page, a preference page, and a results page, all thumb-
 
 On desktop, I could see offering more than one view at a time. But right now, I'm thinking about mobile mostly. That's the plan.
 
-Even though playing with Material Design components is a major goal of this UI redesign, I still want to make sure I understand some of the underlying layout tools offered by vanilla CSS (especially since MDL builds atop some of those tools).
+Even though playing with [Material Design components](https://getmdl.io/components/index.html) is a major goal of this UI redesign, I still want to make sure I understand some of the underlying layout tools offered by vanilla CSS (especially since MDL builds atop some of those tools).
 
 ## Flexy FAB Landing Page
 
@@ -75,7 +75,7 @@ But with the preference cards that host the sliders, I want something that colla
 
 ## Not a Horrible CSS Grid
 
-After much point, click, and cursing, I have a responsive grid. It also scrolls nicely within it's own div so the footer and fab button that div always stay visible even with a lot of content.
+After much point, click, and cursing, I have a responsive grid. It also scrolls nicely within it's own div so the footer and fab button below that div always stay visible even with a lot of content.
 
 ![alt](docs/img/grid-study-2.png)
 
