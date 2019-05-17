@@ -8,9 +8,9 @@ Find your city.
 
 ![alt](docs/img/oasis.png)
 
-The Starlight terrace at the Oasis is modestly busy. It's Saturday night which means the music could be rock, soul funk, tribute or a mix. Tonight it's rock.
+The Starlight terrace at the Oasis is busy. It's Saturday night which means the music could be rock, soul funk, tribute or a mix. Tonight it's rock.
 
-It's a varied demagraphic, mostly middle aged married couples getting their groove on with a mix of younger folk watching and enjoying the sunset.
+It's a varied demographic, mostly middle aged married couples getting their groove on with a mix of younger folk watching and enjoying the sunset.
 
 And then he appears.
 
