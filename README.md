@@ -94,7 +94,7 @@ Ruefully, I notice my slider cards often don't fall within thumb range with the 
 ![alt](docs/img/kali.jpg)
 [Image](https://flic.kr/p/xWDRiU) courtesy Debansu Saha (by NC-SA-2.0 license).
 
-Oh, btw, I've add some fu to get my fab button to shrink and grow in proportion to the viewport, but with size limiters at both extremes to keep things from getting ridiculous on retina or large displays.
+Oh, btw, I've add some fu to get my fab button to shrink and grow in proportion to the viewport, but with size limiters at both extremes to keep things from getting ridiculous on retina or large displays or smaller devices. City Match on iWatch some day?
 
 ## Grid-based Results Page
 
