@@ -59,7 +59,7 @@ all thumb-navigable by a floating action button near the footer. The results pag
 
 On desktop, I could see offering more than one view at a time. But right now, I'm thinking about mobile mostly. That's the plan.
 
-Even though playing with [Material Design components](https://getmdl.io/components/index.html) is a major goal of this UI redesign, I still want to make sure I understand some of the underlying layout tools offered by vanilla CSS (especially since MDL builds atop some of those tools).
+Even though playing with [Material Design components](https://getmdl.io/components/index.html) is a major goal of this UI redesign, I still want to make sure I understand some of the underlying layout tools offered by modern CSS (especially since MDL builds atop some of those tools).
 
 ## Flexy FAB Landing Page
 
