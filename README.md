@@ -88,13 +88,13 @@ Ruefully, I notice my slider cards often don't fall within thumb range with the 
 ![alt](docs/img/kali.jpg)
 [Image](https://flic.kr/p/xWDRiU) courtesy Debansu Saha (by NC-SA-2.0 license).
 
-Oh, btw, I've added some fu to get my fab button to shrink and grow in proportion to the viewport, but with size limiters at both extremes to keep things from getting ridiculous on retina or large displays.
+Oh, btw, I've add some fu to get my fab button to shrink and grow in proportion to the viewport, but with size limiters at both extremes to keep things from getting ridiculous on retina or large displays.
 
 ## Grid-based Results Page
 
 This is a wholesale grab of the preferences page for the content area, but I tuck a nifty flex row below it for buttons that will control the view on our results data. The buttons will morph to icons in time.
 
-I also subtly tweaked the colors to go with my pastel motif. Not sure I'll keep these, but they are more pleasing than what I had above. I basically softened up the header, footer, and fab colors. It's all very Miami. :-)
+I also subtly tweak the colors to go with my pastel motif. Not sure I'll keep these, but they are more pleasing than what I had above. I basically soften up the header, footer, and fab colors. It's all very Miami. :-)
 
 ![alt](docs/img/grid-results.png)
 
