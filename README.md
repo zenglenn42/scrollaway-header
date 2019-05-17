@@ -63,7 +63,7 @@ Even though playing with [Material Design components](https://getmdl.io/componen
 
 ## Flexy FAB Landing Page
 
-Here's my first cut at a pure CSS floating action button centered about the footer edge. This is done with flexbox and absolute positioning and a sweet little calc expression to center the fab at (50% - 1/2 button width). With some SASS variables, I could make this more DRY.
+Here's my first cut at a pure CSS floating action button centered about the footer edge. This is done with flexbox (to flex the main section and yield a sticky footer) and absolute positioning and a sweet little calc expression to center the fab at (50% - 1/2 button width). With some SASS variables, I could make this more DRY.
 
 I'll probably employ a media query to limit the max-size of the button on larger viewports, otherwise I get a truncated button. Not horrible, but also not great.
 
