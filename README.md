@@ -94,7 +94,7 @@ Oh, btw, I've add some fu to get my fab button to shrink and grow in proportion 
 
 This is a wholesale grab of the preferences page for the content area, but I tuck a nifty flex row below it for buttons that will control the view on our results data. The buttons will morph to icons in time.
 
-I also subtly tweak the colors to go with my pastel motif. Not sure I'll keep these, but they are more pleasing than what I had above. I basically soften up the header, footer, and fab colors. It's all very Miami. :-)
+I also subtly tweak the colors to go with my pastel motif. Not sure I'll keep these, but they are more pleasing than what I have above. I basically soften up the header, footer, and fab colors. It's all very Miami. :-)
 
 ![alt](docs/img/grid-results.png)
 
@@ -105,3 +105,5 @@ Within the flex-ified button div, I use the option:
 `justify-content: center;`
 
 with a whisper of left/right button margin for accessibility and proximity to the floating action button (fab).
+
+The layout and styling could use some polish. For example, I feel the button bar cries out for a top-bar of some sort to keep the balance. And maybe that space between the button bar and footer is a slightly odd dead-zone. Could I wedge some monetization in there without be annoying? I could see stacking those two bars and having the fab push the middle option buttons to either side. But I feel I'm in the good enough category at the moment and I want to get some Material Design going and to get this thing /wired up/ to the backend.
