@@ -30,7 +30,11 @@ City Match is an effort to realize the promise of City Rank by improving the use
 
 ## Thumb Ninja
 
-My focus shifts from the stage to a nearby table where a woman whips out her phone and fluidly navigates through texts and images, powered by the grace of her thumb. There's an ease and comfort here that seem very natural. I want City Match to be that easy to navigate.
+My focus shifts from the stage to a nearby table where a woman whips out her phone and fluidly navigates through texts and images, powered by the grace of her thumb.
+
+```Tap, tap, swish, scroll. Tap, tap, swish.```
+
+There's an ease and comfort here that seem very natural. I want City Match to be that easy to navigate.
 
 ![alt](docs/img/thumb-ninja.png)
 
@@ -93,3 +97,11 @@ This is a wholesale grab of the preferences page for the content area, but tuck 
 I also subtly tweaked the colors to go with my pastel motif. Not sure I'll keep these, but they are more pleasing than what I had above. I basically softened up the header, footer, and fab colors. It's all very Miami. :-)
 
 ![alt](docs/img/grid-results.png)
+
+The cool thing on mobile are the data format buttons. They're in the thumb-zone, so we have a nice usability win here.
+
+Within flex-ified button div, I use the option:
+
+```justify-content: center;```
+
+with a whisper of left/right button margin for accessibility and proximity to the floating action button (fab).
