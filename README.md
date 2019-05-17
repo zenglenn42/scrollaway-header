@@ -75,7 +75,7 @@ But with the preference cards that host the sliders, I want something that colla
 
 ## Not a Horrible CSS Grid
 
-After much point, click, and cursing, I have a responsive grid. It still has issues, like not respecting the 'overflow' policy of the parent div such that my footer, with it's tasty overlapping 'next' button, gets pushed off-screen whereas I would just like extra content cards to scroll nicely. If I am able to re-achieve the sticky footer, it would make sense to parent the fab off of /that/ instead of something that could scroll away. I'll have to think about it.
+After much point, click, and cursing, I have a responsive grid. It also scrolls nicely within it's own div so the footer and fab button that div always stay visible even with a lot of content.
 
 ![alt](docs/img/grid-study-2.png)
 
