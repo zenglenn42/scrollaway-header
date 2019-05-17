@@ -85,7 +85,7 @@ But with the preference cards that host the sliders, I want something that colla
 
 ## Not a Horrible CSS Grid
 
-After much point, click, and cursing, I have a responsive grid. It also scrolls nicely within it's own div so the footer and fab button below that div always stay visible even with a lot of content.
+After much point, click, and cursing, I have a responsive grid. It also scrolls nicely within its own div so the footer and fab button below that div always stay visible even with a lot of content.
 
 ![alt](docs/img/grid-prefs.png)
 
