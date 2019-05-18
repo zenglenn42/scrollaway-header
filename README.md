@@ -133,10 +133,11 @@ I may switch out the picture for something sunnier, but there are several things
   - The time-lapse river of orange and yellow is lovely and vibrant.
 
 - The image is not identifiable with any /specific/ city.
+
   - I want something suggestive that doesn't show bias for a particular city in the landing.
   - That, or have a montage kind of thing of several cities. Possibly a tasteful carousel if it's not too busy.
 
-(I will track down the attribution. I was one one of those free images sites and found it.)
+- [Image](https://www.pinterest.com/pin/742179213570198708/) is courtesy [imageocra](https://www.pinterest.com/imageorca/)
 
 MDL has opinions about stuff ... like color. I'm trying to avoid a bunch of custom colors and simply rely upon defaults like 'primary' for nav bar and fab. Do you notice the footer, by default, is not solid black? Looks like my instinct to lighten my pure CSS footer above aligns with MDL's default sensibilities.
 
