@@ -156,7 +156,7 @@ I notice my repo is starting to get cloned, so others must be interested in my e
 
 I'm liking the clean look of MDL and I'm trying not to clutter it up with background images.
 
-Here's the preference 'slider' page. The little switches at the bottom of the cards will be used to enable/disable preferences that user's don't care about.
+Here's the preference 'slider' page. The little switches at the bottom of the cards will be used to enable/disable preferences that users don't care about.
 
 ![alt](docs/img/mdl-prefs.png)
 
