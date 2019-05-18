@@ -1,0 +1,64 @@
+.mdl-layout__header,
+.mdl-layout__drawer-button,
+.mdl-layout__header-row .mdl-navigation__link {
+  color: white;
+}
+
+.mdl-logo {
+  margin-bottom: 0px;
+}
+
+.mdl-card__title-text {
+  color: white;
+}
+
+.mdl-card__supporting-text {
+  background-color: white;
+}
+
+.landing-card-wide.mdl-card {
+  width: 75%;
+  max-width: 640px;
+}
+
+.landing-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background: url("../img/welcome-moon.png") center / cover;
+}
+
+.landing-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  flex: 1;
+}
+
+.footer-fab {
+  position: absolute;
+  bottom: 23px;
+  right: calc(50% - 20px);
+  z-index: 5;
+  color: white;
+}
+
+footer.mdl-mini-footer {
+  padding: 0.25em 0.125em;
+  position: relative;
+  overflow: visible;
+}
+
+.footer-icons {
+  padding-top: 0.25em;
+}
+
+.copyright-text {
+  font-size: 0.8em;
+}

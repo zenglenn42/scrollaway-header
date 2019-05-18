@@ -118,3 +118,11 @@ The other cool thing is I have more than just wireframes here. I have actual cod
 
 ![alt](docs/img/nyc1.jpg)
 Photo by Reynaldo Brigantty (#brigworkz)
+
+## Material Design Lite in the House
+
+MDL has opinions about stuff ... like color. I'm trying to avoid a bunch of custom colors and simply rely upon defaults like 'primary' for nav bar and fab.
+
+I may switch out the picture for something sunnier, but here's a first pass at an MDL-based landing page on mobile:
+
+![alt](docs/img/mdl-landing.png)

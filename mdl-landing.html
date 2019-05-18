@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>City Match</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"
+    />
+
+    <link rel="stylesheet" href="assets/css/mdl-prefs.css" />
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+
+          <span class="mdl-layout-title">City Match</span>
+          <!-- Add spacer, to align search icon to the right. -->
+          <div class="mdl-layout-spacer"></div>
+          <i class="material-icons">search</i>
+        </div>
+      </header>
+
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Settings</span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="">About</a>
+          <a class="mdl-navigation__link" href="">Contact</a>
+          <a class="mdl-navigation__link" href="">Help</a>
+        </nav>
+      </div>
+
+      <!-- Hamburger menu icon -->
+      <div
+        class="mdl-layout__drawer-button"
+        role="button"
+        aria-expanded="false"
+      >
+        <i class="material-icons">menu</i>
+      </div>
+
+      <!-- <main class="mdl-layout__content"> -->
+        <main class="content">
+          <div class="landing-card-wide mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Welcome</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <p style="line-height: 1.25em;">Considering a move but not sure which cities are your best bet?</p>
+              <p style="line-height: 1.25em;">Explore your options by sharing what's important to you and we'll offer some informed choices.</p>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Get Started
+              </a>
+            </div>
+            <div class="mdl-card__menu">
+              <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                <!-- <i class="material-icons">share</i> -->
+              </button>
+            </div>
+          </div>  
+        </main>
+
+      <footer class="mdl-mini-footer">
+        <button class="footer-fab mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--primary">
+          <i class="material-icons">play_arrow</i>
+        </button>
+          <div class="mdl-mini-footer__left-section"><span class="copyright-text">
+            <i class="material-icons footer-icons">location_city</i>
+            <i class="material-icons footer-icons">favorite</i>
+            <span class="copyright-text">Match Industries &copy; 2019</span>
+          </div>
+      </footer>
+    </div>
+  </body>
+</html>
