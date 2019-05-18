@@ -14,9 +14,11 @@ It's a varied demographic, mostly middle aged married couples getting their groo
 
 And then he appears.
 
-Early 30's, jean jacket, glasses, long hair, and a red bandana. He calibrates with the band, offering up some appreciative fist pumps to the middle-aged rockers. Later, he approaches the stage and holds up his Bic lighter high in appreciation.
+Early 30's, jean jacket, glasses, long hair, and a red bandana. He calibrates with the band, offering up some appreciative fist pumps to the middle-aged rockers.
 
 ![alt](docs/img/fist-pump.png)
+
+Later, he approaches the stage and holds up his Bic lighter high in appreciation.
 
 I'm not sure what the band thinks of all this singular devotion. I'm guessing a flock of tipsy soccer mom's would be more their speed, but the point is, this guy has found his tribe and feels he belongs. And isn't that the bottom line?
 
