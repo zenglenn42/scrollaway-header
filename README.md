@@ -151,3 +151,13 @@ Oh, yeah. I woke up this morning and had a solution for the results page 'dead-z
 But for now, I want to get the MDL-based preference page cleaned up and doc'd. I'm really enjoying this design exercise probably because it engages very different parts of my brain than my coding-brain. I'm learning a visual vocabulary and getting better at expressing what's in my mind's eye with CSS.
 
 I notice my repo is starting to get cloned, so others must be interested in my exploration as well. (-;
+
+## MDL-based Preferences Page
+
+I'm liking the clean look of MDL and I'm trying not to clutter it up with background images.
+
+Here's the preference 'slider' page. The little switches at the bottom of the cards will be used to enable/disable preferences that user's don't care about.
+
+![alt](doc/img/mdl-prefs.png)
+
+I'll probably add a 'guidance' card at the top that simply invites users to select their preferences. This will provide context and enhance usability by pushing the other sliders closer to the thumb region.
