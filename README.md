@@ -162,6 +162,6 @@ Here's the preference 'slider' page. The little switches at the bottom of the ca
 
 I'll probably add a 'guidance' card at the top that simply invites users to select their preferences. This will provide context and enhance usability by pushing the other sliders closer to the thumb region.
 
-Notice how on mobile the preference card disappears /before/ it hits the floating action button? I think it looks better than tucking behind the button and footer.
+Notice how on mobile the preference card subtly disappears /before/ it hits the floating action button? I think it looks better than tucking behind the button and footer.
 
 Maybe with offscreen preferences (especially on mobile), the fab will remain gray/inactive until the user scrolls all the way to the bottom of the content just so they don't miss any options before triggering the results pages.
