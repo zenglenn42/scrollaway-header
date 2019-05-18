@@ -121,8 +121,27 @@ Photo by Reynaldo Brigantty (#brigworkz)
 
 ## Material Design Lite in the House
 
-MDL has opinions about stuff ... like color. I'm trying to avoid a bunch of custom colors and simply rely upon defaults like 'primary' for nav bar and fab.
-
-I may switch out the picture for something sunnier, but here's a first pass at an MDL-based landing page on mobile:
+Here's my first pass at an MDL-based landing page on mobile.
 
 ![alt](docs/img/mdl-landing.png)
+
+I may switch out the picture for something sunnier, but there are several things I like about the image:
+
+- It's charming!
+
+  - The star filter on the street lights and framing of the crescent moon are almost whimsical.
+  - The time-lapse river of orange and yellow is lovely and vibrant.
+
+- The image is not identifiable with any /specific/ city.
+  - I want something suggestive that doesn't show bias for a particular city in the landing.
+  - That, or have a montage kind of thing of several cities. Possibly a tasteful carousel if it's not too busy.
+
+(I will track down the attribution. I was one one of those free images sites and found it.)
+
+MDL has opinions about stuff ... like color. I'm trying to avoid a bunch of custom colors and simply rely upon defaults like 'primary' for nav bar and fab. Do you notice the footer, by default, is not solid black? Looks like my instinct to lighten my pure CSS footer above aligns with MDL's default sensibilities.
+
+Oh, yeah. I woke up this morning and had a solution for the results page 'dead-zone' under the view buttons. Just stick to my original design on mobile of morphing the footer into a bottom-app bar and let the buttons live in the sticky footer area. Much more pattern-ful, I think. On desktop, I could see having a dedicated results area that floats above the footer and /contains/ the button bar. I'll try to make that happen with some media queries.
+
+But for now, I want to get the MDL-based preference page cleaned up and doc'd. I'm really enjoying this exercise even though it engages very different parts of my brain than my coding-brain. I'm learning the vocabulary of visual design, though at a modest cut-n-paste level.
+
+I notice my repo is starting to get cloned, so others must be enjoying my exploration as well. (-;
