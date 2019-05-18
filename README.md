@@ -140,6 +140,8 @@ I may switch out the picture for something sunnier, but there are several things
 
 MDL has opinions about stuff ... like color. I'm trying to avoid a bunch of custom colors and simply rely upon defaults like 'primary' for nav bar and fab. Do you notice the footer, by default, is not solid black? Looks like my instinct to lighten my pure CSS footer above aligns with MDL's default sensibilities.
 
+![alt](docs/img/golden-dawn.jpg)
+
 Oh, yeah. I woke up this morning and had a solution for the results page 'dead-zone' under the view buttons. Just stick to my original design on mobile of morphing the footer into a bottom-app bar and let the buttons live in the sticky footer area. Much more pattern-ful, I think. On desktop, I could see having a dedicated results area that floats above the footer and /contains/ the button bar. I'll try to make that happen with some media queries.
 
 But for now, I want to get the MDL-based preference page cleaned up and doc'd. I'm really enjoying this exercise even though it engages very different parts of my brain than my coding-brain. I'm learning the vocabulary of visual design, though at a modest cut-n-paste level.
