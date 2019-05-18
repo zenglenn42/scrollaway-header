@@ -146,6 +146,6 @@ Image courtesy Beto Franklin.
 
 Oh, yeah. I woke up this morning and had a solution for the results page 'dead-zone' under the view buttons. Just stick to my original design on mobile of morphing the footer into a bottom-app bar and let the buttons live in the sticky footer area. Much more pattern-ful, I think. On desktop, I could see having a dedicated results area that floats above the footer and /contains/ the button bar. I'll try to make that happen with some media queries.
 
-But for now, I want to get the MDL-based preference page cleaned up and doc'd. I'm really enjoying this exercise even though it engages very different parts of my brain than my coding-brain. I'm learning the vocabulary of visual design, though at a modest cut-n-paste level.
+But for now, I want to get the MDL-based preference page cleaned up and doc'd. I'm really enjoying this design exercise probably because it engages very different parts of my brain than my coding-brain. I'm learning a visual vocabulary and getting better at expressing what's in my mind's eye with CSS.
 
 I notice my repo is starting to get cloned, so others must be interested in my exploration as well. (-;
