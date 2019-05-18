@@ -31,6 +31,26 @@
   color: #fff;
 }
 
+.preference-card-square.mdl-card {
+  width: 100%;
+}
+
+.mdl-grid {
+  /* The mystical key to allowing pref cards
+     to disappear before they hit the footer. */
+  height: 75vh; /* Hmm ... may want to media query this. */
+  overflow: scroll;
+}
+
+.mdl-cell {
+  box-sizing: border-box;
+  padding: 6px;
+  color: black;
+  margin: 0 auto;
+  margin-top: 20px;
+  min-width: 250px;
+}
+
 .content {
   display: flex;
   flex-direction: column;
