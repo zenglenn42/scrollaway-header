@@ -144,4 +144,4 @@ Oh, yeah. I woke up this morning and had a solution for the results page 'dead-z
 
 But for now, I want to get the MDL-based preference page cleaned up and doc'd. I'm really enjoying this exercise even though it engages very different parts of my brain than my coding-brain. I'm learning the vocabulary of visual design, though at a modest cut-n-paste level.
 
-I notice my repo is starting to get cloned, so others must be enjoying my exploration as well. (-;
+I notice my repo is starting to get cloned, so others must be interested in my exploration as well. (-;
