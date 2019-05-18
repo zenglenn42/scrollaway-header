@@ -164,4 +164,4 @@ I'll probably add a 'guidance' card at the top that simply invites users to sele
 
 Notice on mobile how the preference card subtly disappears /before/ it hits the floating action button? I think it looks better than tucking behind the button and footer.
 
-Maybe with offscreen preferences (especially on mobile), the fab will remain gray/inactive until the user scrolls all the way to the bottom of the content just so they don't miss any options before triggering the results pages.
+Maybe with offscreen preferences (especially on mobile), the fab will remain gray and inactive (or even hidden) until the user scrolls all the way to the bottom of the content just so they don't miss any options before triggering the results pages.
