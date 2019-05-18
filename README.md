@@ -158,6 +158,6 @@ I'm liking the clean look of MDL and I'm trying not to clutter it up with backgr
 
 Here's the preference 'slider' page. The little switches at the bottom of the cards will be used to enable/disable preferences that user's don't care about.
 
-![alt](doc/img/mdl-prefs.png)
+![alt](docs/img/mdl-prefs.png)
 
 I'll probably add a 'guidance' card at the top that simply invites users to select their preferences. This will provide context and enhance usability by pushing the other sliders closer to the thumb region.
