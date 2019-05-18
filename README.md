@@ -161,3 +161,5 @@ Here's the preference 'slider' page. The little switches at the bottom of the ca
 ![alt](docs/img/mdl-prefs.png)
 
 I'll probably add a 'guidance' card at the top that simply invites users to select their preferences. This will provide context and enhance usability by pushing the other sliders closer to the thumb region.
+
+Notice how on mobile the preference card disappears /before/ it hits the floating action button? I think it looks better than tucking behind the button and footer.
