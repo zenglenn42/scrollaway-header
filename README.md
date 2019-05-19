@@ -174,6 +174,8 @@ I mock up some results cards and implement the view buttons in the bottom app-ba
 
 I also figure out how to customize the primary and secondary colors on the [MDL site](https://getmdl.io/customize/index.html). So I could come up with more of a teal-based look to match the teal tones in the landing page.
 
+![alt](docs/img/mdl-landing-customized.png)
+
 This thing is looking real.
 
 ![alt](docs/img/beach-sunset.jpg)
