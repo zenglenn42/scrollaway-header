@@ -148,7 +148,7 @@ Image courtesy Beto Franklin.
 
 I wake up this morning with a solution for the results page 'dead-zone' under the view buttons. Just stick to my original design on mobile of morphing the footer into a bottom-app bar and let the buttons live in the sticky footer area. Much more pattern-ful, I think. On desktop, I could see having a dedicated results area that floats above the footer and /contains/ the button bar giving better locality of task for larger displays. I'll try to make that happen with some media queries.
 
-The 'list', 'image', 'chart', and 'map' buttons become icons adjacent to the fab on mobile, eliminating that odd dead-space between the gray button-bar and footer on the left. :-)
+The 'list', 'image', 'chart', and 'map' buttons become icons adjacent to the fab on mobile, eliminating that odd dead-space between the gray button-bar and footer on the left.
 
 ![alt](docs/img/view-buttons.png)
 
@@ -158,7 +158,7 @@ I notice my repo is starting to get cloned, so others must be interested in my e
 
 ## MDL-based Preferences Page
 
-I'm liking the clean look of MDL and I'm trying not to clutter it up with background images.
+MDL has a clean look and I'm trying not to clutter it up with background images behind my cards.
 
 Here's the preference 'slider' page. The little switches at the bottom of the cards will be used to enable/disable preferences that users don't care about.
 
