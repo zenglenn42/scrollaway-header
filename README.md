@@ -170,7 +170,9 @@ Maybe with offscreen preferences (especially on mobile), the fab will remain gra
 
 ![alt](docs/img/mdl-results.png)
 
-I've mocked up some results cards and implemented the view buttons in the bottom app-bar. I may add text for them as well. I'm using a spacer-button with 'visibility: hidden' in the middle to 'push' the other view buttons away from the floating action button.
+I mock up some results cards and implement the view buttons in the bottom app-bar. I may add text for them as well. I'm using a spacer-button with 'visibility: hidden' in the middle to 'push' the other view buttons away from the floating action button.
+
+I also figure out how to customize the primary and secondary colors on the [MDL site](https://getmdl.io/customize/index.html). So I could come up with more of a teal-based look to match the teal tones in the landing page.
 
 This thing is looking real.
 
