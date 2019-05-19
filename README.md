@@ -170,6 +170,12 @@ Notice on mobile how the preference card subtly disappears /before/ it hits the 
 
 Maybe with offscreen preferences (especially on mobile), the fab will remain gray and inactive (or even hidden) until the user scrolls all the way to the bottom of the content just so they don't miss any options before triggering the results pages.
 
+💡It would be easy enough to add a filter for limiting the search to specific states:
+
+![alt](docs/img/select-states.png)
+
+With the scrollable preference window, the app scales to an endless array of selectable options.
+
 ## MDL-based Results Page
 
 ![alt](docs/img/mdl-results.png)
