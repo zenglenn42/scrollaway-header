@@ -160,7 +160,7 @@ I notice my repo is starting to get cloned, so others must be interested in my e
 
 MDL has a clean look and I'm trying not to clutter it up with background images behind my cards.
 
-Here's the preference 'slider' page. The little switches at the bottom of the cards will be used to enable/disable preferences that users don't care about.
+Here's the preference 'slider' page. The switches at the bottom of the cards enable & disable preferences users don't care about.
 
 ![alt](docs/img/mdl-prefs.png)
 
