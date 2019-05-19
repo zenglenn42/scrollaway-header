@@ -170,4 +170,8 @@ Maybe with offscreen preferences (especially on mobile), the fab will remain gra
 
 ![alt](docs/img/mdl-results.png)
 
-I've mocked up some results cards and implemented the view buttons in the bottom app-bar. I may add text for them as well. This thing is looking real. I'm using a spacer-button with 'visibility: hidden' in the middle to 'push' the other view buttons away from the floating action button.
+I've mocked up some results cards and implemented the view buttons in the bottom app-bar. I may add text for them as well. I'm using a spacer-button with 'visibility: hidden' in the middle to 'push' the other view buttons away from the floating action button.
+
+This thing is looking real.
+
+![alt](docs/img/beach-sunset.jpg)
