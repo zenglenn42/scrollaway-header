@@ -14,7 +14,7 @@ It's a varied demographic, mostly middle aged married couples getting their groo
 
 And then he appears.
 
-Early 30's, jean jacket, glasses, long hair, and a red bandana. He calibrates with the band, offering up some appreciative fist pumps to the middle-aged rockers.
+Early 30's, jean jacket, glasses, long hair, and a red bandana. He calibrates with the band, offering up some fist pumps to the middle-aged rockers.
 
 ![alt](docs/img/fist-pump.png)
 
