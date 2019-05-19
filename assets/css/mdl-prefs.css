@@ -82,3 +82,17 @@ footer.mdl-mini-footer {
 .copyright-text {
   font-size: 0.8em;
 }
+
+.view-button {
+  margin: 0 0.5em;
+  padding-top: 0.25em;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+}
+
+.view-buttons {
+  height: 38px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

@@ -165,3 +165,9 @@ I'll probably add a 'guidance' card at the top that simply invites users to sele
 Notice on mobile how the preference card subtly disappears /before/ it hits the floating action button? I think it looks better than tucking behind the button and footer.
 
 Maybe with offscreen preferences (especially on mobile), the fab will remain gray and inactive (or even hidden) until the user scrolls all the way to the bottom of the content just so they don't miss any options before triggering the results pages.
+
+## MDL-based Results Page
+
+![alt](docs/img/mdl-results.png)
+
+I've mocked up some results cards and implemented the view buttons in the bottom app-bar. I may add text for them as well. This thing is looking real.
