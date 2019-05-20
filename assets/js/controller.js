@@ -4,6 +4,7 @@ function Controller(bodyDivId) {
 
 function createLandingHTML(bodyDivId) {
   let bodyDiv = document.getElementById(bodyDivId);
+  $(bodyDiv).empty();
   let header = createHeader("City Match", "search");
   let menuDrawer = createMenuDrawer("Settings", ["About", "Contact", "Help"]);
   let hamburgerMenu = createHamburgerMenu();
@@ -46,12 +47,12 @@ function createMenuDrawer(title, menuItemsArray) {
   `);
   nav = document.createElement("nav");
   $(nav).addClass("mdl-navigation");
-  menuItemsArray.map(item => {
-    nav.append(`
-      <a class="mdl-navigation__link" href="">${item}</a>
-    `);
+  let menuHtml = menuItemsArray.map(item => {
+    return `<a class="mdl-navigation__link" href="">${item}</a>`;
   });
-  $(md).append(nav);
+  menuHtml.map(html => {
+    $(md).append(html);
+  });
   return md;
 }
 
