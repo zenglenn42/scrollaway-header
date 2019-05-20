@@ -1,5 +1,6 @@
 function Controller(bodyDivId) {
-  createLandingHTML(bodyDivId);
+  // createLandingHTML(bodyDivId);
+  createPreferencesHTML(bodyDivId);
 }
 
 function createLandingHTML(bodyDivId) {
@@ -107,4 +108,128 @@ function createFooter(fabIcon) {
     </div>
   `);
   return f;
+}
+
+function createPreferencesHTML(bodyDivId) {
+  let bodyDiv = document.getElementById(bodyDivId);
+  $(bodyDiv).empty();
+  let header = createHeader("City Match", "search");
+  let menuDrawer = createMenuDrawer("Settings", ["About", "Contact", "Help"]);
+  let hamburgerMenu = createHamburgerMenu();
+  let mainPreferences = createMainPreferences();
+  let footer = createFooter("navigate_next");
+
+  $(bodyDiv).append(header);
+  $(bodyDiv).append(menuDrawer);
+  $(bodyDiv).append(hamburgerMenu);
+  $(bodyDiv).append(mainPreferences);
+  $(bodyDiv).append(footer);
+}
+
+function createMainPreferences() {
+  m = document.createElement("main");
+  $(m).addClass("mdl-layout__content");
+  $(m).append('<div class="grid-content">');
+  g = document.createElement("div");
+  $(g).addClass("mdl-grid theGrid");
+  $(m).append(g);
+
+  let prefParams = {
+    img: "assets/img/civic-happiness-sf.jpg",
+    titleText: "Civic Happiness",
+    leftSliderIcon: "fa-meh",
+    rightSliderIcon: "fa-smile",
+    minSliderVal: "0",
+    maxSliderVal: "100",
+    curSliderVal: "50",
+    sliderEnabled: true,
+    prefLink: "",
+    infoText: ""
+  };
+  let c = createSliderPrefCard(prefParams);
+  $(g).append(c);
+
+  prefParams = {
+    img: "assets/img/politics-flags.jpg",
+    titleText: "Political Affilication",
+    leftSliderIcon: "fa-democrat",
+    rightSliderIcon: "fa-republican",
+    minSliderVal: "0",
+    maxSliderVal: "100",
+    curSliderVal: "50",
+    sliderEnabled: true,
+    prefLink: "",
+    infoText: ""
+  };
+  c = createSliderPrefCard(prefParams);
+  $(g).append(c);
+
+  prefParams = {
+    img: "assets/img/affordability-piggybank.jpg",
+    titleText: "Affordability",
+    leftSliderIcon: "fa-dollar-sign",
+    rightSliderIcon: "fa-dollar-sign",
+    minSliderVal: "0",
+    maxSliderVal: "100",
+    curSliderVal: "50",
+    sliderEnabled: true,
+    prefLink: "",
+    infoText: ""
+  };
+  c = createSliderPrefCard(prefParams);
+  $(g).append(c);
+
+  return m;
+}
+
+function createSliderPrefCard(prefParams) {
+  p = document.createElement("div");
+  id = prefParams.titleText.toLowerCase().replace(" ", "-");
+  console.log(id);
+
+  $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
+  $(p).html(`
+    <div class="preference-card-square mdl-card mdl-shadow--3dp">
+      <div
+        class="mdl-card__title mdl-card--expand"
+        style="background: url('${prefParams.img}') top/cover"
+      >
+        <h2
+          class="mdl-card__title-text"
+          style="padding: 0 0.2em; border-radius: 0.2em; background-color: rgba(6,6,6,0.6)"
+        >
+          ${prefParams.titleText} &nbsp;<i class="material-icons">link</i>
+        </h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        <div class="mdl-slider__container">
+          <i class="far ${
+            prefParams.leftSliderIcon
+          } fa-lg pr-3" aria-hidden="true"></i>
+          <input
+            class="mdl-slider mdl-js-slider"
+            type="range"
+            min=${prefParams.minSliderVal}
+            max=${prefParams.maxSliderVal}
+            value=${prefParams.curSliderVal}
+            tabindex="0"
+          />
+          <i class="far ${
+            prefParams.rightSliderIcon
+          } fa-lg pr-3" aria-hidden="true"></i>
+        </div>
+        <label
+          class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
+          for="switch-${id}"
+        >
+          <input
+            type="checkbox"
+            id="switch-${id}"
+            class="mdl-switch__input"
+          />
+        </label>
+      </div>
+    </div>
+  `);
+  return p;
 }
