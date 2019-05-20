@@ -151,7 +151,7 @@ function createMainPreferences() {
 
   prefParams = {
     img: "assets/img/politics-flags.jpg",
-    titleText: "Political Affilication",
+    titleText: "Political Affiliation",
     leftSliderIcon: "fa-democrat",
     rightSliderIcon: "fa-republican",
     minSliderVal: "0",
