@@ -24,7 +24,7 @@
 .landing-card-wide > .mdl-card__title {
   color: #fff;
   height: 176px;
-  background: url("../img/welcome-moon.png") center / cover;
+  background: url("../img/welcome-moon.png") bottom / cover;
 }
 
 .landing-card-wide > .mdl-card__menu {
