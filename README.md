@@ -174,7 +174,7 @@ Maybe with offscreen preferences (especially on mobile), the fab will remain gra
 
 ![alt](docs/img/select-states.png)
 
-With the scrollable preference window, the app scales to an endless array of selectable options.
+With the scrollable preference window, the app scales to an endless array of selectable options. For minimal viable product (MVP), I'll stick to the 4 preferences I have above. Once the VC clears, all sorts of scalability plays can happen. (-;
 
 ## MDL-based Results Page
 
