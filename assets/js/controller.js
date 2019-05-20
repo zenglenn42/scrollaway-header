@@ -1,4 +1,8 @@
 function Controller(bodyDivId) {
+  createLandingHTML(bodyDivId);
+}
+
+function createLandingHTML(bodyDivId) {
   let bodyDiv = document.getElementById(bodyDivId);
   let header = createHeader("City Match", "search");
   let menuDrawer = createMenuDrawer("Settings", ["About", "Contact", "Help"]);
