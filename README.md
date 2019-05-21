@@ -231,7 +231,7 @@ I'm thinking about:
 - Apartement locators
 - Job recruiters
 - Major employers
-- Education institutions
+- Educational institutions
 
 With some stylistic guidelines, such monetization cards could be blended into the output without looking horrible:
 
