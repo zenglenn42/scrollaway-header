@@ -222,12 +222,12 @@ She brings her laptop over and shows me a lush vacation-based website she's roll
 
 I've seen plenty of sites with tacky, slapped-on monetization ploys that are jarring and distracting from the visual aesthetic and overall user goal. But commerce makes the world go round, so is there a graceful way to design for this essential requirement?
 
-It occurs to me that taking user preferences and distilling them into a ranked set of target cities opens up a universe of possibilities in the results section that could be /localized/ to the short-list of cities.
+It occurs to me that taking user preferences and distilling them into a ranked set of target cities opens up a universe of possibilities in the results section that could be /localized/ for that short-list.
 
 I'm thinking about:
 
 - Movers
-- Realators
+- Realtors
 - Apartement locators
 - Job recruiters
 - Major employers
