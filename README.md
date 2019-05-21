@@ -235,4 +235,4 @@ I'm thinking about:
 
 With some stylistic guidelines, such monetization cards could be blended into the output without looking horrible:
 
-![alt](assets/img/monetize.jpg)
+![alt](docs/img/monetize-results.jpg)
