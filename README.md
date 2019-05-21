@@ -236,3 +236,5 @@ I'm thinking about:
 With some stylistic guidelines, such monetization cards could be blended into the output without looking horrible:
 
 ![alt](docs/img/monetize-results.png)
+
+More subtly, the monetization cards could be auctioned off in real-time, calibrated to the demographic data provided in the sliders, particularly affordability. Is that evil or brilliant? [Discuss](https://en.wikipedia.org/wiki/Coffee_Talk).
