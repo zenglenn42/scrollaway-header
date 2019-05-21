@@ -256,6 +256,8 @@ With some stylistic guidelines, such monetization cards could be blended into th
 
 More subtly, the monetization cards could be auctioned off in real-time, calibrated to the demographic data implied by the user's preferences, particularly affordability. Is that evil or brilliant? [Discuss](https://en.wikipedia.org/wiki/Coffee_Talk).
 
-Later, I run this all by Austin, one of my goto bartenders and currency traders to get his take. He is unimpressed with my prose. "You need numbers," he says flatly. "How many hits are you getting? How many people are clicking through the advertisements? Have you thought about a soft roll-out in Australia? If I'm a realator in Des Moines, why would I invest with advertisements unless I see a lot of hits for that region?" Holy cr@p. Who are these millenials? It's one of the reasons I love this city that shares his namesake. I guess I better get some basic analytics hooked up to this thing. At a minimum, I should be collecting hits by region.
+Later, I run this all by Austin, one of my goto bartenders and currency traders to get his take. He is unimpressed with my prose. "You need numbers," he says flatly. "How many hits are you getting? How many people are clicking through the advertisements? Have you thought about a soft roll-out in Australia? If I'm a realator in Des Moines, why would I invest with advertisements unless I see a lot of hits for that region?"
+
+Holy cr@p. Who are these millenials? It's one of the reasons I love this city that shares his namesake. I guess I better get some basic analytics hooked up to this thing. At a minimum, I should be collecting hits by region.
 
 Beyond that, I fix a few regressions caused by my flurry of coding yesterday in the rush toward dynamic HTML.
