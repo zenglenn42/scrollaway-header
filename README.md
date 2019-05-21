@@ -190,7 +190,7 @@ This thing is looking real.
 
 ![alt](docs/img/beach-sunset.jpg)
 
-## Button Clicks
+## Onto the Controller
 
 I need to bring up a controller that listens for button clicks and switches page views. But I'm blocked. My mojo is just not here today. I've been working at this pretty hard for the past week and I need a break. The UI design is in good shape and with fresh eyes, I'm hopeful the controller will emerge in the fullness of time.
 
