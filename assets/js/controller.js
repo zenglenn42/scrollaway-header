@@ -1,7 +1,7 @@
 function Controller(bodyDivId) {
-  // createLandingHTML(bodyDivId);
+  createLandingHTML(bodyDivId);
   // createPreferencesHTML(bodyDivId);
-  createResultsHTML(bodyDivId);
+  // createResultsHTML(bodyDivId);
 }
 
 function createLandingHTML(bodyDivId) {
@@ -107,6 +107,40 @@ function createFooter(fabIcon) {
       <i class="material-icons footer-icons">favorite</i>
       <span class="copyright-text">Match Industries &copy; 2019</span>
     </div>
+  `);
+  return f;
+}
+
+function createResultsFooter(fabIcon) {
+  f = document.createElement("footer");
+  $(f).addClass("mdl-mini-footer");
+  $(f).html(`
+    <button
+    class="footer-fab mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--primary"
+  >
+    <i class="material-icons">${fabIcon}</i>
+    </button>
+    <div class="view-buttons">
+        <div class="view-button" role="button" aria-expanded="false">
+          <i class="material-icons">photo</i>
+        </div>
+        <div class="view-button" role="button" aria-expanded="false">
+          <i class="material-icons">list</i>
+        </div>
+        <div
+          role="button"
+          aria-expanded="false"
+          style="visibility: hidden; margin-left: 1em; margin-right: 1em;"
+        >
+          <i class="material-icons">place</i>
+        </div>
+        <div class="view-button" role="button" aria-expanded="false">
+          <i class="material-icons">insert_chart</i>
+        </div>
+        <div class="view-button" role="button" aria-expanded="false">
+          <i class="material-icons">map</i>
+        </div>
+      </div>
   `);
   return f;
 }
@@ -300,7 +334,7 @@ function createResultsHTML(bodyDivId) {
   let header = createHeader("City Match", "search");
   let menuDrawer = createMenuDrawer("Settings", ["About", "Contact", "Help"]);
   let hamburgerMenu = createHamburgerMenu();
-  let footer = createFooter("navigate_before");
+  let footer = createResultsFooter("navigate_before");
 
   $(bodyDiv).append(header);
   $(bodyDiv).append(menuDrawer);
