@@ -1,7 +1,7 @@
 function Controller(bodyDivId) {
-  // createLandingHTML(bodyDivId);
-  // // createPreferencesHTML(bodyDivId);
-  createResultsHTML(bodyDivId);
+  createLandingHTML(bodyDivId);
+  // createPreferencesHTML(bodyDivId);
+  // createResultsHTML(bodyDivId);
 }
 
 function createLandingHTML(bodyDivId) {
