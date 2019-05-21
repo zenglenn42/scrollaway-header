@@ -1,7 +1,7 @@
 function Controller(bodyDivId) {
-  createLandingHTML(bodyDivId);
+  // createLandingHTML(bodyDivId);
   // createPreferencesHTML(bodyDivId);
-  // createResultsHTML(bodyDivId);
+  createResultsHTML(bodyDivId);
 }
 
 function createLandingHTML(bodyDivId) {
@@ -306,7 +306,7 @@ function createResultsHTML(bodyDivId) {
   $(bodyDiv).append(menuDrawer);
   $(bodyDiv).append(hamburgerMenu);
 
-  m = document.createElement("main");
+  let m = document.createElement("main");
   $(m).addClass("mdl-layout__content");
   $(m).append('<div class="grid-content">');
   g = document.createElement("div");
@@ -334,6 +334,14 @@ function createResultsHTML(bodyDivId) {
   };
   c = createCityCard(cityParams);
   $(g).append(c);
+
+  let monetizationParams = {
+    img: "assets/img/monetize.jpg",
+    titleText: "Monetize here",
+    supportingText: "Advertise your move-related service here."
+  };
+  let monetize = createMonetizationCard(monetizationParams);
+  $(g).append(monetize);
 
   cityParams = {
     img: "https://placehold.it/300x150",
@@ -381,6 +389,43 @@ function createCityCard(cityParams) {
       </div>
       <div class="mdl-card__supporting-text">
         City stats ...
+      </div>
+    </div>
+  `);
+  return p;
+}
+
+function createMonetizationCard(params) {
+  p = document.createElement("div");
+  id = params.titleText.toLowerCase().replace(" ", "-");
+  console.log(id);
+
+  $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
+  $(p).html(`
+    <div class="preference-card-square mdl-card mdl-shadow--3dp">
+      <div
+        class="mdl-card__title mdl-card--expand"
+        style="background: url('${params.img}') bottom /cover"
+      >
+        <h2
+          class="mdl-card__title-text"
+          style="padding: 0 0.2em; border-radius: 0.2em; background-color: rgba(6,6,6,0.6)"
+        >
+          ${params.titleText}
+        </h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        <!-- <p style="line-height: 1.25em;">${params.supportingText}</p> -->
+        <div class="mdl-card__actions mdl-card--border">
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            Learn More
+          </a>
+        </div>
+        <!--
+        <div class="mdl-card__menu">
+          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"></button>
+        </div>
+        -->
       </div>
     </div>
   `);

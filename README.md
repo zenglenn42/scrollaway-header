@@ -211,3 +211,28 @@ With that decision out of the way, I can focus on the primitives I'll need to bu
 Photo by Tim Gouw
 
 Ok, that was not bad at all. My HTML is dynamic. Now I need to wire up the buttons.
+
+But before that, a non-linear thought from a previous conversation wells up.
+
+## "How does it make money?"
+
+She's attractive, uses a mac, and happens to order an old fashioned, one of my faves. But we're both plugged-in and laptop-busy at a brewpub with plenty of outlets at the bar so I focus on the task at hand. But you never know where inspiration and insight might strike, so I enage her briefly as she closes out.
+
+She brings her laptop over and shows me a lush vacation-based website she's rolling out. It's stunning. Turns out she's in marketing. In the spirit of sharing, I show her the city app. She's polite with feedback but cuts to the chase by asking "How does it make money?" At first, I'm slightly wounded. Creativity is an act of vulnerability. Brene Brown talks about this beautifully. You carefully nurture your baby from toddlerhood to promising teenager, urging them on a path of self-actualization that includes economic viability but doesn't necessarily prioritize that above all else. But I take the feedback with grace as she parts. Maybe I need more conversations like this.
+
+I've seen plenty of sites with tacky, slapped-on monetization ploys that are jarring and distracting from the visual aesthetic and overall user goal. But commerce makes the world go round, so is there a graceful way to design for this essential requirement?
+
+It occurs to me that taking user preferences and distilling them into a ranked set of target cities opens up a universe of possibilities in the results section that could be /localized/ to the short-list of cities.
+
+I'm thinking about:
+
+- Movers
+- Realators
+- Apartement locators
+- Job recruiters
+- Major employers
+- Education institutions
+
+With some stylistic guidelines, such monetization cards could be blended into the output without looking horrible:
+
+![alt](assets/img/monetize.jpg)
