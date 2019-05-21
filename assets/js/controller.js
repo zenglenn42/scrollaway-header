@@ -172,6 +172,7 @@ function createMainPreferences() {
   let prefParams = {
     img: "assets/img/civic-happiness-sf.jpg",
     titleText: "Civic Happiness",
+    iconClass: "far fa-lg pr-3",
     leftSliderIcon: "fa-meh",
     rightSliderIcon: "fa-smile",
     minSliderVal: "0",
@@ -187,8 +188,9 @@ function createMainPreferences() {
   prefParams = {
     img: "assets/img/politics-flags.jpg",
     titleText: "Political Affiliation",
-    leftSliderIcon: "fa-democrat",
-    rightSliderIcon: "fa-republican",
+    iconClass: "fas fa-lg pr-3",
+    leftSliderIcon: "fa-democrat blue-text",
+    rightSliderIcon: "fa-republican red-text",
     minSliderVal: "0",
     maxSliderVal: "100",
     curSliderVal: "50",
@@ -202,6 +204,7 @@ function createMainPreferences() {
   prefParams = {
     img: "assets/img/affordability-piggybank.jpg",
     titleText: "Affordability",
+    iconClass: "fas fa-md pr-3",
     leftSliderIcon: "fa-dollar-sign",
     rightSliderIcon: "fa-dollar-sign",
     minSliderVal: "0",
@@ -217,6 +220,7 @@ function createMainPreferences() {
   prefParams = {
     img: "assets/img/job-search.jpg",
     titleText: "Job Outlook",
+    iconClass: "far fa-lg pr-3",
     icon: "fa-user",
     placeHolderText: "Job Title",
     sliderEnabled: true,
@@ -234,6 +238,25 @@ function createSliderPrefCard(prefParams) {
   id = prefParams.titleText.toLowerCase().replace(" ", "-");
   console.log(id);
 
+  if (prefParams.titleText == "Affordability") {
+    /* Hacky :-/ solution for getting double $$ on right side.      */
+    /* Really, parameter icons should be array that I iterate over. */
+    rightIconHTML = `
+      <i class="${prefParams.iconClass} ${prefParams.rightSliderIcon}"
+        aria-hidden="true">
+      </i>
+     <i class="${prefParams.iconClass} ${prefParams.rightSliderIcon}"
+      aria-hidden="true">
+     </i>
+    `;
+  } else {
+    rightIconHTML = `
+      <i class="${prefParams.iconClass} ${prefParams.rightSliderIcon}"
+      aria-hidden="true">
+      </i>
+    `;
+  }
+
   $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
   $(p).html(`
     <div class="preference-card-square mdl-card mdl-shadow--3dp">
@@ -250,9 +273,9 @@ function createSliderPrefCard(prefParams) {
       </div>
       <div class="mdl-card__supporting-text">
         <div class="mdl-slider__container">
-          <i class="far ${
-            prefParams.leftSliderIcon
-          } fa-lg pr-3" aria-hidden="true"></i>
+          <i class="${prefParams.iconClass} ${prefParams.leftSliderIcon}"
+            aria-hidden="true">
+          </i>
           <input
             class="mdl-slider mdl-js-slider"
             type="range"
@@ -261,9 +284,7 @@ function createSliderPrefCard(prefParams) {
             value=${prefParams.curSliderVal}
             tabindex="0"
           />
-          <i class="far ${
-            prefParams.rightSliderIcon
-          } fa-lg pr-3" aria-hidden="true"></i>
+          ${rightIconHTML}
         </div>
         <label
           class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
@@ -302,7 +323,9 @@ function createTextPrefCard(prefParams) {
       </div>
       <div class="mdl-card__supporting-text">
         <div class="md-form">
-          <i class="far ${prefParams.icon} fa-lg pr-3" aria-hidden="true"></i>
+          <i class="${prefParams.iconClass} ${prefParams.icon}"
+            aria-hidden="true">
+          </i>
           <input
             type="text"
             id="${id}"
