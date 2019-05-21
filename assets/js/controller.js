@@ -179,6 +179,18 @@ function createMainPreferences() {
   c = createSliderPrefCard(prefParams);
   $(g).append(c);
 
+  prefParams = {
+    img: "assets/img/job-search.jpg",
+    titleText: "Job Outlook",
+    icon: "fa-user",
+    placeHolderText: "Job Title",
+    sliderEnabled: true,
+    prefLink: "",
+    infoText: ""
+  };
+  c = createTextPrefCard(prefParams);
+  $(g).append(c);
+
   return m;
 }
 
@@ -217,6 +229,52 @@ function createSliderPrefCard(prefParams) {
           <i class="far ${
             prefParams.rightSliderIcon
           } fa-lg pr-3" aria-hidden="true"></i>
+        </div>
+        <label
+          class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
+          for="switch-${id}"
+        >
+          <input
+            type="checkbox"
+            id="switch-${id}"
+            class="mdl-switch__input"
+          />
+        </label>
+      </div>
+    </div>
+  `);
+  return p;
+}
+
+function createTextPrefCard(prefParams) {
+  p = document.createElement("div");
+  id = prefParams.titleText.toLowerCase().replace(" ", "-");
+  console.log(id);
+
+  $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
+  $(p).html(`
+    <div class="preference-card-square mdl-card mdl-shadow--3dp">
+      <div
+        class="mdl-card__title mdl-card--expand"
+        style="background: url('${prefParams.img}') top/cover"
+      >
+        <h2
+          class="mdl-card__title-text"
+          style="padding: 0 0.2em; border-radius: 0.2em; background-color: rgba(6,6,6,0.6)"
+        >
+          ${prefParams.titleText} &nbsp;<i class="material-icons">link</i>
+        </h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        <div class="md-form">
+          <i class="far ${prefParams.icon} fa-lg pr-3" aria-hidden="true"></i>
+          <input
+            type="text"
+            id="${id}"
+            class="form-control"
+            placeholder="Job Title"
+            disabled
+          />
         </div>
         <label
           class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
