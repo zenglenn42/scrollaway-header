@@ -228,7 +228,7 @@ I'm thinking about:
 
 - Movers
 - Realtors
-- Apartement locators
+- Apartment locators
 - Job recruiters
 - Major employers
 - Educational institutions
