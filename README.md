@@ -206,3 +206,8 @@ But there is a /lot/ of repetition in the markup with MDL cards that only differ
 Though I want to improve my vanilla javascript chops, I think I will lean on my frenemy, jQuery, since he has some ready idioms for enabling event delegation to dynamically created DOM children with buttons and sliders and such. Maybe as a-post MVP exercise, I may redo this in pure js since I know it's good for me.
 
 With that decision out of the way, I can focus on the primitives I'll need to build out the HTML dynamically.
+
+![alt](docs/img/finished-sprint.jpg)
+Photo by Tim Gouw
+
+Ok, that was not bad at all. My HTML is dynamic. Now I need to wired up the buttons.
