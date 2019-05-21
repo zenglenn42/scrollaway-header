@@ -210,7 +210,24 @@ With that decision out of the way, I can focus on the primitives I'll need to bu
 ![alt](docs/img/finished-sprint.jpg)
 Photo by Tim Gouw
 
-Ok, that was not bad at all. My HTML is dynamic. Now I need to wire up the buttons.
+Ok, that was not bad at all. My HTML is dynamic. That means the body of my html is blissfully uncluttered:
+
+```
+  <body>
+    <div
+      id="body-div"
+      class="mdl-layout mdl-js-layout mdl-layout--fixed-header"
+    >
+      <!-- programmatically add content here -->
+    </div>
+
+    <script type="text/javascript">
+      controller = new Controller("body-div");
+    </script>
+  </body>
+```
+
+Now I need to wire up the buttons.
 
 But before that, a non-linear thought from a previous conversation wells up.
 
