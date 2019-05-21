@@ -237,4 +237,4 @@ With some stylistic guidelines, such monetization cards could be blended into th
 
 ![alt](docs/img/monetize-results.png)
 
-More subtly, the monetization cards could be auctioned off in real-time, calibrated to the demographic data provided by the user's preferences, particularly affordability. Is that evil or brilliant? [Discuss](https://en.wikipedia.org/wiki/Coffee_Talk).
+More subtly, the monetization cards could be auctioned off in real-time, calibrated to the demographic data implied by the user's preferences, particularly affordability. Is that evil or brilliant? [Discuss](https://en.wikipedia.org/wiki/Coffee_Talk).
