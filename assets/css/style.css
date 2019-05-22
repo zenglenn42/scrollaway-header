@@ -23,12 +23,12 @@
 
 .landing-card-wide.mdl-card {
   width: 75%;
-  max-width: 640px;
+  max-width: 53.3em;
 }
 
 .landing-card-wide > .mdl-card__title {
   color: #fff;
-  height: 176px;
+  height: 14.7em;
   background: url("../img/welcome-moon.png") bottom / cover;
 }
 
@@ -43,17 +43,17 @@
 .mdl-grid {
   /* The mystical key to allowing pref cards
      to disappear before they hit the footer. */
-  height: 75vh; /* Hmm ... may want to media query this. */
+  height: 71vh; /* Hmm ... may want to media query this. */
   overflow: scroll;
 }
 
 .mdl-cell {
   box-sizing: border-box;
-  padding: 6px;
+  padding: 0.5em;
   color: black;
   margin: 0 auto;
-  margin-top: 20px;
-  min-width: 250px;
+  margin-top: 1.667em;
+  min-width: 20.83em;
 }
 
 .content {
@@ -68,8 +68,8 @@
 
 .footer-fab {
   position: absolute;
-  bottom: 23px;
-  right: calc(50% - 20px);
+  bottom: 1em;
+  right: calc(50% - 0.95em);
   z-index: 5;
   color: white;
 }
@@ -96,7 +96,7 @@ footer.mdl-mini-footer {
 }
 
 .view-buttons {
-  height: 38px;
+  height: 2.6em;
   width: 100%;
   display: flex;
   justify-content: center;
