@@ -261,3 +261,4 @@ Later, I run this all by Austin, one of my goto bartenders and currency traders 
 Holy cr@p. Who are these millenials? It's one of the reasons I love this city that shares his namesake. I guess I better get some basic analytics hooked up to this thing. At a minimum, I should be collecting hits by region.
 
 Beyond that, I fix a few regressions caused by my flurry of coding yesterday in the rush toward dynamic HTML.
+I also wire up the fab buttons and deploy to [github-pages](https://zenglenn42.github.io/CityMatch/) so you can at least advance the prototype between landing, preferences, and results pages (though I see my fancy enable checkboxes on pref cards have reverted to simple checkboxes, bah). Overall, it has been a good day.
