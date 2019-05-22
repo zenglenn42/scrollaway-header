@@ -26,6 +26,40 @@ function createLandingHTML(bodyDivId) {
   $(bodyDiv).append(hamburgerMenu);
   $(bodyDiv).append(mainLanding);
   $(bodyDiv).append(footer);
+  nextButton = document.getElementById("navigate_next");
+  $(nextButton).on("click", getLandingFabCB(bodyDivId));
+  getStarted = document.getElementById("get-started");
+  $(getStarted).on("click", getLandingFabCB(bodyDivId));
+}
+
+function getLandingFabCB(div) {
+  var that = this;
+  var parentDiv = div;
+  function innerFunction() {
+    console.log("innerFunction: click");
+    createPreferencesHTML(parentDiv);
+  }
+  return innerFunction;
+}
+
+function getPrefsFabCB(div) {
+  var that = this;
+  var parentDiv = div;
+  function innerFunction() {
+    console.log("innerFunction: click");
+    createResultsHTML(parentDiv);
+  }
+  return innerFunction;
+}
+
+function getResultsFabCB(div) {
+  var that = this;
+  var parentDiv = div;
+  function innerFunction() {
+    console.log("innerFunction: click");
+    createPreferencesHTML(parentDiv);
+  }
+  return innerFunction;
 }
 
 function createPreferencesHTML(bodyDivId) {
@@ -42,6 +76,9 @@ function createPreferencesHTML(bodyDivId) {
   $(bodyDiv).append(hamburgerMenu);
   $(bodyDiv).append(mainPreferences);
   $(bodyDiv).append(footer);
+
+  nextButton = document.getElementById("navigate_next");
+  $(nextButton).on("click", getPrefsFabCB(bodyDivId));
 }
 
 function createResultsHTML(bodyDivId) {
@@ -59,6 +96,10 @@ function createResultsHTML(bodyDivId) {
   $(bodyDiv).append(hamburgerMenu);
   $(bodyDiv).append(main);
   $(bodyDiv).append(footer);
+
+  nextButton = document.getElementById("navigate_before");
+  console.log("nextButton = ", nextButton);
+  $(nextButton).on("click", getResultsFabCB(bodyDivId));
 }
 
 function createMainResults() {
@@ -205,7 +246,7 @@ function createMainLanding(titleText, supportText1, supportText2) {
         <p style="line-height: 1.25em;">${supportText2}</p>
       </div>
       <div class="mdl-card__actions mdl-card--border">
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        <a id="get-started" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
           Get Started
         </a>
       </div>
@@ -237,7 +278,7 @@ function createResultsFooter(fabIcon) {
   f = document.createElement("footer");
   $(f).addClass("mdl-mini-footer");
   $(f).html(`
-    <button
+    <button id="navigate_before"
     class="footer-fab mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--primary"
   >
     <i class="material-icons">${fabIcon}</i>
