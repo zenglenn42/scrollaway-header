@@ -4,6 +4,18 @@ function Controller(bodyDivId) {
   // createResultsHTML(bodyDivId);
 }
 
+// potentially helpful fu on dynamic MDL
+//
+// div id="container"/>
+// <script>
+//   var button = document.createElement('button');
+//   var textNode = document.createTextNode('Click Me!');
+//   button.appendChild(textNode);
+//   button.className = 'mdl-button mdl-js-button mdl-js-ripple-effect';
+//   componentHandler.upgradeElement(button);
+//   document.getElementById('container').appendChild(button);
+// </script>
+
 function createLandingHTML(bodyDivId) {
   let bodyDiv = document.getElementById(bodyDivId);
   $(bodyDiv).empty();

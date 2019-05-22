@@ -254,3 +254,15 @@ I need to get this thing generating hit metrics if I go down that path.
 
 Beyond that, I fix a few regressions caused by my flurry of coding yesterday in the rush toward dynamic HTML.
 I also wire up the fab buttons and deploy to [github-pages](https://zenglenn42.github.io/CityMatch/) so you can at least advance the prototype between landing, preferences, and results pages (though I see my fancy enable checkboxes on pref cards have reverted to simple checkboxes and the hamburger menu only works on the landing page, bah). Overall, it has been a good day.
+
+## Dynamic HTML decorated with MDL classes is a Thing
+
+![alt](docs/img/brick-wall.jpg)
+
+I'm still dealing with the fallout from generating my HTML on the fly with javascript. Strangely, event delegation to the hamburger menu works for my first dynamically created page, but fails for subsequent pages. In plain English, the menu doesn't do anything when I click on it for the preference and results pages.
+
+The other issue is my spiffy MDL-styled checkboxes are no longer styled. And even more annoying, the active region for the unstyled checkbox extends for the length of the card,
+creating all sorts of opportunities for trying to tap the slider but getting the enable /
+disable toggle.
+
+So I need to slow down and fix stuff and maybe actually read the docs on dynamic MDL. :-/
