@@ -47,6 +47,12 @@
   overflow: scroll;
 }
 
+@media screen and (max-width: 320px) {
+  .mdl-grid {
+    height: 70vh;
+  }
+}
+
 .mdl-cell {
   box-sizing: border-box;
   padding: 0.5em;
@@ -70,7 +76,7 @@
   position: absolute;
   bottom: 1em;
   right: calc(50% - 0.95em);
-  z-index: 5;
+  z-index: 1;
   color: white;
 }
 
