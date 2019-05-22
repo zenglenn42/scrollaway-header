@@ -20,7 +20,7 @@ Early 30's, jean jacket, glasses, long hair, and a red bandana. He calibrates wi
 
 Later, he approaches the stage and holds up his Bic lighter high in appreciation.
 
-I'm not sure what the band thinks of all this singular devotion. I'm guessing a rush of tipsy soccer mom's would be more their speed, but the point is, this guy has found his tribe and feels he belongs. And isn't that the bottom line?
+I'm not sure what the band thinks of all this singular devotion. I'm guessing a rush of tipsy soccer moms would be more their speed, but the point is, this guy has found his tribe and feels he belongs. And isn't that the bottom line?
 
 ## Big Data and the Search for Home
 
