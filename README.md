@@ -231,15 +231,9 @@ Now I need to wire up the buttons.
 
 But before that, a non-linear thought from a previous conversation wells up.
 
-## "How does it make money?"
+## Monetization
 
-She's attractive, uses a mac, and happens to order an old fashioned, one of my faves. But we're both plugged-in and laptop-busy at a brewpub with plenty of outlets at the bar and remain in our separate spheres of focus. However, you never know where inspiration and insight might strike, so I enage her briefly as she closes out.
-
-She brings her laptop over, tucking a curl of hair behind her ear, and shows me a lush vacation-based website she's rolling out. It's stunning. Turns out she's in marketing. In the spirit of sharing, I show her the city app. She's polite with feedback but cuts to the chase by asking "How does it make money?" At first, I'm slightly wounded. Creativity is an act of vulnerability. [Brene Brown talks](https://www.ted.com/talks/brene_brown_on_vulnerability?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare) about this beautifully. You carefully nurture your baby from toddlerhood to promising teenager, urging them on a path of self-actualization that includes economic viability but doesn't necessarily prioritize that above all else. But I take the feedback with grace as she parts. Maybe I need more conversations like this.
-
-I've seen plenty of sites with tacky, slapped-on monetization ploys that are jarring and distracting from the visual aesthetic and overall user goal. But commerce makes the world go round, so is there a graceful way to design for this essential requirement?
-
-It occurs to me that taking user preferences and distilling them into a ranked set of target cities opens up a universe of possibilities in the results section that could be /localized/ for that short-list.
+Could this thing generate ad revenue?
 
 I'm thinking about:
 
@@ -256,9 +250,7 @@ With some stylistic guidelines, such monetization cards could be blended into th
 
 More subtly, the monetization cards could be auctioned off in real-time, calibrated to the demographic data implied by the user's preferences, particularly affordability. Is that evil or brilliant? [Discuss](https://en.wikipedia.org/wiki/Coffee_Talk).
 
-Later, I run this all by Austin, one of my goto bartenders and currency traders to get his take. He is unimpressed with my prose. "You need numbers," he says flatly. "How many hits are you getting? How many people are clicking through the advertisements? Have you thought about a soft roll-out in Australia? If I'm a realtor in Des Moines, why would I invest with advertisements unless I see a lot of hits for that region?"
-
-Holy cr@p. Who are these millenials? It's one of the reasons I love this city that shares his namesake. I guess I better get some basic analytics hooked up to this thing. At a minimum, I should be collecting hits by region.
+I need to get this thing generating hit metrics if I go down that path.
 
 Beyond that, I fix a few regressions caused by my flurry of coding yesterday in the rush toward dynamic HTML.
 I also wire up the fab buttons and deploy to [github-pages](https://zenglenn42.github.io/CityMatch/) so you can at least advance the prototype between landing, preferences, and results pages (though I see my fancy enable checkboxes on pref cards have reverted to simple checkboxes and the hamburger menu only works on the landing page, bah). Overall, it has been a good day.
