@@ -28,6 +28,128 @@ function createLandingHTML(bodyDivId) {
   $(bodyDiv).append(footer);
 }
 
+function createPreferencesHTML(bodyDivId) {
+  let bodyDiv = document.getElementById(bodyDivId);
+  $(bodyDiv).empty();
+  let header = createHeader("City Match", "search");
+  let menuDrawer = createMenuDrawer("Settings", ["About", "Contact", "Help"]);
+  let hamburgerMenu = createHamburgerMenu();
+  let mainPreferences = createMainPreferences();
+  let footer = createFooter("navigate_next");
+
+  $(bodyDiv).append(header);
+  $(bodyDiv).append(menuDrawer);
+  $(bodyDiv).append(hamburgerMenu);
+  $(bodyDiv).append(mainPreferences);
+  $(bodyDiv).append(footer);
+}
+
+function createResultsHTML(bodyDivId) {
+  let bodyDiv = document.getElementById(bodyDivId);
+  $(bodyDiv).empty();
+
+  let header = createHeader("City Match", "search");
+  let menuDrawer = createMenuDrawer("Settings", ["About", "Contact", "Help"]);
+  let hamburgerMenu = createHamburgerMenu();
+  let footer = createResultsFooter("navigate_before");
+  let main = createMainResults();
+
+  $(bodyDiv).append(header);
+  $(bodyDiv).append(menuDrawer);
+  $(bodyDiv).append(hamburgerMenu);
+  $(bodyDiv).append(main);
+  $(bodyDiv).append(footer);
+}
+
+function createMainResults() {
+  let m = document.createElement("main");
+  $(m).addClass("mdl-layout__content");
+  $(m).append('<div class="grid-content">');
+  g = document.createElement("div");
+  $(g).addClass("mdl-grid theGrid");
+  $(m).append(g);
+
+  let cityParams = {
+    img: "https://placehold.it/300x150",
+    titleText: "Seattle",
+    happiness: 50,
+    politics: 25,
+    affordability: 34,
+    jobOutlook: 5
+  };
+  let c = createCityCard(cityParams);
+  $(g).append(c);
+
+  cityParams = {
+    img: "https://placehold.it/300x150",
+    titleText: "Boston",
+    happiness: 50,
+    politics: 25,
+    affordability: 34,
+    jobOutlook: 5
+  };
+  c = createCityCard(cityParams);
+  $(g).append(c);
+
+  let monetizationParams = {
+    img: "assets/img/monetize.jpg",
+    titleText: "Monetize here",
+    supportingText: "Advertise your move-related service here."
+  };
+  let monetize = createMonetizationCard(monetizationParams);
+  $(g).append(monetize);
+
+  cityParams = {
+    img: "https://placehold.it/300x150",
+    titleText: "Austin",
+    happiness: 50,
+    politics: 25,
+    affordability: 34,
+    jobOutlook: 5
+  };
+  c = createCityCard(cityParams);
+  $(g).append(c);
+
+  cityParams = {
+    img: "https://placehold.it/300x150",
+    titleText: "New York",
+    happiness: 50,
+    politics: 25,
+    affordability: 34,
+    jobOutlook: 5
+  };
+  c = createCityCard(cityParams);
+  $(g).append(c);
+  return m;
+}
+
+function createCityCard(cityParams) {
+  p = document.createElement("div");
+  id = cityParams.titleText.toLowerCase().replace(" ", "-");
+  console.log(id);
+
+  $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
+  $(p).html(`
+    <div class="preference-card-square mdl-card mdl-shadow--3dp">
+      <div
+        class="mdl-card__title mdl-card--expand"
+        style="background: url('${cityParams.img}') top/cover"
+      >
+        <h2
+          class="mdl-card__title-text"
+          style="padding: 0 0.2em; border-radius: 0.2em; background-color: rgba(6,6,6,0.6)"
+        >
+          ${cityParams.titleText} &nbsp;<i class="material-icons">link</i>
+        </h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        City stats ...
+      </div>
+    </div>
+  `);
+  return p;
+}
+
 function createHeader(title, rightNavIcon) {
   h = document.createElement("header");
   $(h).addClass("mdl-layout__header");
@@ -143,22 +265,6 @@ function createResultsFooter(fabIcon) {
       </div>
   `);
   return f;
-}
-
-function createPreferencesHTML(bodyDivId) {
-  let bodyDiv = document.getElementById(bodyDivId);
-  $(bodyDiv).empty();
-  let header = createHeader("City Match", "search");
-  let menuDrawer = createMenuDrawer("Settings", ["About", "Contact", "Help"]);
-  let hamburgerMenu = createHamburgerMenu();
-  let mainPreferences = createMainPreferences();
-  let footer = createFooter("navigate_next");
-
-  $(bodyDiv).append(header);
-  $(bodyDiv).append(menuDrawer);
-  $(bodyDiv).append(hamburgerMenu);
-  $(bodyDiv).append(mainPreferences);
-  $(bodyDiv).append(footer);
 }
 
 function createMainPreferences() {
@@ -344,108 +450,6 @@ function createTextPrefCard(prefParams) {
             class="mdl-switch__input"
           />
         </label>
-      </div>
-    </div>
-  `);
-  return p;
-}
-
-function createResultsHTML(bodyDivId) {
-  let bodyDiv = document.getElementById(bodyDivId);
-  $(bodyDiv).empty();
-
-  let header = createHeader("City Match", "search");
-  let menuDrawer = createMenuDrawer("Settings", ["About", "Contact", "Help"]);
-  let hamburgerMenu = createHamburgerMenu();
-  let footer = createResultsFooter("navigate_before");
-
-  $(bodyDiv).append(header);
-  $(bodyDiv).append(menuDrawer);
-  $(bodyDiv).append(hamburgerMenu);
-
-  let m = document.createElement("main");
-  $(m).addClass("mdl-layout__content");
-  $(m).append('<div class="grid-content">');
-  g = document.createElement("div");
-  $(g).addClass("mdl-grid theGrid");
-  $(m).append(g);
-
-  let cityParams = {
-    img: "https://placehold.it/300x150",
-    titleText: "Seattle",
-    happiness: 50,
-    politics: 25,
-    affordability: 34,
-    jobOutlook: 5
-  };
-  let c = createCityCard(cityParams);
-  $(g).append(c);
-
-  cityParams = {
-    img: "https://placehold.it/300x150",
-    titleText: "Boston",
-    happiness: 50,
-    politics: 25,
-    affordability: 34,
-    jobOutlook: 5
-  };
-  c = createCityCard(cityParams);
-  $(g).append(c);
-
-  let monetizationParams = {
-    img: "assets/img/monetize.jpg",
-    titleText: "Monetize here",
-    supportingText: "Advertise your move-related service here."
-  };
-  let monetize = createMonetizationCard(monetizationParams);
-  $(g).append(monetize);
-
-  cityParams = {
-    img: "https://placehold.it/300x150",
-    titleText: "Austin",
-    happiness: 50,
-    politics: 25,
-    affordability: 34,
-    jobOutlook: 5
-  };
-  c = createCityCard(cityParams);
-  $(g).append(c);
-
-  cityParams = {
-    img: "https://placehold.it/300x150",
-    titleText: "New York",
-    happiness: 50,
-    politics: 25,
-    affordability: 34,
-    jobOutlook: 5
-  };
-  c = createCityCard(cityParams);
-  $(g).append(c);
-  $(bodyDiv).append(m);
-  $(bodyDiv).append(footer);
-}
-
-function createCityCard(cityParams) {
-  p = document.createElement("div");
-  id = cityParams.titleText.toLowerCase().replace(" ", "-");
-  console.log(id);
-
-  $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
-  $(p).html(`
-    <div class="preference-card-square mdl-card mdl-shadow--3dp">
-      <div
-        class="mdl-card__title mdl-card--expand"
-        style="background: url('${cityParams.img}') top/cover"
-      >
-        <h2
-          class="mdl-card__title-text"
-          style="padding: 0 0.2em; border-radius: 0.2em; background-color: rgba(6,6,6,0.6)"
-        >
-          ${cityParams.titleText} &nbsp;<i class="material-icons">link</i>
-        </h2>
-      </div>
-      <div class="mdl-card__supporting-text">
-        City stats ...
       </div>
     </div>
   `);

@@ -28,7 +28,7 @@
 
 .landing-card-wide > .mdl-card__title {
   color: #fff;
-  height: 14.7em;
+  height: 11em;
   background: url("../img/welcome-moon.png") bottom / cover;
 }
 
@@ -43,7 +43,7 @@
 .mdl-grid {
   /* The mystical key to allowing pref cards
      to disappear before they hit the footer. */
-  height: 71vh; /* Hmm ... may want to media query this. */
+  height: 73vh; /* Hmm ... may want to media query this. */
   overflow: scroll;
 }
 
