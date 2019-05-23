@@ -347,3 +347,8 @@ MaterialLayout.prototype.drawerToggleHandler_ = function(evt) {...}
 Ah, the toggle handler fires on the landing page, but /not/ preferences and results pages.
 
 The gift economy of [stackoverflow](https://stackoverflow.com/questions/35672757/dynamically-adding-mdl-nav-drawer) comes through for me thanks to Krishna Santosh Nidri.
+
+With this [fix](https://github.com/zenglenn42/CityMatch/commit/9d0e6c28ac27b1b4ca5e3c412f5bbbe4a96b01e5) in place, serenity is restored and I can think about adding event listeners to other user-interaction elements.
+
+![alt](docs/img/serene.jpg)
+Photo by Simon Migaj
