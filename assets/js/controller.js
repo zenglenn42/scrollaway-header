@@ -31,7 +31,7 @@ function createLandingHTML(bodyDivId) {
   getStarted = document.getElementById("get-started");
   $(getStarted).on("click", getLandingFabCB(bodyDivId));
 
-  /* Make hamgurger menu responsive to clicks. */
+  /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
   componentHandler.upgradeDom();
 }
@@ -108,7 +108,7 @@ function createPreferencesHTML(bodyDivId) {
   nextButton = document.getElementById("navigate_next");
   $(nextButton).on("click", getPrefsFabCB(bodyDivId));
 
-  /* Make hamgurger menu responsive to clicks. */
+  /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
   componentHandler.upgradeDom();
 }
@@ -133,7 +133,7 @@ function createResultsHTML(bodyDivId) {
   console.log("nextButton = ", nextButton);
   $(nextButton).on("click", getResultsFabCB(bodyDivId));
 
-  /* Make hamgurger menu responsive to clicks. */
+  /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
   componentHandler.upgradeDom();
 }
