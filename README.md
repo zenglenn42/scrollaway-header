@@ -263,6 +263,7 @@ I also wire up the fab buttons and deploy to [github-pages](https://zenglenn42.g
 ## Dynamic HTML decorated with MDL classes is a Thing
 
 ![alt](docs/img/brick-wall.jpg)
+Photo by Tim Mossholder
 
 I'm still dealing with the fallout from generating my HTML on the fly with javascript. Strangely, event delegation to the hamburger menu works for my first dynamically created page, but fails for subsequent pages. In plain English, the menu doesn't do anything when I click on it for the preference and results pages.
 
@@ -364,6 +365,7 @@ I've watched friends and family play with City Rank and in some cases they're de
 Obviously there is complexity in what matters to someone. The current preference sliders (happiness index, political affiliation, affordability) are interesting and help narrow the field, but it would be difficult to anticipate all the inputs that matter. (One mom wanted a city with driveways that were not too steep. :-/)
 
 ![alt](docs/img/ml.jpg)
+Photo by Pixabay
 
 My question: Is there a way to tap into the collective wisdom (or more darkly, the biases) of the crowd by adding a 'like' button on each city card in the results section, essentially capturing preference data not anticipated by the finite number of input preferences? Out of this set of 10 results, humanity tended to favor /this/ subset ... kinda thing.
 
