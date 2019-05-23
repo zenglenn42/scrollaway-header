@@ -370,4 +370,4 @@ My question: Is there a way to tap into the collective wisdom (or more darkly, t
 
 Such preference data would certainly help with monetization and ad targeting.
 
-Obviously ML is probably not for MVP, but something in the back of my mind. The 'like' button, on the other hand, is low hanging fruit. 💟
+Obviously ML is probably not for MVP, but something in the back of my mind. The 'like' button, on the other hand, is low hanging fruit. ♥
