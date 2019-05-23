@@ -359,6 +359,8 @@ Photo by Simon Migaj
 
 ## Machine Learning Play?
 
+![alt](docs/img/ml.jpg)
+
 I've watched friends and family play with City Rank and in some cases they're delighted. "Oh, I /do/ like that city!" And in other cases, not so much. "That town is a stretch for me."
 
 Obviously there is complexity in what matters to someone. The current preference sliders (happiness index, political affiliation, affordability) are interesting and help narrow the field, but it would be difficult to anticipate all the inputs that matter. (One mom wanted a city with driveways that were not steep. :-/)
@@ -367,4 +369,4 @@ My question: Is there a way to tap into the collective wisdom (or more darkly, t
 
 Such preference data would certainly help with monetization and ad targeting.
 
-Obviously not for MVP, but something in the back of my mind.
+Obviously ML is probably not for MVP, but something in the back of my mind. The 'like' button, on the other hand, is low hanging fruit.
