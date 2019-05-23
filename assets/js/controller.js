@@ -476,7 +476,7 @@ function createSliderPrefCard(prefParams, isEnabled) {
       </div>
     </div>
   `);
-  let mdlSwitch = createMDLSwitch(id, isEnabled);
+  let mdlSwitch = createMDLSwitch(id, prefParams.sliderEnabled);
   let supportingText = p.getElementsByClassName("mdl-card__supporting-text")[0];
   supportingText.appendChild(mdlSwitch);
   return p;
