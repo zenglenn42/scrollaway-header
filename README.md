@@ -210,7 +210,7 @@ With that decision out of the way, I can focus on the primitives I'll need to bu
 ![alt](docs/img/finished-sprint.jpg)
 Photo by Tim Gouw
 
-Ok, that was not bad at all. My HTML is dynamic. That means the body of my html is blissfully uncluttered:
+Ok, that was not bad at all. My HTML is [dynamic](https://github.com/zenglenn42/CityMatch/blob/a1c9c0ffeb00ef0bb0e6165ea914a683f56984b5/assets/js/controller.js#L2). That means the body of my html is blissfully uncluttered:
 
 ```
   <body>
