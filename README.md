@@ -363,4 +363,8 @@ I've watched friends and family play with City Rank and in some cases they're de
 
 Obviously there is complexity in what matters to someone. The current preference sliders (happiness index, political affiliation, affordability) are interesting and help narrow the field, but it would be difficult to anticipate all the inputs that matter. (One mom wanted a city with driveways that were not steep. :-/)
 
-My question: Is there a way to tap into the collective wisdom (or more darkly, the biases) of the crowd by adding a 'like' button on each city card in the results section, essentially capturing preference data not anticipated by the finite number of input preferences? Out of this set of 10 results, humanity tended to favor /this/ subset ... kinda thing. Obviously not for MVP, but something in the back of my mind.
+My question: Is there a way to tap into the collective wisdom (or more darkly, the biases) of the crowd by adding a 'like' button on each city card in the results section, essentially capturing preference data not anticipated by the finite number of input preferences? Out of this set of 10 results, humanity tended to favor /this/ subset ... kinda thing.
+
+Such preference data would certainly help with monetization and ad targetting.
+
+Obviously not for MVP, but something in the back of my mind.
