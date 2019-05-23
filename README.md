@@ -271,7 +271,7 @@ The other issue is my spiffy MDL-styled checkboxes are no longer styled. And eve
 creating all sorts of opportunities for trying to tap the slider but getting the enable /
 disable toggle.
 
-So I need to slow down and fix stuff and maybe actually read the docs on dynamic MDL. :-/
+So I need to slow down and fix stuff and maybe actually read the docs on [dynamic MDL](https://getmdl.io/started/index.html#dynamic). :-/
 
 ### Unpacking MDL Switches
 
