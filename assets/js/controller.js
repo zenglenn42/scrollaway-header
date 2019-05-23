@@ -50,6 +50,26 @@ function createMDLSwitch(id, isChecked) {
   return label;
 }
 
+function createMDLSwitchListeners() {
+  var that = this;
+  $(document).on("change", ".mdl-switch__input", function(e) {
+    let blackWhiteImg = "";
+    if ($(this).is(":checked")) {
+      // console.log("checked");
+      blackWhiteImg = "grayscale(0%)";
+    } else {
+      // console.log("not checked");
+      blackWhiteImg = "grayscale(100%)";
+    }
+    let imgDiv = $(this)
+      .parent()
+      .parent()
+      .parent()
+      .children(".mdl-card__title")[0];
+    imgDiv.style.filter = blackWhiteImg;
+  });
+}
+
 function createCheckbox(id, isChecked) {
   let cb = document.createElement("input");
   cb.setAttribute("type", "checkbox");
@@ -111,6 +131,7 @@ function createPreferencesHTML(bodyDivId) {
   /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
   componentHandler.upgradeDom();
+  createMDLSwitchListeners();
 }
 
 function createResultsHTML(bodyDivId) {
@@ -421,10 +442,6 @@ function createSliderPrefCard(prefParams, isEnabled) {
   id = prefParams.titleText.toLowerCase().replace(" ", "-");
   console.log(id);
 
-  let blackWhiteImg = "";
-  if (!prefParams.sliderEnabled) {
-    blackWhiteImg = `filter: grayscale(100%);`;
-  }
   if (prefParams.titleText == "Affordability") {
     /* Hacky :-/ solution for getting double $$ on right side.      */
     /* Really, parameter icons should be array that I iterate over. */
@@ -442,6 +459,11 @@ function createSliderPrefCard(prefParams, isEnabled) {
       aria-hidden="true">
       </i>
     `;
+  }
+
+  let blackWhiteImg = "";
+  if (!prefParams.sliderEnabled) {
+    blackWhiteImg = `filter: grayscale(100%);`;
   }
 
   $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
@@ -482,6 +504,14 @@ function createSliderPrefCard(prefParams, isEnabled) {
   return p;
 }
 
+function getSliderPrefEnableCallback() {
+  var that = this;
+  function innerCB() {
+    console.log("click");
+  }
+  return innerCB;
+}
+
 function createTextPrefCard(prefParams) {
   p = document.createElement("div");
   id = prefParams.titleText.toLowerCase().replace(" ", "-");
@@ -491,6 +521,7 @@ function createTextPrefCard(prefParams) {
   if (!prefParams.sliderEnabled) {
     blackWhiteImg = `filter: grayscale(100%);`;
   }
+
   $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
   $(p).html(`
     <div class="preference-card-square mdl-card mdl-shadow--3dp">
