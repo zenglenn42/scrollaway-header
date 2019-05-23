@@ -365,7 +365,7 @@ function createMainPreferences() {
     prefLink: "",
     infoText: ""
   };
-  let c = createSliderPrefCard(prefParams, true);
+  let c = createSliderPrefCard(prefParams);
   $(g).append(c);
 
   prefParams = {
@@ -381,7 +381,7 @@ function createMainPreferences() {
     prefLink: "",
     infoText: ""
   };
-  c = createSliderPrefCard(prefParams, true);
+  c = createSliderPrefCard(prefParams);
   $(g).append(c);
 
   prefParams = {
@@ -397,7 +397,7 @@ function createMainPreferences() {
     prefLink: "",
     infoText: ""
   };
-  c = createSliderPrefCard(prefParams, true);
+  c = createSliderPrefCard(prefParams);
   $(g).append(c);
 
   prefParams = {
@@ -406,11 +406,11 @@ function createMainPreferences() {
     iconClass: "far fa-lg pr-3",
     icon: "fa-user",
     placeHolderText: "Job Title",
-    sliderEnabled: true,
+    sliderEnabled: false,
     prefLink: "",
     infoText: ""
   };
-  c = createTextPrefCard(prefParams, false);
+  c = createTextPrefCard(prefParams);
   $(g).append(c);
 
   return m;
@@ -421,6 +421,10 @@ function createSliderPrefCard(prefParams, isEnabled) {
   id = prefParams.titleText.toLowerCase().replace(" ", "-");
   console.log(id);
 
+  let blackWhiteImg = "";
+  if (!prefParams.sliderEnabled) {
+    blackWhiteImg = `filter: grayscale(100%);`;
+  }
   if (prefParams.titleText == "Affordability") {
     /* Hacky :-/ solution for getting double $$ on right side.      */
     /* Really, parameter icons should be array that I iterate over. */
@@ -445,7 +449,7 @@ function createSliderPrefCard(prefParams, isEnabled) {
     <div class="preference-card-square mdl-card mdl-shadow--3dp">
       <div
         class="mdl-card__title mdl-card--expand"
-        style="background: url('${prefParams.img}') top/cover"
+        style="background: url('${prefParams.img}') top/cover; ${blackWhiteImg}"
       >
         <h2
           class="mdl-card__title-text"
@@ -478,17 +482,21 @@ function createSliderPrefCard(prefParams, isEnabled) {
   return p;
 }
 
-function createTextPrefCard(prefParams, isEnabled) {
+function createTextPrefCard(prefParams) {
   p = document.createElement("div");
   id = prefParams.titleText.toLowerCase().replace(" ", "-");
   console.log(id);
 
+  let blackWhiteImgStyle = "";
+  if (!prefParams.sliderEnabled) {
+    blackWhiteImg = `filter: grayscale(100%);`;
+  }
   $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
   $(p).html(`
     <div class="preference-card-square mdl-card mdl-shadow--3dp">
       <div
         class="mdl-card__title mdl-card--expand"
-        style="background: url('${prefParams.img}') top/cover"
+        style="background: url('${prefParams.img}') top/cover; ${blackWhiteImg}"
       >
         <h2
           class="mdl-card__title-text"
@@ -513,7 +521,7 @@ function createTextPrefCard(prefParams, isEnabled) {
       </div>
     </div>
   `);
-  let mdlSwitch = createMDLSwitch(id, isEnabled);
+  let mdlSwitch = createMDLSwitch(id, prefParams.sliderEnabled);
   let supportingText = p.getElementsByClassName("mdl-card__supporting-text")[0];
   supportingText.appendChild(mdlSwitch);
   return p;
