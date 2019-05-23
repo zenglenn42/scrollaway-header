@@ -357,7 +357,7 @@ With this [fix](https://github.com/zenglenn42/CityMatch/commit/9d0e6c28ac27b1b4c
 ![alt](docs/img/serene.jpg)
 Photo by Simon Migaj
 
-## Machine Learning Play?
+## [Machine Learning](https://work.caltech.edu/telecourse) Play?
 
 I've watched friends and family play with City Rank and in some cases they're delighted. "Oh, I /do/ like that city!" And in other cases, not so much. "That town is a stretch for me."
 
