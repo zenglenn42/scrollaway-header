@@ -4,18 +4,6 @@ function Controller(bodyDivId) {
   // createResultsHTML(bodyDivId);
 }
 
-// potentially helpful fu on dynamic MDL
-//
-// div id="container"/>
-// <script>
-//   var button = document.createElement('button');
-//   var textNode = document.createTextNode('Click Me!');
-//   button.appendChild(textNode);
-//   button.className = 'mdl-button mdl-js-button mdl-js-ripple-effect';
-//   componentHandler.upgradeElement(button);
-//   document.getElementById('container').appendChild(button);
-// </script>
-
 function createLandingHTML(bodyDivId) {
   let bodyDiv = document.getElementById(bodyDivId);
   $(bodyDiv).empty();
@@ -42,6 +30,30 @@ function createLandingHTML(bodyDivId) {
   $(nextButton).on("click", getLandingFabCB(bodyDivId));
   getStarted = document.getElementById("get-started");
   $(getStarted).on("click", getLandingFabCB(bodyDivId));
+}
+
+function createMDLSwitch(id, isChecked) {
+  let label = document.createElement("label");
+  label.setAttribute("class", "mdl-switch mdl-js-switch mdl-js-ripple-effect");
+  label.setAttribute("for", id);
+
+  let checkbox = createCheckbox(id, isChecked);
+  checkbox.setAttribute("class", "mdl-switch__input");
+  componentHandler.upgradeElement(checkbox);
+
+  label.appendChild(checkbox);
+  componentHandler.upgradeElement(label);
+  return label;
+}
+
+function createCheckbox(id, isChecked) {
+  let cb = document.createElement("input");
+  cb.setAttribute("type", "checkbox");
+  cb.setAttribute("id", id);
+  if (isChecked) {
+    cb.setAttribute("checked", "");
+  }
+  return cb;
 }
 
 function getLandingFabCB(div) {
@@ -341,7 +353,7 @@ function createMainPreferences() {
     prefLink: "",
     infoText: ""
   };
-  let c = createSliderPrefCard(prefParams);
+  let c = createSliderPrefCard(prefParams, true);
   $(g).append(c);
 
   prefParams = {
@@ -357,7 +369,7 @@ function createMainPreferences() {
     prefLink: "",
     infoText: ""
   };
-  c = createSliderPrefCard(prefParams);
+  c = createSliderPrefCard(prefParams, true);
   $(g).append(c);
 
   prefParams = {
@@ -373,7 +385,7 @@ function createMainPreferences() {
     prefLink: "",
     infoText: ""
   };
-  c = createSliderPrefCard(prefParams);
+  c = createSliderPrefCard(prefParams, true);
   $(g).append(c);
 
   prefParams = {
@@ -386,13 +398,13 @@ function createMainPreferences() {
     prefLink: "",
     infoText: ""
   };
-  c = createTextPrefCard(prefParams);
+  c = createTextPrefCard(prefParams, false);
   $(g).append(c);
 
   return m;
 }
 
-function createSliderPrefCard(prefParams) {
+function createSliderPrefCard(prefParams, isEnabled) {
   p = document.createElement("div");
   id = prefParams.titleText.toLowerCase().replace(" ", "-");
   console.log(id);
@@ -445,23 +457,16 @@ function createSliderPrefCard(prefParams) {
           />
           ${rightIconHTML}
         </div>
-        <label
-          class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
-          for="switch-${id}"
-        >
-          <input
-            type="checkbox"
-            id="switch-${id}"
-            class="mdl-switch__input"
-          />
-        </label>
       </div>
     </div>
   `);
+  let mdlSwitch = createMDLSwitch(id, isEnabled);
+  let supportingText = p.getElementsByClassName("mdl-card__supporting-text")[0];
+  supportingText.appendChild(mdlSwitch);
   return p;
 }
 
-function createTextPrefCard(prefParams) {
+function createTextPrefCard(prefParams, isEnabled) {
   p = document.createElement("div");
   id = prefParams.titleText.toLowerCase().replace(" ", "-");
   console.log(id);
@@ -493,19 +498,12 @@ function createTextPrefCard(prefParams) {
             disabled
           />
         </div>
-        <label
-          class="mdl-switch mdl-js-switch mdl-js-ripple-effect"
-          for="switch-${id}"
-        >
-          <input
-            type="checkbox"
-            id="switch-${id}"
-            class="mdl-switch__input"
-          />
-        </label>
       </div>
     </div>
   `);
+  let mdlSwitch = createMDLSwitch(id, isEnabled);
+  let supportingText = p.getElementsByClassName("mdl-card__supporting-text")[0];
+  supportingText.appendChild(mdlSwitch);
   return p;
 }
 

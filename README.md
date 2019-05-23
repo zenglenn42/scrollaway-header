@@ -266,3 +266,67 @@ creating all sorts of opportunities for trying to tap the slider but getting the
 disable toggle.
 
 So I need to slow down and fix stuff and maybe actually read the docs on dynamic MDL. :-/
+
+### Unpacking MDL Switches
+
+So I want this MDL-styled switch on my preference cards:
+
+![alt](docs/img/mdl-checkbox.png)
+
+but I'm getting /this/:
+
+![alt](docs/img/vanilla-checkbox.png)
+
+And sure enough, if you look at the underlying HTML, you see:
+
+```
+<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-civic-happiness">
+  <input type="checkbox" id="switch-civic-happiness" class="mdl-switch__input">
+</label>
+```
+
+whereas on a properly formed MDL switch, you should see:
+
+```
+<label
+  class="mdl-switch mdl-js-switch mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded"
+  for="switch-civic-happiness"
+  data-upgraded=",MaterialSwitch,MaterialRipple"
+>
+  <input type="checkbox" id="switch-civic-happiness" class="mdl-switch__input"/>
+  <div class="mdl-switch__track"></div>
+  <div class="mdl-switch__thumb">
+    <span class="mdl-switch__focus-helper"></span>
+  </div>
+  <span
+    class="mdl-switch__ripple-container mdl-js-ripple-effect mdl-ripple--center"
+    data-upgraded=",MaterialRipple"
+    ><span class="mdl-ripple"></span></span>
+</label>
+```
+
+All that missing HTML is normally added behind the scenes by MDL's javascript when the abstract representation of the HTML is loaded into the document object model (DOM).
+
+However, with dynamically generated HTML, I'm downstream of any "document-loaded" event and am missing out on that essential MDL "upgrade" that happens to the stock checkbox HTML.
+
+Fortunately, MDL provides a utility function for this case:
+
+```
+componentHandler.upgradeElement(checkbox);
+```
+
+The usage pattern is more like this:
+
+```
+/* DOM already loaded.  About to create dynamically generated checkbox. */
+
+let checkbox = createCheckbox(id, isChecked);
+checkbox.setAttribute("class", "mdl-switch__input");
+
+/* Enhance checkbox with MDL-styling. */
+componentHandler.upgradeElement(checkbox);
+```
+
+Now my dynamically-generated preference cards feature MDL-styled enable switches like they used to when the HTML was static:
+
+![alt](docs/img/fixed-mdl-switch.png)
