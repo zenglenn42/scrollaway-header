@@ -379,3 +379,7 @@ On the preference page, it would be nice if the image grayed out when the slider
 ![alt](docs/img/grayed-out-prefs.png)
 
 Ultimately, this setting should be conveyed to the model (by the controller) so this particular preference parameter is factored out of the city rank calculation.
+
+Gray is the new gray.
+
+![alt](docs/img/gray-coffee.jpg)
