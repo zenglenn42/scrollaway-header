@@ -333,3 +333,17 @@ Now my dynamically-generated preference cards feature MDL-styled enable switches
 ![alt](docs/img/fixed-mdl-switch.png)
 
 As with most things in life, the [actual fix](https://github.com/zenglenn42/CityMatch/commit/fd5a32d5ac4b09d9bb6a3467424ec1041fb8771e#diff-453a0b065c3a1e8636126a44b38d9f55R35) is a little more involved than what has been advertised. He who carries the bag, knows what's inside.
+
+### [Fix IT!](https://tenor.com/view/fix-it-snl-oscar-rogers-weekend-update-kenan-thompson-gif-10667500) (the unresponsive hamburger menu)
+
+I jump into the chrome debugger and bring up sources and enable mouse-click event listener breakpoints, hoping that will give me a meaty clue in the working case of which method /should/ be firing and leverage that to search the web.
+
+![alt](docs/img/hamburger-events.png)
+
+```
+MaterialLayout.prototype.drawerToggleHandler_ = function(evt) {...}
+```
+
+Ah, the toggle handler fires on the landing page, but /not/ preferences and results pages.
+
+The gift economy of [stackoverflow](https://stackoverflow.com/questions/35672757/dynamically-adding-mdl-nav-drawer) comes through for me thanks to Krishna Santosh Nidri.

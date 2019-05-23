@@ -30,6 +30,10 @@ function createLandingHTML(bodyDivId) {
   $(nextButton).on("click", getLandingFabCB(bodyDivId));
   getStarted = document.getElementById("get-started");
   $(getStarted).on("click", getLandingFabCB(bodyDivId));
+
+  /* Make hamgurger menu responsive to clicks. */
+  componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
+  componentHandler.upgradeDom();
 }
 
 function createMDLSwitch(id, isChecked) {
@@ -103,6 +107,10 @@ function createPreferencesHTML(bodyDivId) {
 
   nextButton = document.getElementById("navigate_next");
   $(nextButton).on("click", getPrefsFabCB(bodyDivId));
+
+  /* Make hamgurger menu responsive to clicks. */
+  componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
+  componentHandler.upgradeDom();
 }
 
 function createResultsHTML(bodyDivId) {
@@ -124,6 +132,10 @@ function createResultsHTML(bodyDivId) {
   nextButton = document.getElementById("navigate_before");
   console.log("nextButton = ", nextButton);
   $(nextButton).on("click", getResultsFabCB(bodyDivId));
+
+  /* Make hamgurger menu responsive to clicks. */
+  componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
+  componentHandler.upgradeDom();
 }
 
 function createMainResults() {
