@@ -371,3 +371,11 @@ My question: Is there a way to tap into the collective wisdom (or more darkly, t
 Such preference data would certainly help with monetization and ad targeting.
 
 Obviously ML is probably not for MVP, but something in the back of my mind. The 'like' ♥ button, on the other hand, is low hanging fruit.
+
+## (50 - 49) Shades of Gray
+
+On the preference page, it would be nice if the image grayed out when the slider switch for that card is disabled. So I make that happen:
+
+![alt](docs/img/grayed-out-prefs.png)
+
+Ultimately, this setting should be conveyed to the model (by the controller) so this particular preference parameter is factored out of the city rank calculation.
