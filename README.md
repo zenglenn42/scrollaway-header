@@ -383,3 +383,4 @@ Ultimately, this setting should be conveyed to the model (by the controller) so 
 Gray is the new gray.
 
 ![alt](docs/img/gray-coffee.jpg)
+Photo by Pixabay
