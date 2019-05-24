@@ -25,6 +25,17 @@ Controller.prototype.createHeader = function(title, rightNavIcon) {
   return h;
 };
 
+Controller.prototype.makeNav = function(
+  bodyDiv,
+  header,
+  menuDrawer,
+  hamburgerMenu
+) {
+  $(bodyDiv).append(header);
+  $(bodyDiv).append(menuDrawer);
+  $(bodyDiv).append(hamburgerMenu);
+};
+
 //-----------------------------------//
 // Landing Page
 //-----------------------------------//
@@ -50,9 +61,7 @@ Controller.prototype.createLandingBody = function() {
   );
   let footer = this.createFooter("navigate_next");
 
-  $(bodyDiv).append(header);
-  $(bodyDiv).append(menuDrawer);
-  $(bodyDiv).append(hamburgerMenu);
+  this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
   $(bodyDiv).append(mainLanding);
   $(bodyDiv).append(footer);
   nextButton = document.getElementById("navigate_next");
@@ -119,9 +128,7 @@ Controller.prototype.createPreferencesBody = function createPreferencesBody() {
   let mainPreferences = this.createPreferencesMain();
   let footer = this.createFooter("navigate_next");
 
-  $(bodyDiv).append(header);
-  $(bodyDiv).append(menuDrawer);
-  $(bodyDiv).append(hamburgerMenu);
+  this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
   $(bodyDiv).append(mainPreferences);
   $(bodyDiv).append(footer);
 
@@ -414,9 +421,7 @@ Controller.prototype.createResultsBody = function createResultsBody() {
   let footer = this.createResultsFooter("navigate_before");
   let main = this.createResultsMain();
 
-  $(bodyDiv).append(header);
-  $(bodyDiv).append(menuDrawer);
-  $(bodyDiv).append(hamburgerMenu);
+  this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
   $(bodyDiv).append(main);
   $(bodyDiv).append(footer);
 
