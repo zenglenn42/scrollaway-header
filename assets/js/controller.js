@@ -5,14 +5,14 @@ function Controller(bodyDivId) {
     affordability: this.affordabilityValue,
     politics: this.politicsValue
   };
-  createLandingBody(bodyDivId);
+  this.createLandingBody();
 }
 // TODO: Derive midpoint values from data (especially for affordability).
 Controller.prototype.affordabilityValue = 496501; // mid-point of median home price range
 Controller.prototype.happinessValue = 50; // mid-point on 100 point scale
 Controller.prototype.politicsValue = { rep16_frac: 50, dem16_frac: 50 };
 
-function createHeader(title, rightNavIcon) {
+Controller.prototype.createHeader = function(title, rightNavIcon) {
   h = document.createElement("header");
   $(h).addClass("mdl-layout__header");
   $(h).html(`
@@ -23,28 +23,32 @@ function createHeader(title, rightNavIcon) {
     </div>
   `);
   return h;
-}
+};
 
 //-----------------------------------//
 // Landing Page
 //-----------------------------------//
 
-function createLandingBody(bodyDivId) {
-  let bodyDiv = document.getElementById(bodyDivId);
+Controller.prototype.createLandingBody = function() {
+  let bodyDiv = document.getElementById(this.bodyDivId);
   $(bodyDiv).empty();
-  let header = createHeader("City Match", "search");
-  let menuDrawer = createMenuDrawer("Settings", ["About", "Contact", "Help"]);
-  let hamburgerMenu = createHamburgerMenu();
+  let header = this.createHeader("City Match", "search");
+  let menuDrawer = this.createMenuDrawer("Settings", [
+    "About",
+    "Contact",
+    "Help"
+  ]);
+  let hamburgerMenu = this.createHamburgerMenu();
   let landingText1 =
     "Considering a move but not sure which cities are your best bet?";
   let landingText2 =
     "Explore your options by sharing what's important to you and we'll offer some informed choices.";
-  let mainLanding = createLandingMain(
+  let mainLanding = this.createLandingMain(
     "Find your city",
     landingText1,
     landingText2
   );
-  let footer = createFooter("navigate_next");
+  let footer = this.createFooter("navigate_next");
 
   $(bodyDiv).append(header);
   $(bodyDiv).append(menuDrawer);
@@ -53,16 +57,20 @@ function createLandingBody(bodyDivId) {
   $(bodyDiv).append(footer);
   nextButton = document.getElementById("navigate_next");
 
-  $(nextButton).on("click", getLandingFabCB(bodyDivId));
+  $(nextButton).on("click", this.getLandingFabCB());
   getStarted = document.getElementById("get-started");
-  $(getStarted).on("click", getLandingFabCB(bodyDivId));
+  $(getStarted).on("click", this.getLandingFabCB());
 
   /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
   componentHandler.upgradeDom();
-}
+};
 
-function createLandingMain(titleText, supportText1, supportText2) {
+Controller.prototype.createLandingMain = function(
+  titleText,
+  supportText1,
+  supportText2
+) {
   m = document.createElement("main");
   $(m).addClass("content");
   $(m).attr("id", "main");
@@ -86,20 +94,24 @@ function createLandingMain(titleText, supportText1, supportText2) {
     </div>    
   `);
   return m;
-}
+};
 
 //-----------------------------------//
 // Preferences Page
 //-----------------------------------//
 
-function createPreferencesBody(bodyDivId) {
-  let bodyDiv = document.getElementById(bodyDivId);
+Controller.prototype.createPreferencesBody = function createPreferencesBody() {
+  let bodyDiv = document.getElementById(this.bodyDivId);
   $(bodyDiv).empty();
-  let header = createHeader("City Match", "search");
-  let menuDrawer = createMenuDrawer("Settings", ["About", "Contact", "Help"]);
-  let hamburgerMenu = createHamburgerMenu();
-  let mainPreferences = createPreferencesMain();
-  let footer = createFooter("navigate_next");
+  let header = this.createHeader("City Match", "search");
+  let menuDrawer = this.createMenuDrawer("Settings", [
+    "About",
+    "Contact",
+    "Help"
+  ]);
+  let hamburgerMenu = this.createHamburgerMenu();
+  let mainPreferences = this.createPreferencesMain();
+  let footer = this.createFooter("navigate_next");
 
   $(bodyDiv).append(header);
   $(bodyDiv).append(menuDrawer);
@@ -108,16 +120,16 @@ function createPreferencesBody(bodyDivId) {
   $(bodyDiv).append(footer);
 
   nextButton = document.getElementById("navigate_next");
-  $(nextButton).on("click", getPrefsFabCB(bodyDivId));
+  $(nextButton).on("click", this.getPrefsFabCB());
 
   /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
   componentHandler.upgradeDom();
-  createSlideSwitchListeners();
-  $("#slider-happiness").on("change", getPreferencesSliderHappinessCB());
-}
+  this.createSlideSwitchListeners();
+  $("#slider-happiness").on("change", this.getPreferencesSliderHappinessCB());
+};
 
-function createPreferencesMain() {
+Controller.prototype.createPreferencesMain = function() {
   m = document.createElement("main");
   $(m).addClass("mdl-layout__content");
   $(m).append('<div class="grid-content">');
@@ -141,7 +153,7 @@ function createPreferencesMain() {
     prefLink: "",
     infoText: ""
   };
-  let c = createPreferencesSliderCard(prefParams);
+  let c = this.createPreferencesSliderCard(prefParams);
   $(g).append(c);
 
   prefParams = {
@@ -159,7 +171,7 @@ function createPreferencesMain() {
     prefLink: "",
     infoText: ""
   };
-  c = createPreferencesSliderCard(prefParams);
+  c = this.createPreferencesSliderCard(prefParams);
   $(g).append(c);
 
   prefParams = {
@@ -177,12 +189,13 @@ function createPreferencesMain() {
     prefLink: "",
     infoText: ""
   };
-  c = createPreferencesSliderCard(prefParams);
+  c = this.createPreferencesSliderCard(prefParams);
   $(g).append(c);
 
   prefParams = {
     img: "assets/img/job-search.jpg",
     switchId: "switch-jobsearch",
+    inputId: "input-jobsearch",
     titleText: "Job Outlook",
     iconClass: "far fa-lg pr-3",
     icon: "fa-user",
@@ -191,13 +204,16 @@ function createPreferencesMain() {
     prefLink: "",
     infoText: ""
   };
-  c = createPreferencesTextinputCard(prefParams);
+  c = this.createPreferencesTextinputCard(prefParams);
   $(g).append(c);
 
   return m;
-}
+};
 
-function createPreferencesSliderCard(prefParams, isEnabled) {
+Controller.prototype.createPreferencesSliderCard = function(
+  prefParams,
+  isEnabled
+) {
   p = document.createElement("div");
 
   if (prefParams.titleText == "Affordability") {
@@ -259,30 +275,30 @@ function createPreferencesSliderCard(prefParams, isEnabled) {
       </div>
     </div>
   `);
-  let mdlSwitch = createSlideSwitch(
+  let mdlSwitch = this.createSlideSwitch(
     prefParams.switchId,
     prefParams.sliderEnabled
   );
   let cardMenu = p.getElementsByClassName("mdl-card__menu")[0];
   cardMenu.appendChild(mdlSwitch);
   return p;
-}
+};
 
-function createSlideSwitch(id, isChecked) {
+Controller.prototype.createSlideSwitch = function(id, isChecked) {
   let label = document.createElement("label");
   label.setAttribute("class", "mdl-switch mdl-js-switch mdl-js-ripple-effect");
   label.setAttribute("for", id);
 
-  let checkbox = createCheckbox(id, isChecked);
+  let checkbox = this.createCheckbox(id, isChecked);
   checkbox.setAttribute("class", "mdl-switch__input");
   componentHandler.upgradeElement(checkbox);
 
   label.appendChild(checkbox);
   componentHandler.upgradeElement(label);
   return label;
-}
+};
 
-function createCheckbox(id, isChecked) {
+Controller.prototype.createCheckbox = function(id, isChecked) {
   let cb = document.createElement("input");
   cb.setAttribute("type", "checkbox");
   cb.setAttribute("id", id);
@@ -290,9 +306,9 @@ function createCheckbox(id, isChecked) {
     cb.setAttribute("checked", "");
   }
   return cb;
-}
+};
 
-function createSlideSwitchListeners() {
+Controller.prototype.createSlideSwitchListeners = function() {
   var that = this;
   $(document).on("change", ".mdl-switch__input", function(e) {
     let blackWhiteImg = "";
@@ -310,9 +326,9 @@ function createSlideSwitchListeners() {
       .children(".mdl-card__title")[0];
     imgDiv.style.filter = blackWhiteImg;
   });
-}
+};
 
-function getPreferencesSliderHappinessCB() {
+Controller.prototype.getPreferencesSliderHappinessCB = function() {
   let that = this;
   function innerCB(event) {
     let value = $(this)[0].value;
@@ -320,12 +336,10 @@ function getPreferencesSliderHappinessCB() {
     console.log("happiness value = ", value);
   }
   return innerCB;
-}
+};
 
-function createPreferencesTextinputCard(prefParams) {
+Controller.prototype.createPreferencesTextinputCard = function(prefParams) {
   p = document.createElement("div");
-  id = prefParams.titleText.toLowerCase().replace(" ", "-");
-  console.log(id);
 
   let blackWhiteImgStyle = "";
   if (!prefParams.sliderEnabled) {
@@ -353,7 +367,7 @@ function createPreferencesTextinputCard(prefParams) {
           </i>
           <input
             type="text"
-            id="${id}"
+            id="${prefParams.inputId}"
             class="form-control"
             placeholder="Job Title"
             disabled
@@ -364,25 +378,32 @@ function createPreferencesTextinputCard(prefParams) {
       </div>
     </div>
   `);
-  let mdlSwitch = createSlideSwitch(id, prefParams.sliderEnabled);
+  let mdlSwitch = this.createSlideSwitch(
+    prefParams.switchId,
+    prefParams.sliderEnabled
+  );
   let cardMenu = p.getElementsByClassName("mdl-card__menu")[0];
   cardMenu.appendChild(mdlSwitch);
   return p;
-}
+};
 
 //-----------------------------------//
 // Results Page
 //-----------------------------------//
 
-function createResultsBody(bodyDivId) {
-  let bodyDiv = document.getElementById(bodyDivId);
+Controller.prototype.createResultsBody = function createResultsBody() {
+  let bodyDiv = document.getElementById(this.bodyDivId);
   $(bodyDiv).empty();
 
-  let header = createHeader("City Match", "search");
-  let menuDrawer = createMenuDrawer("Settings", ["About", "Contact", "Help"]);
-  let hamburgerMenu = createHamburgerMenu();
-  let footer = createResultsFooter("navigate_before");
-  let main = createResultsMain();
+  let header = this.createHeader("City Match", "search");
+  let menuDrawer = this.createMenuDrawer("Settings", [
+    "About",
+    "Contact",
+    "Help"
+  ]);
+  let hamburgerMenu = this.createHamburgerMenu();
+  let footer = this.createResultsFooter("navigate_before");
+  let main = this.createResultsMain();
 
   $(bodyDiv).append(header);
   $(bodyDiv).append(menuDrawer);
@@ -391,14 +412,14 @@ function createResultsBody(bodyDivId) {
   $(bodyDiv).append(footer);
 
   nextButton = document.getElementById("navigate_before");
-  $(nextButton).on("click", getResultsFabCB(bodyDivId));
+  $(nextButton).on("click", this.getResultsFabCB());
 
   /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
   componentHandler.upgradeDom();
-}
+};
 
-function createResultsMain() {
+Controller.prototype.createResultsMain = function() {
   let m = document.createElement("main");
   $(m).addClass("mdl-layout__content");
   $(m).append('<div class="grid-content">');
@@ -414,7 +435,7 @@ function createResultsMain() {
     affordability: 34,
     jobOutlook: 5
   };
-  let c = createResultsCityCard(cityParams);
+  let c = this.createResultsCityCard(cityParams);
   $(g).append(c);
 
   cityParams = {
@@ -425,7 +446,7 @@ function createResultsMain() {
     affordability: 34,
     jobOutlook: 5
   };
-  c = createResultsCityCard(cityParams);
+  c = this.createResultsCityCard(cityParams);
   $(g).append(c);
 
   let monetizationParams = {
@@ -433,7 +454,7 @@ function createResultsMain() {
     titleText: "Monetize here",
     supportingText: "Advertise your move-related service here."
   };
-  let monetize = createResultsMonetizeCard(monetizationParams);
+  let monetize = this.createResultsMonetizeCard(monetizationParams);
   $(g).append(monetize);
 
   cityParams = {
@@ -444,7 +465,7 @@ function createResultsMain() {
     affordability: 34,
     jobOutlook: 5
   };
-  c = createResultsCityCard(cityParams);
+  c = this.createResultsCityCard(cityParams);
   $(g).append(c);
 
   cityParams = {
@@ -455,12 +476,12 @@ function createResultsMain() {
     affordability: 34,
     jobOutlook: 5
   };
-  c = createResultsCityCard(cityParams);
+  c = this.createResultsCityCard(cityParams);
   $(g).append(c);
   return m;
-}
+};
 
-function createResultsCityCard(cityParams) {
+Controller.prototype.createResultsCityCard = function(cityParams) {
   p = document.createElement("div");
   id = cityParams.titleText.toLowerCase().replace(" ", "-");
   console.log(id);
@@ -490,9 +511,9 @@ function createResultsCityCard(cityParams) {
     </div>
   `);
   return p;
-}
+};
 
-function createResultsMonetizeCard(params) {
+Controller.prototype.createResultsMonetizeCard = function(params) {
   p = document.createElement("div");
   id = params.titleText.toLowerCase().replace(" ", "-");
   console.log(id);
@@ -527,9 +548,9 @@ function createResultsMonetizeCard(params) {
     </div>
   `);
   return p;
-}
+};
 
-function createResultsFooter(fabIcon) {
+Controller.prototype.createResultsFooter = function(fabIcon) {
   f = document.createElement("footer");
   $(f).addClass("mdl-mini-footer");
   $(f).html(`
@@ -561,39 +582,36 @@ function createResultsFooter(fabIcon) {
       </div>
   `);
   return f;
-}
+};
 
-function getLandingFabCB(div) {
+Controller.prototype.getLandingFabCB = function() {
   var that = this;
-  var parentDiv = div;
   function innerFunction() {
     console.log("innerFunction: click");
-    createPreferencesBody(parentDiv);
+    that.createPreferencesBody();
   }
   return innerFunction;
-}
+};
 
-function getPrefsFabCB(div) {
+Controller.prototype.getPrefsFabCB = function() {
   var that = this;
-  var parentDiv = div;
   function innerFunction() {
     console.log("innerFunction: click");
-    createResultsBody(parentDiv);
+    that.createResultsBody();
   }
   return innerFunction;
-}
+};
 
-function getResultsFabCB(div) {
+Controller.prototype.getResultsFabCB = function() {
   var that = this;
-  var parentDiv = div;
   function innerFunction() {
     console.log("innerFunction: click");
-    createPreferencesBody(parentDiv);
+    that.createPreferencesBody();
   }
   return innerFunction;
-}
+};
 
-function createHamburgerMenu() {
+Controller.prototype.createHamburgerMenu = function() {
   m = document.createElement("div");
   $(m).addClass("mdl-layout__drawer-button");
   $(m).attr("role", "button");
@@ -602,9 +620,9 @@ function createHamburgerMenu() {
     <i class="material-icons">menu</i>
   `);
   return m;
-}
+};
 
-function createMenuDrawer(title, menuItemsArray) {
+Controller.prototype.createMenuDrawer = function(title, menuItemsArray) {
   md = document.createElement("div");
   $(md).addClass("mdl-layout__drawer");
   $(md).append(`
@@ -619,9 +637,9 @@ function createMenuDrawer(title, menuItemsArray) {
     $(md).append(html);
   });
   return md;
-}
+};
 
-function createFooter(fabIcon) {
+Controller.prototype.createFooter = function(fabIcon) {
   f = document.createElement("footer");
   $(f).addClass("mdl-mini-footer");
   $(f).html(`
@@ -635,4 +653,4 @@ function createFooter(fabIcon) {
     </div>
   `);
   return f;
-}
+};
