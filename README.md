@@ -388,3 +388,14 @@ Gray is the new gray.
 
 ![alt](docs/img/gray-coffee.jpg)
 Photo by Pixabay
+
+## Clean and DRY
+
+Man, I need to clean up around here. Controller code is coming along nicely but a bunch of it is hanging outside the controller object itself. In the process I make the code a bit more DRY by generalizing the callbacks for the 'next' button. I also standardize the method naming to be a bit more BEM-like (crazy, I know).
+
+![alt](docs/img/clothes-line.jpg)
+Photo by Mali Maeder
+
+I also move the preference on-off switch into the image area to minimize fat-finger interactions between it and the traditional slider. I think it also enhances affordance since the switch is now closer to the image which is subject to grayscaling when the "lights are turned off" and the preference disabled.
+
+I'm also now listening to slider change events. It won't be long before I can pass a tuple of preferences to the model and get a ranked list of cities back. Getting the controller fully object-ified readies my mind for that.
