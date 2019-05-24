@@ -1,10 +1,18 @@
 function Controller(bodyDivId) {
-  createLandingHTML(bodyDivId);
-  // createPreferencesHTML(bodyDivId);
-  // createResultsHTML(bodyDivId);
+  this.bodyDivId = bodyDivId;
+  this.userPrefs = {
+    happiness: this.happinessValue,
+    affordability: this.affordabilityValue,
+    politics: this.politicsValue
+  };
+  createLandingPage(bodyDivId);
 }
+// TODO: Derive midpoint values from data (especially for affordability).
+Controller.prototype.affordabilityValue = 496501; // mid-point of median home price range
+Controller.prototype.happinessValue = 50; // mid-point on 100 point scale
+Controller.prototype.politicsValue = { rep16_frac: 50, dem16_frac: 50 };
 
-function createLandingHTML(bodyDivId) {
+function createLandingPage(bodyDivId) {
   let bodyDiv = document.getElementById(bodyDivId);
   $(bodyDiv).empty();
   let header = createHeader("City Match", "search");
@@ -85,7 +93,7 @@ function getLandingFabCB(div) {
   var parentDiv = div;
   function innerFunction() {
     console.log("innerFunction: click");
-    createPreferencesHTML(parentDiv);
+    createPreferencesPage(parentDiv);
   }
   return innerFunction;
 }
@@ -95,7 +103,7 @@ function getPrefsFabCB(div) {
   var parentDiv = div;
   function innerFunction() {
     console.log("innerFunction: click");
-    createResultsHTML(parentDiv);
+    createResultsPage(parentDiv);
   }
   return innerFunction;
 }
@@ -105,12 +113,12 @@ function getResultsFabCB(div) {
   var parentDiv = div;
   function innerFunction() {
     console.log("innerFunction: click");
-    createPreferencesHTML(parentDiv);
+    createPreferencesPage(parentDiv);
   }
   return innerFunction;
 }
 
-function createPreferencesHTML(bodyDivId) {
+function createPreferencesPage(bodyDivId) {
   let bodyDiv = document.getElementById(bodyDivId);
   $(bodyDiv).empty();
   let header = createHeader("City Match", "search");
@@ -132,9 +140,10 @@ function createPreferencesHTML(bodyDivId) {
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
   componentHandler.upgradeDom();
   createMDLSwitchListeners();
+  $("#happiness").on("change", getHappinessSliderCallback());
 }
 
-function createResultsHTML(bodyDivId) {
+function createResultsPage(bodyDivId) {
   let bodyDiv = document.getElementById(bodyDivId);
   $(bodyDiv).empty();
 
@@ -151,7 +160,6 @@ function createResultsHTML(bodyDivId) {
   $(bodyDiv).append(footer);
 
   nextButton = document.getElementById("navigate_before");
-  console.log("nextButton = ", nextButton);
   $(nextButton).on("click", getResultsFabCB(bodyDivId));
 
   /* Make hamburger menu responsive to clicks. */
@@ -381,6 +389,7 @@ function createMainPreferences() {
   let prefParams = {
     img: "assets/img/civic-happiness-sf.jpg",
     titleText: "Civic Happiness",
+    id: "happiness",
     iconClass: "far fa-lg pr-3",
     leftSliderIcon: "fa-meh",
     rightSliderIcon: "fa-smile",
@@ -397,6 +406,7 @@ function createMainPreferences() {
   prefParams = {
     img: "assets/img/politics-flags.jpg",
     titleText: "Political Affiliation",
+    id: "political-affliliation",
     iconClass: "fas fa-lg pr-3",
     leftSliderIcon: "fa-democrat blue-text",
     rightSliderIcon: "fa-republican red-text",
@@ -413,6 +423,7 @@ function createMainPreferences() {
   prefParams = {
     img: "assets/img/affordability-piggybank.jpg",
     titleText: "Affordability",
+    id: "affordability",
     iconClass: "fas fa-md pr-3",
     leftSliderIcon: "fa-dollar-sign",
     rightSliderIcon: "fa-dollar-sign",
@@ -491,6 +502,7 @@ function createSliderPrefCard(prefParams, isEnabled) {
             aria-hidden="true">
           </i>
           <input
+            id=${prefParams.id}
             class="mdl-slider mdl-js-slider"
             type="range"
             min=${prefParams.minSliderVal}
@@ -509,6 +521,16 @@ function createSliderPrefCard(prefParams, isEnabled) {
   let cardMenu = p.getElementsByClassName("mdl-card__menu")[0];
   cardMenu.appendChild(mdlSwitch);
   return p;
+}
+
+function getHappinessSliderCallback() {
+  let that = this;
+  function hapSliderChange(event) {
+    let value = $(this)[0].value;
+    // that.userPrefs.happiness = value;
+    console.log("happiness value = ", value);
+  }
+  return hapSliderChange;
 }
 
 function getSliderPrefEnableCallback() {
