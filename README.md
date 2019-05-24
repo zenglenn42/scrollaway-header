@@ -402,4 +402,6 @@ I also move the preference on-off switch into the image area to minimize fat-fin
 
 ![alt](docs/img/light-switch.png)
 
-I'm also now listening to slider change events. It won't be long before I can pass a tuple of preferences to the model and get a ranked list of cities back. Getting the controller fully object-ified readies my mind for that.
+I'm also now listening to slider change events. And now the controller can serve up preference json to the backend:
+
+![alt](docs/img/controller-works.png)
