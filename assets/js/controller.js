@@ -57,9 +57,15 @@ Controller.prototype.createLandingBody = function() {
   $(bodyDiv).append(footer);
   nextButton = document.getElementById("navigate_next");
 
-  $(nextButton).on("click", this.getLandingFabCB());
+  $(nextButton).on(
+    "click",
+    this.getNextButtonCB(this.createPreferencesBody.bind(this))
+  );
   getStarted = document.getElementById("get-started");
-  $(getStarted).on("click", this.getLandingFabCB());
+  $(getStarted).on(
+    "click",
+    this.getNextButtonCB(this.createPreferencesBody.bind(this))
+  );
 
   /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
@@ -120,7 +126,10 @@ Controller.prototype.createPreferencesBody = function createPreferencesBody() {
   $(bodyDiv).append(footer);
 
   nextButton = document.getElementById("navigate_next");
-  $(nextButton).on("click", this.getPrefsFabCB());
+  $(nextButton).on(
+    "click",
+    this.getNextButtonCB(this.createResultsBody.bind(this))
+  );
 
   /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
@@ -412,7 +421,10 @@ Controller.prototype.createResultsBody = function createResultsBody() {
   $(bodyDiv).append(footer);
 
   nextButton = document.getElementById("navigate_before");
-  $(nextButton).on("click", this.getResultsFabCB());
+  $(nextButton).on(
+    "click",
+    this.getNextButtonCB(this.createPreferencesBody.bind(this))
+  );
 
   /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
@@ -584,29 +596,10 @@ Controller.prototype.createResultsFooter = function(fabIcon) {
   return f;
 };
 
-Controller.prototype.getLandingFabCB = function() {
-  var that = this;
+Controller.prototype.getNextButtonCB = function(createBodyFn) {
   function innerFunction() {
     console.log("innerFunction: click");
-    that.createPreferencesBody();
-  }
-  return innerFunction;
-};
-
-Controller.prototype.getPrefsFabCB = function() {
-  var that = this;
-  function innerFunction() {
-    console.log("innerFunction: click");
-    that.createResultsBody();
-  }
-  return innerFunction;
-};
-
-Controller.prototype.getResultsFabCB = function() {
-  var that = this;
-  function innerFunction() {
-    console.log("innerFunction: click");
-    that.createPreferencesBody();
+    createBodyFn();
   }
   return innerFunction;
 };
