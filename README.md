@@ -350,7 +350,11 @@ MaterialLayout.prototype.drawerToggleHandler_ = function(evt) {...}
 ```
 
 Ah, the toggle handler fires on the landing page, but /not/ preferences and results pages.
-The gift economy of [stackoverflow](https://stackoverflow.com/questions/35672757/dynamically-adding-mdl-nav-drawer) comes through for me thanks to Krishna Santosh Nidri.
+The gift economy of [stackoverflow](https://stackoverflow.com/questions/35672757/dynamically-adding-mdl-nav-drawer) comes through for me thanks to Krishna Santosh Nidri. I'm rewarded with I nice slideout menu:
+
+![alt](docs/img/slideout-menu.png)
+
+It can be styled later.
 
 With this [fix](https://github.com/zenglenn42/CityMatch/commit/9d0e6c28ac27b1b4ca5e3c412f5bbbe4a96b01e5) in place, serenity is restored and I can think about adding event listeners to other user-interaction elements.
 
@@ -372,7 +376,7 @@ Such preference data would certainly help with monetization and ad targeting.
 
 Obviously ML is probably not for MVP, but something in the back of my mind. The 'like' ♥ button, on the other hand, is low hanging fruit.
 
-## (50 - 49) Shades of Gray
+## Shades of Gray
 
 On the preference page, it would be nice if the image grayed out when the slider switch for that card is disabled. So I make that happen:
 
