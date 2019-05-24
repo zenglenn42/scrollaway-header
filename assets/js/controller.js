@@ -9,7 +9,7 @@ function Controller(bodyDivId) {
 }
 // TODO: Derive midpoint values from data (especially for affordability).
 Controller.prototype.affordabilityValue = 496501; // mid-point of median home price range
-Controller.prototype.happinessValue = 50; // mid-point on 100 point scale
+Controller.prototype.happinessValue = 57; // mid-point on 100 point scale
 Controller.prototype.politicsValue = { rep16_frac: 50, dem16_frac: 50 };
 
 Controller.prototype.createHeader = function(title, rightNavIcon) {
@@ -143,6 +143,11 @@ Controller.prototype.createPreferencesBody = function createPreferencesBody() {
   componentHandler.upgradeDom();
   this.createSlideSwitchListeners();
   $("#slider-happiness").on("change", this.getPreferencesSliderHappinessCB());
+  $("#slider-politics").on("change", this.getPreferencesSliderPoliticsCB());
+  $("#slider-affordability").on(
+    "change",
+    this.getPreferencesSliderAffordabilityCB()
+  );
 };
 
 Controller.prototype.createPreferencesMain = function() {
@@ -162,9 +167,9 @@ Controller.prototype.createPreferencesMain = function() {
     iconClass: "far fa-lg pr-3",
     leftSliderIcon: "fa-meh",
     rightSliderIcon: "fa-smile",
-    minSliderVal: "0",
-    maxSliderVal: "100",
-    curSliderVal: "50",
+    minSliderVal: "29",
+    maxSliderVal: "73",
+    curSliderVal: "57",
     sliderEnabled: true,
     prefLink: "",
     infoText: ""
@@ -176,7 +181,7 @@ Controller.prototype.createPreferencesMain = function() {
     img: "assets/img/politics-flags.jpg",
     titleText: "Political Affiliation",
     switchId: "switch-political-affiliation",
-    sliderId: "slider-political-affiliation",
+    sliderId: "slider-politics",
     iconClass: "fas fa-lg pr-3",
     leftSliderIcon: "fa-democrat blue-text",
     rightSliderIcon: "fa-republican red-text",
@@ -198,9 +203,9 @@ Controller.prototype.createPreferencesMain = function() {
     iconClass: "fas fa-md pr-3",
     leftSliderIcon: "fa-dollar-sign",
     rightSliderIcon: "fa-dollar-sign",
-    minSliderVal: "0",
-    maxSliderVal: "100",
-    curSliderVal: "50",
+    minSliderVal: "82500",
+    maxSliderVal: "927400",
+    curSliderVal: "496501",
     sliderEnabled: true,
     prefLink: "",
     infoText: ""
@@ -348,8 +353,28 @@ Controller.prototype.getPreferencesSliderHappinessCB = function() {
   let that = this;
   function innerCB(event) {
     let value = $(this)[0].value;
-    // that.userPrefs.happiness = value;
+    that.userPrefs.happiness = value;
     console.log("happiness value = ", value);
+  }
+  return innerCB;
+};
+
+Controller.prototype.getPreferencesSliderPoliticsCB = function() {
+  let that = this;
+  function innerCB(event) {
+    let value = $(this)[0].value;
+    that.userPrefs.politics = value;
+    console.log("politics value = ", value);
+  }
+  return innerCB;
+};
+
+Controller.prototype.getPreferencesSliderAffordabilityCB = function() {
+  let that = this;
+  function innerCB(event) {
+    let value = $(this)[0].value;
+    that.userPrefs.affordability = value;
+    console.log("affordability value = ", value);
   }
   return innerCB;
 };
