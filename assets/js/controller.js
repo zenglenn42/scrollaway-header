@@ -433,6 +433,10 @@ Controller.prototype.createPreferencesTextinputCard = function(prefParams) {
 //-----------------------------------//
 
 Controller.prototype.createResultsBody = function createResultsBody() {
+  // Pass this json to the model to get back ranked cities.
+  console.log("pass this preference data to the model");
+  console.log(this.userPrefs);
+
   let bodyDiv = document.getElementById(this.bodyDivId);
   $(bodyDiv).empty();
 
@@ -526,7 +530,7 @@ Controller.prototype.createResultsMain = function() {
 Controller.prototype.createResultsCityCard = function(cityParams) {
   p = document.createElement("div");
   id = cityParams.titleText.toLowerCase().replace(" ", "-");
-  console.log(id);
+  // console.log(id);
 
   $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
   $(p).html(`
@@ -558,7 +562,7 @@ Controller.prototype.createResultsCityCard = function(cityParams) {
 Controller.prototype.createResultsMonetizeCard = function(params) {
   p = document.createElement("div");
   id = params.titleText.toLowerCase().replace(" ", "-");
-  console.log(id);
+  // console.log(id);
 
   $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
   $(p).html(`
@@ -628,7 +632,6 @@ Controller.prototype.createResultsFooter = function(fabIcon) {
 
 Controller.prototype.getNextButtonCB = function(createBodyFn) {
   function innerFunction() {
-    console.log("innerFunction: click");
     createBodyFn();
   }
   return innerFunction;
