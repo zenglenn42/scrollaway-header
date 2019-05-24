@@ -243,6 +243,11 @@ function createCityCard(cityParams) {
       <div class="mdl-card__supporting-text">
         City stats ...
       </div>
+      <div class="mdl-card__menu">
+        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+          <i class="material-icons">share</i>
+        </button>
+      </div>
     </div>
   `);
   return p;
@@ -496,11 +501,13 @@ function createSliderPrefCard(prefParams, isEnabled) {
           ${rightIconHTML}
         </div>
       </div>
+      <div class="mdl-card__menu">
+      </div>
     </div>
   `);
   let mdlSwitch = createMDLSwitch(id, prefParams.sliderEnabled);
-  let supportingText = p.getElementsByClassName("mdl-card__supporting-text")[0];
-  supportingText.appendChild(mdlSwitch);
+  let cardMenu = p.getElementsByClassName("mdl-card__menu")[0];
+  cardMenu.appendChild(mdlSwitch);
   return p;
 }
 
@@ -550,11 +557,13 @@ function createTextPrefCard(prefParams) {
           />
         </div>
       </div>
+      <div class="mdl-card__menu">
+      </div>
     </div>
   `);
   let mdlSwitch = createMDLSwitch(id, prefParams.sliderEnabled);
-  let supportingText = p.getElementsByClassName("mdl-card__supporting-text")[0];
-  supportingText.appendChild(mdlSwitch);
+  let cardMenu = p.getElementsByClassName("mdl-card__menu")[0];
+  cardMenu.appendChild(mdlSwitch);
   return p;
 }
 
