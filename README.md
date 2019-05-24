@@ -391,7 +391,7 @@ Photo by Pixabay
 
 ## Clean and DRY
 
-Man, I need to clean up around here. Controller code is coming along nicely but a bunch of it is hanging outside the controller object itself. In the process I make the code a bit more DRY by generalizing the callbacks for the 'next' button. I also standardize the method naming to be a bit more BEM-like (crazy, I know).
+Man, I need to clean up around here. Controller code is coming along nicely but a bunch of it is hanging outside the controller object itself. In the process I make the code a bit more DRY by generalizing the callbacks for the 'next' button. I also kill some duplicate code for generating the nav bar. I also standardize the method naming to be a bit more BEM-like (crazy, I know).
 
 ![alt](docs/img/clothes-line.jpg)
 Photo by Mali Maeder
