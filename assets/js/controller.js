@@ -525,12 +525,12 @@ function createSliderPrefCard(prefParams, isEnabled) {
 
 function getHappinessSliderCallback() {
   let that = this;
-  function hapSliderChange(event) {
+  function innerCB(event) {
     let value = $(this)[0].value;
     // that.userPrefs.happiness = value;
     console.log("happiness value = ", value);
   }
-  return hapSliderChange;
+  return innerCB;
 }
 
 function getSliderPrefEnableCallback() {
