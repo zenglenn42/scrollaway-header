@@ -437,5 +437,6 @@ But when I get to mobile and try actually hitting the deployed site, I sense a d
 1. The fab button is too small on mobile.
 2. The fab button is too dark. I totally need to get the teal thing going.
 3. The sliders are /hard/ to work-with. They are just too small on mobile and I get no sense of state change as I move the thumb element left or right. I mean, I love the sliders, but really. Where is my CSS light sabre.
+4. Oh, and I really need to add back monetization cards in the results.
 
 Lunch has arrived so I'll have to defer my rant.
