@@ -682,7 +682,7 @@ Controller.prototype.createFooter = function(fabIcon) {
     <div class="mdl-mini-footer__left-section"><span class="copyright-text">
       <i class="material-icons footer-icons">location_city</i>
       <i class="material-icons footer-icons">favorite</i>
-      <span class="copyright-text">Match Industries &copy; 2019</span>
+      <span class="copyright-text">City Match &copy; 2019</span>
     </div>
   `);
   return f;
