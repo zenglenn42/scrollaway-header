@@ -409,6 +409,7 @@ I'm also now listening to slider change events. And now the controller can serve
 ## Wire-up the Backend
 
 ![alt](docs/img/celebrate.jpg)
+Photo by ViTalko
 
 After a flurry of coding, the model is now talking to the controller. (-;
 
