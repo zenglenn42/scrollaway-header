@@ -435,8 +435,9 @@ Two hours ago, I was flush with exhilaration to see city cards with actual image
 But when I get to mobile and try actually hitting the deployed site, I sense a disturbance in the force. This is /not/ acceptable for someone of my [midi-chlorian](https://starwars.fandom.com/wiki/Midi-chlorian) level. Here's what bugs me:
 
 1. The fab button is too small on mobile.
-2. The fab button is too dark. I totally need to get the teal thing going.
-3. The sliders are /hard/ to work-with. They are just too small on mobile and I get no sense of state change as I move the thumb element left or right. I mean, I love the sliders, but really. Where is my CSS light sabre.
-4. Oh, and I really need to add back monetization cards in the results.
+2. The view-format buttons need to be spread more.
+3. The fab button is too dark. I totally need to get the teal thing going.
+4. The sliders are /hard/ to work-with. They are just too small on mobile and I get no sense of state change as I move the thumb element left or right. I mean, I love the sliders, but really. Where is my CSS light sabre.
+5. Oh, and I really need to add back monetization cards in the results.
 
 Lunch has arrived so I'll have to defer my rant.
