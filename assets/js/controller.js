@@ -1,10 +1,18 @@
 function Controller(bodyDivId) {
+  this.cr = new Model();
   this.bodyDivId = bodyDivId;
+  this.rankedList = [];
   this.userPrefs = {
     happiness: this.happinessValue,
     affordability: this.affordabilityValue,
     politics: this.politicsValue
   };
+  this.formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0
+  });
+  // this.writeResults = this.getWriteResultsCallback();
   this.createLandingBody();
 }
 // TODO: Derive midpoint values from data (especially for affordability).
@@ -433,10 +441,6 @@ Controller.prototype.createPreferencesTextinputCard = function(prefParams) {
 //-----------------------------------//
 
 Controller.prototype.createResultsBody = function createResultsBody() {
-  // Pass this json to the model to get back ranked cities.
-  console.log("pass this preference data to the model");
-  console.log(this.userPrefs);
-
   let bodyDiv = document.getElementById(this.bodyDivId);
   $(bodyDiv).empty();
 
@@ -472,69 +476,60 @@ Controller.prototype.createResultsMain = function() {
   g = document.createElement("div");
   $(g).addClass("mdl-grid theGrid");
   $(m).append(g);
+  this.rankedList = this.cr.cityRank(this.userPrefs);
+  this.rankedList.length = 10;
+  let rank = 1;
 
-  let cityParams = {
-    img: "https://placehold.it/300x150",
-    titleText: "Seattle",
-    happiness: 50,
-    politics: 25,
-    affordability: 34,
-    jobOutlook: 5
-  };
-  let c = this.createResultsCityCard(cityParams);
-  $(g).append(c);
-
-  cityParams = {
-    img: "https://placehold.it/300x150",
-    titleText: "Boston",
-    happiness: 50,
-    politics: 25,
-    affordability: 34,
-    jobOutlook: 5
-  };
-  c = this.createResultsCityCard(cityParams);
-  $(g).append(c);
-
-  let monetizationParams = {
-    img: "assets/img/monetize.jpg",
-    titleText: "Monetize here",
-    supportingText: "Advertise your move-related service here."
-  };
-  let monetize = this.createResultsMonetizeCard(monetizationParams);
-  $(g).append(monetize);
-
-  cityParams = {
-    img: "https://placehold.it/300x150",
-    titleText: "Austin",
-    happiness: 50,
-    politics: 25,
-    affordability: 34,
-    jobOutlook: 5
-  };
-  c = this.createResultsCityCard(cityParams);
-  $(g).append(c);
-
-  cityParams = {
-    img: "https://placehold.it/300x150",
-    titleText: "New York",
-    happiness: 50,
-    politics: 25,
-    affordability: 34,
-    jobOutlook: 5
-  };
-  c = this.createResultsCityCard(cityParams);
-  $(g).append(c);
+  this.rankedList.map(cityData => {
+    let cityParams = this.marshallModelData(rank++, cityData);
+    let c = this.createResultsCityCard(cityParams);
+    $(g).append(c);
+  });
   return m;
+};
+
+Controller.prototype.marshallModelData = function(rank, cityData) {
+  let cityParams = {};
+  let cityProperties = Object.values(cityData);
+  console.log(cityProperties[0].img["imgSrc"]);
+  let cityName = Object.keys(cityData)[0];
+  cityParams.rank = rank;
+  if (cityProperties[0].img) {
+    cityParams.img = cityProperties[0].img["imgSrc"];
+  } else {
+    cityParams.img = "https://placehold.it/300x150";
+  }
+  cityParams.titleText = cityName.replace(/['"]+/g, "");
+  cityParams.happiness = cityProperties[0].happiness;
+  cityParams.affordability = cityProperties[0].affordability;
+  cityParams.politics = {
+    demFraction: cityProperties[0].politics.dem16_frac.toFixed(0),
+    repFraction: cityProperties[0].politics.rep16_frac.toFixed(0)
+  };
+  cityParams.jobOutlook = 42;
+  return cityParams;
 };
 
 Controller.prototype.createResultsCityCard = function(cityParams) {
   p = document.createElement("div");
-  id = cityParams.titleText.toLowerCase().replace(" ", "-");
-  // console.log(id);
 
-  $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
+  let donkey =
+    '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>';
+  let elephant =
+    '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>';
+  let politics = `${donkey}${
+    cityParams.politics.demFraction
+  }%  &nbsp; ${elephant}${cityParams.politics.repFraction}%`;
+  let affordability = this.formatter.format(cityParams.affordability);
+  let cityStats = `<p>Civic Happiness:  ${
+    cityParams.happiness
+  }</br> Median Home Price: ${affordability}</br> ${politics}</p>`;
+
+  // &nbsp;<i class="material-icons">link</i>
+  // preference-card-square
+  $(p).addClass("mdl-cell results-cell mdl-cell--3-col");
   $(p).html(`
-    <div class="preference-card-square mdl-card mdl-shadow--3dp">
+    <div class="results-card mdl-card mdl-shadow--3dp">
       <div
         class="mdl-card__title mdl-card--expand"
         style="background: url('${cityParams.img}') top/cover"
@@ -543,11 +538,11 @@ Controller.prototype.createResultsCityCard = function(cityParams) {
           class="mdl-card__title-text"
           style="padding: 0 0.2em; border-radius: 0.2em; background-color: rgba(6,6,6,0.6)"
         >
-          ${cityParams.titleText} &nbsp;<i class="material-icons">link</i>
+          ${cityParams.rank}. ${cityParams.titleText}
         </h2>
       </div>
       <div class="mdl-card__supporting-text">
-        City stats ...
+        ${cityStats}
       </div>
       <div class="mdl-card__menu">
         <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -561,9 +556,6 @@ Controller.prototype.createResultsCityCard = function(cityParams) {
 
 Controller.prototype.createResultsMonetizeCard = function(params) {
   p = document.createElement("div");
-  id = params.titleText.toLowerCase().replace(" ", "-");
-  // console.log(id);
-
   $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
   $(p).html(`
     <div class="preference-card-square mdl-card mdl-shadow--3dp">
@@ -630,7 +622,40 @@ Controller.prototype.createResultsFooter = function(fabIcon) {
   return f;
 };
 
+Controller.prototype.getWriteResultsCallback = function() {
+  let that = this;
+  function innerWriteResults() {
+    const formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0
+    });
+
+    // $("#ranked-container").empty();
+    for (var i = 0; i < that.rankedList.length; i++) {
+      var cityProperties = Object.values(that.rankedList[i]);
+      var cityName = Object.keys(that.rankedList[i])[0];
+      var cityHappiness = cityProperties[0].happiness;
+      var demFraction = cityProperties[0].politics.dem16_frac.toFixed(0);
+      var repFraction = cityProperties[0].politics.rep16_frac.toFixed(0);
+      var donkey =
+        '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>';
+      var elephant =
+        '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>';
+      var politics = `${donkey}${demFraction}%  &nbsp; ${elephant}${repFraction}%`;
+      var cityAfford = formatter.format(cityProperties[0].affordability);
+      var newRow = $(
+        `<p> ${i +
+          1}. ${cityName} </br> Civic Happiness:  ${cityHappiness} </br> Median Home Price:  ${cityAfford} </br> ${politics}</p>`
+      );
+      // $("#ranked-container").append(newRow);
+    }
+  }
+  return innerWriteResults;
+};
+
 Controller.prototype.getNextButtonCB = function(createBodyFn) {
+  let that = this;
   function innerFunction() {
     createBodyFn();
   }

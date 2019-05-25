@@ -40,6 +40,11 @@
   width: 100%;
 }
 
+.results-card.mdl-card {
+  min-height: 23.125em;
+  width: 17.313em;
+}
+
 .mdl-grid {
   /* The mystical key to allowing pref cards
      to disappear before they hit the footer. */
