@@ -422,3 +422,20 @@ After a flurry of [coding](https://github.com/zenglenn42/CityMatch/commit/d5b367
 ![alt](docs/img/celebrate-results.png)
 
 I still need to make model-ranking ignore disabled preferences (and maybe add a modal for requiring at least one specified preference). For now, the model data is simply static and enhanced from City Rank (which was more ajaxy and leveraged firebase to standup a data endpoint).
+
+## Usability Reality Check
+
+Software is hard.
+
+![alt](docs/img/ui-reality-check.jpg)
+Photo by Nathan Cowley
+
+Two hours ago, I was flush with exhilaration to see city cards with actual images pop-up in my swank-ified dev environment.
+
+But when I get to mobile and try actually hitting the deployed site, I sense a disturbance in the force. This is /not/ acceptable for a jedi of my [midi-chlorian](https://starwars.fandom.com/wiki/Midi-chlorian) level. Here's what bugs me:
+
+1. The fab button is too small on mobile.
+2. The fab button is too dark. I totally need to get the teal thing going.
+3. The sliders are /hard/ to work-with. They are just too small on mobile and I get no sense of state change as I move the thumb element left or right. I mean I love the sliders, but really. Will the CSS light-sabre responde to my desire?
+
+Lunch has arrived so I'll have to defer my rant.
