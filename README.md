@@ -405,3 +405,11 @@ I also move the preference on-off switch into the image area to minimize fat-fin
 I'm also now listening to slider change events. And now the controller can serve up preference json to the backend:
 
 ![alt](docs/img/controller-works.png)
+
+## Wire-up the Backend
+
+![alt](docs/img/celebrate.jpg)
+
+After a flurry of coding, the model is now talking to the controller. (-;
+
+![alt](docs/img/celebrate-results.png)
