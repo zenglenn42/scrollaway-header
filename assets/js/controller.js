@@ -490,7 +490,7 @@ Controller.prototype.createResultsMain = function() {
 Controller.prototype.marshallModelData = function(rank, cityData) {
   let cityParams = {};
   let cityProperties = Object.values(cityData);
-  console.log(cityProperties[0].img["imgSrc"]);
+  // console.log(cityProperties[0].img["imgSrc"]);
   let cityName = Object.keys(cityData)[0];
   cityParams.rank = rank;
   if (cityProperties[0].img) {
