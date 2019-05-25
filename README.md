@@ -411,7 +411,7 @@ I'm also now listening to slider change events. And now the controller can serve
 ![alt](docs/img/celebrate.jpg)
 Photo by ViTalko
 
-After a flurry of [coding](https://github.com/zenglenn42/CityMatch/commit/d5b36711abf409913104c944c7140630607c10b1) and [debugging], the model is now ranking cities for the controller. (-;
+After a flurry of [coding](https://github.com/zenglenn42/CityMatch/commit/d5b36711abf409913104c944c7140630607c10b1) and [debugging](https://github.com/zenglenn42/CityMatch/commit/a63ceae5b5822fd28110ec308967a543fac4a84a), the model is now ranking cities for the controller. (-;
 
 ![alt](docs/img/celebrate-results.png)
 
