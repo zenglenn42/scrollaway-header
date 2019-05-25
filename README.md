@@ -414,3 +414,5 @@ Photo by ViTalko
 After a flurry of [coding](https://github.com/zenglenn42/CityMatch/commit/d5b36711abf409913104c944c7140630607c10b1), the model is now talking to the controller. (-;
 
 ![alt](docs/img/celebrate-results.png)
+
+I still need to make model-ranking ignore disabled preferences (and maybe add a modal for requiring at least one preference be specified). For now, the model data is simply static and enhanced from City Rank (which was more ajaxy and leveraged firebase to standup a data endpoint).
