@@ -15,8 +15,8 @@ function Controller(bodyDivId) {
   this.createLandingBody();
 }
 // TODO: Derive midpoint values from data (especially for affordability).
-Controller.prototype.affordabilityValue = 496501; // mid-point of median home price range
-Controller.prototype.happinessValue = 57; // mid-point on 100 point scale
+Controller.prototype.affordabilityValue = 504950; // mid-point of median home price range
+Controller.prototype.happinessValue = 51; // mid-point on 100 point scale
 Controller.prototype.politicsValue = { rep16_frac: 50, dem16_frac: 50 };
 
 Controller.prototype.createHeader = function(title, rightNavIcon) {
@@ -176,7 +176,7 @@ Controller.prototype.createPreferencesMain = function() {
     rightSliderIcon: "fa-smile",
     minSliderVal: "29",
     maxSliderVal: "73",
-    curSliderVal: "57",
+    curSliderVal: this.userPrefs.happiness,
     sliderEnabled: true,
     prefLink: "",
     infoText: ""
@@ -184,6 +184,7 @@ Controller.prototype.createPreferencesMain = function() {
   let c = this.createPreferencesSliderCard(prefParams);
   $(g).append(c);
 
+  let curPoliticsVal = this.userPrefs.politics.rep16_frac;
   prefParams = {
     img: "assets/img/politics-flags.jpg",
     titleText: "Political Affiliation",
@@ -194,7 +195,7 @@ Controller.prototype.createPreferencesMain = function() {
     rightSliderIcon: "fa-republican red-text",
     minSliderVal: "0",
     maxSliderVal: "100",
-    curSliderVal: "50",
+    curSliderVal: `${curPoliticsVal}`,
     sliderEnabled: true,
     prefLink: "",
     infoText: ""
@@ -212,7 +213,7 @@ Controller.prototype.createPreferencesMain = function() {
     rightSliderIcon: "fa-dollar-sign",
     minSliderVal: "82500",
     maxSliderVal: "927400",
-    curSliderVal: "496501",
+    curSliderVal: this.userPrefs.affordability,
     sliderEnabled: true,
     prefLink: "",
     infoText: ""
@@ -366,11 +367,22 @@ Controller.prototype.getPreferencesSliderHappinessCB = function() {
   return innerCB;
 };
 
+Controller.prototype.setPreferenceSliderHappiness = function(value) {
+  let slider = document.getElementById("slider-happiness");
+  slider.value = value;
+};
+
 Controller.prototype.getPreferencesSliderPoliticsCB = function() {
   let that = this;
   function innerCB(event) {
     let value = $(this)[0].value;
-    that.userPrefs.politics = value;
+    // document.getElementById("pol-slider-status").innerHTML = value;
+    let republicanVal = Number(value);
+    let democratVal = 100 - republicanVal;
+    that.userPrefs.politics = {
+      rep16_frac: republicanVal,
+      dem16_frac: democratVal
+    };
     console.log("politics value = ", value);
   }
   return innerCB;
