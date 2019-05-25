@@ -4,6 +4,12 @@
 
 Find your city.
 
+# Release 0.9 (MVP)
+
+Not all the buttons and menus are wired up, but basic city ranking and reporting work.
+
+![alt](docs/img/cm-mvp-screenshot.png)
+
 # Designer's Log
 
 ![alt](docs/img/oasis.png)
