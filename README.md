@@ -436,7 +436,7 @@ But when I get to mobile and try actually hitting the deployed site, I sense a d
 
 1. The fab button is [too small](https://github.com/zenglenn42/CityMatch/commit/c47c793f1bc206acfb27906d22ca4f026ab79bf4) on mobile.
 2. The view-format buttons need to be [spread more](https://github.com/zenglenn42/CityMatch/commit/c47c793f1bc206acfb27906d22ca4f026ab79bf4).
-3. The fab button is too dark. I totally need to get the teal thing going.
+3. The fab button is too dark. I totally need to get the [teal](https://github.com/zenglenn42/CityMatch/commit/8af03b872a68c2a3d73c838bca398ced27caca65) thing going.
 4. The sliders are /hard/ to work-with. They are just too small on mobile and I get no sense of state change as I move the thumb element left or right. I mean, I love the sliders, but really. Where is my CSS light sabre?
 5. Oh, and I really need to add back monetization cards in the results.
 
