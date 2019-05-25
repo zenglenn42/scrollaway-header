@@ -40,6 +40,10 @@
   width: 100%;
 }
 
+.mdl-slider__container {
+  width: 17.5em;
+}
+
 .results-card.mdl-card {
   min-height: 23.125em;
   width: 17.313em;
