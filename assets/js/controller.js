@@ -12,7 +12,6 @@ function Controller(bodyDivId) {
     currency: "USD",
     minimumFractionDigits: 0
   });
-  // this.writeResults = this.getWriteResultsCallback();
   this.createLandingBody();
 }
 // TODO: Derive midpoint values from data (especially for affordability).
@@ -620,38 +619,6 @@ Controller.prototype.createResultsFooter = function(fabIcon) {
       </div>
   `);
   return f;
-};
-
-Controller.prototype.getWriteResultsCallback = function() {
-  let that = this;
-  function innerWriteResults() {
-    const formatter = new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 0
-    });
-
-    // $("#ranked-container").empty();
-    for (var i = 0; i < that.rankedList.length; i++) {
-      var cityProperties = Object.values(that.rankedList[i]);
-      var cityName = Object.keys(that.rankedList[i])[0];
-      var cityHappiness = cityProperties[0].happiness;
-      var demFraction = cityProperties[0].politics.dem16_frac.toFixed(0);
-      var repFraction = cityProperties[0].politics.rep16_frac.toFixed(0);
-      var donkey =
-        '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>';
-      var elephant =
-        '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>';
-      var politics = `${donkey}${demFraction}%  &nbsp; ${elephant}${repFraction}%`;
-      var cityAfford = formatter.format(cityProperties[0].affordability);
-      var newRow = $(
-        `<p> ${i +
-          1}. ${cityName} </br> Civic Happiness:  ${cityHappiness} </br> Median Home Price:  ${cityAfford} </br> ${politics}</p>`
-      );
-      // $("#ranked-container").append(newRow);
-    }
-  }
-  return innerWriteResults;
 };
 
 Controller.prototype.getNextButtonCB = function(createBodyFn) {
