@@ -415,4 +415,4 @@ After a flurry of [coding](https://github.com/zenglenn42/CityMatch/commit/d5b367
 
 ![alt](docs/img/celebrate-results.png)
 
-I still need to make model-ranking ignore disabled preferences (and maybe add a modal for requiring at least one preference be specified). For now, the model data is simply static and enhanced from City Rank (which was more ajaxy and leveraged firebase to standup a data endpoint).
+I still need to make model-ranking ignore disabled preferences (and maybe add a modal for requiring at least one specified preference). For now, the model data is simply static and enhanced from City Rank (which was more ajaxy and leveraged firebase to standup a data endpoint).
