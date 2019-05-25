@@ -432,10 +432,10 @@ Photo by Nathan Cowley
 
 Two hours ago, I was flush with exhilaration to see city cards with actual images pop-up in my swank-ified dev environment.
 
-But when I get to mobile and try actually hitting the deployed site, I sense a disturbance in the force. This is /not/ acceptable for a jedi of my [midi-chlorian](https://starwars.fandom.com/wiki/Midi-chlorian) level. Here's what bugs me:
+But when I get to mobile and try actually hitting the deployed site, I sense a disturbance in the force. This is /not/ acceptable for someone of my [midi-chlorian](https://starwars.fandom.com/wiki/Midi-chlorian) level. Here's what bugs me:
 
 1. The fab button is too small on mobile.
 2. The fab button is too dark. I totally need to get the teal thing going.
-3. The sliders are /hard/ to work-with. They are just too small on mobile and I get no sense of state change as I move the thumb element left or right. I mean I love the sliders, but really. Will the CSS light-sabre responde to my desire?
+3. The sliders are /hard/ to work-with. They are just too small on mobile and I get no sense of state change as I move the thumb element left or right. I mean, I love the sliders, but really. Where is my CSS light sabre.
 
 Lunch has arrived so I'll have to defer my rant.
