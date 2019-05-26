@@ -455,3 +455,19 @@ Ok, feeling much better about the state of things.
 ![alt](docs/img/waterfall.jpg)
 
 It has been a /very/ good day.
+
+## Ignoring Disabled Preferences
+
+Now that the app is looking more polished, it's getting a lot more testing and visibility from friends and family. One discerning tester understood the intent behind the preference card 'light' switch and tried disabling all the preferences and still got results.
+
+I confess that feature is only implemented on the front-end. With this commit, I make it work for the backend ranking algorithm too.
+
+Here we only enable 'civic happiness' and Plano, Texas rises to the top (as expected according to the underlying data we're using).
+
+![alt](docs/img/pref-subset.png)
+
+For now, if all preferences are disabled, they still advance to the results page, but get a nice message:
+
+![alt](docs/img/pref-none.png)
+
+I may tweak with the usability around this, but it's good enough to ship.
