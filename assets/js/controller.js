@@ -202,6 +202,7 @@ Controller.prototype.createPreferencesMain = function() {
     id: "happiness",
     switchId: `${this.switchHappinessId}`,
     sliderId: `${this.sliderHappinessId}`,
+    sliderContainerId: `${this.sliderHappinessId}-container`,
     iconClass: "far fa-lg pr-3",
     leftSliderIcon: "fa-meh",
     rightSliderIcon: "fa-smile",
@@ -221,6 +222,7 @@ Controller.prototype.createPreferencesMain = function() {
     titleText: "Political Affiliation",
     switchId: `${this.switchPoliticsId}`,
     sliderId: `${this.sliderPoliticsId}`,
+    sliderContainerId: `${this.sliderPoliticsId}-container`,
     iconClass: "fas fa-lg pr-3",
     leftSliderIcon: "fa-democrat blue-text",
     rightSliderIcon: "fa-republican red-text",
@@ -239,6 +241,7 @@ Controller.prototype.createPreferencesMain = function() {
     titleText: "Affordability",
     switchId: `${this.switchAffordabilityId}`,
     sliderId: `${this.sliderAffordabilityId}`,
+    sliderContainerId: `${this.sliderAffordabilityId}-container`,
     iconClass: "fas fa-md pr-3",
     leftSliderIcon: "fa-dollar-sign",
     rightSliderIcon: "fa-dollar-sign",
@@ -315,7 +318,7 @@ Controller.prototype.createPreferencesSliderCard = function(
         </h2>
       </div>
       <div class="mdl-card__supporting-text">
-        <div class="mdl-slider__container">
+        <div id=${prefParams.sliderContainerId} class="mdl-slider__container">
           <i class="${prefParams.iconClass} ${prefParams.leftSliderIcon}"
             aria-hidden="true">
           </i>
