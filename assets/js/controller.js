@@ -41,6 +41,8 @@ Controller.prototype.sliderAffordabilityId = "slider-affordability";
 Controller.prototype.switchJobSearchEnabledDefault = false;
 Controller.prototype.switchJobSearchId = "switch-jobsearch";
 Controller.prototype.maxResults = 10;
+Controller.prototype.githubUrl =
+  "https://github.com/zenglenn42/CityMatch/blob/master/README.md";
 
 Controller.prototype.createHeader = function(title, rightNavIcon) {
   h = document.createElement("header");
@@ -828,6 +830,13 @@ Controller.prototype.createFooter = function(fabIcon) {
       <i class="material-icons footer-icons">location_city</i>
       <i class="material-icons footer-icons">favorite</i>
       <span class="copyright-text">City Match &copy; 2019</span>
+    </div>
+    <div class="mdl-mini-footer__right-section">
+      <a href="${this.githubUrl}" target="_blank">
+        <button id="button-octocat" data-nextpage="preferences" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+          <i id="icon-octocat" class="fab fa-github-square" aria-hidden="true"></i>
+        </button>
+      </a>
     </div>
   `);
   return f;
