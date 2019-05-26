@@ -46,11 +46,6 @@
   padding: 0 0.5em;
 }
 
-.results-card.mdl-card {
-  min-height: 23.125em;
-  width: 17.313em;
-}
-
 /* http://danielstern.ca/range.css/?ref=css-tricks#/ */
 input[type="range"].enhanced-slider {
   -webkit-appearance: none;
@@ -142,6 +137,11 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   background: rgba(18, 33, 49, 0.17);
 }
 
+.results-card.mdl-card {
+  min-height: 23.125em;
+  width: 17.313em;
+}
+
 .mdl-grid {
   /* The mystical key to allowing pref cards
      to disappear before they hit the footer. */
@@ -176,7 +176,7 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 
 .footer-fab {
   position: absolute;
-  bottom: 0.5em;
+  bottom: 0.4em;
   right: calc(50% - 1.3em);
   z-index: 1;
   color: white;
