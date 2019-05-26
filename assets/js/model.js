@@ -437,9 +437,9 @@ function Model() {
         affordability: 223400,
         happiness: 64.51,
         img: {
-          imgAuthor: "",
+          imgAuthor: "economic development plan",
           imgLic: "(CC BY-SA 3.0)",
-          imgSrc: "assets/img/pembroke_pines_fl.jpg"
+          imgSrc: "assets/img/pembroke_pines_fl.png"
         },
         politics: {
           dem16_frac: 66.47197440076225,
