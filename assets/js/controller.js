@@ -491,11 +491,22 @@ Controller.prototype.createResultsMain = function() {
   this.rankedList.length = 10;
   let rank = 1;
 
+  let monetizationPosition1 = 3;
+  let monetizationPosition2 = 8;
   this.rankedList.map(cityData => {
+    if (rank == monetizationPosition1 || rank == monetizationPosition2) {
+      let monetizeParams = {
+        img: "assets/img/monetize.jpg",
+        titleText: "Monetize here $"
+      };
+      let mc = this.createResultsMonetizeCard(monetizeParams);
+      $(g).append(mc);
+    }
     let cityParams = this.marshallModelData(rank++, cityData);
     let c = this.createResultsCityCard(cityParams);
     $(g).append(c);
   });
+
   return m;
 };
 
@@ -572,7 +583,7 @@ Controller.prototype.createResultsMonetizeCard = function(params) {
   p = document.createElement("div");
   $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
   $(p).html(`
-    <div class="preference-card-square mdl-card mdl-shadow--3dp">
+    <div class="results-card mdl-card mdl-shadow--3dp">
       <div
         class="mdl-card__title mdl-card--expand"
         style="background: url('${params.img}') bottom /cover"
