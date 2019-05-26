@@ -101,7 +101,7 @@ Controller.prototype.createLandingMain = function(
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">${titleText}</h2>
       </div>
-      <div class="mdl-card__supporting-text">
+      <div class="mdl-card__supporting-text" style="overflow: scroll">
         <p style="line-height: 1.25em;">${supportText1}</p>
         <p style="line-height: 1.25em;">${supportText2}</p>
       </div>
