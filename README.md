@@ -248,6 +248,8 @@ Ok, that was not bad at all. My HTML is [dynamic](https://github.com/zenglenn42/
   </body>
 ```
 
+I'm getting an intuitive sense of how libraries like React emerge given aggregation of markup and behavior in the controller now.
+
 Now I need to wire up the buttons.
 
 But before that, a non-linear thought from a previous conversation wells up.
@@ -484,3 +486,4 @@ I think I'm going to take a break from this for a little bit. When I come back, 
 - [elastic search](https://www.elastic.co/products/elasticsearch)
 - menus
 - job outlook
+- react anyone?
