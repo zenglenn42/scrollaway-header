@@ -41,12 +41,105 @@
 }
 
 .mdl-slider__container {
-  width: 17.5em;
+  /* width: 17.5em; */
+  width: 90%;
+  padding: 0 0.5em;
 }
 
 .results-card.mdl-card {
   min-height: 23.125em;
   width: 17.313em;
+}
+
+/* http://danielstern.ca/range.css/?ref=css-tricks#/ */
+input[type="range"].enhanced-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 11.65px 0;
+}
+input[type="range"].enhanced-slider:focus {
+  outline: none;
+}
+input[type="range"].enhanced-slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 3.7px;
+  cursor: pointer;
+  box-shadow: 1.3px 1.3px 0.2px rgba(0, 0, 0, 0.29),
+    0px 0px 1.3px rgba(13, 13, 13, 0.29);
+  background: rgba(7, 13, 19, 0.17);
+  border-radius: 3.6px;
+  border: 0.1px solid #010101;
+}
+input[type="range"].enhanced-slider::-webkit-slider-thumb {
+  box-shadow: 1.4px 1.4px 0px #b3adec, 0px 0px 1.4px #c6c2f1;
+  border: 1.4px solid rgba(0, 0, 0, 0);
+  height: 27px;
+  width: 21px;
+  border-radius: 17px;
+  background: #468d90;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -11.75px;
+}
+input[type="range"].enhanced-slider:focus::-webkit-slider-runnable-track {
+  background: rgba(18, 33, 49, 0.17);
+}
+input[type="range"].enhanced-slider::-moz-range-track {
+  width: 100%;
+  height: 3.7px;
+  cursor: pointer;
+  box-shadow: 1.3px 1.3px 0.2px rgba(0, 0, 0, 0.29),
+    0px 0px 1.3px rgba(13, 13, 13, 0.29);
+  background: rgba(7, 13, 19, 0.17);
+  border-radius: 3.6px;
+  border: 0.1px solid #010101;
+}
+input[type="range"].enhanced-slider::-moz-range-thumb {
+  box-shadow: 1.4px 1.4px 0px #b3adec, 0px 0px 1.4px #c6c2f1;
+  border: 1.4px solid rgba(0, 0, 0, 0);
+  height: 27px;
+  width: 21px;
+  border-radius: 17px;
+  background: #468d90;
+  cursor: pointer;
+}
+input[type="range"].enhanced-slider::-ms-track {
+  width: 100%;
+  height: 3.7px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type="range"].enhanced-slider::-ms-fill-lower {
+  background: rgba(0, 0, 0, 0.17);
+  border: 0.1px solid #010101;
+  border-radius: 7.2px;
+  box-shadow: 1.3px 1.3px 0.2px rgba(0, 0, 0, 0.29),
+    0px 0px 1.3px rgba(13, 13, 13, 0.29);
+}
+input[type="range"].enhanced-slider::-ms-fill-upper {
+  background: rgba(7, 13, 19, 0.17);
+  border: 0.1px solid #010101;
+  border-radius: 7.2px;
+  box-shadow: 1.3px 1.3px 0.2px rgba(0, 0, 0, 0.29),
+    0px 0px 1.3px rgba(13, 13, 13, 0.29);
+}
+input[type="range"].enhanced-slider::-ms-thumb {
+  box-shadow: 1.4px 1.4px 0px #b3adec, 0px 0px 1.4px #c6c2f1;
+  border: 1.4px solid rgba(0, 0, 0, 0);
+  height: 27px;
+  width: 21px;
+  border-radius: 17px;
+  background: #468d90;
+  cursor: pointer;
+  height: 3.7px;
+}
+input[type="range"].enhanced-slider:focus::-ms-fill-lower {
+  background: rgba(7, 13, 19, 0.17);
+}
+input[type="range"].enhanced-slider:focus::-ms-fill-upper {
+  background: rgba(18, 33, 49, 0.17);
 }
 
 .mdl-grid {

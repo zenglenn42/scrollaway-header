@@ -290,7 +290,7 @@ Controller.prototype.createPreferencesSliderCard = function(
           </i>
           <input
             id=${prefParams.sliderId}
-            class="mdl-slider mdl-js-slider"
+            class="enhanced-slider mdl-slider mdl-js-slider"
             type="range"
             min=${prefParams.minSliderVal}
             max=${prefParams.maxSliderVal}
