@@ -442,7 +442,7 @@ Photo by Nathan Cowley
 
 Two hours ago, I was flush with exhilaration to see city cards with actual images pop-up in my swank-ified dev environment.
 
-But when I get to mobile and try actually hitting the deployed site, I sense a disturbance in the force. This is /not/ acceptable for someone of my [midi-chlorian](https://starwars.fandom.com/wiki/Midi-chlorian) level. Here's what bugs me:
+But when I get to mobile and try actually hitting the deployed site, I sense a disturbance in the force. This is /not/ acceptable for someone of my [midi-code-drian](https://starwars.fandom.com/wiki/Midi-chlorian) level. Here's what bugs me:
 
 1. The fab button is [too small](https://github.com/zenglenn42/CityMatch/commit/c47c793f1bc206acfb27906d22ca4f026ab79bf4) on mobile.
 2. The view-format buttons need to be [spread out more](https://github.com/zenglenn42/CityMatch/commit/c47c793f1bc206acfb27906d22ca4f026ab79bf4).
