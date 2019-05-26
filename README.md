@@ -440,4 +440,8 @@ But when I get to mobile and try actually hitting the deployed site, I sense a d
 4. The sliders are /hard/ to work-with. They are just too [short](https://github.com/zenglenn42/CityMatch/commit/36792ce6e3a64d5290b3b88bbf68c66197fff831) and small on mobile and I get no sense of state change as I move the [thumb element](https://mdbootstrap.com/support/general/making-the-slider-thumb-more-mobile-friendly/) left or right. I mean, I love the sliders, but really. Where is my [CSS light sabre](https://github.com/zenglenn42/CityMatch/commit/803296dc1d646ccd7166eeaa18ae3ce62e7c84e3)?
 5. Oh, and I really need to [add back monetization cards](https://github.com/zenglenn42/CityMatch/commit/baf8bae83881559fcee6833fa7d2603189cc392f) in the results.
 
-Lunch has arrived so I'll have to defer my rant.
+Ok, feeling much better about the state of things.
+
+![alt](docs/img/waterfall.jpg)
+
+It has be a /very/ good day.
