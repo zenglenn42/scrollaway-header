@@ -374,22 +374,27 @@ Controller.prototype.createSlideSwitchListeners = function() {
     let blackWhiteImg = "";
     let switchId = $(this).attr("id");
     if ($(this).is(":checked")) {
-      switch (switchId) {
-        case that.switchHappinessId:
-          that.userPrefs.happinessEnabled = true;
-          break;
-        case that.switchAffordabilityId:
-          that.userPrefs.affordabilityEnabled = true;
-          break;
-        case that.switchPoliticsId:
-          that.userPrefs.politicsEnabled = true;
-          break;
-        case that.switchJobSearchId:
-          that.userPrefs.jobSearchEnabled = true;
-          break;
+      // Ignore the Job Outlook slide switch until I implement this feature.
+      if (switchId == that.switchJobSearchId) {
+        blackWhiteImg = "grayscale(100%)";
+      } else {
+        switch (switchId) {
+          case that.switchHappinessId:
+            that.userPrefs.happinessEnabled = true;
+            break;
+          case that.switchAffordabilityId:
+            that.userPrefs.affordabilityEnabled = true;
+            break;
+          case that.switchPoliticsId:
+            that.userPrefs.politicsEnabled = true;
+            break;
+          // case that.switchJobSearchId:
+          //   that.userPrefs.jobSearchEnabled = true;
+          //   break;
+        }
+        // console.log("checked");
+        blackWhiteImg = "grayscale(0%)";
       }
-      // console.log("checked");
-      blackWhiteImg = "grayscale(0%)";
     } else {
       switch (switchId) {
         case that.switchHappinessId:
