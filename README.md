@@ -10,6 +10,16 @@ Not all the buttons and menus are wired up, but basic city ranking and reporting
 
 ![alt](docs/img/cm-mvp-screenshot.png)
 
+## Value Proposition
+
+### User Value
+
+Big-data can expand our awareness and help us find that viable place where we'll feel most enabled and at home given our resources.
+
+### Monetary Value
+
+Co-branding and demographic-driven advertising opportunities exist that would appeal to property management, real estate, and moving companies. Major regional employers and educational institutions could also find value in serving advertisements to prospective job-seekers and aspirational students looking to locate to an area.
+
 # Designer's Log
 
 ![alt](docs/img/oasis.png)
