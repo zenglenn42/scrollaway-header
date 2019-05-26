@@ -68,7 +68,7 @@ input[type="range"].enhanced-slider::-webkit-slider-runnable-track {
     0px 0px 1.3px rgba(13, 13, 13, 0.29);
   background: rgba(7, 13, 19, 0.17);
   border-radius: 3.6px;
-  border: 0.1px solid #010101;
+  border: 0px solid #010101;
 }
 input[type="range"].enhanced-slider::-webkit-slider-thumb {
   box-shadow: 1.4px 1.4px 0px #b3adec, 0px 0px 1.4px #c6c2f1;
@@ -76,10 +76,10 @@ input[type="range"].enhanced-slider::-webkit-slider-thumb {
   height: 27px;
   width: 21px;
   border-radius: 17px;
-  background: #468d90;
+  background: #467ee2;
   cursor: pointer;
   -webkit-appearance: none;
-  margin-top: -11.75px;
+  margin-top: -11.65px;
 }
 input[type="range"].enhanced-slider:focus::-webkit-slider-runnable-track {
   background: rgba(18, 33, 49, 0.17);
@@ -92,7 +92,7 @@ input[type="range"].enhanced-slider::-moz-range-track {
     0px 0px 1.3px rgba(13, 13, 13, 0.29);
   background: rgba(7, 13, 19, 0.17);
   border-radius: 3.6px;
-  border: 0.1px solid #010101;
+  border: 0px solid #010101;
 }
 input[type="range"].enhanced-slider::-moz-range-thumb {
   box-shadow: 1.4px 1.4px 0px #b3adec, 0px 0px 1.4px #c6c2f1;
@@ -100,7 +100,7 @@ input[type="range"].enhanced-slider::-moz-range-thumb {
   height: 27px;
   width: 21px;
   border-radius: 17px;
-  background: #468d90;
+  background: #467ee2;
   cursor: pointer;
 }
 input[type="range"].enhanced-slider::-ms-track {
@@ -113,14 +113,14 @@ input[type="range"].enhanced-slider::-ms-track {
 }
 input[type="range"].enhanced-slider::-ms-fill-lower {
   background: rgba(0, 0, 0, 0.17);
-  border: 0.1px solid #010101;
+  border: 0px solid #010101;
   border-radius: 7.2px;
   box-shadow: 1.3px 1.3px 0.2px rgba(0, 0, 0, 0.29),
     0px 0px 1.3px rgba(13, 13, 13, 0.29);
 }
 input[type="range"].enhanced-slider::-ms-fill-upper {
   background: rgba(7, 13, 19, 0.17);
-  border: 0.1px solid #010101;
+  border: 0px solid #010101;
   border-radius: 7.2px;
   box-shadow: 1.3px 1.3px 0.2px rgba(0, 0, 0, 0.29),
     0px 0px 1.3px rgba(13, 13, 13, 0.29);
@@ -131,7 +131,7 @@ input[type="range"].enhanced-slider::-ms-thumb {
   height: 27px;
   width: 21px;
   border-radius: 17px;
-  background: #468d90;
+  background: #467ee2;
   cursor: pointer;
   height: 3.7px;
 }
