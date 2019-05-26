@@ -552,7 +552,7 @@ Controller.prototype.createResultsMain = function() {
     let noPrefsParams = {
       img: "assets/img/chess-failure.jpg",
       titleText: "No results available.",
-      supportingText: "Please go back and specify one more preferences."
+      supportingText: "Please go back and specify one or more preferences."
     };
     let c = this.createResultsNoPrefsCard(noPrefsParams);
     $(g).append(c);
