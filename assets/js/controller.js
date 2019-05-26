@@ -3,9 +3,16 @@ function Controller(bodyDivId) {
   this.bodyDivId = bodyDivId;
   this.rankedList = [];
   this.userPrefs = {
-    happiness: this.happinessValue,
-    affordability: this.affordabilityValue,
-    politics: this.politicsValue
+    happinessEnabled: this.switchHappinessEnabledDefault,
+    happiness: this.midHappinessValue,
+
+    affordabilityEnabled: this.switchAffordabilityEnabledDefault,
+    affordability: this.midAffordabilityValue,
+
+    politicsEnabled: this.switchPoliticsEnabledDefault,
+    politics: this.midPoliticsValue,
+
+    jobSearchEnabled: this.switchJobSearchEnabledDefault
   };
   this.formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -15,9 +22,25 @@ function Controller(bodyDivId) {
   this.createLandingBody();
 }
 // TODO: Derive midpoint values from data (especially for affordability).
-Controller.prototype.affordabilityValue = 504950; // mid-point of median home price range
-Controller.prototype.happinessValue = 51; // mid-point on 100 point scale
-Controller.prototype.politicsValue = { rep16_frac: 50, dem16_frac: 50 };
+Controller.prototype.midAffordabilityValue = 504950; // mid-point of median home price range
+Controller.prototype.midHappinessValue = "51"; // mid-point on 100 point scale
+Controller.prototype.midPoliticsValue = { rep16_frac: 50, dem16_frac: 50 };
+Controller.prototype.minHappinessValue = "29";
+Controller.prototype.maxHappinessValue = "73";
+Controller.prototype.switchHappinessEnabledDefault = true;
+Controller.prototype.switchHappinessId = "switch-happiness";
+Controller.prototype.sliderHappinessId = "slider-happiness";
+Controller.prototype.switchPoliticsEnabledDefault = true;
+Controller.prototype.switchPoliticsId = "switch-political-affiliation";
+Controller.prototype.sliderPoliticsId = "slider-politics";
+Controller.prototype.minAffordabilityValue = "82500";
+Controller.prototype.maxAffordabilityValue = "927400";
+Controller.prototype.switchAffordabilityEnabledDefault = true;
+Controller.prototype.switchAffordabilityId = "switch-affordability";
+Controller.prototype.sliderAffordabilityId = "slider-affordability";
+Controller.prototype.switchJobSearchEnabledDefault = false;
+Controller.prototype.switchJobSearchId = "switch-jobsearch";
+Controller.prototype.maxResults = 10;
 
 Controller.prototype.createHeader = function(title, rightNavIcon) {
   h = document.createElement("header");
@@ -149,9 +172,15 @@ Controller.prototype.createPreferencesBody = function createPreferencesBody() {
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
   componentHandler.upgradeDom();
   this.createSlideSwitchListeners();
-  $("#slider-happiness").on("change", this.getPreferencesSliderHappinessCB());
-  $("#slider-politics").on("change", this.getPreferencesSliderPoliticsCB());
-  $("#slider-affordability").on(
+  $(`#${this.sliderHappinessId}`).on(
+    "change",
+    this.getPreferencesSliderHappinessCB()
+  );
+  $(`#${this.sliderPoliticsId}`).on(
+    "change",
+    this.getPreferencesSliderPoliticsCB()
+  );
+  $(`#${this.sliderAffordabilityId}`).on(
     "change",
     this.getPreferencesSliderAffordabilityCB()
   );
@@ -169,15 +198,15 @@ Controller.prototype.createPreferencesMain = function() {
     img: "assets/img/civic-happiness-sf.jpg",
     titleText: "Civic Happiness",
     id: "happiness",
-    switchId: "switch-happiness",
-    sliderId: "slider-happiness",
+    switchId: `${this.switchHappinessId}`,
+    sliderId: `${this.sliderHappinessId}`,
     iconClass: "far fa-lg pr-3",
     leftSliderIcon: "fa-meh",
     rightSliderIcon: "fa-smile",
-    minSliderVal: "29",
-    maxSliderVal: "73",
+    minSliderVal: this.minHappinessValue,
+    maxSliderVal: this.maxHappinessValue,
     curSliderVal: this.userPrefs.happiness,
-    sliderEnabled: true,
+    sliderEnabled: this.userPrefs.happinessEnabled,
     prefLink: "",
     infoText: ""
   };
@@ -188,15 +217,15 @@ Controller.prototype.createPreferencesMain = function() {
   prefParams = {
     img: "assets/img/politics-flags.jpg",
     titleText: "Political Affiliation",
-    switchId: "switch-political-affiliation",
-    sliderId: "slider-politics",
+    switchId: `${this.switchPoliticsId}`,
+    sliderId: `${this.sliderPoliticsId}`,
     iconClass: "fas fa-lg pr-3",
     leftSliderIcon: "fa-democrat blue-text",
     rightSliderIcon: "fa-republican red-text",
     minSliderVal: "0",
     maxSliderVal: "100",
     curSliderVal: `${curPoliticsVal}`,
-    sliderEnabled: true,
+    sliderEnabled: this.userPrefs.politicsEnabled,
     prefLink: "",
     infoText: ""
   };
@@ -206,15 +235,15 @@ Controller.prototype.createPreferencesMain = function() {
   prefParams = {
     img: "assets/img/affordability-piggybank.jpg",
     titleText: "Affordability",
-    switchId: "switch-affordability",
-    sliderId: "slider-affordability",
+    switchId: `${this.switchAffordabilityId}`,
+    sliderId: `${this.sliderAffordabilityId}`,
     iconClass: "fas fa-md pr-3",
     leftSliderIcon: "fa-dollar-sign",
     rightSliderIcon: "fa-dollar-sign",
-    minSliderVal: "82500",
-    maxSliderVal: "927400",
+    minSliderVal: this.minAffordabilityValue,
+    maxSliderVal: this.maxAffordabilityValue,
     curSliderVal: this.userPrefs.affordability,
-    sliderEnabled: true,
+    sliderEnabled: this.userPrefs.affordabilityEnabled,
     prefLink: "",
     infoText: ""
   };
@@ -223,13 +252,13 @@ Controller.prototype.createPreferencesMain = function() {
 
   prefParams = {
     img: "assets/img/job-search.jpg",
-    switchId: "switch-jobsearch",
+    switchId: `${this.switchJobSearchId}`,
     inputId: "input-jobsearch",
     titleText: "Job Outlook",
     iconClass: "far fa-lg pr-3",
     icon: "fa-user",
     placeHolderText: "Job Title",
-    sliderEnabled: false,
+    sliderEnabled: this.userPrefs.jobSearchEnabled,
     prefLink: "",
     infoText: ""
   };
@@ -341,10 +370,39 @@ Controller.prototype.createSlideSwitchListeners = function() {
   var that = this;
   $(document).on("change", ".mdl-switch__input", function(e) {
     let blackWhiteImg = "";
+    let switchId = $(this).attr("id");
     if ($(this).is(":checked")) {
+      switch (switchId) {
+        case that.switchHappinessId:
+          that.userPrefs.happinessEnabled = true;
+          break;
+        case that.switchAffordabilityId:
+          that.userPrefs.affordabilityEnabled = true;
+          break;
+        case that.switchPoliticsId:
+          that.userPrefs.politicsEnabled = true;
+          break;
+        case that.switchJobSearchId:
+          that.userPrefs.jobSearchEnabled = true;
+          break;
+      }
       // console.log("checked");
       blackWhiteImg = "grayscale(0%)";
     } else {
+      switch (switchId) {
+        case that.switchHappinessId:
+          that.userPrefs.happinessEnabled = false;
+          break;
+        case that.switchAffordabilityId:
+          that.userPrefs.affordabilityEnabled = false;
+          break;
+        case that.switchPoliticsId:
+          that.userPrefs.politicsEnabled = false;
+          break;
+        case that.switchJobSearchId:
+          that.userPrefs.jobSearchEnabled = false;
+          break;
+      }
       // console.log("not checked");
       blackWhiteImg = "grayscale(100%)";
     }
@@ -362,7 +420,7 @@ Controller.prototype.getPreferencesSliderHappinessCB = function() {
   function innerCB(event) {
     let value = $(this)[0].value;
     that.userPrefs.happiness = value;
-    console.log("happiness value = ", value);
+    // console.log("happiness value = ", value);
   }
   return innerCB;
 };
@@ -383,7 +441,7 @@ Controller.prototype.getPreferencesSliderPoliticsCB = function() {
       rep16_frac: republicanVal,
       dem16_frac: democratVal
     };
-    console.log("politics value = ", value);
+    // console.log("politics value = ", value);
   }
   return innerCB;
 };
@@ -393,7 +451,7 @@ Controller.prototype.getPreferencesSliderAffordabilityCB = function() {
   function innerCB(event) {
     let value = $(this)[0].value;
     that.userPrefs.affordability = value;
-    console.log("affordability value = ", value);
+    // console.log("affordability value = ", value);
   }
   return innerCB;
 };
@@ -402,7 +460,9 @@ Controller.prototype.createPreferencesTextinputCard = function(prefParams) {
   p = document.createElement("div");
 
   let blackWhiteImgStyle = "";
-  if (!prefParams.sliderEnabled) {
+  if (prefParams.sliderEnabled) {
+    blackWhiteImg = `filter: grayscale(0%);`;
+  } else {
     blackWhiteImg = `filter: grayscale(100%);`;
   }
 
@@ -487,27 +547,68 @@ Controller.prototype.createResultsMain = function() {
   g = document.createElement("div");
   $(g).addClass("mdl-grid theGrid");
   $(m).append(g);
-  this.rankedList = this.cr.cityRank(this.userPrefs);
-  this.rankedList.length = 10;
-  let rank = 1;
-
-  let monetizationPosition1 = 3;
-  let monetizationPosition2 = 8;
-  this.rankedList.map(cityData => {
-    if (rank == monetizationPosition1 || rank == monetizationPosition2) {
-      let monetizeParams = {
-        img: "assets/img/monetize.jpg",
-        titleText: "Monetize here $"
-      };
-      let mc = this.createResultsMonetizeCard(monetizeParams);
-      $(g).append(mc);
-    }
-    let cityParams = this.marshallModelData(rank++, cityData);
-    let c = this.createResultsCityCard(cityParams);
+  computedUserPrefs = this.getComputedUserPrefs();
+  if (this.noUserPreferences(computedUserPrefs)) {
+    let noPrefsParams = {
+      img: "assets/img/chess-failure.jpg",
+      titleText: "No results available.",
+      supportingText: "Please go back and specify one more preferences."
+    };
+    let c = this.createResultsNoPrefsCard(noPrefsParams);
     $(g).append(c);
-  });
+  } else {
+    this.rankedList = this.cr.cityRank(computedUserPrefs);
+    this.rankedList.length = this.maxResults;
+    let rank = 1;
 
+    let monetizationPosition1 = 3;
+    let monetizationPosition2 = 8;
+    this.rankedList.map(cityData => {
+      if (rank == monetizationPosition1 || rank == monetizationPosition2) {
+        let monetizeParams = {
+          img: "assets/img/monetize.jpg",
+          titleText: "Monetize here $"
+        };
+        let mc = this.createResultsMonetizeCard(monetizeParams);
+        $(g).append(mc);
+      }
+      let cityParams = this.marshallModelData(rank++, cityData);
+      let c = this.createResultsCityCard(cityParams);
+      $(g).append(c);
+    });
+  }
   return m;
+};
+
+Controller.prototype.getComputedUserPrefs = function() {
+  let userPrefs = {};
+  if (this.userPrefs.happinessEnabled) {
+    userPrefs.happiness = parseInt(this.userPrefs.happiness);
+  } else {
+    userPrefs.happiness = NaN;
+  }
+  if (this.userPrefs.affordabilityEnabled) {
+    userPrefs.affordability = parseInt(this.userPrefs.affordability);
+  } else {
+    userPrefs.affordability = NaN;
+  }
+  if (this.userPrefs.politicsEnabled) {
+    userPrefs.politics = this.userPrefs.politics;
+    userPrefs.politics.dem16_frac = parseInt(userPrefs.politics.dem16_frac);
+    userPrefs.politics.rep16_frac = parseInt(userPrefs.politics.rep16_frac);
+  } else {
+    nanPolitics = { rep16_frac: NaN, dem16_frac: NaN };
+    userPrefs.politics = nanPolitics;
+  }
+  return userPrefs;
+};
+
+Controller.prototype.noUserPreferences = function(userPrefs) {
+  return (
+    isNaN(userPrefs.happiness) &&
+    isNaN(userPrefs.affordability) &&
+    isNaN(userPrefs.politics.rep16_frac)
+  );
 };
 
 Controller.prototype.marshallModelData = function(rank, cityData) {
@@ -613,6 +714,35 @@ Controller.prototype.createResultsMonetizeCard = function(params) {
   return p;
 };
 
+Controller.prototype.createResultsNoPrefsCard = function(params) {
+  p = document.createElement("div");
+  $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
+  $(p).html(`
+    <div class="results-card mdl-card mdl-shadow--3dp">
+      <div
+        class="mdl-card__title mdl-card--expand"
+        style="background: url('${params.img}') bottom /cover"
+      >
+        <h2
+          class="mdl-card__title-text"
+          style="padding: 0 0.2em; border-radius: 0.2em; background-color: rgba(6,6,6,0.6)"
+        >
+          ${params.titleText}
+        </h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        <p style="line-height: 1.25em;">${params.supportingText}</p>
+        <!--
+        <div class="mdl-card__menu">
+          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"></button>
+        </div>
+        -->
+      </div>
+    </div>
+  `);
+  return p;
+};
+
 Controller.prototype.createResultsFooter = function(fabIcon) {
   f = document.createElement("footer");
   $(f).addClass("mdl-mini-footer");
@@ -681,6 +811,10 @@ Controller.prototype.createMenuDrawer = function(title, menuItemsArray) {
     $(md).append(html);
   });
   return md;
+};
+
+Controller.prototype.switchIsEnabled = function(switchId) {
+  return document.getElementById(switchId).checked == true;
 };
 
 Controller.prototype.createFooter = function(fabIcon) {

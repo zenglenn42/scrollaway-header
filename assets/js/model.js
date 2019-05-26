@@ -2867,6 +2867,7 @@ Model.prototype.distance = function(v, w) {
   let distance = NaN;
   if (v.length == w.length) {
     for (let i = 0; i < v.length; i++) {
+      if (isNaN(v[i])) continue; // Ignore disabled user preferences.
       squaredDiffs += Math.pow(v[i] - w[i], 2);
     }
     distance = Math.sqrt(squaredDiffs);
@@ -2894,25 +2895,34 @@ Model.prototype.cityRank = function(userPrefs) {
   }
   let rankedCities = [];
   rankedCities = this.data.slice();
+  // console.log(rankedCities);
 
   // TODO: Calculate these dynamically.  For MVP, hardcode is
   //       ok since input data is not changing.  Still, we could
   //       push these to the appropriate sub-model objects.
 
-  let minHappiness = 29.19;
-  let maxHappiness = 72.3;
+  let minHappiness = 29;
+  let maxHappiness = 73;
   let happinessRange = maxHappiness - minHappiness;
 
   let minAffordability = 82500;
   let maxAffordability = 927400;
   let affordabilityRange = maxAffordability - minAffordability;
 
-  let scaledHappines =
-    (userPrefs.happiness - minHappiness) * (100 / happinessRange);
-  let scaledAffordability =
-    (userPrefs.affordability - minAffordability) * (100 / affordabilityRange);
+  let scaledHappiness = NaN;
+  let scaledAffordability = NaN;
+  let scaledPolitics = userPrefs.politics;
+  if (!isNaN(userPrefs.happiness)) {
+    scaledHappiness =
+      (userPrefs.happiness - minHappiness) * (100 / happinessRange);
+  }
+  if (!isNaN(userPrefs.affordability)) {
+    scaledAffordability =
+      (userPrefs.affordability - minAffordability) * (100 / affordabilityRange);
+  }
 
-  let v = [scaledHappines, scaledAffordability, userPrefs.politics.rep16_frac];
+  let v = [scaledHappiness, scaledAffordability, scaledPolitics.rep16_frac];
+  // console.log("userPrefs v = ", v);
 
   for (let i = 0; i < rankedCities.length; i++) {
     let item = rankedCities[i];
@@ -2920,15 +2930,22 @@ Model.prototype.cityRank = function(userPrefs) {
     let cityAttr = Object.values(
       this.cherryPickFields(["happiness", "affordability", "politics"], item)
     );
-    scaledHappiness = (cityAttr[0] - minHappiness) * (100 / happinessRange);
+    // console.log(cityAttr);
+    scaledHappiness =
+      (parseFloat(cityAttr[0]) - minHappiness) * (100 / happinessRange);
     scaledAffordability =
-      (cityAttr[1] - minAffordability) * (100 / affordabilityRange);
+      (parseFloat(cityAttr[1]) - minAffordability) * (100 / affordabilityRange);
 
-    let w = [scaledHappiness, scaledAffordability, cityAttr[2].rep16_frac];
+    let w = [
+      scaledHappiness,
+      scaledAffordability,
+      parseFloat(cityAttr[2].rep16_frac)
+    ];
     let distance = this.distance(v, w);
     rankedCities["distance"] = distance;
     let key = Object.keys(item)[0];
     rankedCities[i][key]["distance"] = distance;
+    // console.log(key, "distance = ", distance);
   }
   let compareFn = this.getCompareDistance();
   rankedCities.sort(compareFn);
