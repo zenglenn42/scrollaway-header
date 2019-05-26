@@ -444,4 +444,4 @@ Ok, feeling much better about the state of things.
 
 ![alt](docs/img/waterfall.jpg)
 
-It has be a /very/ good day.
+It has been a /very/ good day.
