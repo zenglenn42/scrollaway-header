@@ -471,3 +471,16 @@ For now, if all preferences are disabled, you still advance to the results page,
 ![alt](docs/img/pref-none.png)
 
 I may tweak the usability around this, but it's good enough to ship.
+
+## Next Steps
+
+![alt](docs/img/beach-steps.jpg)
+
+I think I'm going to take a break from this for a little bit. When I come back, I'll likely work on:
+
+- view formats
+  - list, chart, map
+- live lists
+- [elastic search](https://www.elastic.co/products/elasticsearch)
+- menus
+- job outlook
