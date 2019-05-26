@@ -458,16 +458,16 @@ It has been a /very/ good day.
 
 ## Ignoring Disabled Preferences
 
-Now that the app is looking more polished, it's getting a lot more testing and visibility from friends and family. One discerning tester understood the intent behind the preference card 'light' switch and tried disabling all the preferences and still got results.
+The app is looking more polished so it's getting a lot more testing and visibility from friends and family. One discerning tester understood the intent behind the preference card 'light' switch and tried disabling all the preferences and still got results.
 
-I confess that feature is only implemented on the front-end. With this commit, I make it work for the backend ranking algorithm too.
+I confess that feature is only implemented on the front-end. With this [commit](https://github.com/zenglenn42/CityMatch/commit/19c5c52aa22024dfd5bc05e366a2d5a77611f40d), I make it work for the backend ranking algorithm too.
 
-Here we only enable 'civic happiness' and Plano, Texas rises to the top (as expected according to the underlying data we're using).
+Enabling just 'civic happiness' yields Plano, Texas (as expected according to the underlying study used).
 
 ![alt](docs/img/pref-subset.png)
 
-For now, if all preferences are disabled, they still advance to the results page, but get a nice message:
+For now, if all preferences are disabled, you still advance to the results page, but get a nice message:
 
 ![alt](docs/img/pref-none.png)
 
-I may tweak with the usability around this, but it's good enough to ship.
+I may tweak the usability around this, but it's good enough to ship.
