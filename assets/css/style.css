@@ -215,3 +215,11 @@ footer.mdl-mini-footer {
   display: flex;
   justify-content: center;
 }
+
+.blue-text {
+  color: blue;
+}
+
+.red-text {
+  color: red;
+}
