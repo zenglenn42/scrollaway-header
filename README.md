@@ -1,6 +1,6 @@
 ![alt](docs/img/cm-logo.png)
 
-# [City Match (run me)](https://zenglenn42.github.io/CityMatch/)
+# [City Match (demo)](https://zenglenn42.github.io/CityMatch/)
 
 Find your city.
 
