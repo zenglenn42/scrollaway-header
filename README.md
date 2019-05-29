@@ -499,10 +499,33 @@ MVC, M.. V.. C.., MV -- wait. I have no V! The view all got sucked out of the ht
 
 Maybe that's the way of things, but it just doesn't sit right with me. I want this to be unmuddled, to clearly see important dependencies and relationships in the code relative to this abstraction I hold in my mind. Besides, my controller module is pretty big. While I'm at it, I'm gonna move that big honkin' piece of static model data into it's own object and declutter the model a bit. Maybe sweep up some hardcodes while I'm at it.
 
-So yeah, another round of code refactoring yields this fix.
+So yeah, another round of code refactoring yields this [fix](https://github.com/zenglenn42/CityMatch/commit/a73501315c1438e4eb5ab7012086eec368b502ce).
 
-The controller clearly aggregates the model and view, helping the two to communicate. In some places, I push some callbacks into the view constructor from both the model and controller so the view can come to life and report results nicely. But now, those relationships are clearly spelled out in the constructor, rather than lurk below in a sea of code,
-waiting to trip-up some poor sustainer who has to maintain or evolve this growing body of code.
+The controller clearly aggregates the model and view, helping the two to communicate. In some places, I push some callbacks into the view constructor from both the model and controller so the view can come to life and report results nicely. But now, those relationships are clearly spelled out in the constructor, rather than lurking below in a sea of code, waiting to trip-up some poor sustainer who has to maintain or evolve this endeavor.
+
+```
+function Controller(bodyDivId) {
+  this.model = new Model();
+
+  this.view = new View(
+    bodyDivId,
+    this.getLandingPageEventListeners().bind(this),
+    this.getPreferencesPageEventListeners().bind(this),
+    this.getResultsPageEventListeners().bind(this),
+    this.getNextButtonEventListener().bind(this),
+    this.model.getCityRankCB().bind(this.model),
+    this.model.getMinHappinessValue(),
+    this.model.getMidHappinessValue(),
+    this.model.getMaxHappinessValue(),
+    this.model.getMinAffordabilityValue(),
+    this.model.getMidAffordabilityValue(),
+    this.model.getMaxAffordabilityValue(),
+    this.model.getMidPoliticsValue(),
+    this.model.githubUrl
+  );
+  this.view.createLandingBody();
+}
+```
 
 Sometimes the toughest work you do has no immediate appearance to the outside world.
 
