@@ -38,12 +38,16 @@
 
 .preference-card-square.mdl-card {
   width: 100%;
+  /* I'd like to limit the width of pref cells, but it has the
+     side-effect of messing with the centering of pref cards
+     within the grid cell. :-/  */
+  /* max-width: 15.3125em; */
 }
 
 .mdl-slider__container {
   /* width: 17.5em; */
   width: 90%;
-  padding: 0 0.5em;
+  padding: 0 0.4em;
 }
 
 /* http://danielstern.ca/range.css/?ref=css-tricks#/ */
