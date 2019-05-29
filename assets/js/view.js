@@ -14,7 +14,7 @@ function View(
   midPoliticsValue,
   githubUrl
 ) {
-  this.maxResults = 150;
+  this.maxResults = 10;
 
   this.bodyDivId = bodyDivId;
   this.rankedList = [];

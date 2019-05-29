@@ -290,7 +290,7 @@ function StaticModel() {
           imgAuthor: "Marelbu",
           imgLic: "(CC BY 3.0)",
           imgSrc:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/San_Diego%2C_CA_USA_-_Model_from_Coronado_-_panoramio.jpg/1200px-San_Diego%2C_CA_USA_-_Model_from_Coronado_-_panoramio.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/San_Diego%2C_CA_USA_-_View_from_Coronado_-_panoramio.jpg/640px-San_Diego%2C_CA_USA_-_View_from_Coronado_-_panoramio.jpg"
         },
         politics: {
           dem16_frac: 56.07101658575932,
@@ -721,7 +721,7 @@ function StaticModel() {
           imgAuthor: "Rickmouser45",
           imgLic: "(CC BY-SA 4.0)",
           imgSrc:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Aerial_Model_of_Downtown_Boise.jpg/640px-Aerial_Model_of_Downtown_Boise.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Clearwater_Analytics_Boise.jpg/640px-Clearwater_Analytics_Boise.jpg"
         },
         politics: {
           dem16_frac: 38.69173309064509,
@@ -2723,7 +2723,7 @@ function StaticModel() {
           imgAuthor: "Payton Chung",
           imgLic: "(CC BY-SA 2.0)",
           imgSrc:
-            "https://upload.wikimedia.org/wikipedia/commons/6/64/Newark_Skyline_Northwest_Model.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Newark_Skyline_Northwest_View.jpg"
         },
         politics: {
           dem16_frac: 77.05965151029991,
@@ -2819,7 +2819,7 @@ function StaticModel() {
           imgAuthor: "Pubdog",
           imgLic: "(Public Domain)",
           imgSrc:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Spring_Hill_Model_Apr_09.JPG/640px-Spring_Hill_Model_Apr_09.JPG"
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Spring_Hill_View_Apr_09.JPG/640px-Spring_Hill_View_Apr_09.JPG"
         },
         politics: {
           dem16_frac: 37.315323483919144,
