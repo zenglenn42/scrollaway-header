@@ -240,6 +240,8 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   right: calc(50% - 1.3em);
   z-index: 1;
   color: white;
+  box-shadow: 0 0.313em 0.625em rgba(0, 0, 0, 0.19),
+    0 0.375em 0.375em rgba(0, 0, 0, 0.23);
 }
 
 #navigate_before,
