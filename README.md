@@ -527,6 +527,8 @@ function Controller(bodyDivId) {
 }
 ```
 
+![alt](docs/img/cm-uml-cd.png)
+
 Sometimes the toughest work you do has no immediate appearance to the outside world.
 
 ![alt](docs/img/inner-work.jpg)
