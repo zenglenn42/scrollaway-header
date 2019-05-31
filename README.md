@@ -549,6 +549,6 @@ You're very useful, but I'm headed for react and avoiding other libraries that m
 
 ## Tab-i-fied Buttons
 
-MDL provides some nice usability with their components. One day, the buttons at the button of the results page will mean something. So I get ready for that by making the buttons clickable tabs.
+MDL provides some nice usability with their components. One day, the buttons at the button of the results page will mean something. So I get ready for that by [making](https://github.com/zenglenn42/CityMatch/commit/8270a2fb619be302541a5a38e91e2904e8600ba9) the buttons clickable tabs.
 
 ![alt](docs/img/tab-buttons.png)
