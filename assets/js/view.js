@@ -72,22 +72,22 @@ View.prototype.setUserPrefs = function(userPrefs) {
 };
 
 View.prototype.createHeader = function(title, rightNavIcon) {
-  h = document.createElement("header");
-  $(h).addClass("mdl-layout__header");
-  $(h).html(`
+  let h = document.createElement("header");
+  h.classList += "mdl-layout__header";
+  h.innerHTML = `
       <div class="mdl-layout__header-row">
       <span class="mdl-layout-title">${title}</span>
       <div class="mdl-layout-spacer"></div>
         <i class="material-icons">${rightNavIcon}</i>
       </div>
-    `);
+    `;
   return h;
 };
 
 View.prototype.makeNav = function(bodyDiv, header, menuDrawer, hamburgerMenu) {
-  $(bodyDiv).append(header);
-  $(bodyDiv).append(menuDrawer);
-  $(bodyDiv).append(hamburgerMenu);
+  bodyDiv.appendChild(header);
+  bodyDiv.appendChild(menuDrawer);
+  bodyDiv.appendChild(hamburgerMenu);
 };
 
 //-----------------------------------//
@@ -96,7 +96,8 @@ View.prototype.makeNav = function(bodyDiv, header, menuDrawer, hamburgerMenu) {
 
 View.prototype.createLandingBody = function() {
   let bodyDiv = document.getElementById(this.bodyDivId);
-  $(bodyDiv).empty();
+  bodyDiv.innerHTML = "";
+
   let header = this.createHeader("City Match", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
     "About",
@@ -115,8 +116,8 @@ View.prototype.createLandingBody = function() {
   );
   let footer = this.createFooter("navigate_next");
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
-  $(bodyDiv).append(mainLanding);
-  $(bodyDiv).append(footer);
+  bodyDiv.appendChild(mainLanding);
+  bodyDiv.appendChild(footer);
   this.addLandingPageEventListeners();
 };
 
@@ -125,10 +126,10 @@ View.prototype.createLandingMain = function(
   supportText1,
   supportText2
 ) {
-  m = document.createElement("main");
-  $(m).addClass("content");
-  $(m).attr("id", "main");
-  $(m).html(`
+  let m = document.createElement("main");
+  m.classList.add("content");
+  m.setAttribute("id", "main");
+  m.innerHTML = `
       <div class="landing-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
           <h2 class="mdl-card__title-text">${titleText}</h2>
@@ -146,7 +147,7 @@ View.prototype.createLandingMain = function(
           <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"></button>
         </div>
       </div>    
-    `);
+    `;
   return m;
 };
 
@@ -156,7 +157,7 @@ View.prototype.createLandingMain = function(
 
 View.prototype.createPreferencesBody = function createPreferencesBody() {
   let bodyDiv = document.getElementById(this.bodyDivId);
-  $(bodyDiv).empty();
+  bodyDiv.innerHTML = "";
   let header = this.createHeader("City Match", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
     "About",
@@ -168,19 +169,23 @@ View.prototype.createPreferencesBody = function createPreferencesBody() {
   let footer = this.createFooter("navigate_next");
 
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
-  $(bodyDiv).append(mainPreferences);
-  $(bodyDiv).append(footer);
+  bodyDiv.appendChild(mainPreferences);
+  bodyDiv.appendChild(footer);
 
   this.addPreferencesPageEventListeners();
 };
 
 View.prototype.createPreferencesMain = function() {
-  m = document.createElement("main");
-  $(m).addClass("mdl-layout__content");
-  $(m).append('<div class="grid-content">');
-  g = document.createElement("div");
-  $(g).addClass("mdl-grid theGrid");
-  $(m).append(g);
+  let m = document.createElement("main");
+  m.classList.add("mdl-layout__content");
+  // let child = document.createElement(`<div class="grid-content">`);
+  let child = document.createElement("div");
+  child.classList.add("grid-content");
+  m.appendChild(child);
+  let g = document.createElement("div");
+  g.classList.add("mdl-grid");
+  g.classList.add("theGrid");
+  m.appendChild(g);
 
   let prefParams = {
     img: "assets/img/civic-happiness-sf.jpg",
@@ -200,7 +205,7 @@ View.prototype.createPreferencesMain = function() {
     infoText: ""
   };
   let c = this.createPreferencesSliderCard(prefParams);
-  $(g).append(c);
+  g.appendChild(c);
 
   let curPoliticsVal = this.userPrefs.politics.rep16_frac;
   prefParams = {
@@ -220,7 +225,7 @@ View.prototype.createPreferencesMain = function() {
     infoText: ""
   };
   c = this.createPreferencesSliderCard(prefParams);
-  $(g).append(c);
+  g.appendChild(c);
 
   prefParams = {
     img: "assets/img/affordability-piggybank.jpg",
@@ -239,7 +244,7 @@ View.prototype.createPreferencesMain = function() {
     infoText: ""
   };
   c = this.createPreferencesSliderCard(prefParams);
-  $(g).append(c);
+  g.appendChild(c);
 
   prefParams = {
     img: "assets/img/job-search.jpg",
@@ -254,13 +259,13 @@ View.prototype.createPreferencesMain = function() {
     infoText: ""
   };
   c = this.createPreferencesTextinputCard(prefParams);
-  $(g).append(c);
+  g.appendChild(c);
 
   return m;
 };
 
 View.prototype.createPreferencesSliderCard = function(prefParams, isEnabled) {
-  p = document.createElement("div");
+  let p = document.createElement("div");
 
   if (prefParams.titleText == "Affordability") {
     /* Hacky :-/ solution for getting double $$ on right side.      */
@@ -281,19 +286,19 @@ View.prototype.createPreferencesSliderCard = function(prefParams, isEnabled) {
       `;
   }
 
-  let blackWhiteImg = "";
+  let colorFilter = "";
   if (!prefParams.sliderEnabled) {
-    blackWhiteImg = `filter: grayscale(100%);`;
+    colorFilter = `filter: grayscale(100%);`;
   }
 
-  $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
-  $(p).html(`
+  p.classList.add("mdl-cell");
+  p.classList.add("preference-cell");
+  p.classList.add("mdl-cell--3-col");
+  p.innerHTML = `
       <div class="preference-card-square mdl-card mdl-shadow--3dp">
         <div
           class="mdl-card__title mdl-card--expand"
-          style="background: url('${
-            prefParams.img
-          }') top/cover; ${blackWhiteImg}"
+          style="background: url('${prefParams.img}') top/cover; ${colorFilter}"
         >
           <h2
             class="mdl-card__title-text"
@@ -322,7 +327,7 @@ View.prototype.createPreferencesSliderCard = function(prefParams, isEnabled) {
         <div class="mdl-card__menu">
         </div>
       </div>
-    `);
+    `;
   let mdlSwitch = this.createSlideSwitch(
     prefParams.switchId,
     prefParams.sliderEnabled
@@ -357,23 +362,23 @@ View.prototype.createCheckbox = function(id, isChecked) {
 };
 
 View.prototype.createPreferencesTextinputCard = function(prefParams) {
-  p = document.createElement("div");
+  let p = document.createElement("div");
 
-  let blackWhiteImgStyle = "";
+  let colorFilterStyle = "";
   if (prefParams.sliderEnabled) {
-    blackWhiteImg = `filter: grayscale(0%);`;
+    colorFilter = `filter: grayscale(0%);`;
   } else {
-    blackWhiteImg = `filter: grayscale(100%);`;
+    colorFilter = `filter: grayscale(100%);`;
   }
 
-  $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
-  $(p).html(`
+  p.classList.add("mdl-cell");
+  p.classList.add("preference-cell");
+  p.classList.add("mdl-cell--3-col");
+  p.innerHTML = `
       <div class="preference-card-square mdl-card mdl-shadow--3dp">
         <div
           class="mdl-card__title mdl-card--expand"
-          style="background: url('${
-            prefParams.img
-          }') top/cover; ${blackWhiteImg}"
+          style="background: url('${prefParams.img}') top/cover; ${colorFilter}"
         >
           <h2
             class="mdl-card__title-text"
@@ -399,7 +404,7 @@ View.prototype.createPreferencesTextinputCard = function(prefParams) {
         <div class="mdl-card__menu">
         </div>
       </div>
-    `);
+    `;
   let mdlSwitch = this.createSlideSwitch(
     prefParams.switchId,
     prefParams.sliderEnabled
@@ -415,8 +420,7 @@ View.prototype.createPreferencesTextinputCard = function(prefParams) {
 
 View.prototype.createResultsBody = function createResultsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId);
-  $(bodyDiv).empty();
-
+  bodyDiv.innerHTML = "";
   let header = this.createHeader("City Match", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
     "About",
@@ -428,19 +432,22 @@ View.prototype.createResultsBody = function createResultsBody() {
   let main = this.createResultsMain();
 
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
-  $(bodyDiv).append(main);
-  $(bodyDiv).append(footer);
+  bodyDiv.appendChild(main);
+  bodyDiv.appendChild(footer);
 
   this.addResultsPageEventListeners();
 };
 
 View.prototype.createResultsMain = function() {
   let m = document.createElement("main");
-  $(m).addClass("mdl-layout__content");
-  $(m).append('<div class="grid-content">');
-  g = document.createElement("div");
-  $(g).addClass("mdl-grid theGrid");
-  $(m).append(g);
+  m.classList.add("mdl-layout__content");
+  let child = document.createElement("div");
+  child.classList.add("grid-content");
+  m.appendChild(child);
+  let g = document.createElement("div");
+  g.classList.add("mdl-grid");
+  g.classList.add("theGrid");
+  m.appendChild(g);
   computedUserPrefs = this.getComputedUserPrefs();
   if (this.noUserPreferences(computedUserPrefs)) {
     let noPrefsParams = {
@@ -449,7 +456,7 @@ View.prototype.createResultsMain = function() {
       supportingText: "Please go back and specify one or more preferences."
     };
     let c = this.createResultsNoPrefsCard(noPrefsParams);
-    $(g).append(c);
+    g.appendChild(c);
   } else {
     //-----------------------------------//
     // Call the model to get ranked list
@@ -469,11 +476,11 @@ View.prototype.createResultsMain = function() {
           titleText: "Monetize here $"
         };
         let mc = this.createResultsMonetizeCard(monetizeParams);
-        $(g).append(mc);
+        g.appendChild(mc);
       }
       let cityParams = this.marshallModelData(rank++, cityData);
       let c = this.createResultsCityCard(cityParams);
-      $(g).append(c);
+      g.appendChild(c);
     });
   }
   return m;
@@ -533,7 +540,7 @@ View.prototype.marshallModelData = function(rank, cityData) {
 };
 
 View.prototype.createResultsCityCard = function(cityParams) {
-  p = document.createElement("div");
+  let p = document.createElement("div");
 
   let donkey =
     '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>';
@@ -549,8 +556,10 @@ View.prototype.createResultsCityCard = function(cityParams) {
 
   // &nbsp;<i class="material-icons">link</i>
   // preference-card-square
-  $(p).addClass("mdl-cell results-cell mdl-cell--3-col");
-  $(p).html(`
+  p.classList.add("mdl-cell");
+  p.classList.add("results-cell");
+  p.classList.add("mdl-cell--3-col");
+  p.innerHTML = `
       <div class="results-card mdl-card mdl-shadow--3dp">
         <div
           class="mdl-card__title mdl-card--expand"
@@ -575,14 +584,16 @@ View.prototype.createResultsCityCard = function(cityParams) {
           </button>
         </div>
       </div>
-    `);
+    `;
   return p;
 };
 
 View.prototype.createResultsMonetizeCard = function(params) {
-  p = document.createElement("div");
-  $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
-  $(p).html(`
+  let p = document.createElement("div");
+  p.classList.add("mdl-cell");
+  p.classList.add("preference-cell");
+  p.classList.add("mdl-cell--3-col");
+  p.innerHTML = `
       <div class="results-card mdl-card mdl-shadow--3dp">
         <div
           class="mdl-card__title mdl-card--expand"
@@ -609,14 +620,16 @@ View.prototype.createResultsMonetizeCard = function(params) {
           -->
         </div>
       </div>
-    `);
+    `;
   return p;
 };
 
 View.prototype.createResultsNoPrefsCard = function(params) {
-  p = document.createElement("div");
-  $(p).addClass("mdl-cell preference-cell mdl-cell--3-col");
-  $(p).html(`
+  let p = document.createElement("div");
+  p.classList.add("mdl-cell");
+  p.classList.add("preference-cell");
+  p.classList.add("mdl-cell--3-col");
+  p.innerHTML = `
       <div class="results-card mdl-card mdl-shadow--3dp">
         <div
           class="mdl-card__title mdl-card--expand"
@@ -638,14 +651,14 @@ View.prototype.createResultsNoPrefsCard = function(params) {
           -->
         </div>
       </div>
-    `);
+    `;
   return p;
 };
 
 View.prototype.createResultsFooter = function(fabIcon) {
-  f = document.createElement("footer");
-  $(f).addClass("mdl-mini-footer");
-  $(f).html(`
+  let f = document.createElement("footer");
+  f.classList.add("mdl-mini-foote");
+  f.innerHTML = `
       <button id="navigate_before"
       class="footer-fab mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--primary"
     >
@@ -672,42 +685,50 @@ View.prototype.createResultsFooter = function(fabIcon) {
             <i class="material-icons">map</i>
           </div>
         </div>
-    `);
+    `;
   return f;
 };
 
 View.prototype.createHamburgerMenu = function() {
-  m = document.createElement("div");
-  $(m).addClass("mdl-layout__drawer-button");
-  $(m).attr("role", "button");
-  $(m).attr("aria-expanded", "false");
-  $(m).append(`
-      <i class="material-icons">menu</i>
-    `);
+  let m = document.createElement("div");
+  m.classList.add("mdl-layout__drawer-button");
+  m.setAttribute("role", "button");
+  m.setAttribute("aria-expanded", "false");
+  let iconEl = document.createElement("i");
+  iconEl.classList.add("material-icons");
+  iconEl.innerHTML = "menu";
+  m.appendChild(iconEl);
   return m;
 };
 
 View.prototype.createMenuDrawer = function(title, menuItemsArray) {
-  md = document.createElement("div");
-  $(md).addClass("mdl-layout__drawer");
-  $(md).append(`
-      <span class="mdl-layout-title">${title}</span>
-    `);
-  nav = document.createElement("nav");
-  $(nav).addClass("mdl-navigation");
+  let md = document.createElement("div");
+  md.classList.add("mdl-layout__drawer");
+  let mdChild = document.createElement("span");
+  mdChild.classList.add("mdl-layout-title");
+  mdChild.innerHTML = title;
+  md.appendChild(mdChild);
+  let nav = document.createElement("nav");
+  nav.classList.add("mdl-navigation");
+  // $(nav).addClass("mdl-navigation");
   let menuHtml = menuItemsArray.map(item => {
-    return `<a class="mdl-navigation__link" href="">${item}</a>`;
+    let anchor = document.createElement("a");
+    anchor.classList.add("mdl-navigation__link");
+    anchor.setAttribute("href", "");
+    anchor.innerHTML = `${item}`;
+    return anchor;
+    // return `<a class="mdl-navigation__link" href="">${item}</a>`;
   });
   menuHtml.map(html => {
-    $(md).append(html);
+    md.appendChild(html);
   });
   return md;
 };
 
 View.prototype.createFooter = function(fabIcon) {
   f = document.createElement("footer");
-  $(f).addClass("mdl-mini-footer");
-  $(f).html(`
+  f.classList.add("mdl-mini-footer");
+  f.innerHTML = `
       <button id="navigate_next" data-nextpage="preferences" class="footer-fab mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--primary">
         <i class="material-icons">${fabIcon}</i>
       </button>
@@ -723,6 +744,6 @@ View.prototype.createFooter = function(fabIcon) {
           </button>
         </a>
       </div>
-    `);
+    `;
   return f;
 };

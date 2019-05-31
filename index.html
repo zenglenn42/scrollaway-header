@@ -82,11 +82,6 @@
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     />
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"
-    ></script>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -107,7 +102,8 @@
     <script type="text/javascript" src="assets/js/view.js"></script>
     <script type="text/javascript" src="assets/js/controller.js"></script>
     <script type="text/javascript">
-      $(document).ready(function() {
+      // https://tinyurl.com/y38yadge
+      document.addEventListener("DOMContentLoaded", function(event) {
         controller = new Controller("body-div");
       });
     </script>

@@ -20,6 +20,19 @@ function Controller(bodyDivId) {
   this.view.createLandingBody();
 }
 
+// https://stackoverflow.com/questions/30880757/javascript-equivalent-to-on
+Controller.prototype.delegate = function(el, evt, sel, handler) {
+  el.addEventListener(evt, function(event) {
+    let t = event.target;
+    while (t && t !== this) {
+      if (t.matches(sel)) {
+        handler.call(t, event);
+      }
+      t = t.parentNode;
+    }
+  });
+};
+
 Controller.prototype.getLandingPageEventListeners = function() {
   return this.addLandingPageEventListeners;
 };
@@ -27,14 +40,15 @@ Controller.prototype.getLandingPageEventListeners = function() {
 Controller.prototype.addLandingPageEventListeners = function() {
   nextButton = document.getElementById("navigate_next");
 
-  $(nextButton).on(
+  nextButton.addEventListener(
     "click",
     this.getNextButtonEventListener(
       this.view.createPreferencesBody.bind(this.view)
     )
   );
+
   getStarted = document.getElementById(this.view.getStartedId);
-  $(getStarted).on(
+  getStarted.addEventListener(
     "click",
     this.getNextButtonEventListener(
       this.view.createPreferencesBody.bind(this.view)
@@ -53,7 +67,7 @@ Controller.prototype.getPreferencesPageEventListeners = function() {
 Controller.prototype.addPreferencesPageEventListeners = function() {
   nextButton = document.getElementById("navigate_next");
 
-  $(nextButton).on(
+  nextButton.addEventListener(
     "click",
     this.getNextButtonEventListener(this.view.createResultsBody.bind(this.view))
   );
@@ -73,7 +87,7 @@ Controller.prototype.getResultsPageEventListeners = function() {
 Controller.prototype.addResultsPageEventListeners = function() {
   nextButton = document.getElementById("navigate_before");
 
-  $(nextButton).on(
+  nextButton.addEventListener(
     "click",
     this.getNextButtonEventListener(
       this.view.createPreferencesBody.bind(this.view)
@@ -95,10 +109,10 @@ Controller.prototype.getNextButtonEventListener = function(createBodyFn) {
 
 Controller.prototype.addSlideSwitchClassEventListener = function() {
   var that = this;
-  $(document).on("change", ".mdl-switch__input", function(e) {
+  this.delegate(document, "click", ".mdl-switch__input", function(e) {
     let imgColorFilter = "";
-    let switchId = $(this).attr("id");
-    if ($(this).is(":checked")) {
+    let switchId = this.getAttribute("id");
+    if (that.switchIsEnabled(switchId)) {
       // Ignore the Job Outlook slide switch until I implement this feature.
       if (switchId == that.switchJobSearchId) {
         imgColorFilter = "grayscale(100%)"; // make JobSearch img always gray for now.
@@ -138,26 +152,21 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
       // console.log("not checked");
       imgColorFilter = "grayscale(100%)"; // make image black & white
     }
-    let imgDiv = $(this)
-      .parent()
-      .parent()
-      .parent()
-      .children(".mdl-card__title")[0];
+    let imgDiv = this.parentNode.parentNode.parentNode;
     imgDiv.style.filter = imgColorFilter;
     console.log("user prefs known to view = ", that.view.userPrefs);
   });
 };
 
 Controller.prototype.addSliderEventListerners = function() {
-  $(`#${this.view.sliderHappinessId}`).on(
-    "change",
-    this.getPreferencesSliderHappinessCB()
-  );
-  $(`#${this.view.sliderPoliticsId}`).on(
-    "change",
-    this.getPreferencesSliderPoliticsCB()
-  );
-  $(`#${this.view.sliderAffordabilityId}`).on(
+  let sliderH = document.getElementById(this.view.sliderHappinessId);
+  sliderH.addEventListener("change", this.getPreferencesSliderHappinessCB());
+
+  let sliderP = document.getElementById(this.view.sliderPoliticsId);
+  sliderP.addEventListener("change", this.getPreferencesSliderPoliticsCB());
+
+  let sliderA = document.getElementById(this.view.sliderAffordabilityId);
+  sliderA.addEventListener(
     "change",
     this.getPreferencesSliderAffordabilityCB()
   );
@@ -166,9 +175,8 @@ Controller.prototype.addSliderEventListerners = function() {
 Controller.prototype.getPreferencesSliderHappinessCB = function() {
   let that = this;
   function innerCB(event) {
-    let value = $(this)[0].value;
-    that.view.userPrefs.happiness = value;
-    // console.log("happiness value = ", value);
+    that.view.userPrefs.happiness = this.value;
+    // console.log("happiness value = ", this.value);
   }
   return innerCB;
 };
@@ -176,7 +184,7 @@ Controller.prototype.getPreferencesSliderHappinessCB = function() {
 Controller.prototype.getPreferencesSliderPoliticsCB = function() {
   let that = this;
   function innerCB(event) {
-    let value = $(this)[0].value;
+    let value = this.value;
     let republicanVal = Number(value);
     let democratVal = 100 - republicanVal;
     that.view.userPrefs.politics = {
@@ -191,9 +199,8 @@ Controller.prototype.getPreferencesSliderPoliticsCB = function() {
 Controller.prototype.getPreferencesSliderAffordabilityCB = function() {
   let that = this;
   function innerCB(event) {
-    let value = $(this)[0].value;
-    that.view.userPrefs.affordability = value;
-    // console.log("affordability value = ", value);
+    that.view.userPrefs.affordability = this.value;
+    // console.log("affordability value = ", this.value);
   }
   return innerCB;
 };
