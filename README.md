@@ -532,3 +532,9 @@ function Controller(bodyDivId) {
 Sometimes the toughest work you do has no immediate appearance to the outside world.
 
 ![alt](docs/img/inner-work.jpg)
+
+## So long, jQuery
+
+![alt](docs/img/jquery-wrench.jpg)
+
+You're very useful, but I'm headed for react and avoiding other libraries that manipulate the DOM should simplify adoption. Here's the [fix](https://github.com/zenglenn42/CityMatch/commit/eb5427c83449a03fc1973792d2e4b2fa7a4ec580) that removes that dependency.
