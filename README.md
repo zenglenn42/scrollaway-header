@@ -474,6 +474,14 @@ For now, if all preferences are disabled, you still advance to the results page,
 
 I may tweak the usability around this, but it's good enough to ship.
 
+## Before and After
+
+Here's a contrasting reveal with the bootstrappy-ui of City Rank:
+
+![alt](docs/img/cr-mvp-screenshot.png)
+
+![alt](docs/img/cm-mvp-screenshot.png)
+
 ## Next Steps
 
 ![alt](docs/img/beach-steps.jpg)
