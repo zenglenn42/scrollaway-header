@@ -546,3 +546,9 @@ Sometimes the toughest work you do has no immediate appearance to the outside wo
 ![alt](docs/img/jquery-wrench.jpg)
 
 You're very useful, but I'm headed for react and avoiding other libraries that manipulate the DOM should simplify adoption. Here's the [fix](https://github.com/zenglenn42/CityMatch/commit/eb5427c83449a03fc1973792d2e4b2fa7a4ec580) that removes that dependency.
+
+## Tab-i-fied Buttons
+
+MDL provides some nice usability with their components. One day, the buttons at the button of the results page will mean something. So I get ready for that by making the buttons clickable tabs.
+
+![alt](docs/img/tab-buttons.png)

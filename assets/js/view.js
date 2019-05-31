@@ -664,27 +664,39 @@ View.prototype.createResultsFooter = function(fabIcon) {
     >
       <i class="material-icons">${fabIcon}</i>
       </button>
-      <div class="view-buttons">
-          <div class="view-button" role="button" aria-expanded="false">
-            <i class="material-icons">photo</i>
-          </div>
-          <div class="view-button" role="button" aria-expanded="false">
-            <i class="material-icons">list</i>
-          </div>
-          <div
+      <div class="view-buttons mdl-tabs mdl-js-tabs">
+        <div class="mdl-tabs__tab-bar">
+          <a href="#tab1" class="mdl-tabs__tab is-active">
+            <div id="tab1" class="view-button" role="button" aria-expanded="false">
+              <i class="material-icons">photo</i>
+            </div>
+          </a>
+          <a href="#tab2" class="mdl-tabs__tab">
+            <div id="tab2" class="view-button" role="button" aria-expanded="false">
+              <i class="material-icons">list</i>
+            </div>
+          </a>
+          <a href="#tab3" class="mdl-tabs__tab" style="visibility: hidden">
+            <div
             role="button"
             aria-expanded="false"
             style="visibility: hidden; margin-left: 1.5em; margin-right: 1.5em;"
           >
-            <i class="material-icons">place</i>
-          </div>
-          <div class="view-button" role="button" aria-expanded="false">
-            <i class="material-icons">insert_chart</i>
-          </div>
-          <div class="view-button" role="button" aria-expanded="false">
-            <i class="material-icons">map</i>
-          </div>
+              <i class="material-icons">place</i>
+            </div>
+          </a>
+          <a href="#tab4" class="mdl-tabs__tab">
+            <div id="tab4" class="view-button" role="button" aria-expanded="false">
+              <i class="material-icons">insert_chart</i>
+            </div>
+          </a>
+          <a href="#tab5" class="mdl-tabs__tab">
+            <div id="tab5" class="view-button" role="button" aria-expanded="false">
+              <i class="material-icons">map</i>
+            </div>
+          </a>
         </div>
+      </div>
     `;
   return f;
 };

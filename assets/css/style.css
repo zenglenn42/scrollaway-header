@@ -264,6 +264,13 @@ footer.mdl-mini-footer {
   font-size: 0.8em;
 }
 
+.view-buttons {
+  height: 2.6em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .view-button {
   margin: 0 1em;
   padding-top: 0.25em;
@@ -271,11 +278,8 @@ footer.mdl-mini-footer {
   padding-right: 0.25em;
 }
 
-.view-buttons {
-  height: 2.6em;
-  width: 100%;
-  display: flex;
-  justify-content: center;
+.mdl-tabs__tab {
+  padding: 0 0;
 }
 
 .blue-text {
