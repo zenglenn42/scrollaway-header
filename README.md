@@ -581,3 +581,12 @@ Also, I [improve](https://github.com/zenglenn42/CityMatch/commit/7066b27290959aa
 On the right, I use the primary color (indigo) and gray for the inactive buttons (since the MDL tab indicator was getting cut off and too subtle for bottom-app-bar applications).
 
 ![alt](docs/img/active-view-styling.png)
+
+## List View
+
+I get list view working, since it's relatively low hanging fruit:
+
+![alt](docs/img/list-view-basic.png)
+
+It still needs some tweaking on mobile, but it's good enough to demo.
+I'm looking forward to chart and map view, but they will require 3rd party libraries.
