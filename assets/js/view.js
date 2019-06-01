@@ -607,11 +607,11 @@ View.prototype.createResultsCityCard = function(cityParams) {
           ${cityStats}
         </div>
         <div class="mdl-card__menu">
-          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" style="background: rgba(255,255,255,.8);">
             <i class="material-icons">favorite_border</i>
           </button>
-          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-            <i class="material-icons">share</i>
+          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" style="background: rgba(255,255,255,.8);">
+            <i class="material-icons">more_vert</i>
           </button>
         </div>
       </div>
@@ -644,11 +644,11 @@ View.prototype.createResultsMonetizeCard = function(params) {
               Learn More
             </a>
           </div>
-          <!--
           <div class="mdl-card__menu">
-            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"></button>
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" style="background: rgba(255,255,255,.8);">
+              <i class="material-icons">more_vert</i>
+            </button>
           </div>
-          -->
         </div>
       </div>
     `;
