@@ -577,6 +577,7 @@ Now we have uniform visibility across result cards, contributing to a subtle but
 
 You can see I've also opted for the more scalable '3 dots - more' button to meet requirements not yet known without cluttering the card too much.
 
-Also, it's not terribly clear on the results page /which/ view format is active based upon the bottom-appbar buttons themselves. Sure, you could infer from the content, but why make the user work this hard. There is supposed to be a tab-bar indicator below the button that reflects the active view, but this doesn't work well for choices at the buttom of the screen since it seems to get cut off. I wrestled with trying to style / raise the active tab but got no joy. So I opted to style the icon buttons themselves, using the primary color for the active button and gray for the others:
+Also, I improve indication of the active view button in the results page with color styling.
+On the right, I use the primary color (indigo) and gray for the inactive buttons (since the MDL tab indicator was getting cut off and too subtle for bottom-app-bar applications).
 
 ![alt](docs/img/active-view-styling.png)
