@@ -496,6 +496,14 @@ I think I'm going to take a break from this for a little bit. When I come back, 
 - job outlook
 - react anyone?
 
+## Sad Face :-/
+
+Huh, it looks like some of the URLs for city images I use are /changing/ from under me:
+
+![alt](docs/img/bummer-img-fname-changed.png)
+
+I manually audit these and fix several. But this suggests I might need to tuck these away within the app for better reliability.
+
 ## [Zeigarnik](https://en.wikipedia.org/wiki/Zeigarnik_effect) Whispers
 
 ![alt](docs/img/oo-decomp.jpg)
