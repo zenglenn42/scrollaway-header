@@ -563,7 +563,7 @@ MDL provides some nice usability with their components. One day, the buttons at 
 
 ## Usability Kindness
 
-Sometimes the little things matter. I had slapped a 'like' and 'share' button on the results cards, but they were disappearing against darker background images, requiring jedi skills of the user to find.
+Sometimes the little things matter. I had slapped a 'like' and 'share' button on the results cards, but they were disappearing against darker or busy background images, requiring jedi skills of the user to find.
 
 I fix it with an expedient in-line style (bad, I know, but great for quick riff'ing :).
 
