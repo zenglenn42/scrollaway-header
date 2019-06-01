@@ -566,3 +566,5 @@ style="background: rgba(255,255,255,.8);"
 Now we have uniform visibility across result cards, contributing to a subtle but overall feel of comfort:
 
 ![alt](docs/img/before-after-mb-styling.png)
+
+You can see I've also opted for the more scalable '3 dots - more' button to meet requirements not yet known without cluttering the card too much.
