@@ -552,3 +552,17 @@ You're very useful, but I'm headed for react and avoiding other libraries that m
 MDL provides some nice usability with their components. One day, the buttons at the bottom of the results page will mean something. So I get ready for that by [making](https://github.com/zenglenn42/CityMatch/commit/8270a2fb619be302541a5a38e91e2904e8600ba9) the buttons clickable tabs.
 
 ![alt](docs/img/tab-buttons.png)
+
+## Usability Kindness
+
+Sometimes the little things matter. I had slapped a 'like' and 'share' button on the results cards, but they were disappearing against darker background images, requiring jedi skills of the user to find.
+
+I fix it with an expedient in-line style (bad, I know, but great for quick riff'ing :).
+
+```
+style="background: rgba(255,255,255,.8);"
+```
+
+Now we have uniform visibility across result cards, contributing to a subtle but overall feel of comfort:
+
+![alt](docs/img/before-after-mb-styling.png)
