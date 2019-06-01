@@ -67,7 +67,7 @@ View.prototype.sliderAffordabilityId = "slider-affordability";
 View.prototype.switchJobSearchEnabledDefault = false;
 View.prototype.switchJobSearchId = "switch-jobsearch";
 
-View.prototype.defaultDataView = "list-view"; // photo-view | list-view | chart-view | map-view
+View.prototype.defaultDataView = "photo-view"; // photo-view | list-view | chart-view | map-view
 
 View.prototype.setUserPrefs = function(userPrefs) {
   this.userPrefs = userPrefs;
