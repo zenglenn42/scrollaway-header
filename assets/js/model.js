@@ -112,8 +112,22 @@ Model.prototype.cityRank = function(userPrefs) {
       scaledAffordability,
       parseFloat(cityAttr[2].rep16_frac)
     ];
-    let distance = this.distance(v, w);
-    rankedCities["distance"] = distance;
+    // vector difference between user preferences (v) and city metrics (w)
+    let vDistance = this.distance(v, w);
+
+    // pass these individual deltas back to caller so they can be reported
+    // in the chart-view
+    let hDistance = v[0] - w[0];
+    let aDistance = v[1] - w[1];
+    let pDistance = v[2] - w[2];
+
+    let distance = {
+      vector: vDistance,
+      happiness: hDistance,
+      affordability: aDistance,
+      politics: pDistance
+    };
+
     let key = Object.keys(item)[0];
     rankedCities[i][key]["distance"] = distance;
     // console.log(key, "distance = ", distance);
@@ -140,8 +154,8 @@ Model.prototype.getCompareDistance = function() {
   function compareDistance(a, b) {
     let aKey = Object.keys(a)[0];
     let bKey = Object.keys(b)[0];
-    let aDistance = a[aKey].distance;
-    let bDistance = b[bKey].distance;
+    let aDistance = a[aKey].distance.vector;
+    let bDistance = b[bKey].distance.vector;
     if (aDistance > bDistance) return 1;
     if (aDistance == bDistance) return 0;
     if (aDistance < bDistance) return -1;
