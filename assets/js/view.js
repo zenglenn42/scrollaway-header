@@ -3,7 +3,6 @@ function View(
   addLandingPageEventListeners,
   addPreferencesPageEventListeners,
   addResultsPageEventListeners,
-  getNextButtonEventListener,
   cityRankModelCB,
   minHappinessValue,
   midHappinessValue,
@@ -21,7 +20,6 @@ function View(
   this.addLandingPageEventListeners = addLandingPageEventListeners;
   this.addPreferencesPageEventListeners = addPreferencesPageEventListeners;
   this.addResultsPageEventListeners = addResultsPageEventListeners;
-  this.getNextButtonEventListener = getNextButtonEventListener;
 
   this.cityRankModelCB = cityRankModelCB;
   this.minHappinessValue = minHappinessValue;
@@ -48,6 +46,8 @@ function View(
     currency: "USD",
     minimumFractionDigits: 0
   });
+
+  this.activeDataView = this.defaultDataView;
 }
 
 View.prototype.getStartedId = "get-started";
@@ -66,6 +66,8 @@ View.prototype.sliderAffordabilityId = "slider-affordability";
 
 View.prototype.switchJobSearchEnabledDefault = false;
 View.prototype.switchJobSearchId = "switch-jobsearch";
+
+View.prototype.defaultDataView = "list-view"; // photo-view | list-view | chart-view | map-view
 
 View.prototype.setUserPrefs = function(userPrefs) {
   this.userPrefs = userPrefs;
@@ -434,6 +436,7 @@ View.prototype.createResultsBody = function createResultsBody() {
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
   bodyDiv.appendChild(main);
   bodyDiv.appendChild(footer);
+  this.setActiveDataView(this.activeDataView);
 
   this.addResultsPageEventListeners();
 };
@@ -442,46 +445,67 @@ View.prototype.createResultsMain = function() {
   let m = document.createElement("main");
   m.classList.add("mdl-layout__content");
   let child = document.createElement("div");
-  child.classList.add("grid-content");
-  m.appendChild(child);
   let g = document.createElement("div");
-  g.classList.add("mdl-grid");
-  g.classList.add("theGrid");
-  m.appendChild(g);
+
   computedUserPrefs = this.getComputedUserPrefs();
   if (this.noUserPreferences(computedUserPrefs)) {
+    child.classList.add("grid-content");
+    m.appendChild(child);
     let noPrefsParams = {
       img: "assets/img/chess-failure.jpg",
       titleText: "No results available.",
       supportingText: "Please go back and specify one or more preferences."
     };
     let c = this.createResultsNoPrefsCard(noPrefsParams);
+    g.classList.add("mdl-grid");
+    g.classList.add("theGrid");
     g.appendChild(c);
+    m.appendChild(g);
   } else {
-    //-----------------------------------//
-    // Call the model to get ranked list
-    // of cities sorted by user preference.
-    //-----------------------------------//
-    console.log("computed prefs passed to model =", computedUserPrefs);
-    this.rankedList = this.cityRankModelCB(computedUserPrefs);
+    switch (this.activeDataView) {
+      case "list-view":
+        console.log("list-view");
+        break;
+      case "chart-view":
+        console.log("chart-view");
+        break;
+      case "map-view":
+        console.log("map-view");
+        break;
+      case "photo-view":
+      default:
+        console.log("photo-view");
+        child.classList.add("grid-content");
+        m.appendChild(child);
+        g.classList.add("mdl-grid");
+        g.classList.add("theGrid");
+        m.appendChild(g);
+        //-----------------------------------//
+        // Call the model to get ranked list
+        // of cities sorted by user preference.
+        //-----------------------------------//
+        console.log("computed prefs passed to model =", computedUserPrefs);
+        this.rankedList = this.cityRankModelCB(computedUserPrefs);
 
-    this.rankedList.length = this.maxResults;
-    let rank = 1;
-    let monetizationPosition1 = 3;
-    let monetizationPosition2 = 8;
-    this.rankedList.map(cityData => {
-      if (rank == monetizationPosition1 || rank == monetizationPosition2) {
-        let monetizeParams = {
-          img: "assets/img/monetize.jpg",
-          titleText: "Monetize here $"
-        };
-        let mc = this.createResultsMonetizeCard(monetizeParams);
-        g.appendChild(mc);
-      }
-      let cityParams = this.marshallModelData(rank++, cityData);
-      let c = this.createResultsCityCard(cityParams);
-      g.appendChild(c);
-    });
+        this.rankedList.length = this.maxResults;
+        let rank = 1;
+        let monetizationPosition1 = 3;
+        let monetizationPosition2 = 8;
+        this.rankedList.map(cityData => {
+          if (rank == monetizationPosition1 || rank == monetizationPosition2) {
+            let monetizeParams = {
+              img: "assets/img/monetize.jpg",
+              titleText: "Monetize here $"
+            };
+            let mc = this.createResultsMonetizeCard(monetizeParams);
+            g.appendChild(mc);
+          }
+          let cityParams = this.marshallModelData(rank++, cityData);
+          let c = this.createResultsCityCard(cityParams);
+          g.appendChild(c);
+        });
+        break;
+    }
   }
   return m;
 };
@@ -666,17 +690,17 @@ View.prototype.createResultsFooter = function(fabIcon) {
       </button>
       <div class="view-buttons mdl-tabs mdl-js-tabs">
         <div class="mdl-tabs__tab-bar">
-          <a href="#tab1" class="mdl-tabs__tab is-active">
-            <div id="tab1" class="view-button" role="button" aria-expanded="false">
+          <a id="photo-view" href="#photo-button" class="mdl-tabs__tab view-link is-active">
+            <div id="photo-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
               <i class="material-icons">photo</i>
             </div>
           </a>
-          <a href="#tab2" class="mdl-tabs__tab">
-            <div id="tab2" class="view-button" role="button" aria-expanded="false">
+          <a id="list-view" href="#list-button" class="mdl-tabs__tab view-link">
+            <div id="list-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
               <i class="material-icons">list</i>
             </div>
           </a>
-          <a href="#tab3" class="mdl-tabs__tab" style="visibility: hidden">
+          <a id="hidden-view" href="#hidden-button" class="mdl-tabs__tab view-link" style="visibility: hidden">
             <div
             role="button"
             aria-expanded="false"
@@ -685,13 +709,13 @@ View.prototype.createResultsFooter = function(fabIcon) {
               <i class="material-icons">place</i>
             </div>
           </a>
-          <a href="#tab4" class="mdl-tabs__tab">
-            <div id="tab4" class="view-button" role="button" aria-expanded="false">
+          <a id="chart-view" href="#chart-button" class="mdl-tabs__tab view-link">
+            <div id="chart-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
               <i class="material-icons">insert_chart</i>
             </div>
           </a>
-          <a href="#tab5" class="mdl-tabs__tab">
-            <div id="tab5" class="view-button" role="button" aria-expanded="false">
+          <a id="map-view" href="#map-button" class="mdl-tabs__tab view-link">
+            <div id="map-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
               <i class="material-icons">map</i>
             </div>
           </a>
@@ -699,6 +723,29 @@ View.prototype.createResultsFooter = function(fabIcon) {
       </div>
     `;
   return f;
+};
+
+View.prototype.findActiveDataView = function() {
+  let views = ["photo-view", "list-view", "chart-view", "map-view"];
+  for (view of views) {
+    if (this.isActiveDataView(view)) return view;
+  }
+};
+
+View.prototype.isActiveDataView = function(viewId) {
+  let av = document.getElementById(viewId);
+  return av.classList.contains("is-active");
+};
+
+View.prototype.setActiveDataView = function(viewId) {
+  let activeViewId = this.findActiveDataView();
+  if (activeViewId != viewId) {
+    let av = document.getElementById(activeViewId);
+    av.classList.remove("is-active");
+    let newView = document.getElementById(viewId);
+    newView.classList.add("is-active");
+    this.activeDataView = viewId;
+  }
 };
 
 View.prototype.createHamburgerMenu = function() {

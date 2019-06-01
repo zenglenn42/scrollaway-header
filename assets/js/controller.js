@@ -6,7 +6,6 @@ function Controller(bodyDivId) {
     this.getLandingPageEventListeners().bind(this),
     this.getPreferencesPageEventListeners().bind(this),
     this.getResultsPageEventListeners().bind(this),
-    this.getNextButtonEventListener().bind(this),
     this.model.getCityRankCB().bind(this.model),
     this.model.getMinHappinessValue(),
     this.model.getMidHappinessValue(),
@@ -94,9 +93,25 @@ Controller.prototype.addResultsPageEventListeners = function() {
     )
   );
 
+  viewButtons = document.getElementsByClassName("view-link");
+  for (let i = 0; i < viewButtons.length; ++i) {
+    let el = viewButtons[i];
+    el.addEventListener("click", this.getViewButtonEventListener());
+  }
+
   /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
   componentHandler.upgradeDom();
+};
+
+Controller.prototype.getViewButtonEventListener = function() {
+  let that = this;
+  function innerFunction() {
+    let theView = this.getAttribute("id");
+    that.view.activeDataView = theView;
+    that.view.setActiveDataView(theView);
+  }
+  return innerFunction;
 };
 
 Controller.prototype.getNextButtonEventListener = function(createBodyFn) {
@@ -215,4 +230,14 @@ Controller.prototype.getNextButtonEventListener = function(createBodyFn) {
 
 Controller.prototype.switchIsEnabled = function(switchId) {
   return document.getElementById(switchId).checked == true;
+};
+
+Controller.prototype.getDataViewEventListener = function() {
+  let that = this;
+  function innerFunction() {
+    console.log("click");
+    console.log("this = ", this);
+    console.log("that = ", that);
+  }
+  return innerFunction;
 };
