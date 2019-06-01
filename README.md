@@ -577,7 +577,7 @@ Now we have uniform visibility across result cards, contributing to a subtle but
 
 You can see I've also opted for the more scalable '3 dots - more' button to meet requirements not yet known without cluttering the card too much.
 
-Also, I improve indication of the active view button in the results page with color styling.
+Also, I [improve](https://github.com/zenglenn42/CityMatch/commit/7066b27290959aa91358a90550eedde1bac366e2) indication of the active view button in the results page with color styling.
 On the right, I use the primary color (indigo) and gray for the inactive buttons (since the MDL tab indicator was getting cut off and too subtle for bottom-app-bar applications).
 
 ![alt](docs/img/active-view-styling.png)
