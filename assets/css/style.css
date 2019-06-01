@@ -264,6 +264,14 @@ footer.mdl-mini-footer {
   font-size: 0.8em;
 }
 
+a[class~="is-active"] .view-button {
+  color: #3f52b5;
+}
+
+a .view-button {
+  color: #777;
+}
+
 .view-buttons {
   height: 2.6em;
   width: 100%;
@@ -274,6 +282,10 @@ footer.mdl-mini-footer {
 .view-button {
   margin: 0 0;
   padding: 0.2em 0.15em;
+}
+
+.view-icons {
+  margin-bottom: 0.5em;
 }
 
 .mdl-tabs__tab {

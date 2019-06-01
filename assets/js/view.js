@@ -696,15 +696,15 @@ View.prototype.createResultsFooter = function(fabIcon) {
       <i class="material-icons">${fabIcon}</i>
       </button>
       <div class="view-buttons mdl-tabs mdl-js-tabs">
-        <div class="mdl-tabs__tab-bar">
+        <div class="mdl-tabs__tab-bar view-button-tab-bar">
           <a id="photo-view" href="#photo-button" class="mdl-tabs__tab view-link is-active">
             <div id="photo-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
-              <i class="material-icons">photo</i>
+              <i class="material-icons view-icons">photo</i>
             </div>
           </a>
           <a id="list-view" href="#list-button" class="mdl-tabs__tab view-link">
             <div id="list-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
-              <i class="material-icons">list</i>
+              <i class="material-icons view-icons">list</i>
             </div>
           </a>
           <a id="hidden-view" href="#hidden-button" class="mdl-tabs__tab view-link" style="visibility: hidden">
@@ -713,17 +713,17 @@ View.prototype.createResultsFooter = function(fabIcon) {
             aria-expanded="false"
             style="visibility: hidden; margin-left: 1.5em; margin-right: 1.5em;"
           >
-              <i class="material-icons">place</i>
+              <i class="material-icons view-icons">place</i>
             </div>
           </a>
           <a id="chart-view" href="#chart-button" class="mdl-tabs__tab view-link">
             <div id="chart-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
-              <i class="material-icons">insert_chart</i>
+              <i class="material-icons view-icons">insert_chart</i>
             </div>
           </a>
           <a id="map-view" href="#map-button" class="mdl-tabs__tab view-link">
             <div id="map-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
-              <i class="material-icons">map</i>
+              <i class="material-icons view-icons">map</i>
             </div>
           </a>
         </div>
