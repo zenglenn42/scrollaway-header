@@ -502,7 +502,7 @@ Huh, it looks like some of the URLs for city images I use are /changing/ from un
 
 ![alt](docs/img/bummer-img-fname-changed.png)
 
-I manually audit these and fix several. But this suggests I might need to tuck these away within the app for better reliability.
+I manually audit these and [fix](https://github.com/zenglenn42/CityMatch/commit/7faea10d138dafd59c2efc1aec26615c7fa78fe9) several. But this suggests I might need to tuck these away within the app for better reliability. That, or periodically test these URLs as part of a build process.
 
 ## [Zeigarnik](https://en.wikipedia.org/wiki/Zeigarnik_effect) Whispers
 
