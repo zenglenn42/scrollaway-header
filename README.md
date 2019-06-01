@@ -584,7 +584,7 @@ On the right, I use the primary color (indigo) and gray for the inactive buttons
 
 ## List View
 
-I get list view working, since it's relatively low hanging fruit:
+I get list view working, since it's relatively low hanging fruit. The data is the same as for chart view, minus the img. So I just need to throw it into html list, created dynamically.
 
 ![alt](docs/img/list-view-basic.png)
 
