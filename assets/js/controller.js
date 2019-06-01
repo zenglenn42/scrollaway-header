@@ -108,8 +108,8 @@ Controller.prototype.getViewButtonEventListener = function() {
   let that = this;
   function innerFunction() {
     let theView = this.getAttribute("id");
-    that.view.activeDataView = theView;
     that.view.setActiveDataView(theView);
+    that.view.createResultsBody();
   }
   return innerFunction;
 };

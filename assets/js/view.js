@@ -48,6 +48,7 @@ function View(
   });
 
   this.activeDataView = this.defaultDataView;
+  this.resultsMain = undefined;
 }
 
 View.prototype.getStartedId = "get-started";
@@ -431,10 +432,10 @@ View.prototype.createResultsBody = function createResultsBody() {
   ]);
   let hamburgerMenu = this.createHamburgerMenu();
   let footer = this.createResultsFooter("navigate_before");
-  let main = this.createResultsMain();
+  this.resultsMain = this.createResultsMain();
 
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
-  bodyDiv.appendChild(main);
+  bodyDiv.appendChild(this.resultsMain);
   bodyDiv.appendChild(footer);
   this.setActiveDataView(this.activeDataView);
 
@@ -465,12 +466,18 @@ View.prototype.createResultsMain = function() {
     switch (this.activeDataView) {
       case "list-view":
         console.log("list-view");
+        child.innerHTML = `<p>List view is not implemented yet.</p>`;
+        m.appendChild(child);
         break;
       case "chart-view":
         console.log("chart-view");
+        child.innerHTML = `<p>Chart view is not implemented yet.</p>`;
+        m.appendChild(child);
         break;
       case "map-view":
         console.log("map-view");
+        child.innerHTML = `<p>Map view is not implemented yet.</p>`;
+        m.appendChild(child);
         break;
       case "photo-view":
       default:
