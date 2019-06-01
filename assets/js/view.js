@@ -463,10 +463,33 @@ View.prototype.createResultsMain = function() {
     g.appendChild(c);
     m.appendChild(g);
   } else {
+    this.rankedList = this.cityRankModelCB(computedUserPrefs);
+    this.rankedList.length = this.maxResults;
+    let rank = 1;
     switch (this.activeDataView) {
       case "list-view":
         console.log("list-view");
-        child.innerHTML = `<p>List view is not implemented yet.</p>`;
+        let ol = document.createElement("ol");
+        ol.classList.add("mdl-list");
+        ol.setAttribute("style", "width: 95%");
+        console.log("computed prefs passed to model =", computedUserPrefs);
+
+        // let monetizationPosition1 = 3;
+        // let monetizationPosition2 = 8;
+        this.rankedList.map(cityData => {
+          // if (rank == monetizationPosition1 || rank == monetizationPosition2) {
+          //   let monetizeParams = {
+          //     img: "assets/img/monetize.jpg",
+          //     titleText: "Monetize here $"
+          //   };
+          //   let mc = this.createResultsMonetizeCard(monetizeParams);
+          //   g.appendChild(mc);
+          // }
+          let cityParams = this.marshallModelData(rank++, cityData);
+          let li = this.createResultsListItem(cityParams);
+          ol.appendChild(li);
+        });
+        child.appendChild(ol);
         m.appendChild(child);
         break;
       case "chart-view":
@@ -492,10 +515,6 @@ View.prototype.createResultsMain = function() {
         // of cities sorted by user preference.
         //-----------------------------------//
         console.log("computed prefs passed to model =", computedUserPrefs);
-        this.rankedList = this.cityRankModelCB(computedUserPrefs);
-
-        this.rankedList.length = this.maxResults;
-        let rank = 1;
         let monetizationPosition1 = 3;
         let monetizationPosition2 = 8;
         this.rankedList.map(cityData => {
@@ -585,8 +604,6 @@ View.prototype.createResultsCityCard = function(cityParams) {
     cityParams.happiness
   }</br> Median Home Price: ${affordability}</br> ${politics}</p>`;
 
-  // &nbsp;<i class="material-icons">link</i>
-  // preference-card-square
   p.classList.add("mdl-cell");
   p.classList.add("results-cell");
   p.classList.add("mdl-cell--3-col");
@@ -653,6 +670,39 @@ View.prototype.createResultsMonetizeCard = function(params) {
       </div>
     `;
   return p;
+};
+
+View.prototype.createResultsListItem = function(cityParams) {
+  let li = document.createElement("li");
+  let donkey =
+    '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>';
+  let elephant =
+    '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>';
+  let politics = `${donkey}${
+    cityParams.politics.demFraction
+  }%  &nbsp; ${elephant}${cityParams.politics.repFraction}%`;
+
+  let affordability = this.formatter.format(cityParams.affordability);
+
+  let cityStats = `Civic Happiness:  ${
+    cityParams.happiness
+  } | Median Home Price: ${affordability} | ${politics}`;
+
+  li.classList.add("mdl-list__item");
+  li.classList.add("mdl-list__item--three-line");
+  li.classList.add("results-list-item");
+  li.innerHTML = `
+      <span class="mdl-list__item-primary-content">
+        <i class="material-icons mdl-list__item-avatar">location_city</i>
+        <span>${cityParams.rank}. ${cityParams.titleText}</span>
+        <span class="mdl-list__item-text-body">
+          ${cityStats}
+        </span>
+      </span>
+      <span class="mdl-list__item-secondary-content">
+        <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">more_horiz</i></a>
+      </span>`;
+  return li;
 };
 
 View.prototype.createResultsNoPrefsCard = function(params) {
