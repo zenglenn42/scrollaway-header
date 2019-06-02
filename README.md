@@ -605,7 +605,7 @@ I also get a nice metrics pop-up for free:
 
 ![alt](docs/img/pancakes.jpg)
 
-So is this a full-stack application? No! The model data is produced off-line and provided as a simple array of city metric objects.
+So is this a full-stack application? No! The model data is produced off-line and provided as a simple [array](https://github.com/zenglenn42/CityMatch/blob/2f307a1f800bd1b547e6dba6e30754cfdd93046b/assets/js/static-model.js#L12) of city metric objects.
 
 I don't feel too badly about this since the point here is to explore and evolve the user experience (UX) from City Rank days as opposed to developing a ruggedized data pump to the backend. To that end, I'm adding geo-location data for each city into the static model so I can rollout 'map-view'. Localizing the data endpoint to the client means we'll also get super fast performance after initial data load and can play with features like 'live-list' which should allows me to mutate the ranked list in real-time. If you want to see more generalized backend work, checkout the model in City Rank. I play with ajax and firebase there for persisting data.
 
