@@ -669,6 +669,6 @@ So yeah, all four views work: image, list, chart, map.
 
 ![alt](docs/img/view-formats-mvp-bigger.png)
 
-I think I'll bump this up to 1.0 MVP.
+The results code could use some refactor, but I think I'll bump this up to 1.0 MVP.
 
 ![alt](docs/img/happy-lights.jpg)
