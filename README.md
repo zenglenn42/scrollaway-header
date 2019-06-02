@@ -600,3 +600,17 @@ I'm on a roll, knocking out a basic grouped stacked bar chart using Chart.js. It
 I also get a nice metrics pop-up for free:
 
 ![alt](docs/img/chart-popup.png)
+
+## Full stack?
+
+![alt](docs/img/pancakes.png)
+
+So is this a full-stack application? No! The model data is produced off-line and provided as a simple array of city metric objects.
+
+I don't feel too badly about this since the point here is to explore and evolve the user experience (UX) from City Rank days as opposed to developing a ruggedized data pump to the backend. To that end, I'm adding geo-location data for each city into the static model so I can rollout 'map-view'. Localizing the data endpoint to the client means we'll also get super fast performance after initial data load and can play with features like 'live-list' which should allows me to mutate the ranked list in real-time. If you want to see more generalized backend work, checkout the model in City Rank. I play with ajax and firebase there for persisting data.
+
+![alt](docs/img/geolocate.jpg)
+
+I basically make ~200 synchronous calls to Google's geocode endpoint, passing in just the city and state as the address and getting back latitude and longitude.
+
+I wonder if Google will throttle my requests or only return the first n-cities worth of data, but I kick off my utility program and patiently wait a full minute and am finally [rewarded](https://github.com/zenglenn42/CityMatch/commit/2d00b08b00348179a7bfc8a5cd6167009e3705d6) with all the data I need for the model. :-)
