@@ -657,8 +657,8 @@ I may still do the D3 thing just because it's prevalent and good for my vocabula
 
 (time passes ...)
 
-Hah! Went with a very MVP-ish solution with [leaflet](https://leafletjs.com/).
+Hah! Went with a basic solution with [leaflet](https://leafletjs.com/).
 
 ![alt](docs/img/map-view-basic.png)
 
-This could use a lot of polish, but I've got markers on a map. And you can zoom in to the street level and don't need a lot of crazy key gatekeeping (since it's based upon [open street maps](https://www.openstreetmap.org/#map=3/38.00/-95.80).
+This could use a lot of polish, but I've got markers on a map. And you can zoom into the street level and don't need to stress over keys (since it's based upon [open street maps](https://www.openstreetmap.org/#map=3/38.00/-95.80)).
