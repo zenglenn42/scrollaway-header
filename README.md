@@ -601,7 +601,7 @@ I also get a nice metrics pop-up for free:
 
 ![alt](docs/img/chart-popup.png)
 
-## Full stack?
+## Full Stack?
 
 ![alt](docs/img/pancakes.jpg)
 
