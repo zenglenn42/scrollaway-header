@@ -431,18 +431,17 @@ View.prototype.createResultsBody = function createResultsBody() {
     "Help"
   ]);
   let hamburgerMenu = this.createHamburgerMenu();
-  let footer = this.createResultsFooter("navigate_before");
-  this.resultsMain = this.createResultsMain();
-
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
-  bodyDiv.appendChild(this.resultsMain);
+  this.resultsMain = this.createResultsMain(bodyDiv);
+  // bodyDiv.appendChild(this.resultsMain);
+  let footer = this.createResultsFooter("navigate_before");
   bodyDiv.appendChild(footer);
   this.setActiveDataView(this.activeDataView);
 
   this.addResultsPageEventListeners();
 };
 
-View.prototype.createResultsMain = function() {
+View.prototype.createResultsMain = function(bodyDiv) {
   let m = document.createElement("main");
   m.classList.add("mdl-layout__content");
   let child = document.createElement("div");
@@ -462,6 +461,7 @@ View.prototype.createResultsMain = function() {
     g.classList.add("theGrid");
     g.appendChild(c);
     m.appendChild(g);
+    bodyDiv.appendChild(m);
   } else {
     this.rankedList = this.cityRankModelCB(computedUserPrefs);
     this.rankedList.length = this.maxResults;
@@ -491,16 +491,128 @@ View.prototype.createResultsMain = function() {
         });
         child.appendChild(ol);
         m.appendChild(child);
+        bodyDiv.appendChild(m);
         break;
       case "chart-view":
         console.log("chart-view");
-        child.innerHTML = `<p>Chart view is not implemented yet.</p>`;
+
+        // child.innerHTML = `<p>Chart view is not implemented yet.</p>`;
+        child.innerHTML = `
+          <canvas id="myChart" width="400" height="400"></canvas>
+        `;
         m.appendChild(child);
+        bodyDiv.appendChild(m);
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var barChartData = {
+          labels: [
+            "City 1",
+            "City 2",
+            "City 3",
+            "City 4",
+            "City 5",
+            "City 6",
+            "City 7"
+          ],
+          datasets: [
+            {
+              label: "Happiness",
+              backgroundColor: "gold",
+              stack: "Stack 0",
+              data: [5, 10, 5, 2, 19, 3, 6]
+            },
+            {
+              label: "Affordability",
+              backgroundColor: "lightseagreen",
+              stack: "Stack 0",
+              data: [10, 3, 2, 5, 3, 19, 12]
+            },
+            {
+              label: "Politics",
+              backgroundColor: "mediumslateblue",
+              stack: "Stack 0",
+              data: [9, 2, 3, 4, 5, 17, 13]
+            },
+            {
+              label: "Rank",
+              backgroundColor: "dimgray",
+              stack: "Stack 1",
+              data: [12, 19, 3, 5, 2, 3, 10]
+            }
+          ]
+        };
+        var myChart = new Chart(ctx, {
+          type: "bar",
+          data: barChartData,
+          options: {
+            title: {
+              display: true,
+              text: "City Rank"
+            },
+            tooltips: {
+              mode: "index",
+              intersect: false
+            },
+            responsive: true,
+            scales: {
+              xAxes: [
+                {
+                  stacked: true
+                }
+              ],
+              yAxes: [
+                {
+                  stacked: true
+                }
+              ]
+            }
+          }
+        });
+        // var myChart = new Chart(ctx, {
+        //   type: "bar",
+        //   data: {
+        //     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        //     datasets: [
+        //       {
+        //         label: "# of Votes",
+        //         data: [12, 19, 3, 5, 2, 3],
+        //         backgroundColor: [
+        //           "rgba(255, 99, 132, 0.2)",
+        //           "rgba(54, 162, 235, 0.2)",
+        //           "rgba(255, 206, 86, 0.2)",
+        //           "rgba(75, 192, 192, 0.2)",
+        //           "rgba(153, 102, 255, 0.2)",
+        //           "rgba(255, 159, 64, 0.2)"
+        //         ],
+        //         borderColor: [
+        //           "rgba(255, 99, 132, 1)",
+        //           "rgba(54, 162, 235, 1)",
+        //           "rgba(255, 206, 86, 1)",
+        //           "rgba(75, 192, 192, 1)",
+        //           "rgba(153, 102, 255, 1)",
+        //           "rgba(255, 159, 64, 1)"
+        //         ],
+        //         borderWidth: 1
+        //       }
+        //     ]
+        //   },
+        //   options: {
+        //     scales: {
+        //       yAxes: [
+        //         {
+        //           ticks: {
+        //             beginAtZero: true
+        //           }
+        //         }
+        //       ]
+        //     }
+        //   }
+        // });
         break;
       case "map-view":
         console.log("map-view");
         child.innerHTML = `<p>Map view is not implemented yet.</p>`;
         m.appendChild(child);
+        bodyDiv.appendChild(m);
         break;
       case "photo-view":
       default:
@@ -530,10 +642,10 @@ View.prototype.createResultsMain = function() {
           let c = this.createResultsCityCard(cityParams);
           g.appendChild(c);
         });
+        bodyDiv.appendChild(m);
         break;
     }
   }
-  return m;
 };
 
 View.prototype.getComputedUserPrefs = function() {
