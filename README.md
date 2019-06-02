@@ -597,6 +597,6 @@ I'm on a roll, knocking out a basic grouped stacked bar chart using Chart.js. It
 
 ![alt](docs/img/chart-view-basic.png)
 
-I also get a nice metrics pop-up too for free:
+I also get a nice metrics pop-up for free:
 
 ![alt](docs/img/chart-popup.png)
