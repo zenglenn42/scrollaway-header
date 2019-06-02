@@ -3598,6 +3598,7 @@ StaticModel.prototype.mkCityLatLng = function() {
 };
 
 // Requires jQuery but typically just a 1-shot predeployment activity.
+// Code courtesy: https://tinyurl.com/yymbb95e with modifications.
 //
 // StaticModel.prototype.ajaxGetLocationCoordinate = function(address) {
 //   var position = {};

@@ -616,6 +616,8 @@ If you want to see more generalized backend work, checkout the model in City Ran
 I basically make ~200 synchronous calls to Google's geocode endpoint, passing in just the city and state as the address and getting back latitude and longitude.
 
 ```
+// Code courtesy: https://tinyurl.com/yymbb95e with modifications.
+
 StaticModel.prototype.ajaxGetLocationCoordinate = function(address) {
   var position = {};
   $.ajax({
