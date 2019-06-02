@@ -4,12 +4,12 @@
 
 Find your city.
 
-# Release 0.9 (MVP)
+# Release 1.0 (MVP)
 
-Not all the buttons and menus are wired up, but basic city ranking and reporting work.
+Still need to wire up the menus and info links, but basic city ranking and multi-view results work:
 
 ![alt](docs/img/cm-mvp-screenshot.png)
-![alt](docs/img/view-formats-mvp.png)
+![alt](docs/img/view-formats-mvp-bigger.png)
 
 ## Value Proposition
 
