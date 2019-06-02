@@ -665,6 +665,10 @@ Hah! Went with a basic solution with [leaflet](https://leafletjs.com/).
 
 This could use a lot of polish, but I've got markers on a map. And you can zoom into the street level and don't need to stress over keys (since it's based upon [open street maps](https://www.openstreetmap.org/#map=3/38.00/-95.80)).
 
-So yeah, we have all four views knocked out:
+So yeah, all four views work:
 
 ![alt](docs/img/view-formats-mvp-bigger.png)
+
+I think I'll bump this up to 1.0 MVP.
+
+![alt](docs/img/happy-lights.jpg)
