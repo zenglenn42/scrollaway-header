@@ -603,7 +603,7 @@ I also get a nice metrics pop-up for free:
 
 ## Full stack?
 
-![alt](docs/img/pancakes.png)
+![alt](docs/img/pancakes.jpg)
 
 So is this a full-stack application? No! The model data is produced off-line and provided as a simple array of city metric objects.
 
