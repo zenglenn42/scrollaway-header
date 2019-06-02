@@ -574,10 +574,36 @@ View.prototype.createResultsMain = function(bodyDiv) {
         });
         break;
       case "map-view":
-        console.log("map-view");
-        child.innerHTML = `<p>Map view is not implemented yet.</p>`;
-        m.appendChild(child);
-        bodyDiv.appendChild(m);
+        {
+          child.setAttribute("id", "mapid");
+          child.setAttribute("style", "height: 80vh");
+
+          m.appendChild(child);
+          bodyDiv.appendChild(m);
+          let map = L.map("mapid").setView([38, -96], 3);
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 18
+          }).addTo(map);
+          let rank = 0;
+          this.rankedList.map(cityData => {
+            let cityParams = this.marshallModelData(rank++, cityData);
+            let markerText = `${rank}. ${cityParams.titleText}`;
+            let lat = cityParams.lat;
+            let lng = cityParams.lng;
+            if (rank == 1) {
+              L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup(markerText)
+                .openPopup();
+            } else {
+              L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup(markerText);
+            }
+          });
+        }
         break;
       case "photo-view":
       default:
@@ -666,6 +692,8 @@ View.prototype.marshallModelData = function(rank, cityData) {
   cityParams.hDistance = cityProperties[0].distance.happiness;
   cityParams.aDistance = cityProperties[0].distance.affordability;
   cityParams.pDistance = cityProperties[0].distance.politics;
+  cityParams.lat = cityProperties[0].location.lat;
+  cityParams.lng = cityProperties[0].location.lng;
   cityParams.jobOutlook = 42;
   return cityParams;
 };
