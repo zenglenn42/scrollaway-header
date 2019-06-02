@@ -667,4 +667,4 @@ This could use a lot of polish, but I've got markers on a map. And you can zoom 
 
 So yeah, we have all four views knocked out:
 
-![alt](docs/img/view-formats-mvp.png)
+![alt](docs/img/view-formats-mvp-bigger.png)
