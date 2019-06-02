@@ -9,6 +9,7 @@ Find your city.
 Not all the buttons and menus are wired up, but basic city ranking and reporting work.
 
 ![alt](docs/img/cm-mvp-screenshot.png)
+![alt](docs/img/view-formats-mvp.png)
 
 ## Value Proposition
 
@@ -663,3 +664,7 @@ Hah! Went with a basic solution with [leaflet](https://leafletjs.com/).
 ![alt](docs/img/map-view-zoom.png)
 
 This could use a lot of polish, but I've got markers on a map. And you can zoom into the street level and don't need to stress over keys (since it's based upon [open street maps](https://www.openstreetmap.org/#map=3/38.00/-95.80)).
+
+So yeah, we have all four views knocked out:
+
+![alt](docs/img/view-formats-mvp.png)
