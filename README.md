@@ -596,3 +596,7 @@ I'm looking forward to chart and map view, but they will require 3rd party libra
 I'm on a roll, knocking out a basic grouped stacked bar chart using Chart.js. It has nice animation and is super simple to integrate, thanks to some Array.map fu. I'm not sure how many user's will actually be interested in this view, but quants probably will appreciate. Basically, the ideal city will have a distance of 0 from the user-preference point.
 
 ![alt](docs/img/chart-view-basic.png)
+
+I also get a nice metrics pop-up too for free:
+
+![alt](docs/img/chart-popup.png)
