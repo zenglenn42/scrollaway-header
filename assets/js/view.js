@@ -510,10 +510,10 @@ View.prototype.createResultsMain = function(bodyDiv) {
         this.rankedList.map(cityData => {
           let cp = this.marshallModelData(r++, cityData);
           cityLabels.push(cp.titleText);
-          happinessData.push(cp.hDistance);
-          affordabilityData.push(cp.aDistance);
-          politicsData.push(cp.pDistance);
-          rankData.push(cp.vDistance);
+          happinessData.push(cp.hDistance.toFixed(2));
+          affordabilityData.push(cp.aDistance.toFixed(2));
+          politicsData.push(cp.pDistance.toFixed(2));
+          rankData.push(cp.vDistance.toFixed(2));
         });
         var barChartData = {
           labels: cityLabels,
