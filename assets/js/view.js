@@ -494,49 +494,54 @@ View.prototype.createResultsMain = function(bodyDiv) {
         bodyDiv.appendChild(m);
         break;
       case "chart-view":
-        console.log("chart-view");
-
-        // child.innerHTML = `<p>Chart view is not implemented yet.</p>`;
         child.innerHTML = `
           <canvas id="myChart" width="400" height="400"></canvas>
         `;
         m.appendChild(child);
         bodyDiv.appendChild(m);
         var ctx = document.getElementById("myChart").getContext("2d");
+        let cityLabels = [];
+        let happinessData = [];
+        let affordabilityData = [];
+        let politicsData = [];
+        let rankData = [];
+        let r = 1;
+        console.log(this.rankedList);
+        this.rankedList.map(cityData => {
+          let cp = this.marshallModelData(r++, cityData);
+          cityLabels.push(cp.titleText);
+          happinessData.push(cp.hDistance);
+          affordabilityData.push(cp.aDistance);
+          politicsData.push(cp.pDistance);
+          rankData.push(cp.vDistance);
+        });
         var barChartData = {
-          labels: [
-            "City 1",
-            "City 2",
-            "City 3",
-            "City 4",
-            "City 5",
-            "City 6",
-            "City 7"
-          ],
+          labels: cityLabels,
           datasets: [
             {
-              label: "Happiness",
-              backgroundColor: "gold",
+              label: "Combined",
+              backgroundColor: "dimgray",
               stack: "Stack 0",
-              data: [5, 10, 5, 2, 19, 3, 6]
+              data: rankData
+            },
+            {
+              label: "Happiness",
+              // backgroundColor: "rgba(255, 99, 132, 0.2)",
+              backgroundColor: "gold",
+              stack: "Stack 1",
+              data: happinessData
             },
             {
               label: "Affordability",
               backgroundColor: "lightseagreen",
-              stack: "Stack 0",
-              data: [10, 3, 2, 5, 3, 19, 12]
+              stack: "Stack 1",
+              data: affordabilityData
             },
             {
               label: "Politics",
               backgroundColor: "mediumslateblue",
-              stack: "Stack 0",
-              data: [9, 2, 3, 4, 5, 17, 13]
-            },
-            {
-              label: "Rank",
-              backgroundColor: "dimgray",
               stack: "Stack 1",
-              data: [12, 19, 3, 5, 2, 3, 10]
+              data: politicsData
             }
           ]
         };
@@ -546,7 +551,7 @@ View.prototype.createResultsMain = function(bodyDiv) {
           options: {
             title: {
               display: true,
-              text: "City Rank"
+              text: "Distance from User Preference (0 = ideal)"
             },
             tooltips: {
               mode: "index",
@@ -567,46 +572,6 @@ View.prototype.createResultsMain = function(bodyDiv) {
             }
           }
         });
-        // var myChart = new Chart(ctx, {
-        //   type: "bar",
-        //   data: {
-        //     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        //     datasets: [
-        //       {
-        //         label: "# of Votes",
-        //         data: [12, 19, 3, 5, 2, 3],
-        //         backgroundColor: [
-        //           "rgba(255, 99, 132, 0.2)",
-        //           "rgba(54, 162, 235, 0.2)",
-        //           "rgba(255, 206, 86, 0.2)",
-        //           "rgba(75, 192, 192, 0.2)",
-        //           "rgba(153, 102, 255, 0.2)",
-        //           "rgba(255, 159, 64, 0.2)"
-        //         ],
-        //         borderColor: [
-        //           "rgba(255, 99, 132, 1)",
-        //           "rgba(54, 162, 235, 1)",
-        //           "rgba(255, 206, 86, 1)",
-        //           "rgba(75, 192, 192, 1)",
-        //           "rgba(153, 102, 255, 1)",
-        //           "rgba(255, 159, 64, 1)"
-        //         ],
-        //         borderWidth: 1
-        //       }
-        //     ]
-        //   },
-        //   options: {
-        //     scales: {
-        //       yAxes: [
-        //         {
-        //           ticks: {
-        //             beginAtZero: true
-        //           }
-        //         }
-        //       ]
-        //     }
-        //   }
-        // });
         break;
       case "map-view":
         console.log("map-view");
@@ -697,6 +662,10 @@ View.prototype.marshallModelData = function(rank, cityData) {
     demFraction: cityProperties[0].politics.dem16_frac.toFixed(0),
     repFraction: cityProperties[0].politics.rep16_frac.toFixed(0)
   };
+  cityParams.vDistance = cityProperties[0].distance.vector;
+  cityParams.hDistance = cityProperties[0].distance.happiness;
+  cityParams.aDistance = cityProperties[0].distance.affordability;
+  cityParams.pDistance = cityProperties[0].distance.politics;
   cityParams.jobOutlook = 42;
   return cityParams;
 };
