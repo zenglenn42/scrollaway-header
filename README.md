@@ -656,14 +656,14 @@ Okay, markers on a map. That's the objective. I have a few options. I could just
 
 I may still do the D3 thing just because it's prevalent and good for my vocabulary. Is it the jQuery of visualization, though? Not ready to say that.
 
-(time passes ...)
+(⌛time passes ...)
 
 Hah! Went with a basic solution with [leaflet](https://leafletjs.com/).
 
 ![alt](docs/img/map-view-basic.png)
 ![alt](docs/img/map-view-zoom.png)
 
-This could use a lot of polish, but I've got markers on a map. And you can zoom into the street level and don't need to stress over keys (since it's based upon [open street maps](https://www.openstreetmap.org/#map=3/38.00/-95.80)).
+This could use a lot of polish, but I've got markers on a map. And you can zoom into the street level and don't need to stress over api keys (since it's based upon [open street maps](https://www.openstreetmap.org/#map=3/38.00/-95.80)).
 
 So yeah, all four views work: image, list, chart, map.
 
@@ -672,3 +672,21 @@ So yeah, all four views work: image, list, chart, map.
 The results code could use some refactor, but I think I'll bump this up to 1.0 MVP.
 
 ![alt](docs/img/happy-lights.jpg)
+
+## Small Planet
+
+![alt](docs/img/planet-earth.jpg)
+
+You know, inclusion of latitude and longitude in the model and the rollout of map view open up some very compelling possibilities.
+
+I can see swooping down from a high-level map view to something like Google's street view for a much more immersive sense of a place.
+
+![alt](docs/img/street-view.png)
+
+You'd probably want to curate a list of proximate city features, chamber of commerce highlights.
+
+Subject to [terms of use](https://www.google.com/intl/en-US_US/help/terms_maps/), you could even do a fly-by of those features with [Google Earth](https://www.google.com/earth/). More broadly, you could organize fly-bys of the top 10 cities /including/ mini fly-bys of the cities themselves.
+
+Google has monetized many of their APIs so I'd probably save a feature like this for a fullstack implementation where I have a better shot at protecting the api key, and maybe unlocking that feature for user's who have established an account or otherwise subscribed.
+
+I'm thinking of a business model closer to 'Consumer Reports' and their in-depth auto reports which include valuable pricing information. You get some data for free, but for premium content, you have to pay. With other business models, user's trade some of their data for access. It's interesting be on the other side of the data equation, because I hate being commoditized. At a minimum, the choices for the user should be transparent and clearly rationalized.
