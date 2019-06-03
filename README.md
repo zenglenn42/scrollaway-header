@@ -602,6 +602,10 @@ I also get a nice metrics pop-up for free:
 
 ![alt](docs/img/chart-popup.png)
 
+This just scratches the surface for visualization. A graph like [this](https://bl.ocks.org/mbostock/1062288) might be interesting to explore. Perhaps it could provide another view on how cities relate to each other.
+
+![alt](docs/img/collapsible-force.png)
+
 ## Full Stack?
 
 ![alt](docs/img/pancakes.jpg)
