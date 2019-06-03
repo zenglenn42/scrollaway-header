@@ -610,7 +610,7 @@ This just scratches the surface for visualization. A graph like [this](https://b
 
 ![alt](docs/img/pancakes.jpg)
 
-So is this a full-stack application? No! The model data is produced off-line and provided as a simple [array](https://github.com/zenglenn42/CityMatch/blob/2f307a1f800bd1b547e6dba6e30754cfdd93046b/assets/js/static-model.js#L12) of city metric objects.
+So is this a full-stack application? No, not really. The model data are produced off-line and provided as a simple [array](https://github.com/zenglenn42/CityMatch/blob/2f307a1f800bd1b547e6dba6e30754cfdd93046b/assets/js/static-model.js#L12) of city metric objects. Other than serving up a [file](https://github.com/zenglenn42/CityMatch/blob/master/assets/js/static-model.js) to the client, the (github-pages) server has little to do.
 
 I don't feel too badly about this since the point here is to explore and evolve the user experience (UX) from City Rank days as opposed to developing a ruggedized data pump to the backend. To that end, I'm adding geo-location data for each city into the static model so I can rollout 'map-view'. Localizing the data endpoint to the client means we'll also get super fast performance after initial data load and can play with features like 'live-list' which should allows me to mutate the ranked list in real-time. It also means I don't have to really think about quota limits against my key if I were to inject it into the normal backend operation of the app. These city locations are not changing anytime soon so this one-shot approach suits my purposes, though adding new cities is a thing.
 
@@ -656,7 +656,7 @@ I wonder if Google will throttle my requests or only return the first n-cities w
 
 ![alt](docs/img/map-view.png)
 
-Okay, markers on a map. That's the objective. I have a few options. I could just go with The Google and do some map markers, especially for MVP. I'm also thinking it would be fun to play with [D3](https://d3js.org/) a bit. I start looking around and hit this interesting [thread](https://medium.com/@PepsRyuu/why-i-no-longer-use-d3-js-b8288f306c9a). It places D3 in historical context and advocates, with nuance, for considering other [approaches](https://preactjs.com/) that leverage virtual DOMS and low-impedance syntax of React.
+Okay, markers on a map. That's the objective. I have a few options. I could just go with The Google and do some map markers, especially for MVP. I'm also thinking it would be fun to play with [D3](https://d3js.org/) a bit. I start looking around and hit this interesting [thread](https://medium.com/@PepsRyuu/why-i-no-longer-use-d3-js-b8288f306c9a). It places D3 in historical context and advocates, with nuance, for considering other [approaches](https://preactjs.com/) that leverage virtual DOMs and low-impedance syntax of React.
 
 I may still do the D3 thing just because it's prevalent and good for my vocabulary. Is it the jQuery of visualization, though? Not ready to say that.
 
