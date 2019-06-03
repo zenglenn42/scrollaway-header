@@ -687,7 +687,7 @@ I can see swooping down from a high-level map view to something like Google's st
 
 ![alt](docs/img/street-view.png)
 
-Subject to [terms of use](https://www.google.com/intl/en-US_US/help/terms_maps/), you could even do a fly-by of those features with [Google Earth](https://www.google.com/earth/). Google exposes an [earth engine API](https://earthengine.google.com/), so this kind of integration is intended. More broadly, you could organize fly-bys of the top 10 cities /including/ mini fly-bys of the cities themselves. You'd probably want to curate a list of proximate city features, chamber of commerce highlights.
+Subject to [terms of use](https://www.google.com/intl/en-US_US/help/terms_maps/), you could even do a fly-by of a city with [Google Earth](https://www.google.com/earth/). Google exposes an [earth engine API](https://earthengine.google.com/), so this kind of integration seems doable (perhaps with even more sophisticated preferences possible now for extreme weather conditions or fire and flooding). You could organize fly-bys of the top 10 cities /including/ mini fly-bys of the cities themselves. You'd probably want to curate a list of proximate city features and chamber of commerce highlights.
 
 Google has monetized many of their APIs so I'd probably save a feature like this for a fullstack implementation where I have a better shot at protecting the api key, and maybe unlocking that feature for user's who have established an account or otherwise subscribed.
 
