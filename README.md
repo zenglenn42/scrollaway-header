@@ -675,9 +675,9 @@ The results code could use some refactor, but I think I'll bump this up to 1.0 M
 
 ## Small Planet
 
-![alt](docs/img/planet-earth.jpg)
-
 You know, inclusion of latitude and longitude in the model and the rollout of map view open up some very compelling possibilities.
+
+![alt](docs/img/planet-earth.jpg)
 
 I can see swooping down from a high-level map view to something like Google's street view for a much more immersive sense of a place.
 
