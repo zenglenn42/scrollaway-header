@@ -699,7 +699,7 @@ One of the [tenets of agile](https://agilemanifesto.org/) software development i
 
 Instead, you talk with people. A lot. You involve customers or potential customers early in the process and frequently demo your progress so you can check your trajectory and value against actually expressed needs and requirements.
 
-So I'm doing that with City Match, facilitated by a responsive design that is easy to demo from my cell phone. Usually the response to my impromptu demos ranges from politely neutral to strongly enthusiastic.
+So I'm doing this with City Match, facilitated by a responsive prototype easy to demo on my cell phone, with subsequent feedback that ranges from politely neutral to strongly enthusiastic.
 
 Until last week.
 
