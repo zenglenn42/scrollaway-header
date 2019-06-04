@@ -692,3 +692,47 @@ Subject to [terms of use](https://www.google.com/intl/en-US_US/help/terms_maps/)
 Google has monetized many of their APIs so I'd probably save a feature like this for a fullstack implementation where I have a better shot at protecting the api key, and maybe unlocking that feature for user's who have established an account or otherwise subscribed.
 
 I'm thinking of a business model closer to 'Consumer Reports' and their in-depth auto reports which include valuable pricing information. You get some data for free, but for premium content, you have to pay. With other business models, user's trade some of their data for access. It's interesting be on the other side of the data equation, because I hate being commoditized. At a minimum, the choices for the user should be transparent and clearly rationalized.
+
+## Agile and the Dalai Lama?
+
+One of the tenets of Agile software development is an emphasis of communication over documentation. This means you don't isolate yourself in some ivory tower, writing beautiful requirements documents for some ethereal customer and their imagined needs, only to descend with some lovingly crafted but largely irrelevant direction.
+
+Instead, you talk with people. A lot. You involve customers or potential customers early in the process and frequently demo your progress so you can check your trajectory and value against actually expressed needs and requirements.
+
+So I'm doing that, facilitated by a responsive design that is easy to demo from my cell phone. Usually the response to my impromptu demos ranges from politely neutral to strongly enthusiastic.
+
+Until last week.
+
+"This is dumb. I don't like this," she says flatly.
+
+Sometimes you don't hit it off with someone because the solution you're proposing is just not relevant to your bystander beta tester. I get that. But this person was actually /interested/ in finding a new place to live in the near future. Perfect scenario for me, really.
+
+"Why do I care if someone who lives next to me is happy or not? Why do I care about their politics?", she continues undeterred.
+
+I tamp down an initial pang of vulnerability and laugh. I try to explain she can disable the preference cards that don't apply to her. She plays disinterestedly with the affordability slider and reviews a few cities that seem to past muster at some minimal level. But she is unimpressed.
+
+So I ask, "How /are/ you going about figuring out where to move? What's important to you?"
+
+- Pricing is important.
+- Focussing her energy on areas she has already vetted is important.
+- Access to Zillo-related property searches is important.
+- Proximity to natural beauty is important.
+
+The feedback is interesting, I think. Some of it relates to ideas I've already kicked around. Filtering by region or state makes a lot of sense since people already bring an unspoken collection of 'pre-set' preference sliders to the table and already have a sense of what is desired. Tie-ins to real estate or apartment management portals have been on my radar, etc.
+
+Generalizing things and bit, and riff'ing on what I'm learning about React and it's pluggable component-view of the world, I can imagine an endpoint with a variety of downloadable, plugable preference cards that come not only with a componentized view, but with a componentized /model/.
+Someone has done the hard work of chasing down the endpoints, supplying the keys that make the data flow, and characterizing that data, all verticalized for my City Match-centric universe :D. (I mean CM /is/ the new FB, right? You didn't know.)
+
+A specification could be defined that makes 3rd party originators and publishers of City Match preference add-ons possible. I suppose every app-store wannabe has had fantasies of that kind of scalability. It's where my brain goes and it's fun to dream ... a tailored data-as-a-service thing. I mean, that's what endpoints /are/ and every backend devised is really just quietly doing this every day for their corresponding programs and applications.
+
+But I'm taking the added step of associating that data somehow with a downloadable jsx-ified view component. If you could cultivate a garden of these things, then maybe folks like my discriminating beta tester might find the preference cards that really matter to them rather than me trying to anticipate what will work for everybody.
+
+Where does the Dalai Lama come into all of this?
+
+Last night, while driving home from my fullstack bootcamp, I listen to an [interview](https://www.intelligencesquaredus.org/news/blog/iq2-interview-should-you-love-your-enemies) between John Donvan of Intelligence Squared fame and Arthur Brooks, discussing Brooks' new book, "Love Your Enemies: How Decent People Can Save America from the Culture of Contempt".
+
+Brooks knows and has co-authored books with the Dalai Lama. At one point, Brooks asks his exalted friend, "How should I respond when contempt is directed toward me?" "With a warm heart," is the response. It's a glimmering insight from someone who is no stranger to attack. Brooks then relates, in the interview, some of the physiological benefits that flow to body and enhance well-being if we can do this in the face of perceived negativity.
+
+![alt](docs/img/garden-heart.jpg)
+
+It's simple advice which runs counter to our normal instinct to be defensive in the face of unexpected or contrary feedback. But if you're going to embrace agile software development, this strategy may be useful if difficult to master.
