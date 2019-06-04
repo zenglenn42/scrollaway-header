@@ -699,9 +699,11 @@ One of the tenets of Agile software development is an emphasis of communication 
 
 Instead, you talk with people. A lot. You involve customers or potential customers early in the process and frequently demo your progress so you can check your trajectory and value against actually expressed needs and requirements.
 
-So I'm doing that, facilitated by a responsive design that is easy to demo from my cell phone. Usually the response to my impromptu demos ranges from politely neutral to strongly enthusiastic.
+So I'm doing that with City Match, facilitated by a responsive design that is easy to demo from my cell phone. Usually the response to my impromptu demos ranges from politely neutral to strongly enthusiastic.
 
 Until last week.
+
+![alt](docs/img/feedback.jpg)
 
 "This is dumb. I don't like this," she says flatly.
 
@@ -731,7 +733,7 @@ Where does the Dalai Lama come into all of this?
 
 Last night, while driving home from my fullstack bootcamp, I listen to an [interview](https://www.intelligencesquaredus.org/news/blog/iq2-interview-should-you-love-your-enemies) between John Donvan of Intelligence Squared fame and Arthur Brooks, discussing Brooks' new book, "Love Your Enemies: How Decent People Can Save America from the Culture of Contempt".
 
-Brooks knows and has co-authored books with the Dalai Lama. At one point, Brooks asks his exalted friend, "How should I respond when contempt is directed toward me?" "With a warm heart," is the response. It's a glimmering insight from someone who is no stranger to attack. Brooks then relates, in the interview, some of the physiological benefits that flow to body and enhance well-being if we can do this in the face of perceived negativity.
+Brooks knows and has co-authored books with the Dalai Lama. At one point, Brooks asks his exalted friend, "How should I respond when contempt is directed toward me?" "With a warm heart," is the response. It's a glimmering insight from someone who is no stranger to attack. Brooks then relates, in the interview, some of the physiological benefits that flow to the body and enhance well-being if we can do this in the face of perceived negativity.
 
 ![alt](docs/img/garden-heart.jpg)
 
