@@ -707,7 +707,7 @@ Until last week.
 
 "This is dumb. I don't like this," she says flatly.
 
-Sometimes you don't hit it off with someone because the solution you're proposing is just not relevant to your bystander beta tester. I get that. But this person was actually /interested/ in finding a new place to live in the near future. Perfect scenario for me, really.
+Sometimes you don't hit it off with someone because the solution you're proposing is just not relevant to your beta-tester bystander. I get that. But this person was actually /interested/ in finding a new place to live in the near future. Perfect scenario for me, really.
 
 "Why do I care if someone who lives next to me is happy or not? Why do I care about their politics?", she continues undeterred.
 
