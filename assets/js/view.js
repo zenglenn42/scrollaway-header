@@ -181,7 +181,6 @@ View.prototype.createPreferencesBody = function createPreferencesBody() {
 View.prototype.createPreferencesMain = function() {
   let m = document.createElement("main");
   m.classList.add("mdl-layout__content");
-  // let child = document.createElement(`<div class="grid-content">`);
   let child = document.createElement("div");
   child.classList.add("grid-content");
   m.appendChild(child);
@@ -468,141 +467,28 @@ View.prototype.createResultsMain = function(bodyDiv) {
     let rank = 1;
     switch (this.activeDataView) {
       case "list-view":
-        console.log("list-view");
-        let ol = document.createElement("ol");
-        ol.classList.add("mdl-list");
-        ol.setAttribute("style", "width: 95%");
-        console.log("computed prefs passed to model =", computedUserPrefs);
-
-        // let monetizationPosition1 = 3;
-        // let monetizationPosition2 = 8;
-        this.rankedList.map(cityData => {
-          // if (rank == monetizationPosition1 || rank == monetizationPosition2) {
-          //   let monetizeParams = {
-          //     img: "assets/img/monetize.jpg",
-          //     titleText: "Monetize here $"
-          //   };
-          //   let mc = this.createResultsMonetizeCard(monetizeParams);
-          //   g.appendChild(mc);
-          // }
-          let cityParams = this.marshallModelData(rank++, cityData);
-          let li = this.createResultsListItem(cityParams);
-          ol.appendChild(li);
-        });
+        let ol = this.createListView(computedUserPrefs);
         child.appendChild(ol);
         m.appendChild(child);
         bodyDiv.appendChild(m);
         break;
       case "chart-view":
+        let chartId = "myChart";
         child.innerHTML = `
-          <canvas id="myChart" width="400" height="400"></canvas>
+          <canvas id="${chartId}" width="400" height="400"></canvas>
         `;
         m.appendChild(child);
         bodyDiv.appendChild(m);
-        var ctx = document.getElementById("myChart").getContext("2d");
-        let cityLabels = [];
-        let happinessData = [];
-        let affordabilityData = [];
-        let politicsData = [];
-        let rankData = [];
-        let r = 1;
-        console.log(this.rankedList);
-        this.rankedList.map(cityData => {
-          let cp = this.marshallModelData(r++, cityData);
-          cityLabels.push(cp.titleText);
-          happinessData.push(cp.hDistance.toFixed(2));
-          affordabilityData.push(cp.aDistance.toFixed(2));
-          politicsData.push(cp.pDistance.toFixed(2));
-          rankData.push(cp.vDistance.toFixed(2));
-        });
-        var barChartData = {
-          labels: cityLabels,
-          datasets: [
-            {
-              label: "Combined",
-              backgroundColor: "dimgray",
-              stack: "Stack 0",
-              data: rankData
-            },
-            {
-              label: "Happiness",
-              // backgroundColor: "rgba(255, 99, 132, 0.2)",
-              backgroundColor: "gold",
-              stack: "Stack 1",
-              data: happinessData
-            },
-            {
-              label: "Affordability",
-              backgroundColor: "lightseagreen",
-              stack: "Stack 1",
-              data: affordabilityData
-            },
-            {
-              label: "Politics",
-              backgroundColor: "mediumslateblue",
-              stack: "Stack 1",
-              data: politicsData
-            }
-          ]
-        };
-        var myChart = new Chart(ctx, {
-          type: "bar",
-          data: barChartData,
-          options: {
-            title: {
-              display: true,
-              text: "Distance from User Preference (0 = ideal)"
-            },
-            tooltips: {
-              mode: "index",
-              intersect: false
-            },
-            responsive: true,
-            scales: {
-              xAxes: [
-                {
-                  stacked: true
-                }
-              ],
-              yAxes: [
-                {
-                  stacked: true
-                }
-              ]
-            }
-          }
-        });
+        this.createChartView(chartId);
         break;
       case "map-view":
         {
-          child.setAttribute("id", "mapid");
+          let mapId = "mapid";
+          child.setAttribute("id", mapId);
           child.setAttribute("style", "height: 80vh");
-
           m.appendChild(child);
           bodyDiv.appendChild(m);
-          let map = L.map("mapid").setView([38, -96], 3);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution:
-              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: 18
-          }).addTo(map);
-          let rank = 0;
-          this.rankedList.map(cityData => {
-            let cityParams = this.marshallModelData(rank++, cityData);
-            let markerText = `${rank}. ${cityParams.titleText}`;
-            let lat = cityParams.lat;
-            let lng = cityParams.lng;
-            if (rank == 1) {
-              L.marker([lat, lng])
-                .addTo(map)
-                .bindPopup(markerText)
-                .openPopup();
-            } else {
-              L.marker([lat, lng])
-                .addTo(map)
-                .bindPopup(markerText);
-            }
-          });
+          this.createMapView(mapId);
         }
         break;
       case "photo-view":
@@ -637,6 +523,133 @@ View.prototype.createResultsMain = function(bodyDiv) {
         break;
     }
   }
+};
+
+View.prototype.createListView = function(computedUserPrefs, rank = 1) {
+  console.log("list-view");
+  let ol = document.createElement("ol");
+  ol.classList.add("mdl-list");
+  ol.setAttribute("style", "width: 95%");
+  console.log("computed prefs passed to model =", computedUserPrefs);
+
+  // let monetizationPosition1 = 3;
+  // let monetizationPosition2 = 8;
+  this.rankedList.map(cityData => {
+    // if (rank == monetizationPosition1 || rank == monetizationPosition2) {
+    //   let monetizeParams = {
+    //     img: "assets/img/monetize.jpg",
+    //     titleText: "Monetize here $"
+    //   };
+    //   let mc = this.createResultsMonetizeCard(monetizeParams);
+    //   g.appendChild(mc);
+    // }
+    let cityParams = this.marshallModelData(rank++, cityData);
+    let li = this.createResultsListItem(cityParams);
+    ol.appendChild(li);
+  });
+  return ol;
+};
+
+View.prototype.createChartView = function(chartId) {
+  var ctx = document.getElementById(chartId).getContext("2d");
+  let cityLabels = [];
+  let happinessData = [];
+  let affordabilityData = [];
+  let politicsData = [];
+  let rankData = [];
+  let r = 1;
+  console.log(this.rankedList);
+  this.rankedList.map(cityData => {
+    let cp = this.marshallModelData(r++, cityData);
+    cityLabels.push(cp.titleText);
+    happinessData.push(cp.hDistance.toFixed(2));
+    affordabilityData.push(cp.aDistance.toFixed(2));
+    politicsData.push(cp.pDistance.toFixed(2));
+    rankData.push(cp.vDistance.toFixed(2));
+  });
+  var barChartData = {
+    labels: cityLabels,
+    datasets: [
+      {
+        label: "Combined",
+        backgroundColor: "black",
+        stack: "Stack 0",
+        data: rankData
+      },
+      {
+        label: "Happiness",
+        // backgroundColor: "rgba(255, 99, 132, 0.2)",
+        backgroundColor: "gold",
+        stack: "Stack 1",
+        data: happinessData
+      },
+      {
+        label: "Affordability",
+        backgroundColor: "lightseagreen",
+        stack: "Stack 1",
+        data: affordabilityData
+      },
+      {
+        label: "Politics",
+        backgroundColor: "mediumslateblue",
+        stack: "Stack 1",
+        data: politicsData
+      }
+    ]
+  };
+  var myChart = new Chart(ctx, {
+    type: "bar",
+    data: barChartData,
+    options: {
+      title: {
+        display: true,
+        text: "Distance from User Preference (0 = ideal)"
+      },
+      tooltips: {
+        mode: "index",
+        intersect: false
+      },
+      responsive: true,
+      scales: {
+        xAxes: [
+          {
+            stacked: true
+          }
+        ],
+        yAxes: [
+          {
+            stacked: true
+          }
+        ]
+      }
+    }
+  });
+};
+
+View.prototype.createMapView = function(mapId) {
+  let map = L.map(mapId).setView([38, -96], 3);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 18
+  }).addTo(map);
+  let rank = 0;
+  this.rankedList.map(cityData => {
+    let cityParams = this.marshallModelData(rank++, cityData);
+    let markerText = `${rank}. ${cityParams.titleText}`;
+    let lat = cityParams.lat;
+    let lng = cityParams.lng;
+    if (rank == 1) {
+      L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup(markerText)
+        .openPopup();
+    } else {
+      L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup(markerText);
+    }
+  });
 };
 
 View.prototype.getComputedUserPrefs = function() {
