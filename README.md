@@ -739,3 +739,18 @@ Brooks knows and has co-authored books with the Dalai Lama. At one point, Brooks
 ![alt](docs/img/garden-heart.jpg)
 
 It's simple advice which runs counter to our normal instinct to be defensive in the face of unexpected or contrary feedback. But if you're going to embrace agile software development, this strategy may be useful if difficult to master.
+
+## Slow Day
+
+I've got some catching up to do in my bootcamp homework, so today is pretty slow, CM-wise.
+
+![alt](docs/img/sebastian-molinares-49289-unsplash.jpg)
+Photo by Sebastian Molinares
+
+I fix a bug and refactor a little code in the view. I dream about what I want to knock out next:
+
+- job outlook?
+- live list?
+- react migration?
+
+![alt](docs/img/christophe-hautier-774462-unsplash.jpg)
