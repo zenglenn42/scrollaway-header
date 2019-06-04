@@ -167,7 +167,9 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
       // console.log("not checked");
       imgColorFilter = "grayscale(100%)"; // make image black & white
     }
-    let imgDiv = this.parentNode.parentNode.parentNode;
+    // TODO: Fragile!  Walk DOM subtree and find childNode with
+    //       class == ".mdl-card_title"
+    let imgDiv = this.parentNode.parentNode.parentNode.childNodes[1];
     imgDiv.style.filter = imgColorFilter;
     console.log("user prefs known to view = ", that.view.userPrefs);
   });
