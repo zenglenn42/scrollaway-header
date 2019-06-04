@@ -720,7 +720,7 @@ So I ask, "How /are/ you going about figuring out where to move? What's importan
 - Access to Zillo-related property searches is important.
 - Proximity to natural beauty is important.
 
-The feedback is interesting, I think. Some of it relates to ideas I've already kicked around. Filtering by region or state makes a lot of sense since people already bring an unspoken collection of 'pre-set' preference sliders to the table and already have a sense of what is desired. Tie-ins to real estate or apartment management portals have been on my radar, etc. But the bigger point is if I shutdown before I can get the feedback, then I may miss something valuable.
+The feedback is interesting, I think. Some of it relates to ideas I've already kicked around. Filtering by region or state makes a lot of sense since people already bring an unspoken collection of 'pre-set' preference sliders to the table and already have a sense of what is desired. Tie-ins to real estate or apartment management portals have been on my radar, etc. To people already focussed on some particular cities, /neighborhoods/ are a big deal. But the bigger point is if I shutdown before I can get the feedback, then I may miss something valuable.
 
 Hmm. Is there a way for 3rd parties to author and publish preference cards? Maybe attack the issue of scale and variability in what users care about that way. If you create a popular platform, maybe others can plug content into it.
 
