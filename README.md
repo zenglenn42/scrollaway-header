@@ -695,7 +695,7 @@ I'm thinking of a business model closer to 'Consumer Reports' and their in-depth
 
 ## Agile and the Dalai Lama?
 
-One of the tenets of Agile software development is an emphasis of communication over documentation. This means you don't isolate yourself in some ivory tower, writing beautiful requirements documents for some ethereal customer and their imagined needs, only to descend with some lovingly crafted but largely irrelevant direction.
+One of the [tenets of agile](https://agilemanifesto.org/) software development is working software over comprehensive documentation. This means you don't isolate yourself in some ivory tower, writing beautiful requirements documents for some ethereal customer and their imagined needs, only to descend with some lovingly crafted but largely irrelevant direction.
 
 Instead, you talk with people. A lot. You involve customers or potential customers early in the process and frequently demo your progress so you can check your trajectory and value against actually expressed needs and requirements.
 
