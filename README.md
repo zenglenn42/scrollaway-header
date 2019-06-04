@@ -693,6 +693,8 @@ Google has monetized many of their APIs so I'd probably save a feature like this
 
 I'm thinking of a business model closer to 'Consumer Reports' and their in-depth auto reports which include valuable pricing information. You get some data for free, but for premium content, you have to pay. With other business models, user's trade some of their data for access. It's interesting be on the other side of the data equation, because I hate being commoditized. At a minimum, the choices for the user should be transparent and clearly rationalized.
 
+But I stumble upon [WebGL Earth](http://examples.webglearth.com/) and maybe they have a sweet [open-sourcey solution](http://www.webglearth.org/) that would allow me to explore this idea without too much api key impedance.
+
 ## Agile and the Dalai Lama?
 
 One of the [tenets of agile](https://agilemanifesto.org/) software development is working software over comprehensive documentation. This means you don't isolate yourself in some ivory tower, writing beautiful requirements documents for some ethereal customer and their imagined needs, only to descend with some lovingly crafted but largely irrelevant direction.
