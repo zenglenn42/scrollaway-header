@@ -129,7 +129,7 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
     let switchId = this.getAttribute("id");
     if (that.switchIsEnabled(switchId)) {
       // Ignore the Job Outlook slide switch until I implement this feature.
-      if (switchId == that.switchJobSearchId) {
+      if (switchId == that.view.switchJobSearchId) {
         imgColorFilter = "grayscale(100%)"; // make JobSearch img always gray for now.
       } else {
         switch (switchId) {
