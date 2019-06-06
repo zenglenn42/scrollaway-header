@@ -620,7 +620,7 @@ If you want to see more generalized backend work, checkout the model in [City Ra
 
 I basically make ~200 synchronous calls to Google's geocode endpoint, passing in just the city and state as the address and getting back latitude and longitude.
 
-<script src="https://gist.github.com/zenglenn42/c28887e0d5e8b29c9f7bffce1b0456db.js"></script>
+{% gist c28887e0d5e8b29c9f7bffce1b0456db %}
 
 I wonder if Google will throttle my requests or only return the first n-cities worth of data, but I kick off my utility program and patiently wait a full minute and am finally [rewarded](https://github.com/zenglenn42/CityMatch/commit/2d00b08b00348179a7bfc8a5cd6167009e3705d6) with all the data I need for the model. :-)
 
