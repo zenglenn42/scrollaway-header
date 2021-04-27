@@ -90,6 +90,7 @@
     <link rel="stylesheet" href="assets/css/material.min.css" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <script src="assets/chart.js-2.8.0/package/dist/Chart.bundle.min.js"></script>
+    <script src="assets/fastclick.js-1.0.6/fastclick.js"></script>
     <link
       rel="stylesheet"
       href="assets/chart.js-2.8.0/package/dist/Chart.min.css"
@@ -120,6 +121,7 @@
     <script type="text/javascript">
       // https://tinyurl.com/y38yadge
       document.addEventListener("DOMContentLoaded", function(event) {
+	FastClick.attach(document.body);
         controller = new Controller("body-div");
       });
     </script>
