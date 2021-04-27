@@ -81,7 +81,7 @@ View.prototype.createHeader = function(title, rightNavIcon) {
       <div class="mdl-layout__header-row">
       <span class="mdl-layout-title">${title}</span>
       <div class="mdl-layout-spacer"></div>
-        <i class="material-icons">${rightNavIcon}</i>
+        <i id="header-search" class="material-icons">${rightNavIcon}</i>
       </div>
     `;
   return h;
@@ -103,9 +103,7 @@ View.prototype.createLandingBody = function() {
 
   let header = this.createHeader("City Match", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
-    "About",
-    "Contact",
-    "Help"
+    "Home"
   ]);
   let hamburgerMenu = this.createHamburgerMenu();
   let landingText1 =
@@ -163,9 +161,7 @@ View.prototype.createPreferencesBody = function createPreferencesBody() {
   bodyDiv.innerHTML = "";
   let header = this.createHeader("City Match", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
-    "About",
-    "Contact",
-    "Help"
+    "Home"
   ]);
   let hamburgerMenu = this.createHamburgerMenu();
   let mainPreferences = this.createPreferencesMain();
@@ -425,9 +421,7 @@ View.prototype.createResultsBody = function createResultsBody() {
   bodyDiv.innerHTML = "";
   let header = this.createHeader("City Match", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
-    "About",
-    "Contact",
-    "Help"
+    "Home"
   ]);
   let hamburgerMenu = this.createHamburgerMenu();
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);

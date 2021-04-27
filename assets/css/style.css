@@ -21,6 +21,11 @@
   background-color: white;
 }
 
+#header-search {
+  /* Gray-out for now since search is tbd. */
+  color: gray;
+}
+
 .landing-card-wide.mdl-card {
   width: 75%;
   max-width: 26em;
