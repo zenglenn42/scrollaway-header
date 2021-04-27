@@ -15,10 +15,10 @@ function StaticModel() {
         affordability: 265300,
         happiness: 72.3,
         img: {
-          imgAuthor: "Danny20111993",
-          imgLic: "(CC BY-SA 4.0)",
+          imgAuthor: "Eric Fredericks",
+          imgLic: "(CC BY-SA 2.0)",
           imgSrc:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Plano_Skyline.jpg/1200px-Plano_Skyline.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/2/29/Legacy_town_center_plano.jpg"
         },
         location: {
           lat: 33.0198431,
@@ -295,10 +295,10 @@ function StaticModel() {
         affordability: 166600,
         happiness: 66.97,
         img: {
-          imgAuthor: "Maxpower2727",
-          imgLic: "(CC BY-SA)",
+          imgAuthor: "Jon Platek",
+          imgLic: "(CC BY-SA 3.0)",
           imgSrc:
-            "https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Downtown_Sioux_Falls_from_6th_St_Bridge_overlooking_Big_Sioux_River.jpg/1200px-Downtown_Sioux_Falls_from_6th_St_Bridge_overlooking_Big_Sioux_River.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/7/75/Downtown_Sioux_Falls_61.jpg"
         },
         location: {
           lat: 43.5473028,
@@ -435,10 +435,10 @@ function StaticModel() {
         affordability: 620500,
         happiness: 65.02,
         img: {
-          imgAuthor: "HarshLight",
-          imgLic: "(CC BY 2.0)",
+          imgAuthor: "Troutfarm27",
+          imgLic: "(CC BY-SA 4.0)",
           imgSrc:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Sleeping_Beauty_Castle_%2828926761750%29.jpg/1200px-Sleeping_Beauty_Castle_%2828926761750%29.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/e/ea/Anaheim_convention_center_exterior.jpg"
         },
         location: {
           lat: 33.8365932,
@@ -854,10 +854,10 @@ function StaticModel() {
         affordability: 280000,
         happiness: 62.31,
         img: {
-          imgAuthor: "Superbug2399",
-          imgLic: "(CC BY-SA 3.0)",
+          imgAuthor: "Kenneth C. Zirkel",
+          imgLic: "(CC BY-SA 4.0)",
           imgSrc:
-            "https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/Collage_of_Burlington%2C_VT%2C_USA.jpg/395px-Collage_of_Burlington%2C_VT%2C_USA.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/3/30/Church_Street_Marketplace_%28Burlington%2C_Vermont%29.jpg"
         },
         location: {
           lat: 44.4758825,
@@ -2094,10 +2094,10 @@ function StaticModel() {
         affordability: 154100,
         happiness: 54.93,
         img: {
-          imgAuthor: "Salvationistdan",
-          imgLic: "(CC BY-SA 4.0)",
+          imgAuthor: "Akhenaton06",
+          imgLic: "(CC BY-SA 3.0)",
           imgSrc:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Cola_SC_Collage-.jpg/481px-Cola_SC_Collage-.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/0/02/Fall_skyline_of_Columbia_SC_from_Arsenal_Hill.jpg"
         },
         location: {
           lat: 34.0007104,
@@ -2334,10 +2334,10 @@ function StaticModel() {
         affordability: 167100,
         happiness: 52.76,
         img: {
-          imgAuthor: "Ryanbrz",
+          imgAuthor: "John O'Neill",
           imgLic: "(CC BY-SA 3.0)",
           imgSrc:
-            "https://upload.wikimedia.org/wikipedia/en/0/0f/Downtown_St._Petersburg%2C_Florida.png"
+            "https://upload.wikimedia.org/wikipedia/commons/8/81/Downtown_St._Petersburg_Florida_from_Marina.png"
         },
         location: {
           lat: 27.7676008,
