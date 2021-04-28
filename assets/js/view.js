@@ -79,10 +79,17 @@ View.prototype.createHeader = function(title, rightNavIcon) {
   h.classList += "mdl-layout__header";
   h.innerHTML = `
       <div class="mdl-layout__header-row">
+      <i class='material-icons header-icons'>location_city</i>
+      <i class='material-icons header-icons'>favorite</i>
+      &nbsp;
+      &nbsp;
+      &nbsp;
       <span class="mdl-layout-title">${title}</span>
+      <!--
       <div class="mdl-layout-spacer"></div>
         <i id="header-search" class="material-icons">${rightNavIcon}</i>
       </div>
+      -->
     `;
   return h;
 };
@@ -159,7 +166,8 @@ View.prototype.createLandingMain = function(
 View.prototype.createPreferencesBody = function createPreferencesBody() {
   let bodyDiv = document.getElementById(this.bodyDivId);
   bodyDiv.innerHTML = "";
-  let header = this.createHeader("City Match", "search");
+  let header = this.createHeader(
+        "Select preferences", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
     "Home"
   ]);
@@ -419,7 +427,7 @@ View.prototype.createPreferencesTextinputCard = function(prefParams) {
 View.prototype.createResultsBody = function createResultsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId);
   bodyDiv.innerHTML = "";
-  let header = this.createHeader("City Match", "search");
+  let header = this.createHeader("Top matches", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
     "Home"
   ]);
