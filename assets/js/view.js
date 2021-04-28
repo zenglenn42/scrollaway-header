@@ -208,7 +208,7 @@ View.prototype.createPreferencesMain = function() {
     curSliderVal: this.userPrefs.happiness,
     sliderEnabled: this.userPrefs.happinessEnabled,
     prefLink: "",
-    infoText: "According to a 2019 study published by WalletHub."
+    infoText: "According to a 2019 study published by WalletHub across dimensions of Emotional & Physical Well-Being, Income & Employment, and Community & Environment."
   };
   let c = this.createPreferencesSliderCard(prefParams);
   g.appendChild(c);
