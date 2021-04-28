@@ -208,7 +208,7 @@ View.prototype.createPreferencesMain = function() {
     curSliderVal: this.userPrefs.happiness,
     sliderEnabled: this.userPrefs.happinessEnabled,
     prefLink: "",
-    infoText: ""
+    infoText: "According to a 2019 study published by WalletHub."
   };
   let c = this.createPreferencesSliderCard(prefParams);
   g.appendChild(c);
@@ -228,7 +228,7 @@ View.prototype.createPreferencesMain = function() {
     curSliderVal: `${curPoliticsVal}`,
     sliderEnabled: this.userPrefs.politicsEnabled,
     prefLink: "",
-    infoText: ""
+    infoText: "According to county-level 2016 Presidential election data published by opendatasoft."
   };
   c = this.createPreferencesSliderCard(prefParams);
   g.appendChild(c);
@@ -247,7 +247,7 @@ View.prototype.createPreferencesMain = function() {
     curSliderVal: this.userPrefs.affordability,
     sliderEnabled: this.userPrefs.affordabilityEnabled,
     prefLink: "",
-    infoText: ""
+    infoText: "According to 2017 median home price by county published by US Census."
   };
   c = this.createPreferencesSliderCard(prefParams);
   g.appendChild(c);
@@ -262,7 +262,7 @@ View.prototype.createPreferencesMain = function() {
     placeHolderText: "Job Title",
     sliderEnabled: this.userPrefs.jobSearchEnabled,
     prefLink: "",
-    infoText: ""
+    infoText: "Feature not yet implemented."
   };
   c = this.createPreferencesTextinputCard(prefParams);
   g.appendChild(c);
@@ -300,6 +300,7 @@ View.prototype.createPreferencesSliderCard = function(prefParams, isEnabled) {
   p.classList.add("mdl-cell");
   p.classList.add("preference-cell");
   p.classList.add("mdl-cell--3-col");
+  let tooltipId = `${prefParams.sliderId}-info`
   p.innerHTML = `
       <div class="preference-card-square mdl-card mdl-shadow--3dp">
         <div
@@ -308,9 +309,10 @@ View.prototype.createPreferencesSliderCard = function(prefParams, isEnabled) {
         >
           <h2
             class="mdl-card__title-text"
-            style="padding: 0 0.2em; border-radius: 0.2em; background-color: rgba(6,6,6,0.6)"
+            style="padding: 0 0.2em; border-radius: 0.1em; background-color: rgba(6,6,6,0.6)"
           >
-            ${prefParams.titleText} &nbsp;<i class="material-icons">link</i>
+            ${prefParams.titleText} &nbsp;
+            <div id=${tooltipId}><i class="material-icons info-icon">info</i></div>
           </h2>
         </div>
         <div class="mdl-card__supporting-text">
@@ -330,8 +332,8 @@ View.prototype.createPreferencesSliderCard = function(prefParams, isEnabled) {
             ${rightIconHTML}
           </div>
         </div>
-        <div class="mdl-card__menu">
-        </div>
+        <div class="mdl-card__menu"></div>
+        <div class="mdl-tooltip" data-mdl-for=${tooltipId}>${prefParams.infoText}</div>
       </div>
     `;
   let mdlSwitch = this.createSlideSwitch(
@@ -380,6 +382,7 @@ View.prototype.createPreferencesTextinputCard = function(prefParams) {
   p.classList.add("mdl-cell");
   p.classList.add("preference-cell");
   p.classList.add("mdl-cell--3-col");
+  let tooltipId = `${prefParams.inputId}-info`
   p.innerHTML = `
       <div class="preference-card-square mdl-card mdl-shadow--3dp">
         <div
@@ -388,9 +391,10 @@ View.prototype.createPreferencesTextinputCard = function(prefParams) {
         >
           <h2
             class="mdl-card__title-text"
-            style="padding: 0 0.2em; border-radius: 0.2em; background-color: rgba(6,6,6,0.6)"
+            style="padding: 0 0.2em; border-radius: 0.1em; background-color: rgba(6,6,6,0.6)"
           >
-            ${prefParams.titleText} &nbsp;<i class="material-icons">link</i>
+            ${prefParams.titleText} &nbsp;
+            <div id=${tooltipId}><i class="material-icons info-icon">info</i></div>
           </h2>
         </div>
         <div class="mdl-card__supporting-text">
@@ -402,21 +406,24 @@ View.prototype.createPreferencesTextinputCard = function(prefParams) {
               type="text"
               id="${prefParams.inputId}"
               class="form-control"
-              placeholder="Job Title"
+              placeholder="Job Title (disabled)"
               disabled
             />
           </div>
         </div>
-        <div class="mdl-card__menu">
-        </div>
+        <div class="mdl-card__menu"></div>
+        <div class="mdl-tooltip" data-mdl-for=${tooltipId}>${prefParams.infoText}</div>
       </div>
     `;
+  /* Disable switch since job outlook feature not yet implemented. */
+  /*
   let mdlSwitch = this.createSlideSwitch(
     prefParams.switchId,
     prefParams.sliderEnabled
   );
   let cardMenu = p.getElementsByClassName("mdl-card__menu")[0];
   cardMenu.appendChild(mdlSwitch);
+  */
   return p;
 };
 
@@ -739,7 +746,7 @@ View.prototype.createResultsCityCard = function(cityParams) {
         >
           <h2
             class="mdl-card__title-text"
-            style="padding: 0 0.2em; border-radius: 0.2em; background-color: rgba(6,6,6,0.6)"
+            style="padding: 0 0.2em; border-radius: 0.1em; background-color: rgba(6,6,6,0.6)"
           >
             ${cityParams.rank}. ${cityParams.titleText}
           </h2>
@@ -773,7 +780,7 @@ View.prototype.createResultsMonetizeCard = function(params) {
         >
           <h2
             class="mdl-card__title-text"
-            style="padding: 0 0.2em; border-radius: 0.2em; background-color: rgba(6,6,6,0.6)"
+            style="padding: 0 0.2em; border-radius: 0.1em; background-color: rgba(6,6,6,0.6)"
           >
             ${params.titleText}
           </h2>
@@ -842,7 +849,7 @@ View.prototype.createResultsNoPrefsCard = function(params) {
         >
           <h2
             class="mdl-card__title-text"
-            style="padding: 0 0.2em; border-radius: 0.2em; background-color: rgba(6,6,6,0.6)"
+            style="padding: 0 0.2em; border-radius: 0.1em; background-color: rgba(6,6,6,0.6)"
           >
             ${params.titleText}
           </h2>
