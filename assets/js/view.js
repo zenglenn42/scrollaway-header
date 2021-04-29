@@ -213,7 +213,7 @@ View.prototype.createPreferencesMain = function() {
   let curPoliticsVal = this.userPrefs.politics.rep16_frac;
   prefParams = {
     img: "assets/img/politics-flags.jpg",
-    titleText: "Political Affiliation",
+    titleText: "Prevailing Politics",
     switchId: `${this.switchPoliticsId}`,
     sliderId: `${this.sliderPoliticsId}`,
     sliderContainerId: `${this.sliderPoliticsId}-container`,
