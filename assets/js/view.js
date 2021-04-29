@@ -203,7 +203,7 @@ View.prototype.createPreferencesMain = function() {
     curSliderVal: this.userPrefs.happiness,
     sliderEnabled: this.userPrefs.happinessEnabled,
     prefLink: "",
-    tooltipText: "Use slider below to adjust this preference.  Based upon a 2019 study published by WalletHub across dimensions of Emotional & Physical Well-Being, Income & Employment, and Community & Environment."
+    tooltipText: "Use slider below to adjust this preference.  Based upon a 2019 study by WalletHub across dimensions including overall well-being, employment, and community."
   };
   let c = this.createPreferencesSliderCard(prefParams);
   g.appendChild(c);
