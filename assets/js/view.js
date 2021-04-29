@@ -260,7 +260,7 @@ View.prototype.createPreferencesMain = function() {
     placeHolderText: "Job Title",
     sliderEnabled: this.userPrefs.jobSearchEnabled,
     prefLink: "",
-    infoText: "Feature not yet implemented."
+    infoText: "Feature unavailable."
   };
   c = this.createPreferencesTextinputCard(prefParams);
   g.appendChild(c);
@@ -306,11 +306,12 @@ View.prototype.createPreferencesSliderCard = function(prefParams, isEnabled) {
           style="background: url('${prefParams.img}') top/cover; ${colorFilter}"
         >
           <h2
+            id=${tooltipId}
             class="mdl-card__title-text"
             style="padding: 0 0.2em; border-radius: 0.1em; background-color: rgba(6,6,6,0.6)"
           >
             ${prefParams.titleText} &nbsp;
-            <div id=${tooltipId}><i class="material-icons info-icon">info</i></div>
+            <i class="material-icons info-icon">info</i>
           </h2>
         </div>
         <div class="mdl-card__supporting-text">
@@ -380,7 +381,7 @@ View.prototype.createPreferencesTextinputCard = function(prefParams) {
   p.classList.add("mdl-cell");
   p.classList.add("preference-cell");
   p.classList.add("mdl-cell--3-col");
-  let tooltipId = `${prefParams.inputId}-info`
+  let tooltipId = `${prefParams.tooltipId}`
   p.innerHTML = `
       <div class="preference-card-square mdl-card mdl-shadow--3dp">
         <div
@@ -388,11 +389,12 @@ View.prototype.createPreferencesTextinputCard = function(prefParams) {
           style="background: url('${prefParams.img}') top/cover; ${colorFilter}"
         >
           <h2
+            id=${tooltipId}
             class="mdl-card__title-text"
             style="padding: 0 0.2em; border-radius: 0.1em; background-color: rgba(6,6,6,0.6)"
           >
             ${prefParams.titleText} &nbsp;
-            <div id=${tooltipId}><i class="material-icons info-icon">info</i></div>
+            <i class="material-icons info-icon">info</i>
           </h2>
         </div>
         <div class="mdl-card__supporting-text">
