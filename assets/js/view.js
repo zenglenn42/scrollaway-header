@@ -81,8 +81,10 @@ View.prototype.createHeader = function(title, rightNavIcon) {
   h.classList += "mdl-layout__header";
   h.innerHTML = `
       <div class="mdl-layout__header-row">
-      <i class='material-icons header-icons'>location_city</i>
-      <i class='material-icons header-icons'>favorite</i>
+      <a id="header-logo__link" class="mdl-navigation__link" href="" title="home">
+        <i class='material-icons header-icons'>location_city</i>
+        <i class='material-icons header-icons'>favorite</i>
+      </a>
       &nbsp;
       &nbsp;
       &nbsp;
@@ -116,9 +118,9 @@ View.prototype.createLandingBody = function() {
   ]);
   let hamburgerMenu = this.createHamburgerMenu();
   let landingText1 =
-    "Considering a move but not sure which cities are your best bet?";
+    "Considering a move but not sure which city is your best bet?";
   let landingText2 =
-    "Explore your options by sharing what's important to you and we'll offer some informed choices.";
+    "Share what's important to you and we'll offer some informed choices.";
   let mainLanding = this.createLandingMain(
     "Find your city",
     landingText1,
