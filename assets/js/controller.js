@@ -46,14 +46,6 @@ Controller.prototype.addLandingPageEventListeners = function() {
     )
   );
 
-  getStarted = document.getElementById(this.view.getStartedId);
-  getStarted.addEventListener(
-    "click",
-    this.getNextButtonEventListener(
-      this.view.createPreferencesBody.bind(this.view)
-    )
-  );
-
   /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
   componentHandler.upgradeDom();
@@ -234,12 +226,3 @@ Controller.prototype.switchIsEnabled = function(switchId) {
   return document.getElementById(switchId).checked == true;
 };
 
-Controller.prototype.getDataViewEventListener = function() {
-  let that = this;
-  function innerFunction() {
-    console.log("click");
-    console.log("this = ", this);
-    console.log("that = ", that);
-  }
-  return innerFunction;
-};

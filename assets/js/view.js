@@ -51,8 +51,6 @@ function View(
   this.resultsMain = undefined;
 }
 
-View.prototype.getStartedId = "get-started";
-
 View.prototype.switchHappinessEnabledDefault = true;
 View.prototype.switchHappinessId = "switch-happiness";
 View.prototype.sliderHappinessId = "slider-happiness";
@@ -142,17 +140,9 @@ View.prototype.createLandingMain = function(
         <div class="mdl-card__title">
           <h2 class="mdl-card__title-text">${titleText}</h2>
         </div>
-        <div class="mdl-card__supporting-text" style="overflow: scroll">
-          <p style="line-height: 1.25em;">${supportText1}</p>
-          <p style="line-height: 1.25em;">${supportText2}</p>
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-          <a id="get-started" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            Get Started
-          </a>
-        </div>
-        <div class="mdl-card__menu">
-          <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"></button>
+        <div id="landing-text" class="mdl-card__supporting-text">
+          <p>${supportText1}</p>
+          <p>${supportText2}</p>
         </div>
       </div>    
     `;
