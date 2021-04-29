@@ -203,7 +203,7 @@ View.prototype.createPreferencesMain = function() {
     curSliderVal: this.userPrefs.happiness,
     sliderEnabled: this.userPrefs.happinessEnabled,
     prefLink: "",
-    infoText: "According to a 2019 study published by WalletHub across dimensions of Emotional & Physical Well-Being, Income & Employment, and Community & Environment."
+    tooltipText: "Use slider below to adjust this preference.  Based upon a 2019 study published by WalletHub across dimensions of Emotional & Physical Well-Being, Income & Employment, and Community & Environment."
   };
   let c = this.createPreferencesSliderCard(prefParams);
   g.appendChild(c);
@@ -224,7 +224,7 @@ View.prototype.createPreferencesMain = function() {
     curSliderVal: `${curPoliticsVal}`,
     sliderEnabled: this.userPrefs.politicsEnabled,
     prefLink: "",
-    infoText: "According to county-level 2016 Presidential election data published by opendatasoft."
+    tooltipText: "User slider below to adjust this preference of desired prevailing political environment.  Based upon county-level 2016 Presidential election data published by opendatasoft."
   };
   c = this.createPreferencesSliderCard(prefParams);
   g.appendChild(c);
@@ -244,7 +244,7 @@ View.prototype.createPreferencesMain = function() {
     curSliderVal: this.userPrefs.affordability,
     sliderEnabled: this.userPrefs.affordabilityEnabled,
     prefLink: "",
-    infoText: "According to 2017 median home price by county published by US Census."
+    tooltipText: "User slider below to specify desired affordability level.  Based upon 2017 median home price by county published by US Census."
   };
   c = this.createPreferencesSliderCard(prefParams);
   g.appendChild(c);
@@ -260,7 +260,7 @@ View.prototype.createPreferencesMain = function() {
     placeHolderText: "Job Title",
     sliderEnabled: this.userPrefs.jobSearchEnabled,
     prefLink: "",
-    infoText: "Feature unavailable."
+    tooltipText: "Feature unavailable."
   };
   c = this.createPreferencesTextinputCard(prefParams);
   g.appendChild(c);
@@ -332,7 +332,7 @@ View.prototype.createPreferencesSliderCard = function(prefParams, isEnabled) {
           </div>
         </div>
         <div class="mdl-card__menu"></div>
-        <div class="mdl-tooltip mdl-tooltip--large" data-mdl-for=${tooltipId}>${prefParams.infoText}</div>
+        <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--top" data-mdl-for=${tooltipId}>${prefParams.tooltipText}</div>
       </div>
     `;
   let mdlSwitch = this.createSlideSwitch(
@@ -412,7 +412,7 @@ View.prototype.createPreferencesTextinputCard = function(prefParams) {
           </div>
         </div>
         <div class="mdl-card__menu"></div>
-        <div class="mdl-tooltip mdl-tooltip--large" data-mdl-for=${tooltipId}>${prefParams.infoText}</div>
+        <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--top" data-mdl-for=${tooltipId}>${prefParams.tooltipText}</div>
       </div>
     `;
   /* Disable switch since job outlook feature not yet implemented. */
