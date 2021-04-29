@@ -395,10 +395,10 @@ function StaticModel() {
         affordability: 273100,
         happiness: 65.48,
         img: {
-          imgAuthor: "Salvationistdan",
-          imgLic: "(CC BY-SA)",
+          imgAuthor: "AudeVivere",
+          imgLic: "(CC BY-SA 2.5)",
           imgSrc:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Charleston_SC_Collage-1.jpg/1200px-Charleston_SC_Collage-1.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/9/9a/Charleston_king_street1.jpg"
         },
         location: {
           lat: 32.7764749,
