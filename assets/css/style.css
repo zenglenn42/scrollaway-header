@@ -297,7 +297,6 @@ a .view-button {
 }
 
 .view-buttons {
-  height: 2.6em;
   width: 100%;
   display: flex;
   justify-content: center;
