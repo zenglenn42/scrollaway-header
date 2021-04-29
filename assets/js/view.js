@@ -163,7 +163,7 @@ View.prototype.createPreferencesBody = function createPreferencesBody() {
   let bodyDiv = document.getElementById(this.bodyDivId);
   bodyDiv.innerHTML = "";
   let header = this.createHeader(
-        "Select preferences", "search");
+        "Adjust preferences", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
     "Home"
   ]);
