@@ -224,7 +224,7 @@ View.prototype.createPreferencesMain = function() {
     curSliderVal: `${curPoliticsVal}`,
     sliderEnabled: this.userPrefs.politicsEnabled,
     prefLink: "",
-    tooltipText: "User slider below to adjust this preference of desired prevailing political environment.  Based upon county-level 2016 Presidential election data published by opendatasoft."
+    tooltipText: "Use slider below to adjust this preference of desired prevailing political environment.  Based upon county-level 2016 Presidential election data published by opendatasoft."
   };
   c = this.createPreferencesSliderCard(prefParams);
   g.appendChild(c);
@@ -244,7 +244,7 @@ View.prototype.createPreferencesMain = function() {
     curSliderVal: this.userPrefs.affordability,
     sliderEnabled: this.userPrefs.affordabilityEnabled,
     prefLink: "",
-    tooltipText: "User slider below to specify desired affordability level.  Based upon 2017 median home price by county published by US Census."
+    tooltipText: "Use slider below to specify desired affordability level.  Based upon 2017 median home price by county published by US Census."
   };
   c = this.createPreferencesSliderCard(prefParams);
   g.appendChild(c);
