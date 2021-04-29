@@ -13,6 +13,11 @@
   margin-bottom: 0px;
 }
 
+#header-logo__link {
+  margin: 0px;
+  padding: 0px;
+}
+
 .mdl-card__title-text {
   color: white;
   padding: 0 0.2em; 
