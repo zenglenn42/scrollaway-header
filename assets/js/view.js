@@ -54,17 +54,21 @@ function View(
 View.prototype.switchHappinessEnabledDefault = true;
 View.prototype.switchHappinessId = "switch-happiness";
 View.prototype.sliderHappinessId = "slider-happiness";
+View.prototype.tooltipHappinessId = "tooltip-happiness";
 
 View.prototype.switchPoliticsEnabledDefault = true;
 View.prototype.switchPoliticsId = "switch-political-affiliation";
 View.prototype.sliderPoliticsId = "slider-politics";
+View.prototype.tooltipPoliticsId = "tooltip-politics";
 
 View.prototype.switchAffordabilityEnabledDefault = true;
 View.prototype.switchAffordabilityId = "switch-affordability";
 View.prototype.sliderAffordabilityId = "slider-affordability";
+View.prototype.tooltipAffordabilityId = "tooltip-affordability";
 
 View.prototype.switchJobSearchEnabledDefault = false;
 View.prototype.switchJobSearchId = "switch-jobsearch";
+View.prototype.tooltipJobSearchId = "tooltip-jobsearch";
 
 View.prototype.defaultDataView = "photo-view"; // photo-view | list-view | chart-view | map-view
 
@@ -190,6 +194,7 @@ View.prototype.createPreferencesMain = function() {
     switchId: `${this.switchHappinessId}`,
     sliderId: `${this.sliderHappinessId}`,
     sliderContainerId: `${this.sliderHappinessId}-container`,
+    tooltipId: `${this.tooltipHappinessId}`,
     iconClass: "far fa-lg pr-3",
     leftSliderIcon: "fa-meh",
     rightSliderIcon: "fa-smile",
@@ -210,6 +215,7 @@ View.prototype.createPreferencesMain = function() {
     switchId: `${this.switchPoliticsId}`,
     sliderId: `${this.sliderPoliticsId}`,
     sliderContainerId: `${this.sliderPoliticsId}-container`,
+    tooltipId: `${this.tooltipPolitics}`,
     iconClass: "fas fa-lg pr-3",
     leftSliderIcon: "fa-democrat blue-text",
     rightSliderIcon: "fa-republican red-text",
@@ -229,6 +235,7 @@ View.prototype.createPreferencesMain = function() {
     switchId: `${this.switchAffordabilityId}`,
     sliderId: `${this.sliderAffordabilityId}`,
     sliderContainerId: `${this.sliderAffordabilityId}-container`,
+    tooltipId: `${this.tooltipAffordabilityId}`,
     iconClass: "fas fa-md pr-3",
     leftSliderIcon: "fa-dollar-sign",
     rightSliderIcon: "fa-dollar-sign",
@@ -246,6 +253,7 @@ View.prototype.createPreferencesMain = function() {
     img: "assets/img/job-search.jpg",
     switchId: `${this.switchJobSearchId}`,
     inputId: "input-jobsearch",
+    tooltipId: `${this.tooltipJobSearchId}`,
     titleText: "Job Outlook",
     iconClass: "far fa-lg pr-3",
     icon: "fa-user",
@@ -290,7 +298,7 @@ View.prototype.createPreferencesSliderCard = function(prefParams, isEnabled) {
   p.classList.add("mdl-cell");
   p.classList.add("preference-cell");
   p.classList.add("mdl-cell--3-col");
-  let tooltipId = `${prefParams.sliderId}-info`
+  let tooltipId = `${prefParams.tooltipId}`
   p.innerHTML = `
       <div class="preference-card-square mdl-card mdl-shadow--3dp">
         <div
@@ -323,7 +331,7 @@ View.prototype.createPreferencesSliderCard = function(prefParams, isEnabled) {
           </div>
         </div>
         <div class="mdl-card__menu"></div>
-        <div class="mdl-tooltip" data-mdl-for=${tooltipId}>${prefParams.infoText}</div>
+        <div class="mdl-tooltip mdl-tooltip--large" data-mdl-for=${tooltipId}>${prefParams.infoText}</div>
       </div>
     `;
   let mdlSwitch = this.createSlideSwitch(
@@ -402,7 +410,7 @@ View.prototype.createPreferencesTextinputCard = function(prefParams) {
           </div>
         </div>
         <div class="mdl-card__menu"></div>
-        <div class="mdl-tooltip" data-mdl-for=${tooltipId}>${prefParams.infoText}</div>
+        <div class="mdl-tooltip mdl-tooltip--large" data-mdl-for=${tooltipId}>${prefParams.infoText}</div>
       </div>
     `;
   /* Disable switch since job outlook feature not yet implemented. */
