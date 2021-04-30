@@ -4,6 +4,10 @@
   color: white;
 }
 
+.mdl-layout__header-row {
+  padding: 0 16px 0 16px;
+}
+
 .mdl-layout-title {
   /* 
      Nudge header title text down a tad 
@@ -27,6 +31,11 @@
 
 .mdl-logo {
   margin-bottom: 0px;
+}
+
+#header-logo__link {
+  position: relative;
+  left: 1em;
 }
 
 #header-logo__link {

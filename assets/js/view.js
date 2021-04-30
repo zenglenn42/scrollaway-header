@@ -81,18 +81,20 @@ View.prototype.createHeader = function(title, rightNavIcon) {
   h.classList += "mdl-layout__header";
   h.innerHTML = `
       <div class="mdl-layout__header-row">
-      <a id="header-logo__link" class="mdl-navigation__link" href="" title="home">
-        <i class='material-icons header-icons'>location_city</i>
-        <i class='material-icons header-icons' style="position:relative; left:-0.5em">favorite</i>
-      </a>
-      &nbsp;
-      &nbsp;
+      <div class="mdl-layout-spacer">hi</div>
       <span class="mdl-layout-title">${title}</span>
-      <!--
       <div class="mdl-layout-spacer"></div>
-        <i id="header-search" class="material-icons">${rightNavIcon}</i>
-      </div>
-      -->
+      <nav class="mdl-navigation">
+        <!--
+          <a class="mdl-navigation__link" href="">
+            <i id="header-search" class="material-icons">${rightNavIcon}</i>
+          </a>
+        -->
+          <a id="header-logo__link" class="mdl-navigation__link" href="" title="home">
+            <i class='material-icons header-icons'>location_city</i>
+            <i class='material-icons header-icons' style="position:relative; left:-0.5em">favorite</i>
+          </a>
+      </nav>
     `;
   return h;
 };
