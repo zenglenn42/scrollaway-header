@@ -280,6 +280,10 @@ footer.mdl-mini-footer {
   overflow: visible;
 }
 
+.mdl-mini-footer__left-section {
+  padding-left: 1em;
+}
+
 .footer-icons {
   padding-top: 0.25em;
 }

@@ -83,9 +83,8 @@ View.prototype.createHeader = function(title, rightNavIcon) {
       <div class="mdl-layout__header-row">
       <a id="header-logo__link" class="mdl-navigation__link" href="" title="home">
         <i class='material-icons header-icons'>location_city</i>
-        <i class='material-icons header-icons'>favorite</i>
+        <i class='material-icons header-icons' style="position:relative; left:-0.5em">favorite</i>
       </a>
-      &nbsp;
       &nbsp;
       &nbsp;
       <span class="mdl-layout-title">${title}</span>
@@ -983,8 +982,8 @@ View.prototype.createFooter = function(fabIcon) {
       </button>
       <div class="mdl-mini-footer__left-section"><span class="copyright-text">
         <i class="material-icons footer-icons">location_city</i>
-        <i class="material-icons footer-icons">favorite</i>
-        <span class="copyright-text">City Match &copy; 2019</span>
+        <i class="material-icons footer-icons" style="position:relative; left:-0.5em">favorite</i>
+        <span class="copyright-text" style="position:relative; left:-1.5em">City Match &copy; 2019</span>
       </div>
       <div class="mdl-mini-footer__right-section">
         <a href="${this.githubUrl}" target="_blank">
