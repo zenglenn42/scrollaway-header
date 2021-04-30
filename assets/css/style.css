@@ -4,6 +4,22 @@
   color: white;
 }
 
+.mdl-layout-title {
+  /* 
+     Nudge header title text down a tad 
+     for more pleasing vertical "alignment" with
+     adjacent icons (which have no descenders).
+
+     Otherwise text looks oddly biased upward.
+     We seem to cognitively assume descenders shouldn't
+     factor into visual centering since they drop
+     below the baseline upon which the adjacent
+     icons rest.
+  */
+  position: relative;
+  top: 4%;
+}
+
 .mdl-navigation__link {
   margin: 0 1em;
   line-height: 2em;
