@@ -82,7 +82,7 @@ View.prototype.createHeader = function(title, rightNavIcon) {
   h.innerHTML = `
       <div class="mdl-layout__header-row">
       <div class="mdl-layout-spacer">hi</div>
-      <span class="mdl-layout-title">${title}</span>
+      <span class="mdl-layout-title mdl-layout-title-nudged">${title}</span>
       <div class="mdl-layout-spacer"></div>
       <nav class="mdl-navigation">
         <!--
@@ -91,8 +91,7 @@ View.prototype.createHeader = function(title, rightNavIcon) {
           </a>
         -->
           <a id="header-logo__link" class="mdl-navigation__link" href="" title="home">
-            <i class='material-icons header-icons'>location_city</i>
-            <i class='material-icons header-icons' style="position:relative; left:-0.5em">favorite</i>
+            <i class='material-icons header-icons'>home</i>
           </a>
       </nav>
     `;
@@ -115,7 +114,7 @@ View.prototype.createLandingBody = function() {
 
   let header = this.createHeader("City Match", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
-    "Home"
+    "<i class='material-icons header-icons'>home</i>&nbsp;&nbsp;Home"
   ]);
   let hamburgerMenu = this.createHamburgerMenu();
   let landingText1 =
@@ -952,9 +951,9 @@ View.prototype.createHamburgerMenu = function() {
 };
 
 View.prototype.createMenuDrawer = function(title, menuItemsArray) {
-  let md = document.createElement("div");
+  let md = document.createElement("span");
   md.classList.add("mdl-layout__drawer");
-  let mdChild = document.createElement("span");
+  let mdChild = document.createElement("div");
   mdChild.classList.add("mdl-layout-title");
   mdChild.innerHTML = title;
   md.appendChild(mdChild);

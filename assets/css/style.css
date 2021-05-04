@@ -8,7 +8,7 @@
   padding: 0 16px 0 16px;
 }
 
-.mdl-layout-title {
+.mdl-layout-title-nudged {
   /* 
      Nudge header title text down a tad 
      for more pleasing vertical "alignment" with
@@ -25,17 +25,7 @@
 }
 
 .mdl-navigation__link {
-  margin: 0 1em;
-  line-height: 2em;
-}
-
-.mdl-logo {
-  margin-bottom: 0px;
-}
-
-#header-logo__link {
-  position: relative;
-  left: 1em;
+  margin-left: 16px;
 }
 
 #header-logo__link {
