@@ -118,9 +118,9 @@ View.prototype.createLandingBody = function() {
   ]);
   let hamburgerMenu = this.createHamburgerMenu();
   let landingText1 =
-    "Considering a move but not sure which city is your best bet?";
+    "Thinking about moving but not sure which city is your best bet?";
   let landingText2 =
-    "Share what's important to you and we'll offer some informed choices.";
+    "Share your values and we'll offer some aligned options to consider.";
   let mainLanding = this.createLandingMain(
     "Find your city",
     landingText1,
@@ -163,7 +163,7 @@ View.prototype.createPreferencesBody = function createPreferencesBody() {
   let bodyDiv = document.getElementById(this.bodyDivId);
   bodyDiv.innerHTML = "";
   let header = this.createHeader(
-        "Adjust preferences", "search");
+        "Share your values ...", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
     "Home"
   ]);
@@ -233,7 +233,7 @@ View.prototype.createPreferencesMain = function() {
 
   prefParams = {
     img: "assets/img/affordability-piggybank.jpg",
-    titleText: "Affordability",
+    titleText: "Cost of Living",
     switchId: `${this.switchAffordabilityId}`,
     sliderId: `${this.sliderAffordabilityId}`,
     sliderContainerId: `${this.sliderAffordabilityId}-container`,
@@ -246,7 +246,7 @@ View.prototype.createPreferencesMain = function() {
     curSliderVal: this.userPrefs.affordability,
     sliderEnabled: this.userPrefs.affordabilityEnabled,
     prefLink: "",
-    tooltipText: "Use slider below to specify desired affordability level.  Based upon 2017 median home price by county published by US Census."
+    tooltipText: "Use slider below to specify desired relative cost of living.  Based upon 2017 median home price by county published by US Census."
   };
   c = this.createPreferencesSliderCard(prefParams);
   g.appendChild(c);
@@ -273,7 +273,7 @@ View.prototype.createPreferencesMain = function() {
 View.prototype.createPreferencesSliderCard = function(prefParams, isEnabled) {
   let p = document.createElement("div");
 
-  if (prefParams.titleText == "Affordability") {
+  if (prefParams.titleText == "Cost of Living") {
     /* Hacky :-/ solution for getting double $$ on right side.      */
     /* Really, parameter icons should be array that I iterate over. */
     rightIconHTML = `
@@ -436,7 +436,7 @@ View.prototype.createPreferencesTextinputCard = function(prefParams) {
 View.prototype.createResultsBody = function createResultsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId);
   bodyDiv.innerHTML = "";
-  let header = this.createHeader("Top matches", "search");
+  let header = this.createHeader("Consider these ...", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
     "Home"
   ]);
