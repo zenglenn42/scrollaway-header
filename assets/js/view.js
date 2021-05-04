@@ -486,7 +486,7 @@ View.prototype.createResultsMain = function(bodyDiv) {
       case "chart-view":
         let chartId = "myChart";
         child.innerHTML = `
-          <canvas id="${chartId}" style="height: 80vh"></canvas>
+          <canvas id="${chartId}" style="height: 73vh"></canvas>
         `;
         m.appendChild(child);
         bodyDiv.appendChild(m);
