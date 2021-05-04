@@ -262,7 +262,7 @@ View.prototype.createPreferencesMain = function() {
     placeHolderText: "Job Title",
     sliderEnabled: this.userPrefs.jobSearchEnabled,
     prefLink: "",
-    tooltipText: "Feature unavailable."
+    tooltipText: "This feature is currently unavailable."
   };
   c = this.createPreferencesTextinputCard(prefParams);
   g.appendChild(c);
