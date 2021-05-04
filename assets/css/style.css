@@ -83,6 +83,12 @@
   /* max-width: 15.3125em; */
 }
 
+.mdl-switch__track,
+.mdl-switch.is-checked .mdl-switch__track {
+  /* Make preference card switch track standout more in enabled state. */
+  background: rgba(255, 255, 255, 0.7);
+}
+
 .mdl-slider__container {
   /* width: 17.5em; */
   width: 90%;
