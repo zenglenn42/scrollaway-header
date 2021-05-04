@@ -757,3 +757,31 @@ I fix a bug and refactor a little code in the view. I dream about what I want to
 - react migration?
 
 ![alt](docs/img/christophe-hautier-774462-unsplash.jpg)
+
+## UX Review
+
+![alt](docs/img/david-travis-WC6MJ0kRzGw-unsplash.jpg)
+Photo by David Travis
+
+I share this app with someone with deep design and UX experience for a brief impression.  Several obvious issues pop out:
+
+- The user needs a sense of where they are in the app at any given time, especially if there is a progression of steps to accomplish a task.  Consider adding bread crumbs to make that apparent.
+
+- The splash screen typeface is a bit undersized for comfortable reading across a broad demographic.
+
+- The language introduced in the splash screen should be carried into subsequent pages (in headers or instructions) at some level to reinforce the expectations you set for your users at the outset.
+
+- Use evocative language that maps to a user's emotional desire as they navigate your app.  Leverage language to cultivate positive affect.
+
+- Be careful about mashing-up a 'heart' icon as part of your app logo in the header since it could be construed as specifying a 'favorite' button.
+
+- Don't be shy about adding tooltips to explain and contextualize your buttons or preferences.
+
+- If you want a means to redirect the user back to the home screen via the header, use a 'home' icon.
+
+- The little enable/disable slider switch on the preference cards should probably be dropped in favor of a plain checkbox since the affordance is not great.  They suggest a slide motion, whereas they only respond to a touch or click.
+
+- The 'Affordability' preference label is inverse to the $ [-------------] $$ slider control.  Typically one would expect less of something when the slider thumb control is to the left and more of it when the thumb control is to the right.  Using a term like 'Cost of Living' may be a better option.
+
+I address most of the feedback in a slew of 30+ fixes.  UI/UX work requires a lot of love to craft something that is appealing and free of impedance.
+
