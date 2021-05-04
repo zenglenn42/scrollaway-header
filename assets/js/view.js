@@ -118,7 +118,7 @@ View.prototype.createLandingBody = function() {
   ]);
   let hamburgerMenu = this.createHamburgerMenu();
   let landingText1 =
-    "Thinking about moving but not sure which city is your best bet?";
+    "Thinking about a move but not sure which city is your best bet?";
   let landingText2 =
     "Share your values and we'll offer some aligned options to consider.";
   let mainLanding = this.createLandingMain(
