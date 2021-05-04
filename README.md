@@ -781,6 +781,8 @@ I share this app with someone with deep design and UX experience for a brief imp
 
 - The little enable/disable slider switch on the preference cards should probably be dropped in favor of a plain checkbox since the affordance is not great.  They suggest a slide motion, whereas they only respond to a touch or click.
 
+- Consider adding enable/disable preference option off of the settings menu (instead of just relying upon the checkbox on the preference card).  Some users may be more accustomed to this usage pattern.  Sometimes giving the user a couple ways to accomplish something can be a good thing.
+
 - The 'Affordability' preference label is inverse to the $ [-------------] $$ slider control.  Typically one would expect less of something when the slider thumb control is to the left and more of it when the thumb control is to the right.  Using a term like 'Cost of Living' may be a better option.
 
 I address most of the feedback in a slew of 30+ fixes.  UI/UX work requires a lot of love to craft something that is appealing and free of impedance.
