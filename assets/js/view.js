@@ -165,7 +165,7 @@ View.prototype.createPreferencesBody = function createPreferencesBody() {
   let header = this.createHeader(
         "Share your values ...", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
-    "Home"
+    "<i class='material-icons header-icons'>home</i>&nbsp;&nbsp;Home"
   ]);
   let hamburgerMenu = this.createHamburgerMenu();
   let mainPreferences = this.createPreferencesMain();
@@ -438,7 +438,7 @@ View.prototype.createResultsBody = function createResultsBody() {
   bodyDiv.innerHTML = "";
   let header = this.createHeader("Consider these ...", "search");
   let menuDrawer = this.createMenuDrawer("Settings", [
-    "Home"
+    "<i class='material-icons header-icons'>home</i>&nbsp;&nbsp;Home"
   ]);
   let hamburgerMenu = this.createHamburgerMenu();
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
