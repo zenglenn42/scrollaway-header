@@ -27,13 +27,13 @@ Still need to wire up the menus and info links, but basic city ranking and multi
   - [Material Design Lite in the House](#material-design-lite-in-the-house)
   - [MDL-based Preferences Page](#mdl-based-preferences-page)
   - [MDL-based Results Page](#mdl-based-results-page)
-  - [On to the Controller](#onto-the-controller)
+  - [On to the Controller](#on-to-the-controller)
   - [Turning the Page](#turning-the-page)
   - [Monetization](#monetization)
   - [Dynamic HTML decorated with MDL classes is a Thing](#dynamic-html-decorated-with-mdl-classes-is-a-thing)
   - [Unpacking MDL Switches](#unpacking-mdl-switches)
   - [Fix IT! The unresponsive hamburger menu](#the-unresponsive-hamburger-menu)
-  - [Machine learning play?](#play)
+  - [Machine Learning play?](#machine-learning-play)
   - [Shades of Gray](#shades-of-gray)
   - [Clean and DRY](#clean-and-dry)
   - [Wire-up the Backend](#wire-up-the-backend)
@@ -42,7 +42,7 @@ Still need to wire up the menus and info links, but basic city ranking and multi
   - [Before and After](#before-and-after)
   - [Next Steps](#next-steps)
   - [Sad Face :-/](#sad-face)
-  - [Zeigarnik Whispers](#whispers)
+  - [UML: Zeigarnik whispers](#uml-zeigarnik-whispers)
   - [So long, jQuery](#so-long-jQuery)
   - [Tab-i-fied Buttons](#tab-i-fied-buttons)
   - [Usability Kindness](#usability-kindness)
@@ -57,13 +57,13 @@ Still need to wire up the menus and info links, but basic city ranking and multi
 
 -----
 
-## [Value Proposition](#contents)
+# [Value Proposition](#contents)
 
-### [User Value](#contents)
+## [User Value](#contents)
 
 Big-data can expand our awareness and help us find that viable place where we'll feel most enabled and at home given our resources.
 
-### [Monetary Value](#contents)
+## [Monetary Value](#contents)
 
 Co-branding and demographic-driven advertising opportunities exist that would appeal to property management, real estate, and moving companies. Major regional employers and educational institutions could also find value in serving advertisements to prospective job-seekers and aspirational students looking to locate to an area.
 
@@ -405,7 +405,8 @@ Now my dynamically-generated preference cards feature MDL-styled enable switches
 
 As with most things in life, the [actual fix](https://github.com/zenglenn42/CityMatch/commit/fd5a32d5ac4b09d9bb6a3467424ec1041fb8771e#diff-453a0b065c3a1e8636126a44b38d9f55R35) is a little more involved than what has been advertised. He who carries the bag, knows what's inside.
 
-### [Fix IT!](https://tenor.com/view/fix-it-snl-oscar-rogers-weekend-update-kenan-thompson-gif-10667500) [(the unresponsive hamburger menu)](#contents)
+### [Fix IT!](https://tenor.com/view/fix-it-snl-oscar-rogers-weekend-update-kenan-thompson-gif-10667500) 
+### [The unresponsive hamburger menu](#contents)
 
 I jump into the chrome debugger and bring up sources and enable mouse-click event listener breakpoints, hoping that will give me a meaty clue in the working case of which method /should/ be firing and leverage that to search the web.
 
@@ -427,7 +428,7 @@ With this [fix](https://github.com/zenglenn42/CityMatch/commit/9d0e6c28ac27b1b4c
 ![alt](docs/img/serene.jpg)
 Photo by Simon Migaj
 
-## [Machine Learning](https://work.caltech.edu/telecourse) [Play?](#contents)
+## [Machine Learning play?](#contents)
 
 I've watched friends and family play with City Rank and in some cases they're delighted. "Oh, I /do/ like that city!" And in other cases, not so much. "That town is a stretch for me."
 
@@ -440,7 +441,7 @@ My question: Is there a way to tap into the collective wisdom (or more darkly, t
 
 Such preference data would certainly help with monetization and ad targeting.
 
-Obviously ML is probably not for MVP, but something in the back of my mind. The 'like' ♥ button, on the other hand, is low hanging fruit.
+Obviously [ML](https://work.caltech.edu/telecourse) is probably not for MVP, but something in the back of my mind. The 'like' ♥ button, on the other hand, is low hanging fruit.
 
 ## [Shades of Gray](#contents)
 
@@ -544,7 +545,8 @@ I think I'm going to take a break from this for a little bit. When I come back, 
 - job outlook
 - react anyone?
 
-## [Sad Face](#contents) :-/
+## [Sad Face](#contents) 
+## :-/
 
 Huh, it looks like some of the URLs for city images I use are /changing/ from under me:
 
@@ -552,11 +554,11 @@ Huh, it looks like some of the URLs for city images I use are /changing/ from un
 
 I manually audit these and [fix](https://github.com/zenglenn42/CityMatch/commit/7faea10d138dafd59c2efc1aec26615c7fa78fe9) several. But this suggests I might need to tuck these away within the app for better reliability. That, or periodically test these URLs as part of a build process.
 
-## [Zeigarnik](https://en.wikipedia.org/wiki/Zeigarnik_effect) [Whispers](#contents)
+## [UML: Zeigarnik whispers](#contents)
 
 ![alt](docs/img/oo-decomp.jpg)
 
-Something's not quite right with the pattern.
+Something's not quite right with the pattern.  Something's [unfulfilled](https://en.wikipedia.org/wiki/Zeigarnik_effect).
 
 It takes a while to distill it down to something conscious and actionable.
 MVC, M.. V.. C.., MV -- wait. I have no V! The view all got sucked out of the html and into my controller, my C, when I made the html-generation dynamic.
@@ -597,7 +599,7 @@ Sometimes the toughest work you do has no immediate appearance to the outside wo
 
 ![alt](docs/img/inner-work.jpg)
 
-## [So long, jQuery](#content)
+## [So long, jQuery](#contents)
 
 ![alt](docs/img/jquery-wrench.jpg)
 
