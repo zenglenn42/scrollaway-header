@@ -11,17 +11,63 @@ Still need to wire up the menus and info links, but basic city ranking and multi
 ![alt](docs/img/cm-mvp-screenshot.png)
 ![alt](docs/img/view-formats-mvp-bigger.png)
 
-## Value Proposition
+# [Contents](#contents)
 
-### User Value
+- [Value Proposition](#value-proposition)
+  - [User Value](#user-value)
+  - [Monetary Value](#monetary-value)
+  - ### [**Demo**] (https://zenglenn42.github.io/CityMatch/) ☚
+- [Designer's Log](#designers-log)
+  - [Big Data and the Search for Home](#big-data-and-the-search-for-home)
+  - [Thumb Ninja](#thumb-ninja)
+  - [Flexy FAB Landing Page](#flexy-fab-landing-page)
+  - [Grid-based Preference Page](#grid-based-preference-page)
+  - [Not a Horrible CSS Grid](#not-a-horrible-css-grid)
+  - [Grid-based Results Page](#grid-based-results-page)
+  - [Material Design Lite in the House](#material-design-lite-in-the-house)
+  - [MDL-based Preferences Page](#mdl-based-preferences-page)
+  - [MDL-based Results Page](#mdl-based-results-page)
+  - [On to the Controller](#onto-the-controller)
+  - [Turning the Page](#turning-the-page)
+  - [Monetization](#monetization)
+  - [Dynamic HTML decorated with MDL classes is a Thing](#dynamic-html-decorated-with-mdl-classes-is-a-thing)
+  - [Unpacking MDL Switches](#unpacking-mdl-switches)
+  - [Fix IT! The unresponsive hamburger menu](#the-unresponsive-hamburger-menu)
+  - [Machine learning play?](#play)
+  - [Shades of Gray](#shades-of-gray)
+  - [Clean and DRY](#clean-and-dry)
+  - [Wire-up the Backend](#wire-up-the-backend)
+  - [Usability Reality Check](#usability-reality-check)
+  - [Ignoring Disabled Preferences](#ignoring-disabled-preferences)
+  - [Before and After](#before-and-after)
+  - [Next Steps](#next-steps)
+  - [Sad Face :-/](#sad-face)
+  - [Zeigarnik Whispers](#whispers)
+  - [So long, jQuery](#so-long-jQuery)
+  - [Tab-i-fied Buttons](#tab-i-fied-buttons)
+  - [Usability Kindness](#usability-kindness)
+  - [List View](#list-view)
+  - [Chart View](#chart-view)
+  - [Full Stack?](#full-stack)
+  - [Map-View](#map-view)
+  - [Small Planet](#small-planet)
+  - [Agile and the Dalai Lama?](#agile-and-the-dalai-lama)
+  - [Slow Day](#slow-day)
+  - [UX Review](#ux-review)
+
+-----
+
+## [Value Proposition](#contents)
+
+### [User Value](#contents)
 
 Big-data can expand our awareness and help us find that viable place where we'll feel most enabled and at home given our resources.
 
-### Monetary Value
+### [Monetary Value](#contents)
 
 Co-branding and demographic-driven advertising opportunities exist that would appeal to property management, real estate, and moving companies. Major regional employers and educational institutions could also find value in serving advertisements to prospective job-seekers and aspirational students looking to locate to an area.
 
-# Designer's Log
+# [Designer's Log](#contents)
 
 ![alt](docs/img/venue.jpg)
 Photo by Suvan Chowdhury
@@ -40,7 +86,7 @@ Later, he approaches the stage and holds up his Bic lighter high in appreciation
 
 I'm not sure what the band thinks of all this singular devotion. I'm guessing a rush of tipsy cougars would be more their speed, but the point is, this guy has found his tribe and feels he belongs. And isn't that the bottom line?
 
-## Big Data and the Search for Home
+## [Big Data and the Search for Home](#contents)
 
 Sure, there are instrinsic qualities that allow us to feel comfortable in a variety of environments. But the external world still matters vitally. Scale, economics, culture, community all affect how we relate to and feel about a place. So in a world of options, can big-data expand our awareness and help us find that viable place where we'll feel most at home given our resources?
 
@@ -48,7 +94,7 @@ Sure, there are instrinsic qualities that allow us to feel comfortable in a vari
 
 City Match is an effort to realize the promise of City Rank by improving the user experience with thoughtful front-end design, hardening the code for better performance, and implementing some desired features.
 
-## Thumb Ninja
+## [Thumb Ninja](#contents)
 
 My focus shifts from the stage to a nearby table where a woman whips out her phone and fluidly navigates through texts and images, powered by the grace of her thumb.
 
@@ -81,7 +127,7 @@ On desktop, I could see offering more than one view at a time. But right now, I'
 
 Even though playing with [Material Design components](https://getmdl.io/components/index.html) is a major goal of this UI redesign, I still want to make sure I understand some of the underlying layout tools offered by modern CSS (especially since MDL builds atop some of those tools).
 
-## Flexy FAB Landing Page
+## [Flexy FAB Landing Page](#contents)
 
 Here's my first cut at a pure CSS floating action button centered about the footer edge. This is done with flexbox (to flex the main section and yield a sticky footer), absolute positioning, and a sweet little calc expression to horizontally center the fab at (50% - 1/2 button width). With some SASS variables, I could make this more [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself).
 
@@ -89,7 +135,7 @@ I'll probably employ a media query to limit the max-size of the button on larger
 
 ![alt](docs/img/flex-landing.png)
 
-## Grid-based Preference Page
+## [Grid-based Preference Page](#contents)
 
 I'll employ some kind of responsive grid layout for the preference slider cards.
 
@@ -103,7 +149,7 @@ I discover flex-ratio (fr) units and my grid-cells nicely fit to the viewport, p
 
 But with the preference cards that host the sliders, I want something that collapses down to fit at least 1 card width on mobile platforms. I'm thinking auto-fit might be the key. Exploring that next.
 
-## Not a Horrible CSS Grid
+## [Not a Horrible CSS Grid](#contents)
 
 After much point, click, and cursing, I have a responsive grid. It also scrolls nicely within its own div so the footer and fab button below that div always stay visible even with a lot of content.
 
@@ -116,7 +162,7 @@ Ruefully, I notice my slider cards often don't fall within thumb range with the 
 
 Oh, btw, I've add some fu to get my fab button to shrink and grow in proportion to the viewport, but with size limiters at both extremes to keep things from getting ridiculous on retina or large displays or smaller devices. City Match on iWatch some day?
 
-## Grid-based Results Page
+## [Grid-based Results Page](#contents)
 
 This is a wholesale grab of the preferences page for the content area, but I tuck a nifty flex row below it for buttons that will control the view on our results data. The buttons will morph to icons in time.
 
@@ -139,7 +185,7 @@ The other cool thing is I have more than just wireframes here. I have actual cod
 ![alt](docs/img/nyc1.jpg)
 Photo by Reynaldo Brigantty (#brigworkz)
 
-## Material Design Lite in the House
+## [Material Design Lite in the House](#contents)
 
 Here's my first pass at an MDL-based landing page on mobile.
 
@@ -178,7 +224,7 @@ For now, I want to get the MDL-based preference page cleaned up and doc'd. I'm r
 
 I notice my repo is starting to get cloned, so others must be interested in my exploration as well. (-;
 
-## MDL-based Preferences Page
+## [MDL-based Preferences Page](#contents)
 
 MDL has a clean look and I'm trying not to clutter it up with background images behind my cards.
 
@@ -198,7 +244,7 @@ Maybe with offscreen preferences (especially on mobile), the 'next' button will 
 
 With the scrollable preference window, the app scales to an endless array of selectable options. For minimal viable product (MVP), I'll stick to the 4 preferences I have above. Once the VC clears, all sorts of scalability plays can happen. (-;
 
-## MDL-based Results Page
+## [MDL-based Results Page](#contents)
 
 ![alt](docs/img/mdl-results.png)
 
@@ -212,11 +258,11 @@ This thing is looking real.
 
 ![alt](docs/img/beach-sunset.jpg)
 
-## Onto the Controller
+## [On to the Controller](contents)
 
 I need to bring up a controller that listens for button clicks and switches page views. But I'm blocked. My mojo is just not here today. I've been working at this pretty hard for the past week and I need a break. The UI design is in good shape and with fresh eyes, I'm hopeful the controller will emerge in the fullness of time.
 
-## Turning the Page
+## [Turning the Page](#contents)
 
 ![alt](docs/img/page-turn.jpg)
 Photo by Pixabay
@@ -256,7 +302,7 @@ Now I need to wire up the buttons.
 
 But before that, a non-linear thought from a previous conversation wells up.
 
-## Monetization
+## [Monetization](#contents)
 
 Could this thing generate ad revenue?
 
@@ -280,7 +326,7 @@ I need to get this thing generating hit metrics if I go down that path.
 Beyond that, I fix a few regressions caused by my flurry of coding yesterday in the rush toward dynamic HTML.
 I also wire up the fab buttons and deploy to [github-pages](https://zenglenn42.github.io/CityMatch/) so you can at least advance the prototype between landing, preferences, and results pages (though I see my fancy enable checkboxes on pref cards have reverted to simple checkboxes and the hamburger menu only works on the landing page, bah). Overall, it has been a good day.
 
-## Dynamic HTML decorated with MDL classes is a Thing
+## [Dynamic HTML decorated with MDL classes is a Thing](#contents)
 
 ![alt](docs/img/brick-wall.jpg)
 Photo by Tim Mossholder
@@ -293,7 +339,7 @@ disable toggle.
 
 So I need to slow down and fix stuff and maybe actually read the docs on [dynamic MDL](https://getmdl.io/started/index.html#dynamic). :-/
 
-### Unpacking MDL Switches
+### [Unpacking MDL Switches](#contents)
 
 So I want this MDL-styled switch on my preference cards:
 
@@ -359,7 +405,7 @@ Now my dynamically-generated preference cards feature MDL-styled enable switches
 
 As with most things in life, the [actual fix](https://github.com/zenglenn42/CityMatch/commit/fd5a32d5ac4b09d9bb6a3467424ec1041fb8771e#diff-453a0b065c3a1e8636126a44b38d9f55R35) is a little more involved than what has been advertised. He who carries the bag, knows what's inside.
 
-### [Fix IT!](https://tenor.com/view/fix-it-snl-oscar-rogers-weekend-update-kenan-thompson-gif-10667500) (the unresponsive hamburger menu)
+### [Fix IT!](https://tenor.com/view/fix-it-snl-oscar-rogers-weekend-update-kenan-thompson-gif-10667500) [(the unresponsive hamburger menu)](#contents)
 
 I jump into the chrome debugger and bring up sources and enable mouse-click event listener breakpoints, hoping that will give me a meaty clue in the working case of which method /should/ be firing and leverage that to search the web.
 
@@ -381,7 +427,7 @@ With this [fix](https://github.com/zenglenn42/CityMatch/commit/9d0e6c28ac27b1b4c
 ![alt](docs/img/serene.jpg)
 Photo by Simon Migaj
 
-## [Machine Learning](https://work.caltech.edu/telecourse) Play?
+## [Machine Learning](https://work.caltech.edu/telecourse) [Play?](#contents)
 
 I've watched friends and family play with City Rank and in some cases they're delighted. "Oh, I /do/ like that city!" And in other cases, not so much. "That town is a stretch for me."
 
@@ -396,7 +442,7 @@ Such preference data would certainly help with monetization and ad targeting.
 
 Obviously ML is probably not for MVP, but something in the back of my mind. The 'like' ♥ button, on the other hand, is low hanging fruit.
 
-## Shades of Gray
+## [Shades of Gray](#contents)
 
 On the preference page, it would be nice if the image grayed out when the slider switch for that card is disabled. So I make that happen:
 
@@ -409,7 +455,7 @@ Gray is the new gray.
 ![alt](docs/img/gray-coffee.jpg)
 Photo by Pixabay
 
-## Clean and DRY
+## [Clean and DRY](#contents)
 
 Man, I need to clean up around here.
 
@@ -426,7 +472,7 @@ I'm also now listening to slider change events. And now the controller can serve
 
 ![alt](docs/img/controller-works.png)
 
-## Wire-up the Backend
+## [Wire-up the Backend](#contents)
 
 ![alt](docs/img/celebrate.jpg)
 Photo by ViTalko
@@ -437,7 +483,7 @@ After a flurry of [coding](https://github.com/zenglenn42/CityMatch/commit/d5b367
 
 I still need to make model-ranking ignore disabled preferences (and maybe add a modal for requiring at least one specified preference). For now, the model data is simply static and enhanced from City Rank (which was more ajaxy and leveraged firebase to standup a data endpoint).
 
-## Usability Reality Check
+## [Usability Reality Check](#contents)
 
 Software is hard.
 
@@ -460,7 +506,7 @@ Ok, feeling much better about the state of things.
 
 It has been a /very/ good day.
 
-## Ignoring Disabled Preferences
+## [Ignoring Disabled Preferences](#contents)
 
 The app is looking more polished so it's getting a lot more testing and visibility from friends and family. One discerning tester understood the intent behind the preference card 'light' switch and tried disabling all the preferences and still got results.
 
@@ -476,7 +522,7 @@ For now, if all preferences are disabled, you still advance to the results page,
 
 I may tweak the usability around this, but it's good enough to ship.
 
-## Before and After
+## [Before and After](#contents)
 
 Here's a contrasting reveal with the bootstrappy-ui of City Rank:
 
@@ -484,7 +530,7 @@ Here's a contrasting reveal with the bootstrappy-ui of City Rank:
 
 ![alt](docs/img/cm-mvp-screenshot.png)
 
-## Next Steps
+## [Next Steps](#contents)
 
 ![alt](docs/img/beach-steps.jpg)
 
@@ -498,7 +544,7 @@ I think I'm going to take a break from this for a little bit. When I come back, 
 - job outlook
 - react anyone?
 
-## Sad Face :-/
+## [Sad Face](#contents) :-/
 
 Huh, it looks like some of the URLs for city images I use are /changing/ from under me:
 
@@ -506,7 +552,7 @@ Huh, it looks like some of the URLs for city images I use are /changing/ from un
 
 I manually audit these and [fix](https://github.com/zenglenn42/CityMatch/commit/7faea10d138dafd59c2efc1aec26615c7fa78fe9) several. But this suggests I might need to tuck these away within the app for better reliability. That, or periodically test these URLs as part of a build process.
 
-## [Zeigarnik](https://en.wikipedia.org/wiki/Zeigarnik_effect) Whispers
+## [Zeigarnik](https://en.wikipedia.org/wiki/Zeigarnik_effect) [Whispers](#contents)
 
 ![alt](docs/img/oo-decomp.jpg)
 
@@ -551,19 +597,19 @@ Sometimes the toughest work you do has no immediate appearance to the outside wo
 
 ![alt](docs/img/inner-work.jpg)
 
-## So long, jQuery
+## [So long, jQuery](#content)
 
 ![alt](docs/img/jquery-wrench.jpg)
 
 You're very useful, but I'm headed for [React](https://reactjs.org/) and avoiding other libraries that manipulate the DOM should simplify adoption. Here's the [fix](https://github.com/zenglenn42/CityMatch/commit/eb5427c83449a03fc1973792d2e4b2fa7a4ec580) that removes that dependency.
 
-## Tab-i-fied Buttons
+## [Tab-i-fied Buttons](#contents)
 
 MDL provides some nice usability with their components. One day, the buttons at the bottom of the results page will mean something. So I get ready for that by [making](https://github.com/zenglenn42/CityMatch/commit/8270a2fb619be302541a5a38e91e2904e8600ba9) the buttons clickable tabs.
 
 ![alt](docs/img/tab-buttons.png)
 
-## Usability Kindness
+## [Usability Kindness](#contents)
 
 Sometimes the little things matter. I had slapped an aspirational 'like' and 'share' button on the results cards, but they were disappearing against darker or busy background images, requiring jedi skills of the user to find.
 
@@ -584,7 +630,7 @@ On the right, I use the primary color (indigo) and gray for the inactive buttons
 
 ![alt](docs/img/active-view-styling.png)
 
-## List View
+## [List View](#contents)
 
 I get list view working, since it's relatively low hanging fruit. The data is the same as for chart view, minus the image url. So I just need to throw it into an html list, created dynamically.
 
@@ -593,7 +639,7 @@ I get list view working, since it's relatively low hanging fruit. The data is th
 It still needs some tweaking on mobile, but it's good enough to demo.
 I'm looking forward to chart and map view, but they will require 3rd party libraries.
 
-## Chart View
+## [Chart View](#contents)
 
 I'm on a roll, knocking out a basic grouped stacked bar chart using Chart.js. It has nice animation and is super simple to integrate, thanks to some Array.map fu. I'm not sure how many user's will actually be interested in this view, but quants probably will appreciate. Basically, the ideal city will have a distance of 0 from the user-preference point.
 
@@ -607,7 +653,7 @@ This just scratches the surface for visualization. A graph like [this](https://b
 
 ![alt](docs/img/collapsible-force.png)
 
-## Full Stack?
+## [Full Stack?](#contents)
 
 ![alt](docs/img/pancakes.jpg)
 
@@ -653,7 +699,7 @@ StaticModel.prototype.ajaxGetLocationCoordinate = function(address) {
 
 I wonder if Google will throttle my requests or only return the first n-cities worth of data, but I kick off my utility program and patiently wait a full minute and am finally [rewarded](https://github.com/zenglenn42/CityMatch/commit/2d00b08b00348179a7bfc8a5cd6167009e3705d6) with all the data I need for the model. :-)
 
-## Map-View
+## [Map-View](#contents)
 
 ![alt](docs/img/map-view.png)
 
@@ -678,7 +724,7 @@ The results code could use some refactor, but I think I'll bump this up to 1.0 M
 
 ![alt](docs/img/happy-lights.jpg)
 
-## Small Planet
+## [Small Planet](#contents)
 
 You know, inclusion of latitude and longitude in the model and the rollout of map view open up some very compelling possibilities.
 
@@ -696,7 +742,7 @@ I'm thinking of a business model closer to 'Consumer Reports' and their in-depth
 
 But I stumble upon [WebGL Earth](http://examples.webglearth.com/) and maybe they have a sweet [open-sourcey solution](http://www.webglearth.org/) that would allow me to explore this idea without too much api key impedance.
 
-## Agile and the Dalai Lama?
+## [Agile and the Dalai Lama?](#contents)
 
 One of the [tenets of agile](https://agilemanifesto.org/) software development is working software over comprehensive documentation. This means you don't isolate yourself in some ivory tower, writing beautiful requirements documents for some ethereal customer and their imagined needs, only to descend with some lovingly crafted but largely irrelevant direction.
 
@@ -743,7 +789,7 @@ Brooks knows and has co-authored books with the Dalai Lama. At one point, Brooks
 
 It's simple advice which runs counter to our normal instinct to be defensive in the face of unexpected or contrary feedback. But if you're going to embrace agile software development, this strategy may be useful if difficult to master.
 
-## Slow Day
+## [Slow Day](#contents)
 
 I've got some catching up to do in my bootcamp homework, so today is pretty slow, CM-wise.
 
@@ -758,7 +804,7 @@ I fix a bug and refactor a little code in the view. I dream about what I want to
 
 ![alt](docs/img/christophe-hautier-774462-unsplash.jpg)
 
-## UX Review
+## [UX Review](#contents)
 
 ![alt](docs/img/david-travis-WC6MJ0kRzGw-unsplash.jpg)
 Photo by David Travis
