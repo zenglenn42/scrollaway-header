@@ -16,7 +16,7 @@ Still need to wire up the menus and info links, but basic city ranking and multi
 - [Value Proposition](#value-proposition)
   - [User Value](#user-value)
   - [Monetary Value](#monetary-value)
-  - ### [**Demo**] (https://zenglenn42.github.io/CityMatch/) ☚
+  - [**Demo**](https://zenglenn42.github.io/CityMatch/) ☚
 - [Designer's Log](#designers-log)
   - [Big Data and the Search for Home](#big-data-and-the-search-for-home)
   - [Thumb Ninja](#thumb-ninja)
