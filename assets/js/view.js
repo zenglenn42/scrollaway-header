@@ -104,6 +104,7 @@ View.prototype.makeNav = function(bodyDiv, header, menuDrawer, hamburgerMenu) {
   bodyDiv.appendChild(hamburgerMenu);
 };
 
+
 //-----------------------------------//
 // Landing Page
 //-----------------------------------//
@@ -113,9 +114,7 @@ View.prototype.createLandingBody = function() {
   bodyDiv.innerHTML = "";
 
   let header = this.createHeader("City Match", "search");
-  let menuDrawer = this.createMenuDrawer("Settings", [
-    "<i class='material-icons header-icons'>home</i>&nbsp;&nbsp;Home"
-  ]);
+  let menuDrawer = this.createMenuDrawer()
   let hamburgerMenu = this.createHamburgerMenu();
   let landingText1 =
     "Thinking about a move but not sure which city is your best bet?";
@@ -164,9 +163,7 @@ View.prototype.createPreferencesBody = function createPreferencesBody() {
   bodyDiv.innerHTML = "";
   let header = this.createHeader(
         "Share your values ...", "search");
-  let menuDrawer = this.createMenuDrawer("Settings", [
-    "<i class='material-icons header-icons'>home</i>&nbsp;&nbsp;Home"
-  ]);
+  let menuDrawer = this.createMenuDrawer();
   let hamburgerMenu = this.createHamburgerMenu();
   let mainPreferences = this.createPreferencesMain();
   let footer = this.createFooter("navigate_next");
@@ -437,9 +434,7 @@ View.prototype.createResultsBody = function createResultsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId);
   bodyDiv.innerHTML = "";
   let header = this.createHeader("Consider these ...", "search");
-  let menuDrawer = this.createMenuDrawer("Settings", [
-    "<i class='material-icons header-icons'>home</i>&nbsp;&nbsp;Home"
-  ]);
+  let menuDrawer = this.createMenuDrawer()
   let hamburgerMenu = this.createHamburgerMenu();
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
   this.resultsMain = this.createResultsMain(bodyDiv);
@@ -951,7 +946,12 @@ View.prototype.createHamburgerMenu = function() {
   return m;
 };
 
-View.prototype.createMenuDrawer = function(title, menuItemsArray) {
+View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
+  let invariantMenuItems = [
+    "<i class='material-icons header-icons'>home</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>Welcome</span>",
+    "<i class='material-icons header-icons' style='color: gray'>tune</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>Preferences</span>",
+    "<i class='material-icons header-icons' style='color: gray'>location_city</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>Cities</span>"
+  ];
   let md = document.createElement("span");
   md.classList.add("mdl-layout__drawer");
   let mdChild = document.createElement("div");
@@ -961,6 +961,13 @@ View.prototype.createMenuDrawer = function(title, menuItemsArray) {
   let nav = document.createElement("nav");
   nav.classList.add("mdl-navigation");
   // $(nav).addClass("mdl-navigation");
+  let invariantMenuHtml = invariantMenuItems.map(item => {
+    let anchor = document.createElement("a");
+    anchor.classList.add("mdl-navigation__link");
+    anchor.setAttribute("href", "");
+    anchor.innerHTML = `${item}`;
+    return anchor;
+  });
   let menuHtml = menuItemsArray.map(item => {
     let anchor = document.createElement("a");
     anchor.classList.add("mdl-navigation__link");
@@ -968,6 +975,9 @@ View.prototype.createMenuDrawer = function(title, menuItemsArray) {
     anchor.innerHTML = `${item}`;
     return anchor;
     // return `<a class="mdl-navigation__link" href="">${item}</a>`;
+  });
+  invariantMenuHtml.map(html => {
+    md.appendChild(html);
   });
   menuHtml.map(html => {
     md.appendChild(html);
