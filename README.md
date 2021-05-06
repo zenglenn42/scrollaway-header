@@ -54,7 +54,7 @@ Still need to wire up the menus and info links, but basic city ranking and multi
   - [Agile and the Dalai Lama?](#agile-and-the-dalai-lama)
   - [Slow Day](#slow-day)
   - [User Experience Review](#ux-review)
-  - [Near-term Roadmap](#near-term-roadmap)
+- [Near-term Roadmap](#near-term-roadmap)
 
 -----
 
@@ -836,17 +836,17 @@ I share this app with someone with deep design and UX experience for a brief imp
 
 I address most of the feedback in a slew of 30+ fixes.  UI/UX work requires a lot of love to craft something that is appealing and free of impedance.
 
-## [Near-term Roadmap](#contents)
+# [Near-term Roadmap](#contents)
 
 ![alt](docs/img/pexels-pixabay-315938.jpg)
 
 My recent UX review is motivating me.  This app is a portfolio piece so it's more of a sketch as opposed to a production-ready offering.  However, the usability feedback has me thinking about several areas that could be improved or enhanced without costing me a ton of bandwidth.
 
-### Architecture
+## Implementation
 
   - Capture application state in a single structure that can be passed around and persisted through local storage.  This should provide a clean mechanism for supporting some of the usability features below and put us in good stead for scalability down the road.
 
-### Usability
+## Usability
 
   - Flesh-out a non-trivial menu drawer.
 
@@ -860,15 +860,15 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
 
   - More responsive features
 
-    - Currently desktop is looking like an awkward scaled version of the mobile app.  We can be more elaborate with card geometries and even text / labels.  So we may add back the 'Get Started' button on desktop, for example.  The lonely FAB on the botton of a 1900x1600 screen looks a bit anit-pattern to me.
+    - Currently desktop is looking like an awkward scaled version of the mobile app.  We can be more elaborate with card geometries and even text / labels.  So I may add back the 'Get Started' button on desktop, for example.  The lonely FAB on the botton of a 1900x1600 screen looks a bit anti-pattern to me.
 
     - An aspirational feature would be to allow mutation of preferences on the same screen as the results page, for 'live-list' sensitivity analysis.  The geometry for supporting this is more apparent on desktop.
 
-### Harden
+## Harden
 
   - I really have a dependency upon javascript and even the internet here (since icons are pulled from google).  There should be a test for these dependencies and either feedback to the user or a gentle degradation in the user experience.
 
-### Tasty Features
+## Tasty Features
 
   - I love adding multi-language support to my apps.  The string catalog for this app would be relatively small and it would be a nice bit of refinement.
 
