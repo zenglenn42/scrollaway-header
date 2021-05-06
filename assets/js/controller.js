@@ -14,7 +14,8 @@ function Controller(bodyDivId) {
     this.model.getMidAffordabilityValue(),
     this.model.getMaxAffordabilityValue(),
     this.model.getMidPoliticsValue(),
-    this.model.githubUrl
+    this.model.githubUrl,
+    this.model.getMaxResults()
   );
   this.view.createLandingBody();
 }

@@ -8,6 +8,7 @@ function StaticModel() {
   this.maxHappinessValue = "73";
   this.midPoliticsValue = { rep16_frac: 50, dem16_frac: 50 };
   this.wikiErrorImg = "assets/img/wiki-img-fail.png";
+  this.maxResults = 10;
 
   this.data = [
     {

@@ -11,9 +11,10 @@ function View(
   midAffordabilityValue,
   maxAffordabilityValue,
   midPoliticsValue,
-  githubUrl
+  githubUrl,
+  maxResults
 ) {
-  this.maxResults = 10;
+  this.maxResults = maxResults;
 
   this.bodyDivId = bodyDivId;
   this.rankedList = [];

@@ -6,6 +6,13 @@ function Model() {
   // I can't give all the IP away :D
 
   this.data = this.staticModel.data;
+
+  // Retrieve any client-cachede app state from local storage.  
+  // This typically overrides what is in the static model
+  // for some parameters.
+
+  this.localState = this.getLocalState();
+
 }
 
 Model.prototype.githubUrl =
@@ -31,6 +38,55 @@ Model.prototype.getMaxAffordabilityValue = function() {
 };
 Model.prototype.getMidPoliticsValue = function() {
   return this.staticModel.midPoliticsValue;
+};
+
+// https://stackoverflow.com/questions/16427636/check-if-localstorage-is-available
+Model.prototype.localStorageIsAvailable = function() {
+  var test = 'test';
+  try {
+    localStorage.setItem(test, test);
+    localStorage.removeItem(test);
+    return true;
+  } catch(e) {
+    return false;
+  }
+};
+
+Model.prototype.getLocalState = function() {
+  let localState = {}
+
+  if (this.localStorageIsAvailable()) {
+    if (localStorage.getItem('localState')) {
+        localState = JSON.parse(localStorage.getItem('localState'))
+    } 
+  }
+  return localState
+};
+
+// TODO: Keep this validator updated as state schema changes!
+Model.prototype.localStateIsValid = function(localState) {
+  return localState && this.maxResultsIsValid(localState.maxResults)
+};
+
+Model.prototype.setLocalState = function(localState) {
+  if (this.localStorageIsAvailable() && this.localStateIsValid(localState)) {
+    localStorage.setItem('localState', JSON.stringify(localState))
+  }
+};
+
+Model.prototype.maxResultsIsValid = function(maxResults) {
+  return Number.isInteger(maxResults) && maxResults > 0 && maxResults < this.data.length
+};
+
+Model.prototype.getMaxResults = function() {
+  if (this.localState && this.localState.maxResults && this.maxResultsIsValid(this.localState.maxResults)) {
+     // Return maxResults from localStorage if it is available and within bounds.
+     return this.localState.maxResults
+  }
+  else {
+     // Otherwise, go with default from static model.
+     return this.staticModel.maxResults
+  }
 };
 
 Model.prototype.distance = function(v, w) {
