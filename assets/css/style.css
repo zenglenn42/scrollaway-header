@@ -24,6 +24,30 @@
   top: 5%;
 }
 
+/* Left-align menu drawer title and first tier menu items. */
+/* Make consistent with hamburger menu alignment. */
+.mdl-layout__drawer>.mdl-layout-title,
+.mdl-layout__drawer>.mdl-button {
+  padding-left: 24px;
+  text-transform: none;
+}
+
+.mdl-menu {
+  /* Make submenu container width same as menu drawer width. */
+  min-width: 240px;
+}
+
+.mdl-menu__itemtext-nudged {
+  /* Better alignment between inline icon and adjacent text. */
+  position: relative;
+  top: -10%;
+}
+
+ul .mdl-menu__item {
+  /* Indent submenu list items a tad. */
+  margin: 0 1.5em;
+}
+
 .mdl-navigation__link {
   margin-left: 16px;
 }
