@@ -3,6 +3,7 @@ function Controller(bodyDivId) {
 
   this.view = new View(
     bodyDivId,
+    this.getMenuDrawerEventListeners().bind(this),
     this.getLandingPageEventListeners().bind(this),
     this.getPreferencesPageEventListeners().bind(this),
     this.getResultsPageEventListeners().bind(this),
@@ -31,6 +32,24 @@ Controller.prototype.delegate = function(el, evt, sel, handler) {
       t = t.parentNode;
     }
   });
+};
+
+Controller.prototype.getMenuDrawerEventListeners = function() {
+  return this.addMenuDrawerEventListeners;
+};
+
+Controller.prototype.addMenuDrawerEventListeners = function() {
+  var that = this;
+  this.delegate(document, "click", "#view_values_button", function(e) {
+    that.view.createPreferencesBody()
+  });
+  this.delegate(document, "click", "#view_cities_button", function(e) {
+    that.view.createResultsBody()
+  });
+
+  /* Make hamburger menu responsive to clicks. */
+  componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
+  componentHandler.upgradeDom();
 };
 
 Controller.prototype.getLandingPageEventListeners = function() {

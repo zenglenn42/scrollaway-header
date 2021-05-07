@@ -1,5 +1,6 @@
 function View(
   bodyDivId,
+  addMenuDrawerEventListeners,
   addLandingPageEventListeners,
   addPreferencesPageEventListeners,
   addResultsPageEventListeners,
@@ -18,6 +19,7 @@ function View(
 
   this.bodyDivId = bodyDivId;
   this.rankedList = [];
+  this.addMenuDrawerEventListeners = addMenuDrawerEventListeners;
   this.addLandingPageEventListeners = addLandingPageEventListeners;
   this.addPreferencesPageEventListeners = addPreferencesPageEventListeners;
   this.addResultsPageEventListeners = addResultsPageEventListeners;
@@ -116,6 +118,8 @@ View.prototype.createLandingBody = function() {
 
   let header = this.createHeader("City Match", "search");
   let menuDrawer = this.createMenuDrawer()
+  this.addMenuDrawerEventListeners();
+
   let hamburgerMenu = this.createHamburgerMenu();
   let landingText1 =
     "Thinking about a move but not sure which city is your best bet?";
@@ -985,25 +989,25 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
 
   // TODO: DRY this up with a map lambda.
 
-  let gotoMenuButton = "button"
-  let gotoMenuButtonNode = document.createElement(gotoMenuButton)
-  gotoMenuButtonNode.setAttribute("id", "gotoMenu");
-  gotoMenuButtonNode.setAttribute("style", "text-align:left");
-  gotoMenuButtonNode.classList.add("mdl-button");
-  gotoMenuButtonNode.classList.add("mdl-js-button");
-  gotoMenuButtonNode.innerHTML = "<i class='material-icons header-icons'>visibility</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>View ...</span>"
-  md.appendChild(gotoMenuButtonNode);
-  let gotoMenuHtml = "ul"
-  let gotoMenuNode = document.createElement(gotoMenuHtml);
-  gotoMenuNode.classList.add("mdl-menu");
-  gotoMenuNode.classList.add("mdl-js-menu");
-  gotoMenuNode.classList.add("mdl-menu--bottom-right");
-  gotoMenuNode.setAttribute("for", "gotoMenu");
-  gotoMenuNode.innerHTML  = "<li class='mdl-menu__item'><a href='' ref='noreferrer noopener' title='home'><i class='material-icons header-icons'>home</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>1. Introduction</span></a></li>",
-  gotoMenuNode.innerHTML += "<li class='mdl-menu__item' disabled><i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>2. Your values</span></li>"
-  gotoMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' disabled><i class='material-icons header-icons'>location_city</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>3. Cities to consider</span></li>"
-  gotoMenuNode.innerHTML += "<li class='mdl-menu__item'><a href='" + this.githubUrl + "' target='_blank' ref='noreferrer noopener' title='blog'><i class='material-icons header-icons'>local_library</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Blog</span></a></li>",
-  md.appendChild(gotoMenuNode);
+  let viewMenuButton = "button"
+  let viewMenuButtonNode = document.createElement(viewMenuButton)
+  viewMenuButtonNode.setAttribute("id", "viewMenu");
+  viewMenuButtonNode.setAttribute("style", "text-align:left");
+  viewMenuButtonNode.classList.add("mdl-button");
+  viewMenuButtonNode.classList.add("mdl-js-button");
+  viewMenuButtonNode.innerHTML = "<i class='material-icons header-icons'>visibility</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>View ...</span>"
+  md.appendChild(viewMenuButtonNode);
+  let viewMenuHtml = "ul"
+  let viewMenuNode = document.createElement(viewMenuHtml);
+  viewMenuNode.classList.add("mdl-menu");
+  viewMenuNode.classList.add("mdl-js-menu");
+  viewMenuNode.classList.add("mdl-menu--bottom-right");
+  viewMenuNode.setAttribute("for", "viewMenu");
+  viewMenuNode.innerHTML  = "<li class='mdl-menu__item mdl-button'><a href='' ref='noreferrer noopener' title='home'><i class='material-icons header-icons'>home</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>1. Introduction</span></a></li>",
+  viewMenuNode.innerHTML += "<li id='view_values_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>2. Your values</span></li>"
+  viewMenuNode.innerHTML += "<li id='view_cities_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>location_city</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>3. Cities to consider</span></li>"
+  viewMenuNode.innerHTML += "<li class='mdl-menu__item'><a href='" + this.githubUrl + "' target='_blank' ref='noreferrer noopener' title='blog'><i class='material-icons header-icons'>local_library</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Blog</span></a></li>",
+  md.appendChild(viewMenuNode);
 
   let settingsMenuButton = "button"
   let settingsMenuButtonNode = document.createElement(settingsMenuButton)
@@ -1021,7 +1025,7 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   settingsMenuNode.setAttribute("for", "settingsMenu");
   let maxResultsString = "Show top " + this.maxResults + " cities"
   settingsMenuNode.innerHTML  = "<li class='mdl-menu__item' disabled><span style='position:relative; top: -10%'>" + maxResultsString + "</span></li>"
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' disabled><span style='position:relative; top: -10%'>" + "Reset to default values" + "</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' disabled><span style='position:relative; top: -10%'>" + "Restore default settings" + "</span></li>"
   md.appendChild(settingsMenuNode);
 
   return md;

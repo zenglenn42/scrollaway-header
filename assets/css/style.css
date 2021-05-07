@@ -42,15 +42,24 @@
   min-width: 240px;
 }
 
-.mdl-layout__drawer .mdl-menu__itemtext-nudged {
-  /* Better alignment between inline icon and adjacent text. */
-  position: relative;
-  top: -10%;
+.mdl-layout__drawer .mdl-menu__item > a,
+.mdl-layout__drawer .mdl-button {
+  text-decoration: none; /* No underlines on links. */
+  text-transform: none;  /* No uppercase on buttons. */
+  color: black;
 }
 
-.mdl-layout__drawer .mdl-menu__item > a {
-  text-decoration: none;
-  color: black;
+.mdl-layout__drawer .mdl-button .mdl-menu__itemtext-nudged {
+  /* Better alignment between inline icon and button text. */
+  position: relative;
+  top: 0;
+}
+
+.mdl-layout__drawer a .mdl-menu__itemtext-nudged
+{
+  /* Better alignment between inline icon and link text. */
+  position: relative;
+  top: -10%;
 }
 
 .mdl-layout__drawer ul .mdl-menu__item {
