@@ -20,6 +20,7 @@ Still need to wire up the menus and info links, but basic city ranking and multi
 - [Designer's Log](#designers-log)
   - [Big Data and the Search for Home](#big-data-and-the-search-for-home)
   - [Thumb Ninja](#thumb-ninja)
+  - [**The Design**](#the-design)
   - [Flexy FAB Landing Page](#flexy-fab-landing-page)
   - [Grid-based Preference Page](#grid-based-preference-page)
   - [Not a Horrible CSS Grid](#not-a-horrible-css-grid)
@@ -107,6 +108,9 @@ There's an ease and comfort here that seem very natural. I want City Match to be
 
 ![alt](docs/img/thumb-usability.png)
 
+## [The Design](#contents)
+
+My focus shifts from the stage to a nearby table where a woman whips out her phone and fluidly navigates through texts and images, powered by the grace of her thumb.
 In the morning, I come up with this:
 
 ![alt](docs/img/ui-design.jpg)
