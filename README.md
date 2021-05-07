@@ -6,7 +6,7 @@ Find your city.
 
 # Release 1.0 (MVP)
 
-Still need to wire up the menu, but basic city ranking and multi-view results work:
+Still need to wire up the settings menu, but basic city ranking and multi-view results work:
 
 ![alt](docs/img/cm-mvp-screenshot.png)
 ![alt](docs/img/view-formats-mvp-bigger.png)
