@@ -1020,8 +1020,8 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   settingsMenuNode.classList.add("mdl-menu--bottom-right");
   settingsMenuNode.setAttribute("for", "settingsMenu");
   let maxResultsString = "Show top " + this.maxResults + " cities"
-  settingsMenuNode.innerHTML = "<li class='mdl-menu__item' disabled><span style='position:relative; top: -10%'>" + maxResultsString 
-  settingsMenuNode.innerHTML += "</span></li>"
+  settingsMenuNode.innerHTML  = "<li class='mdl-menu__item' disabled><span style='position:relative; top: -10%'>" + maxResultsString + "</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' disabled><span style='position:relative; top: -10%'>" + "Reset to default values" + "</span></li>"
   md.appendChild(settingsMenuNode);
 
   return md;
