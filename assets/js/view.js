@@ -948,26 +948,26 @@ View.prototype.createHamburgerMenu = function() {
 };
 
 View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
-  let invariantMenuItems = [
-    "<i class='material-icons header-icons'>home</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>Welcome</span>",
-    "<i class='material-icons header-icons' style='color: gray'>tune</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>Preferences</span>",
-    "<i class='material-icons header-icons' style='color: gray'>location_city</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>Cities</span>"
-  ];
+
   let md = document.createElement("span");
   md.classList.add("mdl-layout__drawer");
   let mdChild = document.createElement("div");
   mdChild.classList.add("mdl-layout-title");
   mdChild.innerHTML = title;
   md.appendChild(mdChild);
+
+  /*
   let nav = document.createElement("nav");
   nav.classList.add("mdl-navigation");
-  // $(nav).addClass("mdl-navigation");
   let invariantMenuHtml = invariantMenuItems.map(item => {
     let anchor = document.createElement("a");
     anchor.classList.add("mdl-navigation__link");
     anchor.setAttribute("href", "");
     anchor.innerHTML = `${item}`;
     return anchor;
+  });
+  invariantMenuHtml.map(html => {
+    md.appendChild(html);
   });
   let menuHtml = menuItemsArray.map(item => {
     let anchor = document.createElement("a");
@@ -977,12 +977,51 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
     return anchor;
     // return `<a class="mdl-navigation__link" href="">${item}</a>`;
   });
-  invariantMenuHtml.map(html => {
-    md.appendChild(html);
-  });
   menuHtml.map(html => {
     md.appendChild(html);
   });
+  */
+
+  // TODO: DRY this up with a map lambda.
+
+  let gotoMenuButton = "button"
+  let gotoMenuButtonNode = document.createElement(gotoMenuButton)
+  gotoMenuButtonNode.setAttribute("id", "gotoMenu");
+  gotoMenuButtonNode.setAttribute("style", "text-align:left");
+  gotoMenuButtonNode.classList.add("mdl-button");
+  gotoMenuButtonNode.classList.add("mdl-js-button");
+  gotoMenuButtonNode.innerHTML = "<i class='material-icons header-icons'>explore</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>Goto ...</span>"
+  md.appendChild(gotoMenuButtonNode);
+  let gotoMenuHtml = "ul"
+  let gotoMenuNode = document.createElement(gotoMenuHtml);
+  gotoMenuNode.classList.add("mdl-menu");
+  gotoMenuNode.classList.add("mdl-js-menu");
+  gotoMenuNode.classList.add("mdl-menu--bottom-right");
+  gotoMenuNode.setAttribute("for", "gotoMenu");
+  gotoMenuNode.innerHTML  = "<li class='mdl-menu__item' disabled><i class='material-icons'>home</i>&nbsp;&nbsp;<span style='position:relative; top: -10%'>Welcome</span></li>"
+  gotoMenuNode.innerHTML += "<li class='mdl-menu__item' disabled><i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span style='position:relative; top: -10%'>Preferences</span></li>"
+  gotoMenuNode.innerHTML += "<li class='mdl-menu__item' disabled><i class='material-icons header-icons'>location_city</i>&nbsp;&nbsp;<span style='position:relative; top: -10%'>Cities</span></li>"
+  gotoMenuNode.innerHTML += "<li class='mdl-menu__item' disabled><i class='material-icons header-icons'>local_library</i>&nbsp;&nbsp;<span style='position:relative; top: -10%'>Blog</span></li>",
+  md.appendChild(gotoMenuNode);
+
+  let settingsMenuButton = "button"
+  let settingsMenuButtonNode = document.createElement(settingsMenuButton)
+  settingsMenuButtonNode.setAttribute("id", "settingsMenu");
+  settingsMenuButtonNode.setAttribute("style", "text-align:left");
+  settingsMenuButtonNode.classList.add("mdl-button");
+  settingsMenuButtonNode.classList.add("mdl-js-button");
+  settingsMenuButtonNode.innerHTML = "<i class='material-icons header-icons'>settings</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>Settings ...</span>"
+  md.appendChild(settingsMenuButtonNode);
+  let settingsMenuHtml = "ul"
+  let settingsMenuNode = document.createElement(settingsMenuHtml);
+  settingsMenuNode.classList.add("mdl-menu");
+  settingsMenuNode.classList.add("mdl-js-menu");
+  settingsMenuNode.classList.add("mdl-menu--bottom-right");
+  settingsMenuNode.setAttribute("for", "settingsMenu");
+  let maxResultsString = "Maximum results to report: " + this.maxResults
+  settingsMenuNode.innerHTML = "<li class='mdl-menu__item' disabled><span style='position:relative; top: -10%'>" + maxResultsString + "</span></li>"
+  md.appendChild(settingsMenuNode);
+
   return md;
 };
 
