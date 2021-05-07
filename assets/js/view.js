@@ -91,7 +91,7 @@ View.prototype.createHeader = function(title, rightNavIcon) {
             <i id="header-search" class="material-icons">${rightNavIcon}</i>
           </a>
         -->
-          <a id="header-logo__link" class="mdl-navigation__link" href="" title="home">
+          <a id="header-logo__link" class="mdl-navigation__link" href="" title="home" ref="noreferrer noopener">
             <i class='material-icons header-icons'>home</i>
           </a>
       </nav>
@@ -999,10 +999,10 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   gotoMenuNode.classList.add("mdl-js-menu");
   gotoMenuNode.classList.add("mdl-menu--bottom-right");
   gotoMenuNode.setAttribute("for", "gotoMenu");
-  gotoMenuNode.innerHTML  = "<li class='mdl-menu__item' disabled><i class='material-icons'>home</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>1. Introduction</span></li>"
+  gotoMenuNode.innerHTML  = "<li class='mdl-menu__item'><a href='' ref='noreferrer noopener' title='home'><i class='material-icons header-icons'>home</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>1. Introduction</span></a></li>",
   gotoMenuNode.innerHTML += "<li class='mdl-menu__item' disabled><i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>2. Your values</span></li>"
   gotoMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' disabled><i class='material-icons header-icons'>location_city</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>3. Cities to consider</span></li>"
-  gotoMenuNode.innerHTML += "<li class='mdl-menu__item'><a href='" + this.githubUrl + "' target='_blank' ref='noreferrer noopener'><i class='material-icons header-icons'>local_library</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Blog</span></a></li>",
+  gotoMenuNode.innerHTML += "<li class='mdl-menu__item'><a href='" + this.githubUrl + "' target='_blank' ref='noreferrer noopener' title='blog'><i class='material-icons header-icons'>local_library</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Blog</span></a></li>",
   md.appendChild(gotoMenuNode);
 
   let settingsMenuButton = "button"
@@ -1040,7 +1040,7 @@ View.prototype.createFooter = function(fabIcon) {
         <span class="copyright-text" style="position:relative; left:-1.5em">City Match &copy; 2019</span>
       </div>
       <div class="mdl-mini-footer__right-section">
-        <a href="${this.githubUrl}" target="_blank">
+        <a href="${this.githubUrl}" target="_blank" title="github" ref="noreferrer noopener">
           <button id="button-octocat" data-nextpage="preferences" class="mdl-button mdl-js-button mdl-js-ripple-effect">
             <i id="footer-icon-octocat" class="fab fa-github-square" aria-hidden="true"></i>
           </button>
