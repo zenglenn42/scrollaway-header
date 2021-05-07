@@ -110,8 +110,7 @@ There's an ease and comfort here that seem very natural. I want City Match to be
 
 ## [The Design](#contents)
 
-My focus shifts from the stage to a nearby table where a woman whips out her phone and fluidly navigates through texts and images, powered by the grace of her thumb.
-In the morning, I come up with this:
+In the morning, I come up with this design:
 
 ![alt](docs/img/ui-design.jpg)
 
