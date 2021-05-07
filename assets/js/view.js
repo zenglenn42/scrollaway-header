@@ -1002,7 +1002,7 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   gotoMenuNode.innerHTML  = "<li class='mdl-menu__item' disabled><i class='material-icons'>home</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>1. Introduction</span></li>"
   gotoMenuNode.innerHTML += "<li class='mdl-menu__item' disabled><i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>2. Your values</span></li>"
   gotoMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' disabled><i class='material-icons header-icons'>location_city</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>3. Cities to consider</span></li>"
-  gotoMenuNode.innerHTML += "<li class='mdl-menu__item' disabled><i class='material-icons header-icons'>local_library</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Blog</span></li>",
+  gotoMenuNode.innerHTML += "<li class='mdl-menu__item'><a href='" + this.githubUrl + "' target='_blank' ref='noreferrer noopener'><i class='material-icons header-icons'>local_library</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Blog</span></a></li>",
   md.appendChild(gotoMenuNode);
 
   let settingsMenuButton = "button"
@@ -1042,7 +1042,7 @@ View.prototype.createFooter = function(fabIcon) {
       <div class="mdl-mini-footer__right-section">
         <a href="${this.githubUrl}" target="_blank">
           <button id="button-octocat" data-nextpage="preferences" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-            <i id="icon-octocat" class="fab fa-github-square" aria-hidden="true"></i>
+            <i id="footer-icon-octocat" class="fab fa-github-square" aria-hidden="true"></i>
           </button>
         </a>
       </div>
