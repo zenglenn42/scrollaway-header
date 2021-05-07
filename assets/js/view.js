@@ -1005,7 +1005,7 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   viewMenuNode.setAttribute("for", "viewMenu");
   viewMenuNode.innerHTML  = "<li class='mdl-menu__item mdl-button'><a href='' ref='noreferrer noopener' title='home'><i class='material-icons header-icons'>home</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>1. Introduction</span></a></li>",
   viewMenuNode.innerHTML += "<li id='view_values_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>2. Your values</span></li>"
-  viewMenuNode.innerHTML += "<li id='view_cities_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>location_city</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>3. Cities to consider</span></li>"
+  viewMenuNode.innerHTML += "<li id='view_cities_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>location_city</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>3. Cities to consider</span></li>"
   viewMenuNode.innerHTML += "<li class='mdl-menu__item'><a href='" + this.githubUrl + "' target='_blank' ref='noreferrer noopener' title='blog'><i class='material-icons header-icons'>local_library</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Blog</span></a></li>",
   md.appendChild(viewMenuNode);
 
