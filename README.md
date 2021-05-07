@@ -53,7 +53,7 @@ Still need to wire up the menus and info links, but basic city ranking and multi
   - [Small Planet](#small-planet)
   - [Agile and the Dalai Lama?](#agile-and-the-dalai-lama)
   - [Slow Day](#slow-day)
-  - [User Experience Review](#ux-review)
+  - [User Experience Review](#user-experience-review)
 - [Near-term Roadmap](#near-term-roadmap)
 
 -----
