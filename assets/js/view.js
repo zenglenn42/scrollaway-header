@@ -84,9 +84,9 @@ View.prototype.createHeader = function(title, rightNavIcon) {
   h.classList += "mdl-layout__header";
   h.innerHTML = `
       <div class="mdl-layout__header-row">
-      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-layout-spacer mdl-layout__header-left-spacer">&nbsp;</div>
       <span class="mdl-layout-title mdl-layout-title-nudged">${title}</span>
-      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-layout-spacer">&nbsp;</div>
       <nav class="mdl-navigation">
         <!--
           <a class="mdl-navigation__link" href="">
@@ -167,7 +167,7 @@ View.prototype.createPreferencesBody = function createPreferencesBody() {
   let bodyDiv = document.getElementById(this.bodyDivId);
   bodyDiv.innerHTML = "";
   let header = this.createHeader(
-        "Your priorities ...", "search");
+        "Share your priorities ...", "search");
   let menuDrawer = this.createMenuDrawer();
   let hamburgerMenu = this.createHamburgerMenu();
   let mainPreferences = this.createPreferencesMain();
