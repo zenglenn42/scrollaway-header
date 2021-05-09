@@ -124,7 +124,7 @@ View.prototype.createLandingBody = function() {
   let landingText1 =
     "Thinking about a move but not sure which city is your best bet?";
   let landingText2 =
-    "Share your values and we'll offer some aligned options to consider.";
+    "Share your priorities and we'll offer some options to consider.";
   let mainLanding = this.createLandingMain(
     "Find your city",
     landingText1,
@@ -167,7 +167,7 @@ View.prototype.createPreferencesBody = function createPreferencesBody() {
   let bodyDiv = document.getElementById(this.bodyDivId);
   bodyDiv.innerHTML = "";
   let header = this.createHeader(
-        "Share your values ...", "search");
+        "Your priorities ...", "search");
   let menuDrawer = this.createMenuDrawer();
   let hamburgerMenu = this.createHamburgerMenu();
   let mainPreferences = this.createPreferencesMain();
@@ -438,7 +438,7 @@ View.prototype.createPreferencesTextinputCard = function(prefParams) {
 View.prototype.createResultsBody = function createResultsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId);
   bodyDiv.innerHTML = "";
-  let header = this.createHeader("Consider these ...", "search");
+  let header = this.createHeader("Your best bets ...", "search");
   let menuDrawer = this.createMenuDrawer()
   let hamburgerMenu = this.createHamburgerMenu();
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
@@ -595,7 +595,7 @@ View.prototype.createChartView = function(chartId) {
         data: happinessData
       },
       {
-        label: "Affordability",
+        label: "Cost of living",
         backgroundColor: "lightseagreen",
         stack: "Stack 1",
         data: affordabilityData
@@ -730,9 +730,7 @@ View.prototype.createResultsCityCard = function(cityParams) {
     '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>';
   let elephant =
     '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>';
-  let politics = `${donkey}${
-    cityParams.politics.demFraction
-  }%  &nbsp; ${elephant}${cityParams.politics.repFraction}%`;
+  let politics = `${donkey}&nbsp;${cityParams.politics.demFraction}%&nbsp;&nbsp; ${elephant}&nbsp;${cityParams.politics.repFraction}%`;
   let affordability = this.formatter.format(cityParams.affordability);
   let cityStats = `<p>Civic Happiness:  ${
     cityParams.happiness
@@ -1004,8 +1002,8 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   viewMenuNode.classList.add("mdl-menu--bottom-right");
   viewMenuNode.setAttribute("for", "viewMenu");
   viewMenuNode.innerHTML  = "<li class='mdl-menu__item mdl-button'><a href='' ref='noreferrer noopener' title='home'><i class='material-icons header-icons'>home</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>1. Introduction</span></a></li>",
-  viewMenuNode.innerHTML += "<li id='view_values_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>2. Your values</span></li>"
-  viewMenuNode.innerHTML += "<li id='view_cities_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>location_city</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>3. Cities to consider</span></li>"
+  viewMenuNode.innerHTML += "<li id='view_values_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>2. Your priorities</span></li>"
+  viewMenuNode.innerHTML += "<li id='view_cities_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>location_city</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>3. Your best bets</span></li>"
   viewMenuNode.innerHTML += "<li class='mdl-menu__item'><a href='" + this.githubUrl + "' target='_blank' ref='noreferrer noopener' title='blog'><i class='material-icons header-icons'>local_library</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Blog</span></a></li>",
   md.appendChild(viewMenuNode);
 
