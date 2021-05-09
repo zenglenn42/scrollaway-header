@@ -3565,8 +3565,8 @@ function StaticModel() {
           lng: -83.0457538
         },
         politics: {
-          dem16_frac: 36.24647440655322,
-          rep16_frac: 58.37303140308497
+          dem16_frac: 66.77954735959766,
+          rep16_frac: 29.519375846282802
         }
       }
     }
