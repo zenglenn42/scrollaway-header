@@ -1022,9 +1022,21 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   settingsMenuNode.classList.add("mdl-menu--bottom-right");
   settingsMenuNode.setAttribute("for", "settingsMenu");
   let maxResultsString = "Show top " + this.maxResults + " cities"
-  settingsMenuNode.innerHTML  = "<li class='mdl-menu__item' disabled><span style='position:relative; top: -10%'>" + maxResultsString + "</span></li>"
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' disabled><span style='position:relative; top: -10%'>" + "Restore default settings" + "</span></li>"
+  settingsMenuNode.innerHTML  = "<li id='settings_edit_button' class='mdl-menu__item mdl-button' disabled><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Edit</span></li>",
+  settingsMenuNode.innerHTML += "<li id='settings_restore_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider' disabled><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Restore defaults</span></li>",
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span>Show cities in United States</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>" + maxResultsString + "</span></li>"
   md.appendChild(settingsMenuNode);
+
+  let helpMenuButton = "button"
+  let helpMenuButtonNode = document.createElement(helpMenuButton)
+  helpMenuButtonNode.setAttribute("id", "helpMenu");
+  helpMenuButtonNode.setAttribute("style", "text-align:left");
+  helpMenuButtonNode.setAttribute("disabled", "disabled");
+  helpMenuButtonNode.classList.add("mdl-button");
+  helpMenuButtonNode.classList.add("mdl-js-button");
+  helpMenuButtonNode.innerHTML = "<i class='material-icons header-icons'>help</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>Help</span>"
+  md.appendChild(helpMenuButtonNode);
 
   return md;
 };
