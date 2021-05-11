@@ -1,17 +1,18 @@
 function Model() {
   this.staticModel = new StaticModel();
 
-  // For now, drive the model with mediocre, statically-sourced data.
+  // For now, drive the model with mediocre, statically-sourced city data.
   // This will evolve to a fullstack model with backend db.
   // I can't give all the IP away :D
 
   this.data = this.staticModel.data;
 
-  // Retrieve any client-cachede app state from local storage.  
+  // Retrieve any client-cached app state from local storage.  
   // This typically overrides what is in the static model
   // for some parameters.
 
   this.localState = this.getLocalState();
+  console.log('Model: localState:', this.localState)
 
 }
 
@@ -58,24 +59,79 @@ Model.prototype.getLocalState = function() {
   if (this.localStorageIsAvailable()) {
     if (localStorage.getItem('localState')) {
         localState = JSON.parse(localStorage.getItem('localState'))
-    } 
+    } else {
+       localState = this.getDefaultLocalState()
+    }
+  } else {
+    localState = this.getDefaultLocalState()
   }
   return localState
 };
 
+Model.prototype.clearLocalStorage = function() {
+  try {
+    localStorage.clear();
+    return true;
+  } catch(e) {
+    console.log('Model.clearLocalStorage() failed.')
+    return false;
+  }
+}
+
+Model.prototype.getDefaultLocalState = function() {
+  let localState = {
+    maxResults: this.staticModel.maxResults
+  }
+  return localState
+}
+
+// ----------------------------------------------------------
+// TODO: Keep this setter updated as state schema changes!
+// ----------------------------------------------------------
+Model.prototype.restoreDefaultSettings = function() {
+  this.clearLocalStorage()
+  let localState = JSON.parse(JSON.stringify(this.getDefaultLocalState()))
+  this.setLocalState(localState)
+  this.saveLocalState() // Persist to localStorage.
+}
+
+// ----------------------------------------------------------
 // TODO: Keep this validator updated as state schema changes!
+// ----------------------------------------------------------
 Model.prototype.localStateIsValid = function(localState) {
   return localState && this.maxResultsIsValid(localState.maxResults)
 };
 
-Model.prototype.setLocalState = function(localState) {
-  if (this.localStorageIsAvailable() && this.localStateIsValid(localState)) {
-    localStorage.setItem('localState', JSON.stringify(localState))
+Model.prototype.saveLocalState = function() {
+  if (this.localStorageIsAvailable() && this.localStateIsValid(this.localState)) {
+    this.clearLocalStorage()
+    try {
+      localStorage.setItem('localState', JSON.stringify(this.localState))
+    } catch(e) {
+      console.log('Model.saveLocalState(): Unable to update localStorage with this.localState.  localStorage.setItem failed.')
+    }
+  } else {
+    console.log('Model.saveLocalState(): localStorage is either not available or this.localState does not match expected schema.')
   }
 };
 
+Model.prototype.setLocalState = function(localState) {
+  if (this.localStateIsValid(localState)) {
+    console.log('Model.setLocalState: Before: this.localState =', this.localState)
+    // clone localState into Model object's localState
+    this.localState = JSON.parse(JSON.stringify(localState))
+    console.log('Model.setLocalState: After: this.localState =', this.localState)
+  } else {
+    console.log('Model.setLocalState: Unable to mutate this.localState.  Invalid schema.')
+  }
+}
+
 Model.prototype.maxResultsIsValid = function(maxResults) {
   return Number.isInteger(maxResults) && maxResults > 0 && maxResults < this.data.length
+};
+
+Model.prototype.getMaxResultsCB = function() {
+  return this.getMaxResults
 };
 
 Model.prototype.getMaxResults = function() {

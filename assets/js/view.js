@@ -13,9 +13,9 @@ function View(
   maxAffordabilityValue,
   midPoliticsValue,
   githubUrl,
-  maxResults
+  getMaxResultsCB
 ) {
-  this.maxResults = maxResults;
+  this.getMaxResults = getMaxResultsCB
 
   this.bodyDivId = bodyDivId;
   this.rankedList = [];
@@ -93,7 +93,7 @@ View.prototype.createHeader = function(title, rightNavIcon) {
             <i id="header-search" class="material-icons">${rightNavIcon}</i>
           </a>
         -->
-          <a id="header-logo__link" class="mdl-navigation__link" href="" title="home" ref="noreferrer noopener">
+          <a id="header-logo__link" class="mdl-navigation__link mdl-button mdl-js-button mdl-button--icon" href="" title="home" ref="noreferrer noopener">
             <i class='material-icons header-icons'>home</i>
           </a>
       </nav>
@@ -474,7 +474,7 @@ View.prototype.createResultsMain = function(bodyDiv) {
     bodyDiv.appendChild(m);
   } else {
     this.rankedList = this.cityRankModelCB(computedUserPrefs);
-    this.rankedList.length = this.maxResults;
+    this.rankedList.length = this.getMaxResults();
     let rank = 1;
     switch (this.activeDataView) {
       case "list-view":
@@ -954,9 +954,13 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   let md = document.createElement("span");
   md.classList.add("mdl-layout__drawer");
   let mdChild = document.createElement("div");
+  mdChild.classList.add("mdl-layout__header-row");
   mdChild.classList.add("mdl-layout-title");
   mdChild.classList.add("mdl-menu__item--full-bleed-divider");
-  mdChild.innerHTML = title;
+  mdChild.innerHTML  = "<span>" + title + "</span>&nbsp;&nbsp;" 
+  mdChild.innerHTML += "<div class='mdl-layout-spacer'>"
+  mdChild.innerHTML += "<button id='dismiss_menu_button' class='mdl-button mdl-js-button mdl-button--icon'><i class='material-icons header-icons'>clear</i></button>"
+  mdChild.innerHTML += "</div>"
   md.appendChild(mdChild);
 
   /*
@@ -1021,9 +1025,10 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   settingsMenuNode.classList.add("mdl-js-menu");
   settingsMenuNode.classList.add("mdl-menu--bottom-right");
   settingsMenuNode.setAttribute("for", "settingsMenu");
-  let maxResultsString = "Show top " + this.maxResults + " cities"
+  let maxResultsString = "Show top " + this.getMaxResults() + " cities"
   settingsMenuNode.innerHTML  = "<li id='settings_edit_button' class='mdl-menu__item mdl-button' disabled><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Edit</span></li>",
-  settingsMenuNode.innerHTML += "<li id='settings_restore_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider' disabled><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Restore defaults</span></li>",
+  settingsMenuNode.innerHTML += "<li id='settings_restore_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Restore defaults</span></li>",
+  settingsMenuNode.innerHTML += "<li id='settings_clearcache_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Clear cached settings</span></li>",
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span>Use English</span></li>"
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>Show cities in United States</span></li>"
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>" + maxResultsString + "</span></li>"

@@ -16,7 +16,7 @@ function Controller(bodyDivId) {
     this.model.getMaxAffordabilityValue(),
     this.model.getMidPoliticsValue(),
     this.model.githubUrl,
-    this.model.getMaxResults()
+    this.model.getMaxResultsCB().bind(this.model)
   );
   this.view.createLandingBody();
 }
@@ -40,16 +40,28 @@ Controller.prototype.getMenuDrawerEventListeners = function() {
 
 Controller.prototype.addMenuDrawerEventListeners = function() {
   var that = this;
+  this.delegate(document, "click", "#dismiss_menu_button", function(e) {
+     let md = document.querySelector(".mdl-layout__drawer")
+     if (md) {
+       md.classList.remove("is-visible")
+     }
+     let modalObfuscator = document.querySelector(".mdl-layout__obfuscator")
+     if (modalObfuscator) {
+       modalObfuscator.classList.remove("is-visible")
+     }
+  });
   this.delegate(document, "click", "#view_values_button", function(e) {
     that.view.createPreferencesBody()
   });
   this.delegate(document, "click", "#view_cities_button", function(e) {
     that.view.createResultsBody()
   });
-
-  /* Make hamburger menu responsive to clicks. */
-  componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
-  componentHandler.upgradeDom();
+  this.delegate(document, "click", "#settings_restore_button", function(e) {
+    that.model.restoreDefaultSettings()
+  });
+  this.delegate(document, "click", "#settings_clearcache_button", function(e) {
+    that.model.clearLocalStorage()
+  });
 };
 
 Controller.prototype.getLandingPageEventListeners = function() {

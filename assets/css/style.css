@@ -79,6 +79,7 @@ div.mdl-menu__container > ul > li
  {
   /* Indent submenu list items a tad. */
   margin-left: 1.5em;
+  margin-right: 1em;
 }
 
 .mdl-card__title-text {
