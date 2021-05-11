@@ -16,6 +16,7 @@ function Controller(bodyDivId) {
     this.model.getMaxAffordabilityValue(),
     this.model.getMidPoliticsValue(),
     this.model.githubUrl,
+    this.model.hasCachedLocalStateCB().bind(this.model),
     this.model.getMaxResultsCB().bind(this.model)
   );
   this.view.createLandingBody();
@@ -58,9 +59,20 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
   });
   this.delegate(document, "click", "#settings_restore_button", function(e) {
     that.model.restoreDefaultSettings()
+    if (that.model.hasCachedLocalStateCB()) {
+      let clearcache_button = document.querySelector("#settings_clearcache_button")
+      if (clearcache_button) {
+        clearcache_button.removeAttribute("disabled")
+      }
+    }
   });
   this.delegate(document, "click", "#settings_clearcache_button", function(e) {
-    that.model.clearLocalStorage()
+    if (that.model.clearLocalStorage()) {
+      let clearcache_button = document.querySelector("#settings_clearcache_button")
+      if (clearcache_button) {
+        clearcache_button.setAttribute("disabled", "disabled")
+      }
+    }
   });
 };
 

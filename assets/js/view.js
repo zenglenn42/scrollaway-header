@@ -13,9 +13,11 @@ function View(
   maxAffordabilityValue,
   midPoliticsValue,
   githubUrl,
+  hasCachedLocalStateCB,
   getMaxResultsCB
 ) {
-  this.getMaxResults = getMaxResultsCB
+  this.hasCachedLocalState = hasCachedLocalStateCB;
+  this.getMaxResults = getMaxResultsCB;
 
   this.bodyDivId = bodyDivId;
   this.rankedList = [];
@@ -1021,6 +1023,7 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   md.appendChild(settingsMenuButtonNode);
   let settingsMenuHtml = "ul"
   let settingsMenuNode = document.createElement(settingsMenuHtml);
+  let enableCacheClear = this.hasCachedLocalState() ? "" : "disabled='disabled'"
   settingsMenuNode.classList.add("mdl-menu");
   settingsMenuNode.classList.add("mdl-js-menu");
   settingsMenuNode.classList.add("mdl-menu--bottom-right");
@@ -1028,7 +1031,7 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   let maxResultsString = "Show top " + this.getMaxResults() + " cities"
   settingsMenuNode.innerHTML  = "<li id='settings_edit_button' class='mdl-menu__item mdl-button' disabled><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Edit</span></li>",
   settingsMenuNode.innerHTML += "<li id='settings_restore_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Restore defaults</span></li>",
-  settingsMenuNode.innerHTML += "<li id='settings_clearcache_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Clear cached settings</span></li>",
+  settingsMenuNode.innerHTML += "<li id='settings_clearcache_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'" + enableCacheClear + "><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Clear cached settings</span></li>",
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span>Use English</span></li>"
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>Show cities in United States</span></li>"
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>" + maxResultsString + "</span></li>"

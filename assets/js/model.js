@@ -53,6 +53,14 @@ Model.prototype.localStorageIsAvailable = function() {
   }
 };
 
+Model.prototype.hasCachedLocalStateCB = function() {
+  return this.hasCachedLocalState
+};
+
+Model.prototype.hasCachedLocalState = function() {
+  return this.localStorageIsAvailable() && localStorage.getItem('localState')
+}
+
 Model.prototype.getLocalState = function() {
   let localState = {}
 
