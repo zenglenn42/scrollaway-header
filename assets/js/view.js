@@ -4,6 +4,7 @@ function View(
   addLandingPageEventListeners,
   addPreferencesPageEventListeners,
   addResultsPageEventListeners,
+  addSettingsPageEventListeners,
   cityRankModelCB,
   minHappinessValue,
   midHappinessValue,
@@ -25,6 +26,7 @@ function View(
   this.addLandingPageEventListeners = addLandingPageEventListeners;
   this.addPreferencesPageEventListeners = addPreferencesPageEventListeners;
   this.addResultsPageEventListeners = addResultsPageEventListeners;
+  this.addSettingsPageEventListeners = addSettingsPageEventListeners;
 
   this.cityRankModelCB = cityRankModelCB;
   this.minHappinessValue = minHappinessValue;
@@ -111,6 +113,51 @@ View.prototype.makeNav = function(bodyDiv, header, menuDrawer, hamburgerMenu) {
 
 
 //-----------------------------------//
+// Settings Page
+//-----------------------------------//
+
+View.prototype.createSettingsBody = function createSettingsBody() {
+  let bodyDiv = document.getElementById(this.bodyDivId);
+
+  // Fetch the page we should navigate back to (from the FAB)
+  // after we're done editing settings.
+
+  let backToPage = "landing"  // default
+
+  let currMain = document.getElementById("main");
+  if (currMain) {
+    let currPage = currMain.getAttribute("data-currpage");
+    backToPage = currPage || "landing"
+  }
+
+  bodyDiv.innerHTML = "";
+  let header = this.createHeader(
+        "Edit settings ...", "");
+  let menuDrawer = this.createMenuDrawer();
+  let hamburgerMenu = this.createHamburgerMenu();
+  let mainSettings = this.createSettingsMain();
+  let footer = this.createFooter("navigate_before", "navigate_next", backToPage);
+
+  this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
+  bodyDiv.appendChild(mainSettings);
+  bodyDiv.appendChild(footer);
+
+  this.addSettingsPageEventListeners();
+};
+
+View.prototype.createSettingsMain = function() {
+  let m = document.createElement("main");
+  m.classList.add("mdl-layout__content");
+  let child = document.createElement("div");
+  child.classList.add("grid-content");
+  m.appendChild(child);
+  let g = document.createElement("div");
+  g.classList.add("mdl-grid");
+  m.appendChild(g);
+  return m;
+};
+
+//-----------------------------------//
 // Landing Page
 //-----------------------------------//
 
@@ -132,7 +179,7 @@ View.prototype.createLandingBody = function() {
     landingText1,
     landingText2
   );
-  let footer = this.createFooter("navigate_next");
+  let footer = this.createFooter();
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
   bodyDiv.appendChild(mainLanding);
   bodyDiv.appendChild(footer);
@@ -147,6 +194,7 @@ View.prototype.createLandingMain = function(
   let m = document.createElement("main");
   m.classList.add("content");
   m.setAttribute("id", "main");
+  m.setAttribute("data-currpage", "landing");
   m.innerHTML = `
       <div class="landing-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
@@ -173,7 +221,7 @@ View.prototype.createPreferencesBody = function createPreferencesBody() {
   let menuDrawer = this.createMenuDrawer();
   let hamburgerMenu = this.createHamburgerMenu();
   let mainPreferences = this.createPreferencesMain();
-  let footer = this.createFooter("navigate_next");
+  let footer = this.createFooter();
 
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
   bodyDiv.appendChild(mainPreferences);
@@ -184,13 +232,14 @@ View.prototype.createPreferencesBody = function createPreferencesBody() {
 
 View.prototype.createPreferencesMain = function() {
   let m = document.createElement("main");
+  m.setAttribute("id", "main");
   m.classList.add("mdl-layout__content");
+  m.setAttribute("data-currpage", "preferences");
   let child = document.createElement("div");
   child.classList.add("grid-content");
   m.appendChild(child);
   let g = document.createElement("div");
   g.classList.add("mdl-grid");
-  g.classList.add("theGrid");
   m.appendChild(g);
 
   let prefParams = {
@@ -455,7 +504,9 @@ View.prototype.createResultsBody = function createResultsBody() {
 
 View.prototype.createResultsMain = function(bodyDiv) {
   let m = document.createElement("main");
+  m.setAttribute("id", "main");
   m.classList.add("mdl-layout__content");
+  m.setAttribute("data-currpage", "results");
   let child = document.createElement("div");
   let g = document.createElement("div");
 
@@ -466,11 +517,10 @@ View.prototype.createResultsMain = function(bodyDiv) {
     let noPrefsParams = {
       img: "assets/img/chess-failure.jpg",
       titleText: "No results available.",
-      supportingText: "Please go back and specify one or more preferences."
+      supportingText: "Please go back and specify one or more priorities."
     };
     let c = this.createResultsNoPrefsCard(noPrefsParams);
     g.classList.add("mdl-grid");
-    g.classList.add("theGrid");
     g.appendChild(c);
     m.appendChild(g);
     bodyDiv.appendChild(m);
@@ -510,7 +560,6 @@ View.prototype.createResultsMain = function(bodyDiv) {
         child.classList.add("grid-content");
         m.appendChild(child);
         g.classList.add("mdl-grid");
-        g.classList.add("theGrid");
         m.appendChild(g);
         //-----------------------------------//
         // Call the model to get ranked list
@@ -870,11 +919,11 @@ View.prototype.createResultsNoPrefsCard = function(params) {
   return p;
 };
 
-View.prototype.createResultsFooter = function(fabIcon) {
+View.prototype.createResultsFooter = function(fabIcon, fabIconId="navigate_before") {
   let f = document.createElement("footer");
   f.classList.add("mdl-mini-foote");
   f.innerHTML = `
-      <button id="navigate_before"
+      <button id="${fabIconId}"
       class="footer-fab mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--primary"
     >
       <i class="material-icons">${fabIcon}</i>
@@ -1029,7 +1078,7 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   settingsMenuNode.classList.add("mdl-menu--bottom-right");
   settingsMenuNode.setAttribute("for", "settingsMenu");
   let maxResultsString = "Show top " + this.getMaxResults() + " cities"
-  settingsMenuNode.innerHTML  = "<li id='settings_edit_button' class='mdl-menu__item mdl-button' disabled><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Edit</span></li>",
+  settingsMenuNode.innerHTML  = "<li id='settings_edit_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Edit</span></li>",
   settingsMenuNode.innerHTML += "<li id='settings_restore_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Restore defaults</span></li>",
   settingsMenuNode.innerHTML += "<li id='settings_clearcache_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'" + enableCacheClear + "><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Clear cached settings</span></li>",
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span>Use English</span></li>"
@@ -1050,11 +1099,11 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   return md;
 };
 
-View.prototype.createFooter = function(fabIcon) {
+View.prototype.createFooter = function(fabIcon="navigate_next", fabIconId="navigate_next", nextPage="preferences") {
   f = document.createElement("footer");
   f.classList.add("mdl-mini-footer");
   f.innerHTML = `
-      <button id="navigate_next" data-nextpage="preferences" class="footer-fab mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--primary">
+      <button id="${fabIconId}" data-nextpage="${nextPage}" class="footer-fab mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--primary">
         <i class="material-icons">${fabIcon}</i>
       </button>
       <div class="mdl-mini-footer__left-section"><span class="copyright-text">
@@ -1064,7 +1113,7 @@ View.prototype.createFooter = function(fabIcon) {
       </div>
       <div class="mdl-mini-footer__right-section">
         <a href="${this.githubUrl}" target="_blank" title="github" ref="noreferrer noopener">
-          <button id="button-octocat" data-nextpage="preferences" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+          <button id="button-octocat" class="mdl-button mdl-js-button mdl-js-ripple-effect">
             <i id="footer-icon-octocat" class="fab fa-github-square" aria-hidden="true"></i>
           </button>
         </a>

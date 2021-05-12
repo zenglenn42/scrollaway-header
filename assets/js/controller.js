@@ -7,6 +7,7 @@ function Controller(bodyDivId) {
     this.getLandingPageEventListeners().bind(this),
     this.getPreferencesPageEventListeners().bind(this),
     this.getResultsPageEventListeners().bind(this),
+    this.getSettingsPageEventListeners().bind(this),
     this.model.getCityRankCB().bind(this.model),
     this.model.getMinHappinessValue(),
     this.model.getMidHappinessValue(),
@@ -57,6 +58,9 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
   this.delegate(document, "click", "#view_cities_button", function(e) {
     that.view.createResultsBody()
   });
+  this.delegate(document, "click", "#settings_edit_button", function(e) {
+    that.view.createSettingsBody()
+  });
   this.delegate(document, "click", "#settings_restore_button", function(e) {
     that.model.restoreDefaultSettings()
     if (that.model.hasCachedLocalStateCB()) {
@@ -82,7 +86,9 @@ Controller.prototype.getLandingPageEventListeners = function() {
 
 Controller.prototype.addLandingPageEventListeners = function() {
   nextButton = document.getElementById("navigate_next");
+  nextPageAttr = nextButton.getAttribute("data-nextpage")
 
+  console.log('nextPageAttr =', nextPageAttr)
   nextButton.addEventListener(
     "click",
     this.getNextButtonEventListener(
@@ -113,6 +119,44 @@ Controller.prototype.addPreferencesPageEventListeners = function() {
 
   this.addSlideSwitchClassEventListener();
   this.addSliderEventListerners();
+};
+
+Controller.prototype.getSettingsPageEventListeners = function() {
+  return this.addSettingsPageEventListeners;
+};
+
+Controller.prototype.addSettingsPageEventListeners = function() {
+  nextButton = document.getElementById("navigate_next");
+  nextPageAttr = nextButton.getAttribute("data-nextpage") || "landing"
+  console.log('nextPageAttr =', nextPageAttr)
+
+  switch(nextPageAttr) {
+    case "preferences":
+      nextButton.addEventListener(
+        "click",
+        this.getNextButtonEventListener(this.view.createPreferencesBody.bind(this.view))
+      );
+      break
+
+    case "results":
+      nextButton.addEventListener(
+        "click",
+        this.getNextButtonEventListener(this.view.createResultsBody.bind(this.view))
+      );
+      break
+
+    case "landing":
+    default:
+      nextButton.addEventListener(
+        "click",
+        this.getNextButtonEventListener(this.view.createLandingBody.bind(this.view))
+      );
+      break
+  }
+
+  /* Make hamburger menu responsive to clicks. */
+  componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
+  componentHandler.upgradeDom();
 };
 
 Controller.prototype.getResultsPageEventListeners = function() {
