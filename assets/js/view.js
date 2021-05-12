@@ -135,7 +135,7 @@ View.prototype.createSettingsBody = function createSettingsBody() {
         "Edit settings ...", "");
   let menuDrawer = this.createMenuDrawer();
   let hamburgerMenu = this.createHamburgerMenu();
-  let mainSettings = this.createSettingsMain();
+  let mainSettings = this.createSettingsMain(backToPage);
   let footer = this.createFooter("navigate_before", "navigate_next", backToPage);
 
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu);
@@ -145,8 +145,10 @@ View.prototype.createSettingsBody = function createSettingsBody() {
   this.addSettingsPageEventListeners();
 };
 
-View.prototype.createSettingsMain = function() {
+View.prototype.createSettingsMain = function(backToPage="landing") {
   let m = document.createElement("main");
+  m.setAttribute("id", "main");
+  m.setAttribute("data-currpage", backToPage);
   m.classList.add("mdl-layout__content");
   let child = document.createElement("div");
   child.classList.add("grid-content");

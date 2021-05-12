@@ -128,7 +128,7 @@ Controller.prototype.getSettingsPageEventListeners = function() {
 Controller.prototype.addSettingsPageEventListeners = function() {
   nextButton = document.getElementById("navigate_next");
   nextPageAttr = nextButton.getAttribute("data-nextpage") || "landing"
-  console.log('nextPageAttr =', nextPageAttr)
+  console.log(':D nextPageAttr =', nextPageAttr)
 
   switch(nextPageAttr) {
     case "preferences":
