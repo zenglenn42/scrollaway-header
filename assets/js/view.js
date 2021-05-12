@@ -955,15 +955,15 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
 
   let md = document.createElement("span");
   md.classList.add("mdl-layout__drawer");
-  let mdChild = document.createElement("div");
-  mdChild.classList.add("mdl-layout__header-row");
-  mdChild.classList.add("mdl-layout-title");
-  mdChild.classList.add("mdl-menu__item--full-bleed-divider");
-  mdChild.innerHTML  = "<span>" + title + "</span>&nbsp;&nbsp;" 
-  mdChild.innerHTML += "<div class='mdl-layout-spacer'>"
-  mdChild.innerHTML += "<button id='dismiss_menu_button' class='mdl-button mdl-js-button mdl-button--icon'><i class='material-icons header-icons'>clear</i></button>"
-  mdChild.innerHTML += "</div>"
-  md.appendChild(mdChild);
+  let mdHeader = document.createElement("div");
+  mdHeader.classList.add("mdl-layout__header-row");
+  mdHeader.classList.add("mdl-layout-title");
+  mdHeader.classList.add("mdl-menu__item--full-bleed-divider");
+  mdHeader.innerHTML  = "<span>" + title + "</span>&nbsp;&nbsp;" 
+  mdHeader.innerHTML += "<div class='mdl-layout-spacer'>"
+  mdHeader.innerHTML += "<button id='dismiss_menu_button' class='mdl-button mdl-js-button mdl-button--icon'><i class='material-icons header-icons'>clear</i></button>"
+  mdHeader.innerHTML += "</div>"
+  md.appendChild(mdHeader);
 
   /*
   let nav = document.createElement("nav");
