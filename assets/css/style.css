@@ -324,6 +324,13 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   min-width: 20.83em;
 }
 
+.settings-grid {
+}
+
+.settings-cell {
+  text-align: center;
+}
+
 .content {
   display: flex;
   flex-direction: column;

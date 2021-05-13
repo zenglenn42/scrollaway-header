@@ -155,6 +155,10 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
   m.appendChild(child);
   let g = document.createElement("div");
   g.classList.add("mdl-grid");
+  g.classList.add("settings-grid");
+  g.innerHTML  = "<div class='mdl-cell mdl-cell--4-col settings-cell'>Content</div>"
+  g.innerHTML += "<div class='mdl-cell mdl-cell--4-col settings-cell'>goes</div>"
+  g.innerHTML += "<div class='mdl-cell mdl-cell--4-col settings-cell'>here</div>"
   m.appendChild(g);
   return m;
 };
