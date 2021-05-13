@@ -328,7 +328,7 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 }
 
 .settings-cell {
-  text-align: center;
+  text-align: left;
 }
 
 .content {

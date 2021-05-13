@@ -156,9 +156,46 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
   let g = document.createElement("div");
   g.classList.add("mdl-grid");
   g.classList.add("settings-grid");
-  g.innerHTML  = "<div class='mdl-cell mdl-cell--4-col settings-cell'>Content</div>"
-  g.innerHTML += "<div class='mdl-cell mdl-cell--4-col settings-cell'>goes</div>"
-  g.innerHTML += "<div class='mdl-cell mdl-cell--4-col settings-cell'>here</div>"
+  g.innerHTML = `
+    <form action="#">
+    <div class='mdl-cell mdl-cell--4-col settings-cell'>
+      <span>
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="languageId">
+          <i  class="material-icons">translate</i>
+        </label>
+        Select language
+      </span>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="languageId" disabled>
+        <label class="mdl-textfield__label" for="languageId">English</label>
+      </div>
+    </div>
+    <div class='mdl-cell mdl-cell--4-col settings-cell'>
+      <span>
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="countryId">
+          <i  class="material-icons">travel_explore</i>
+        </label>
+        Select country
+      </span>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="countryId" disabled>
+        <label class="mdl-textfield__label" for="countryId">United States</label>
+      </div>
+    </div>
+    <div class='mdl-cell mdl-cell--4-col settings-cell'>
+      <span>
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="maxResultsId2">
+          <i  class="material-icons">location_city</i>
+        </label>
+        Select quantity
+      </span>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="maxResultsId2" disabled>
+        <label class="mdl-textfield__label" for="maxResultsId2">Show results for top 10 cities</label>
+      </div>
+    </div>
+    </form>
+  `
   m.appendChild(g);
   return m;
 };
