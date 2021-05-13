@@ -166,8 +166,11 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         Select language
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" id="languageId" disabled>
-        <label class="mdl-textfield__label" for="languageId">English</label>
+        Use &nbsp;<span style="color: gray; padding: 0.25em .5em; border: 1px gray solid">English</span>
+        <!--
+          <input class="mdl-textfield__input" type="text" id="languageId" disabled>
+          <label class="mdl-textfield__label" for="languageId">English</label>
+        -->
       </div>
     </div>
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
@@ -178,8 +181,11 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         Select country
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" id="countryId" disabled>
-        <label class="mdl-textfield__label" for="countryId">United States</label>
+        Show cities in &nbsp;<span style="color: gray; padding: 0.25em .5em; border: 1px gray solid">United States</span>
+        <!--
+          <input class="mdl-textfield__input" type="text" id="countryId" disabled>
+          <label class="mdl-textfield__label" for="countryId">United States</label>
+        -->
       </div>
     </div>
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
@@ -190,8 +196,11 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         Select quantity
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" id="maxResultsId2" disabled>
-        <label class="mdl-textfield__label" for="maxResultsId2">Show results for top 10 cities</label>
+        Show results for top &nbsp;<span style="color: gray; padding: 0.25em .5em; border: 1px gray solid">10</span>&nbsp; cities
+        <!--
+          <input class="mdl-textfield__input" type="text" id="maxResultsId2" disabled>
+          <label class="mdl-textfield__label" for="maxResultsId2">Show results for top 10 cities</label>
+        -->
       </div>
     </div>
     </form>
