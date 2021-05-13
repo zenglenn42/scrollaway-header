@@ -56,6 +56,7 @@ Still need to wire up the settings menu, but basic city ranking and multi-view r
   - [Slow Day](#slow-day)
   - [User Experience Review](#user-experience-review)
 - [Near-term Roadmap](#near-term-roadmap)
+- [Declaring Victory](#declaring-victory)
 
 -----
 
@@ -876,3 +877,22 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
   - I love adding multi-language support to my apps.  The string catalog for this app would be relatively small and it would be a nice bit of refinement.
 
   - City Search ... give the user ability to search for a city they already know about.  If it's known to City Match, the corresponding metrics could be used to seed the preferences and bring that up as the top ranked result along with a bevy of "preferentially close" cities they may not have considered.  If the city doesn't exist, at least pull up the known cities that happen to be in the same state.  Having a meaninful search icon in the nav header could be enticing.
+
+  - I'd like to upgrade from Material Design Lite, which has reached end-of-life, to something more vital like Material Components.
+
+# [Declaring Victory](#contents)
+
+![alt](docs/img/priscilla-du-preez-tQagUWpAx5k-unsplash.jpg)
+Photo by Priscilla Du Preez
+
+For all the cool potential this little app has, I think it's time to move on to other projects.  As a parting farewell, I give some love to the hamburger menu, factoring in some recent usability feedback.
+
+What started out as a modest, hardcoded mock-up ...
+
+![alt](docs/img/slideout-menu.png)
+
+has morphed into something which allows menu-based navigation (through the 'View' submenu) and the promise of mutating application settings.  
+
+![alt](docs/img/menu-refactor.png)
+
+I don't feel like horse-whispering Material Design Lite (MDL) into new features (like a fully functional editable settings page) since MDL is no longer getting updates.  The next big jump would probably be a full-stack implementation with React frontend.  Maybe I'll do that in the fullness of time.  Stay tuned and thanks for reading. (-;
