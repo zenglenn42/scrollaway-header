@@ -128,7 +128,6 @@ Controller.prototype.getSettingsPageEventListeners = function() {
 Controller.prototype.addSettingsPageEventListeners = function() {
   nextButton = document.getElementById("navigate_next");
   nextPageAttr = nextButton.getAttribute("data-nextpage") || "landing"
-  console.log(':D nextPageAttr =', nextPageAttr)
 
   switch(nextPageAttr) {
     case "preferences":
@@ -153,6 +152,20 @@ Controller.prototype.addSettingsPageEventListeners = function() {
       );
       break
   }
+
+  maxResultsButtons = [...document.querySelectorAll(".settings-max-results__button")]
+  maxResultsButtons.map(button => {
+      let value = JSON.parse(button.getAttribute("data-value"))
+      button.addEventListener(
+        "click",
+        (e) => {
+           let buttonEl = e.srcElement
+           let id = buttonEl.getAttribute("id")
+           let attrValue = buttonEl.getAttribute("data-value") || "10"
+           let value = JSON.parse(attrValue)
+           // console.log(`click show top ${value} cities`)
+      });
+  })
 
   /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
