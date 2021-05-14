@@ -761,7 +761,7 @@ View.prototype.createChartView = function(chartId) {
     options: {
       title: {
         display: true,
-        text: "Distance from User Preference (0 = ideal)"
+        text: "Alignment with your priorities (0 = ideal)"
       },
       tooltips: {
         mode: "index",
