@@ -166,12 +166,18 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         Select language
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        Use &nbsp;<span style="color: gray; padding: 0.25em .5em; border: 1px gray solid">English</span>
-        <span style="position:relative; left: -.35em; padding: 0.25em 0em; border: 1px gray solid">
-          <button id="settings-maxResults-id" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial" disabled>
-            <i class="material-icons" style="color:gray; position: relative; top: 0.5em; left:0.55em">arrow_drop_down</i>
+        Use &nbsp;<span style="color: black; padding: 0.25em .5em; border: 1px gray solid">English</span>
+        <span style="position:relative; left: -.35em; padding: 0.25em 0em; border: 1px black solid">
+          <button id="settings-language" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial">
+            <i class="material-icons" style="color:black; position: relative; top: 0.5em; left:0.55em">arrow_drop_down</i>
           </button>
         </span>
+        <ul style="left:-1em;" class="mdl-menu mdl-menu--bottom-left mdl-js-menu"
+            data-mdl-for="settings-language">
+          <li id="language-1" data-value="english" class="mdl-menu__item settings-language__button">English</li>
+          <li disabled id="language-2" data-value="espanol" class="mdl-menu__item settings-language__button">Español</li>
+          <li disabled id="language-3" data-value="esperanto" class="mdl-menu__item settings-language__button">Esperanto</li>
+        </ul>
         <!--
           <input class="mdl-textfield__input" type="text" id="languageId" disabled>
           <label class="mdl-textfield__label" for="languageId">English</label>
@@ -186,12 +192,17 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         Select country
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        Show cities in &nbsp;<span style="color: gray; padding: 0.25em .5em; border: 1px gray solid">United States</span>
+        Show cities in &nbsp;<span style="color: black; padding: 0.25em .5em; border: 1px gray solid">United States</span>
         <span style="position:relative; left: -.35em; padding: 0.25em 0em; border: 1px gray solid">
-          <button id="settings-maxResults-id" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial" disabled>
+          <button id="settings-country" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial">
             <i class="material-icons" style="color:gray; position: relative; top: 0.5em; left:0.55em">arrow_drop_down</i>
           </button>
         </span>
+        <ul style="left:-1em;" class="mdl-menu mdl-menu--bottom-left mdl-js-menu"
+            data-mdl-for="settings-country">
+          <li id="country-1" data-value="United States"  class="mdl-menu__item settings-country__button">United States</li>
+          <li disabled id="country-2" data-value="Costa Rica" class="mdl-menu__item settings-country__button">Costa Rica</li>
+        </ul>
         <!--
           <input class="mdl-textfield__input" type="text" id="countryId" disabled>
           <label class="mdl-textfield__label" for="countryId">United States</label>
@@ -200,13 +211,13 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
     </div>
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
       <span>
-        <label class="mdl-button mdl-js-button mdl-button--icon" for="maxResultsId2">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="settings-maxResults">
           <i  class="material-icons">location_city</i>
         </label>
         Select quantity
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        Show top &nbsp;<span style="color: black; padding: 0.25em 0.75em; border: 1px black solid">10</span>
+        Show top &nbsp;<span style="color: black; padding: 0.25em 0.75em; border: 1px black solid">${this.getMaxResults()}</span>
         <span style="position:relative; left: -.35em; padding: 0.25em 0em; border: 1px black solid">
         <button id="settings-maxResults" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial">
             <i class="material-icons" style="position: relative; top: 0.5em; left:0.6em">arrow_drop_down</i>
