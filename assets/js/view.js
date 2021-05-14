@@ -167,6 +167,11 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
       </span>
       <div class="mdl-textfield mdl-js-textfield">
         Use &nbsp;<span style="color: gray; padding: 0.25em .5em; border: 1px gray solid">English</span>
+        <span style="position:relative; left: -.35em; padding: 0.25em 0em; border: 1px gray solid">
+          <button id="settings-maxResults-id" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial" disabled>
+            <i class="material-icons" style="color:gray; position: relative; top: 0.5em; left:0.55em">arrow_drop_down</i>
+          </button>
+        </span>
         <!--
           <input class="mdl-textfield__input" type="text" id="languageId" disabled>
           <label class="mdl-textfield__label" for="languageId">English</label>
@@ -182,6 +187,11 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
       </span>
       <div class="mdl-textfield mdl-js-textfield">
         Show cities in &nbsp;<span style="color: gray; padding: 0.25em .5em; border: 1px gray solid">United States</span>
+        <span style="position:relative; left: -.35em; padding: 0.25em 0em; border: 1px gray solid">
+          <button id="settings-maxResults-id" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial" disabled>
+            <i class="material-icons" style="color:gray; position: relative; top: 0.5em; left:0.55em">arrow_drop_down</i>
+          </button>
+        </span>
         <!--
           <input class="mdl-textfield__input" type="text" id="countryId" disabled>
           <label class="mdl-textfield__label" for="countryId">United States</label>
@@ -196,7 +206,13 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         Select quantity
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        Show results for top &nbsp;<span style="color: gray; padding: 0.25em .5em; border: 1px gray solid">10</span>&nbsp; cities
+        Show top &nbsp;<span style="color: black; padding: 0.25em 0.75em; border: 1px black solid">10</span>
+        <span style="position:relative; left: -.35em; padding: 0.25em 0em; border: 1px black solid">
+          <button id="settings-maxResults-id" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial">
+            <i class="material-icons" style="position: relative; top: 0.5em; left:0.6em">arrow_drop_down</i>
+          </button>
+        </span>
+        &nbsp;cities
         <!--
           <input class="mdl-textfield__input" type="text" id="maxResultsId2" disabled>
           <label class="mdl-textfield__label" for="maxResultsId2">Show results for top 10 cities</label>
