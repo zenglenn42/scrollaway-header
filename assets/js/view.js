@@ -233,6 +233,9 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
       &nbsp;
     </div>
+    <div class='mdl-cell mdl-cell--4-col settings-cell'>
+      &nbsp;
+    </div>
     </form>
   `
   m.appendChild(g);
