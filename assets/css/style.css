@@ -52,7 +52,8 @@
 
 /* Fix visibility issue with long menu drawer content (especially on landscape mobile). */
 /* Otherwise content blips behind mdl-menu__container's -1 z-index. */
-.mdl-layout__drawer .mdl-menu__container.is-upgraded.is-visible {
+.mdl-layout__drawer .mdl-menu__container.is-upgraded.is-visible,
+.mdl-menu__container.is-upgraded.is-visible {
   z-index: unset;
 }
 

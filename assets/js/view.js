@@ -208,10 +208,14 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
       <div class="mdl-textfield mdl-js-textfield">
         Show top &nbsp;<span style="color: black; padding: 0.25em 0.75em; border: 1px black solid">10</span>
         <span style="position:relative; left: -.35em; padding: 0.25em 0em; border: 1px black solid">
-          <button id="settings-maxResults-id" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial">
+        <button id="settings-maxResults" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial">
             <i class="material-icons" style="position: relative; top: 0.5em; left:0.6em">arrow_drop_down</i>
-          </button>
+        </button>
         </span>
+        <ul style="left:-1em;" class="mdl-menu mdl-menu--bottom-left mdl-js-menu"
+            data-mdl-for="settings-maxResults">
+          <li class="mdl-menu__item">10</li>
+        </ul>
         &nbsp;cities
         <!--
           <input class="mdl-textfield__input" type="text" id="maxResultsId2" disabled>
