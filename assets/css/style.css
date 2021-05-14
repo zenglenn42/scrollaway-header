@@ -57,7 +57,10 @@
   z-index: unset;
 }
 
-#main > div.mdl-grid.settings-grid > form > div:nth-child(3) > div > div
+.mdl-menu__container.is-visible .mdl-menu__item {
+  opacity: 1;
+}
+
 
 .mdl-layout__drawer .mdl-menu {
   /* Make submenu container width same as menu drawer width. */
