@@ -957,9 +957,9 @@ View.prototype.createResultsListItem = function(cityParams) {
     '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>';
   let elephant =
     '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>';
-  let politics = `${donkey}${
+  let politics = `${donkey} ${
     cityParams.politics.demFraction
-  }%  &nbsp; ${elephant}${cityParams.politics.repFraction}%`;
+  }%  &nbsp; ${elephant} ${cityParams.politics.repFraction}%`;
 
   let affordability = this.formatter.format(cityParams.affordability);
 
