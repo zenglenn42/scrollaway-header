@@ -219,8 +219,8 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         -->
       </div>
     </div>
-    // Adding dummy cell for bottom padding to avoid proximity to FAB.
-    // Probably a more elegant way to do this ... like bottom-margin on grid.
+    <!-- Adding dummy cell for bottom padding to avoid proximity to FAB.  
+         Probably a more elegant way to do this ... like bottom-margin on grid. -->
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
       &nbsp;
     </div>
