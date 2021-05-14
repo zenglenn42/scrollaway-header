@@ -214,7 +214,9 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         </span>
         <ul style="left:-1em;" class="mdl-menu mdl-menu--bottom-left mdl-js-menu"
             data-mdl-for="settings-maxResults">
+          <li disabled class="mdl-menu__item">3</li>
           <li class="mdl-menu__item">10</li>
+          <li disabled class="mdl-menu__item">20</li>
         </ul>
         &nbsp;cities
         <!--
