@@ -166,22 +166,16 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         Select language
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        Use &nbsp;<span style="color: black; padding: 0.25em .5em; border: 1px gray solid">English</span>
-        <span style="position:relative; left: -.35em; padding: 0.25em 0em; border: 1px black solid">
-          <button id="settings-language" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial">
-            <i class="material-icons" style="color:black; position: relative; top: 0.5em; left:0.55em">arrow_drop_down</i>
+        Use &nbsp;<span style="color: black; padding: 0.25em .75em; border: 1px gray solid">English</span>
+          <button id="settings-language" class="mdl-button mdl-js-button" style="text-transform: none; color: white; background-color: rgb(63, 81,181); margin-top: 2em; top: -12px; padding: 0; width: 24px; height: 28px; min-width: 28px;">
+            <i class="material-icons" style="vertical-align: baseline; padding-top: 2px">arrow_drop_down</i>
           </button>
-        </span>
-        <ul style="left:-1em;" class="mdl-menu mdl-menu--bottom-left mdl-js-menu"
+        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-left"
             data-mdl-for="settings-language">
           <li id="language-1" data-value="english" class="mdl-menu__item settings-language__button">English</li>
           <li disabled id="language-2" data-value="espanol" class="mdl-menu__item settings-language__button">Español</li>
           <li disabled id="language-3" data-value="esperanto" class="mdl-menu__item settings-language__button">Esperanto</li>
         </ul>
-        <!--
-          <input class="mdl-textfield__input" type="text" id="languageId" disabled>
-          <label class="mdl-textfield__label" for="languageId">English</label>
-        -->
       </div>
     </div>
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
@@ -192,21 +186,15 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         Select country
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        Show cities in &nbsp;<span style="color: black; padding: 0.25em .5em; border: 1px gray solid">United States</span>
-        <span style="position:relative; left: -.35em; padding: 0.25em 0em; border: 1px gray solid">
-          <button id="settings-country" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial">
-            <i class="material-icons" style="color:gray; position: relative; top: 0.5em; left:0.55em">arrow_drop_down</i>
+        Show cities in &nbsp;<span style="color: black; padding: 0.25em .75em; border: 1px gray solid">United States</span>
+          <button id="settings-country" class="mdl-button mdl-js-button" style="text-transform: none; color: white; background-color: rgb(63, 81,181); margin-top: 2em; top: -12px; padding: 0; width: 24px; height: 28px; min-width: 28px;">
+            <i class="material-icons" style="vertical-align: baseline; padding-top: 2px">arrow_drop_down</i>
           </button>
-        </span>
-        <ul style="left:-1em;" class="mdl-menu mdl-menu--bottom-left mdl-js-menu"
+        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-left"
             data-mdl-for="settings-country">
           <li id="country-1" data-value="United States"  class="mdl-menu__item settings-country__button">United States</li>
           <li disabled id="country-2" data-value="Costa Rica" class="mdl-menu__item settings-country__button">Costa Rica</li>
         </ul>
-        <!--
-          <input class="mdl-textfield__input" type="text" id="countryId" disabled>
-          <label class="mdl-textfield__label" for="countryId">United States</label>
-        -->
       </div>
     </div>
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
@@ -218,26 +206,23 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
       </span>
       <div class="mdl-textfield mdl-js-textfield">
         Show top &nbsp;<span style="color: black; padding: 0.25em 0.75em; border: 1px black solid">${this.getMaxResults()}</span>
-        <span style="position:relative; left: -.35em; padding: 0.25em 0em; border: 1px black solid">
-        <button id="settings-maxResults" class="mdl-button mdl-js-button mdl-button--icon" style="position:initial">
-            <i class="material-icons" style="position: relative; top: 0.5em; left:0.6em">arrow_drop_down</i>
+        <button id="settings-max-results__button" class="mdl-button mdl-js-button" style="text-transform: none; color: white; background-color: rgb(63, 81,181); margin-top: 2em; top: -12px; left: 119px; padding: 0; width: 24px; height: 28px; min-width: 28px;">
+            <i class="material-icons" style="vertical-align: baseline; padding-top: 2px">arrow_drop_down</i>
         </button>
-        </span>
-        <ul style="left:-1em;" class="mdl-menu mdl-menu--bottom-left mdl-js-menu"
-            data-mdl-for="settings-maxResults">
+        <span style="position: relative; left:28px">&nbsp;cities</span>
+        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-left"
+            data-mdl-for="settings-max-results__button">
           <li disabled id="maxResults-1" data-value="3"  class="mdl-menu__item settings-max-results__button">3</li>
           <li id="maxResults-2" data-value="10" class="mdl-menu__item settings-max-results__button">10</li>
           <li disabled id="maxResults-3" data-value="20" class="mdl-menu__item settings-max-results__button">20</li>
         </ul>
-        &nbsp;cities
-        <!--
-          <input class="mdl-textfield__input" type="text" id="maxResultsId2" disabled>
-          <label class="mdl-textfield__label" for="maxResultsId2">Show results for top 10 cities</label>
-        -->
       </div>
     </div>
     <!-- Adding dummy cell for bottom padding to avoid proximity to FAB.  
          Probably a more elegant way to do this ... like bottom-margin on grid. -->
+    <div class='mdl-cell mdl-cell--4-col settings-cell'>
+      &nbsp;
+    </div>
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
       &nbsp;
     </div>
