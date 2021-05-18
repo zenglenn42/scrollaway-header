@@ -864,9 +864,9 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
 
   - More responsive features
 
-    - Currently desktop is looking like an awkward scaled version of the mobile app.  We can be more elaborate with card geometries and even text / labels.  So I may add back the 'Get Started' button on desktop, for example.  The lonely FAB on the botton of a 1900x1600 screen looks a bit anti-pattern to me.
+    - The app is really designed for mobile geometries.  Consequently, the desktop view looks a bit gangly and awkward with a ton of ugly whitespace.  Be more generous with card geometries and even text / labels on desktop.  Consider adding back the 'Get Started' buttonon big screens, for example.  The lonely FAB on the botton of a 1900x1600 screen looks a bit anti-pattern to me.
 
-    - Allow mutation of priorities on the same screen as the results page for 'live-list' sensitivity analysis.  Dedicated screen real estate for supporting this is more apparent on desktop.  On mobile, a floating preferences FAB could expand to a semi-transparent modal to achieve the same effect.
+    - Allow user to change input priorities on the same screen as the results for 'live-list' sensitivity analysis.  Dedicated screen real estate for supporting this is more apparent on desktop.  (On mobile, a floating preferences FAB could expand to a semi-transparent modal to achieve the same effect.)
 
 ## Harden
 
