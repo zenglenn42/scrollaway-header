@@ -854,7 +854,7 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
 
   - Flesh-out a non-trivial menu drawer.
 
-    - Allow user to select target page from menu instead of FAB since some users may be more comfortable with that idiom.
+    - Allow user to select target page from menu instead of clicking through on the bottom-appbar floating action button (FAB) since some users may be more comfortable with that idiom.
 
     - Add a settings sub-menu (with gear icon) off of the menu drawer so user can:
 
@@ -866,7 +866,7 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
 
     - Currently desktop is looking like an awkward scaled version of the mobile app.  We can be more elaborate with card geometries and even text / labels.  So I may add back the 'Get Started' button on desktop, for example.  The lonely FAB on the botton of a 1900x1600 screen looks a bit anti-pattern to me.
 
-    - An aspirational feature would be to allow mutation of preferences on the same screen as the results page, for 'live-list' sensitivity analysis.  The geometry for supporting this is more apparent on desktop.
+    - Allow mutation of priorities on the same screen as the results page for 'live-list' sensitivity analysis.  Dedicated screen real estate for supporting this is more apparent on desktop.  On mobile, a floating preferences FAB could expand to a semi-transparent modal to achieve the same effect.
 
 ## Harden
 
