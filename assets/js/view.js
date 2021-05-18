@@ -83,6 +83,17 @@ View.prototype.setUserPrefs = function(userPrefs) {
   this.userPrefs = userPrefs;
 };
 
+View.prototype.setMaxResults = function() {
+  let settingsPageMaxResultsEl = document.querySelector("#settings-max-results-selected");
+  if (settingsPageMaxResultsEl) {
+    settingsPageMaxResultsEl.innerHTML = this.getMaxResults()
+  }
+  let settingsMenuMaxResultsEl = document.querySelector("#settings-max-results-menu");
+  if (settingsMenuMaxResultsEl) {
+    settingsMenuMaxResultsEl.innerHTML = "Show top " + this.getMaxResults() + " cities"
+  }
+};
+
 View.prototype.createHeader = function(title, rightNavIcon) {
   let h = document.createElement("header");
   h.classList += "mdl-layout__header";
@@ -193,31 +204,31 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         </button>
         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right"
             data-mdl-for="settings-country">
-          <!--<li disabled id="country-2" data-value="Costa Rica" class="mdl-menu__item settings-country__button">Costa Rica</li>-->
           <li id="country-1" data-value="United States"  class="mdl-menu__item settings-country__button">United States</li>
+          <li disabled id="country-2" data-value="Costa Rica" class="mdl-menu__item settings-country__button">Costa Rica</li>
         </ul>
       </div>
     </div>
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
       <span>
-        <label class="mdl-button mdl-js-button mdl-button--icon" for="settings-maxResults">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="settings-max-results">
           <i  class="material-icons">location_city</i>
         </label>
         Select quantity
       </span>
       <div class="mdl-textfield mdl-js-textfield">
         <span>Show top &nbsp;</span> 
-        <span class="selected-value">${this.getMaxResults()}</span>
-        <button id="settings-max-results__button" class="mdl-button mdl-js-button dropdown-button">
+        <span id="settings-max-results-selected" class="selected-value">${this.getMaxResults()}</span>
+        <button id="settings-max-results" class="mdl-button mdl-js-button dropdown-button">
           <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
         </button>
         <span>cities</span>
         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right"
-            data-mdl-for="settings-max-results__button">
-          <!--<li disabled id="maxResults-1" data-value="3"  class="mdl-menu__item settings-max-results__button">3</li>-->
+            data-mdl-for="settings-max-results">
+          <li id="maxResults-1" data-value="3"  class="mdl-menu__item settings-max-results__button">3</li>
           <li id="maxResults-2" data-value="10" class="mdl-menu__item settings-max-results__button">10</li>
-          <li disabled id="maxResults-3" data-value="20" class="mdl-menu__item settings-max-results__button">20</li>
-          <li disabled id="maxResults-3" data-value="178" class="mdl-menu__item settings-max-results__button">178 (all)</li>
+          <li id="maxResults-3" data-value="20" class="mdl-menu__item settings-max-results__button">20</li>
+          <li disabled id="maxResults-4" data-value="178" class="mdl-menu__item settings-max-results__button">178 (all)</li>
         </ul>
       </div>
     </div>
@@ -1162,12 +1173,19 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   settingsMenuNode.classList.add("mdl-menu--bottom-right");
   settingsMenuNode.setAttribute("for", "settingsMenu");
   let maxResultsString = "Show top " + this.getMaxResults() + " cities"
-  settingsMenuNode.innerHTML  = "<li id='settings_edit_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Edit ...</span></li>",
-  settingsMenuNode.innerHTML += "<li id='settings_restore_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Restore defaults</span></li>",
-  settingsMenuNode.innerHTML += "<li id='settings_clearcache_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'" + enableCacheClear + "><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Clear cached settings</span></li>",
+
+  settingsMenuNode.innerHTML = ""
+
+  settingsMenuNode.innerHTML += "<li id='settings_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Edit ...</span></li>",
+
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span>Use English</span></li>"
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>Show cities in United States</span></li>"
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>" + maxResultsString + "</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' style='height: 2em; line-height: 1em' disabled><span id='settings-max-results-menu'>" + maxResultsString + "</span></li>"
+
+  // Move these next two to the dedicated settings edit page to simplify model/view updates.
+  // settingsMenuNode.innerHTML += "<li disabled id='settings_restore_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Restore defaults</span></li>",
+  // settingsMenuNode.innerHTML += "<li disabled id='settings_clearcache_button' class='mdl-menu__item mdl-button'" + enableCacheClear + "><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Clear cached settings</span></li>",
+
   md.appendChild(settingsMenuNode);
 
   let helpMenuButton = "button"

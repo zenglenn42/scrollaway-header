@@ -153,6 +153,24 @@ Model.prototype.getMaxResults = function() {
   }
 };
 
+Model.prototype.setMaxResults = function(maxResults) {
+  let success = false;
+  if (this.maxResultsIsValid(maxResults)) {
+    if (this.localState) {
+      this.localState.maxResults = maxResults
+      if (this.localStorageIsAvailable()) {
+        localStorage.setItem('localState', JSON.stringify(this.localState))
+      }
+      success = true;
+    } else {
+      console.log('Error Model.setMaxResults.  No this.localState is not available to mutate.')
+    }
+  } else {
+    console.log('Error Model.setMaxResults.  maxResults out of range:', maxResults)
+  }
+  return success
+};
+
 Model.prototype.distance = function(v, w) {
   let squaredDiffs = 0;
   let distance = NaN;

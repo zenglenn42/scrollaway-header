@@ -63,6 +63,10 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
   });
   this.delegate(document, "click", "#settings_restore_button", function(e) {
     that.model.restoreDefaultSettings()
+    that.view.setMaxResults()  // TODO: really should be something like that.view.setState()
+                               //       Should rebuild modal-occluded page to reflect restored state.
+                               //       Really need an update-view entrypoint that.view.update()
+                               //       React is calling since it handles this kind of shizzle. (-;
     if (that.model.hasCachedLocalStateCB()) {
       let clearcache_button = document.querySelector("#settings_clearcache_button")
       if (clearcache_button) {
@@ -163,8 +167,12 @@ Controller.prototype.addSettingsPageEventListeners = function() {
            let id = buttonEl.getAttribute("id")
            let attrValue = buttonEl.getAttribute("data-value") || "10"
            let value = JSON.parse(attrValue)
+           if (this.model.setMaxResults(value)) {
+             this.model.saveLocalState()
+             this.view.setMaxResults() // set view based upon model
+           }
            // console.log(`click show top ${value} cities`)
-      });
+     });
   })
 
   /* Make hamburger menu responsive to clicks. */
