@@ -171,11 +171,10 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         <button id="settings-language" class="mdl-button mdl-js-button dropdown-button">
           <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
         </button>
-        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-left"
+        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right"
             data-mdl-for="settings-language">
           <li id="language-1" data-value="english" class="mdl-menu__item settings-language__button">English</li>
           <li disabled id="language-2" data-value="espanol" class="mdl-menu__item settings-language__button">Español</li>
-          <li disabled id="language-3" data-value="esperanto" class="mdl-menu__item settings-language__button">Esperanto</li>
         </ul>
       </div>
     </div>
@@ -192,10 +191,10 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         <button id="settings-country" class="mdl-button mdl-js-button dropdown-button">
           <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
         </button>
-        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-left"
+        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right"
             data-mdl-for="settings-country">
+          <!--<li disabled id="country-2" data-value="Costa Rica" class="mdl-menu__item settings-country__button">Costa Rica</li>-->
           <li id="country-1" data-value="United States"  class="mdl-menu__item settings-country__button">United States</li>
-          <li disabled id="country-2" data-value="Costa Rica" class="mdl-menu__item settings-country__button">Costa Rica</li>
         </ul>
       </div>
     </div>
@@ -213,11 +212,12 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
           <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
         </button>
         <span>cities</span>
-        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-left"
+        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right"
             data-mdl-for="settings-max-results__button">
-          <li disabled id="maxResults-1" data-value="3"  class="mdl-menu__item settings-max-results__button">3</li>
+          <!--<li disabled id="maxResults-1" data-value="3"  class="mdl-menu__item settings-max-results__button">3</li>-->
           <li id="maxResults-2" data-value="10" class="mdl-menu__item settings-max-results__button">10</li>
           <li disabled id="maxResults-3" data-value="20" class="mdl-menu__item settings-max-results__button">20</li>
+          <li disabled id="maxResults-3" data-value="178" class="mdl-menu__item settings-max-results__button">178 (all)</li>
         </ul>
       </div>
     </div>

@@ -56,35 +56,6 @@
   z-index: unset;
 }
 
-.mdl-grid.settings-grid .mdl-menu__container.is-visible .mdl-menu__outline {
-  z-index: -1;
-}
-
-.mdl-grid.settings-grid .selected-value {
-  color: black;
-  padding: 0.25em .75em;
-  border: 1px gray solid;
-}
-
-.mdl-grid.settings-grid .dropdown-button {
-  position: relative;
-  text-transform: none;
-  color: white;
-  background-color: rgb(63, 81,181);
-  margin-top: 2em;
-  top: -15px;
-  right: 5px;
-  padding: 0;
-  width: 24px;
-  height: 28px;
-  min-width: 28px;
-}
-
-.mdl-grid.settings-grid .dropdown-button-icon {
-  vertical-align: baseline;
-  padding-top: 2px
-}
-
 .mdl-layout__drawer .mdl-menu {
   /* Make submenu container width same as menu drawer width. */
   min-width: 240px;
@@ -358,6 +329,55 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 
 .settings-cell {
   text-align: left;
+}
+
+/* Fix visibility issue with long menu drawer content (especially on landscape mobile). */
+/* Push menu outline behind foreground dropdown content so content is not occluded. */
+
+.mdl-grid.settings-grid .mdl-menu__container.is-visible .mdl-menu__outline {
+  z-index: -1;
+  background-color: rgba(103, 121, 221, 1); /* lighter shade of primary color */
+  //background-color: rgba(63, 81, 181, .97); /* indigo */
+}
+
+.mdl-grid.settings-grid .selected-value {
+  color: black;
+  padding: 0.25em .75em;
+  border: 1px gray solid;
+}
+
+.mdl-grid.settings-grid .dropdown-button {
+  position: relative;
+  text-transform: none;
+  color: white;
+  background-color: rgb(63, 81, 181); /* primary color */
+  margin-top: 2em;
+  top: -15px;
+  right: 5px;
+  padding: 0;
+  width: 24px;
+  height: 28px;
+  min-width: 28px;
+}
+
+.mdl-grid.settings-grid .dropdown-button-icon {
+  vertical-align: baseline;
+  padding-top: 2px
+  color: white;
+}
+
+.mdl-grid.settings-grid .mdl-menu__container.is-visible .mdl-menu__item {
+  text-align: center;
+  color: white;
+}
+
+.mdl-grid.settings-grid .mdl-menu__container.is-visible .mdl-menu__item[disabled], 
+.mdl-grid.settings-grid .mdl-menu__container.is-visible .mdl-menu__item[disabled]:hover {
+  color: rgb(170, 170, 170);
+}
+
+.mdl-grid.settings-grid .mdl-menu__container.is-visible .mdl-menu__item:hover {
+  color: black;
 }
 
 .content {
