@@ -895,6 +895,6 @@ has morphed into something which allows menu-based navigation (through the 'View
 
 ![alt](docs/img/menu-refactor.png)
 
-I had to create my own drop-down selection element since Material Design Lite (MDL) doesn't provide one, yet another reason to upgrade to Material Components.  I may noodle around with this at the margins, but the next big lift would probably a full-stack implementation with React front-end.
+I had to create my own drop-down selection element since Material Design Lite (MDL) doesn't provide one, yet another reason to upgrade to Material Components.  I may noodle around with this at the margins, but the next big lift would probably be a full-stack rollout with React front-end.
 
 Maybe I'll do that in the fullness of time.  Stay tuned and thanks for reading. (-;
