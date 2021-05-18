@@ -895,4 +895,4 @@ has morphed into something which allows menu-based navigation (through the 'View
 
 ![alt](docs/img/menu-refactor.png)
 
-I don't feel like horse-whispering Material Design Lite (MDL) into new features (like a fully functional editable settings page) since MDL is no longer getting updates.  The next big jump would probably be a full-stack implementation with React frontend.  Maybe I'll do that in the fullness of time.  Stay tuned and thanks for reading. (-;
+I don't feel like horse-whispering Material Design Lite (MDL) into new features (like a fully functional settings page) since MDL is no longer getting updates.  The next big jump would probably be a full-stack implementation with React frontend.  Maybe I'll do that in the fullness of time.  Stay tuned and thanks for reading. (-;
