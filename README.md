@@ -891,7 +891,7 @@ What started out as a modest, hardcoded mock-up ...
 
 ![alt](docs/img/slideout-menu.png)
 
-has morphed into something which allows menu-based navigation (through the 'View' submenu) and mutating of application settings (at least for number of top cities to report).
+has morphed into something which allows menu-based navigation (through the 'View' submenu) and mutation of application settings (at least for number of top cities to report).
 
 ![alt](docs/img/menu-refactor.png)
 
