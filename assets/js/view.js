@@ -157,7 +157,7 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
   g.classList.add("mdl-grid");
   g.classList.add("settings-grid");
   g.innerHTML = `
-    <form action="#">
+    <div>
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
       <span>
         <label class="mdl-button mdl-js-button mdl-button--icon" for="languageId">
@@ -166,10 +166,11 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         Select language
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        Use &nbsp;<span style="color: black; padding: 0.25em .75em; border: 1px gray solid">English</span>
-          <button id="settings-language" class="mdl-button mdl-js-button" style="text-transform: none; color: white; background-color: rgb(63, 81,181); margin-top: 2em; top: -12px; padding: 0; width: 24px; height: 28px; min-width: 28px;">
-            <i class="material-icons" style="vertical-align: baseline; padding-top: 2px">arrow_drop_down</i>
-          </button>
+        <span>Use &nbsp;</span>
+        <span class="selected-value">English</span>
+        <button id="settings-language" class="mdl-button mdl-js-button dropdown-button">
+          <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
+        </button>
         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-left"
             data-mdl-for="settings-language">
           <li id="language-1" data-value="english" class="mdl-menu__item settings-language__button">English</li>
@@ -186,10 +187,11 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         Select country
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        Show cities in &nbsp;<span style="color: black; padding: 0.25em .75em; border: 1px gray solid">United States</span>
-          <button id="settings-country" class="mdl-button mdl-js-button" style="text-transform: none; color: white; background-color: rgb(63, 81,181); margin-top: 2em; top: -12px; padding: 0; width: 24px; height: 28px; min-width: 28px;">
-            <i class="material-icons" style="vertical-align: baseline; padding-top: 2px">arrow_drop_down</i>
-          </button>
+        <span>Show cities in &nbsp;</span>
+        <span class="selected-value">United States</span>
+        <button id="settings-country" class="mdl-button mdl-js-button dropdown-button">
+          <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
+        </button>
         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-left"
             data-mdl-for="settings-country">
           <li id="country-1" data-value="United States"  class="mdl-menu__item settings-country__button">United States</li>
@@ -205,11 +207,12 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         Select quantity
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        Show top &nbsp;<span style="color: black; padding: 0.25em 0.75em; border: 1px black solid">${this.getMaxResults()}</span>
-        <button id="settings-max-results__button" class="mdl-button mdl-js-button" style="text-transform: none; color: white; background-color: rgb(63, 81,181); margin-top: 2em; top: -12px; left: 119px; padding: 0; width: 24px; height: 28px; min-width: 28px;">
-            <i class="material-icons" style="vertical-align: baseline; padding-top: 2px">arrow_drop_down</i>
+        <span>Show top &nbsp;</span> 
+        <span class="selected-value">${this.getMaxResults()}</span>
+        <button id="settings-max-results__button" class="mdl-button mdl-js-button dropdown-button">
+          <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
         </button>
-        <span style="position: relative; left:28px">&nbsp;cities</span>
+        <span>cities</span>
         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-left"
             data-mdl-for="settings-max-results__button">
           <li disabled id="maxResults-1" data-value="3"  class="mdl-menu__item settings-max-results__button">3</li>
@@ -232,7 +235,7 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
       &nbsp;
     </div>
-    </form>
+    </div>
   `
   m.appendChild(g);
   return m;

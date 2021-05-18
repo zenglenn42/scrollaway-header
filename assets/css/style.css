@@ -60,6 +60,30 @@
   z-index: -1;
 }
 
+.mdl-grid.settings-grid .selected-value {
+  color: black;
+  padding: 0.25em .75em;
+  border: 1px gray solid;
+}
+
+.mdl-grid.settings-grid .dropdown-button {
+  position: relative;
+  text-transform: none;
+  color: white;
+  background-color: rgb(63, 81,181);
+  margin-top: 2em;
+  top: -15px;
+  right: 5px;
+  padding: 0;
+  width: 24px;
+  height: 28px;
+  min-width: 28px;
+}
+
+.mdl-grid.settings-grid .dropdown-button-icon {
+  vertical-align: baseline;
+  padding-top: 2px
+}
 
 .mdl-layout__drawer .mdl-menu {
   /* Make submenu container width same as menu drawer width. */
