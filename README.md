@@ -834,7 +834,7 @@ I share this app with someone with deep design and UX experience for a brief imp
 
 - The little enable/disable slider switch on the preference cards should probably be dropped in favor of a plain checkbox since the affordance is not great.  They suggest a slide motion, whereas they only respond to a touch or click.
 
-- Consider adding enable/disable preference option off of the settings menu (instead of just relying upon the checkbox on the preference card).  Some users may be more accustomed to this usage pattern.  Sometimes giving the user a couple ways to accomplish something can be a good thing.
+- Consider adding enable/disable preference option off the settings menu (instead of just relying upon the checkbox on the preference card).  Some users may be more accustomed to this usage pattern.  Sometimes giving the user a couple ways to accomplish something can be a good thing.
 
 - The 'Affordability' preference label is inverse to the $ [-------------] $$ slider control.  Typically one would expect less of something when the slider thumb control is to the left and more of it when the thumb control is to the right.  Using a term like 'Cost of Living' may be a better option.
 
@@ -864,7 +864,7 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
 
   - More responsive features
 
-    - The app is really designed for mobile geometries.  Consequently, the desktop view looks a bit gangly and awkward with a ton of ugly whitespace.  Be more generous with card geometries and even text / labels on desktop.  Consider adding back the 'Get Started' buttonon big screens, for example.  The lonely FAB on the botton of a 1900x1600 screen looks a bit anti-pattern to me.
+    - The app is really designed for mobile geometries.  Consequently, the desktop view looks a bit gangly and awkward with a ton of ugly whitespace.  Be more generous with card geometries and even text / labels on desktop.  Consider adding back the 'Get Started' button on big screens, for example.  The lonely FAB on the botton of a 1900x1600 screen looks a bit anti-pattern to me.
 
     - Allow user to change input priorities on the same screen as the results for 'live-list' sensitivity analysis.  Dedicated screen real estate for supporting this is more apparent on desktop.  (On mobile, a floating preferences FAB could expand to a semi-transparent modal to achieve the same effect.)
 
