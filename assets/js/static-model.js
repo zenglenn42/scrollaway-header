@@ -3626,3 +3626,139 @@ StaticModel.prototype.mkCityLatLng = function() {
 //   });
 //   return position;
 // };
+
+ 
+//----------------------------------------------------------------------------------
+// Unit Test
+//----------------------------------------------------------------------------------
+
+function UnitTestSchema(obj, expectedProperties) {
+  // Is it time for Typescript? :-)
+  let failures = undefined
+  let missingProperties = expectedProperties.filter((property) => {
+    return (!obj.hasOwnProperty(property))
+  })
+
+  let reduceMissingProperties = (accumulator, currentValue, currentIndex) => {
+    if (!accumulator) {
+      accumulator = " Missing these expected properties: \n"
+    }
+    accumulator += `  ${currentIndex + 1}. ${currentValue} \n`
+    return accumulator
+  }
+
+  failures = missingProperties.reduce(reduceMissingProperties, "")
+  return failures
+}
+
+//----------------------------------------------------------------------------------
+function UnitTestStaticCitySchema(obj) {
+  let expectedCityProperties = [
+    'affordability',
+    'happiness',
+    'img',
+    'location',
+    'politics'
+  ]
+
+  let failedCities = obj.reduce((accumulator, cityObj, cityIndex) => {
+    let cityKey = Object.keys(cityObj)
+    let cityStr = cityKey ? cityKey : `unknown_city[${cityIndex}]`
+    let cityFailure = undefined
+
+    cityFailure = UnitTestSchema(cityObj[cityKey], expectedCityProperties)
+    if (cityFailure) {
+      if (!accumulator) {
+        accumulator  = `${cityStr}\n`
+      } else {
+        accumulator += `${cityStr}\n`
+      }
+      accumulator += '  ' + cityFailure + '\n'
+    }
+    return accumulator
+  }, "")
+
+  return failedCities
+}
+
+//----------------------------------------------------------------------------------
+function UnitTestStaticModelSchema(smObj) {
+  let expectedProperties = [
+    'maxAffordabilityValue',
+    'minAffordabilityValue',
+    'midAffordabilityValue',
+    'maxAffordabilityValue',
+    'minHappinessValue',
+    'midHappinessValue',
+    'maxHappinessValue',
+    'midPoliticsValue',
+    'wikiErrorImg',
+    'maxResults',
+    'data'
+  ]
+
+  let failures = UnitTestSchema(smObj, expectedProperties)
+  return failures
+}
+
+//----------------------------------------------------------------------------------
+function mkFailMsg(codeUnderTest, failStr) {
+  let failMsg = `  [fail] ${codeUnderTest} \n  ${failStr}`
+  return failMsg
+}
+
+//----------------------------------------------------------------------------------
+function mkPassMsg(codeUnderTest, iterations) {
+  let passMsg = ` [pass] ${codeUnderTest}`
+  if (iterations) {
+    passMsg += ` (${iterations} iterations)`
+  }
+  return passMsg
+}
+
+//----------------------------------------------------------------------------------
+function UnitTestStaticModel() {
+  let module = "static-model.js"
+  let cut = ""
+  let failure = undefined
+  let errmsg = undefined
+
+  console.log('Starting unit tests for ' + module)
+  console.log('---------------------------------------')
+  console.log(' Instantiating static model object ...')
+  this.staticModel = new StaticModel();
+
+  // Test #1
+  try {
+    console.log(' Verifying static model schema ...')
+    cut = "UnitTestStaticModelSchema"
+    failure = UnitTestStaticModelSchema(this.staticModel)
+
+    if (failure) {
+      throw(mkFailMsg(cut, failure))
+    } else {
+      console.log(mkPassMsg(cut))
+    }
+  } catch(e) {
+    console.error(e)
+  }
+
+  // Test #2
+  try {
+    console.log(' Verifying static city model schema ...')
+    cut = "UnitTestStaticCitySchema"
+    failure = UnitTestStaticCitySchema(this.staticModel.data)
+
+    if (failure) {
+      throw(mkFailMsg(cut, failure))
+    } else {
+      console.log(mkPassMsg(cut, this.staticModel.data.length))
+    }
+  } catch(e) {
+    console.error(e)
+  }
+
+  // this.data = this.staticModel.data;
+  console.log('---------------------------------------')
+  console.log('Leaving unit tests for ' + module)
+}
