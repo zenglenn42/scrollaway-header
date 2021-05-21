@@ -3571,6 +3571,46 @@ function StaticModel() {
       }
     }
   ];
+
+  // console.log(JSON.stringify(this.getScalarRange("affordability"), null, 2))
+  // console.log(JSON.stringify(this.getScalarRange("happiness"), null, 2))
+}
+
+StaticModel.prototype.getScalarRange = function(cityProperty) {
+  let range = {min: undefined, max: undefined}
+  if (this.isNumericScalarProperty(cityProperty)) {
+    range = this.data.reduce((acc, cityData) => {
+      key = Object.keys(cityData);
+      cityObj = cityData[key];
+      cityValue = cityObj[cityProperty]
+      if (acc.min === undefined && acc.max === undefined) {
+        // Seed min and max with first city's property value.
+        acc.min = cityValue
+        acc.max = cityValue
+      } else {
+        acc.min = (cityValue < acc.min) ? cityValue : acc.min
+        acc.max = (cityValue > acc.max) ? cityValue : acc.max
+      }
+      return acc
+    }, {min: undefined, max: undefined});
+  }
+  return range
+}
+
+StaticModel.prototype.isValidProperty = function(property) {
+  // Using first city as canonical of all city records.
+  let key = Object.keys(this.data[0]);
+  let testCityObj = this.data[0][key]
+  let results = testCityObj.hasOwnProperty(property)
+  return results
+}
+
+StaticModel.prototype.isNumericScalarProperty = function(property) {
+  // Using first city as canonical of all city records.
+  let key = Object.keys(this.data[0]);
+  let testCityObj = this.data[0][key]
+  let results = this.isValidProperty(property) && !isNaN(testCityObj[property])
+  return results
 }
 
 StaticModel.prototype.mkComboData = function() {
@@ -3801,6 +3841,82 @@ function UnitTestStaticModel() {
       throw(mkFailMsg(cut, failure))
     } else {
       console.log(mkPassMsg(cut, this.staticModel.data.length))
+    }
+  } catch(e) {
+    console.error(e)
+  }
+
+  // Test #3
+  try {
+    console.log(' Verifying isValidProperty function positive case ...')
+    cut = "StaticModel.isValidProperty()"
+    if (!this.staticModel.isValidProperty("affordability")) {
+      failure = "Expecting 'affordability' to be a valid city property."
+      throw(mkFailMsg(cut, failure))
+    } else {
+      console.log(mkPassMsg(cut))
+    }
+  } catch(e) {
+    console.error(e)
+  }
+
+  // Test #4
+  try {
+    console.log(' Verifying isValidProperty function negative case ...')
+    cut = "StaticModel.isValidProperty()"
+    if (this.staticModel.isValidProperty("bogusproperty")) {
+      failure = "Expecting 'bogusproperty' to be an invalid city property."
+      throw(mkFailMsg(cut, failure))
+    } else {
+      console.log(mkPassMsg(cut))
+    }
+  } catch(e) {
+    console.error(e)
+  }
+
+  // Test #5
+  try {
+    console.log(' Verifying getScalarRange positive case ...')
+    cut = "StaticModel.getScalarRange()"
+    let range = this.staticModel.getScalarRange("affordability")
+    if (range.min !== 82500 || range.max !== 927400) {
+      failure = "Expecting affordability range of {min: 82500, max: 927400}.  "
+      failure += "Got " + JSON.stringify(range)
+      throw(mkFailMsg(cut, failure))
+    } else {
+      console.log(mkPassMsg(cut + " " + JSON.stringify(range)))
+    }
+  } catch(e) {
+    console.error(e)
+  }
+
+  // Test #6
+  try {
+    console.log(' Verifying getScalarRange negative case #1 ...')
+    cut = "StaticModel.getScalarRange()"
+    let range = this.staticModel.getScalarRange("bogusproperty")
+    if (range.min !== undefined && range.max !== undefined) {
+      failure = "Expecting undefined range {min: undefined, max: undefined} for bogusproperty.  "
+      failure += "Got " + JSON.stringify(range)
+      throw(mkFailMsg(cut, failure))
+    } else {
+      console.log(mkPassMsg(cut), range)
+    }
+  } catch(e) {
+    console.error(e)
+  }
+
+  // Test #7
+  try {
+    console.log(' Verifying getScalarRange negative case #2 ...')
+    cut = "StaticModel.getScalarRange()"
+    let range = this.staticModel.getScalarRange("politics")
+    if (range.min !== undefined && range.max !== undefined) {
+      failure = "Expecting undefined range {min: undefined, max: undefined} for politics.  "
+      failure += "Got " + JSON.stringify(range)
+      throw(mkFailMsg(cut, failure))
+    } else {
+      console.log(mkPassMsg(cut), range)
     }
   } catch(e) {
     console.error(e)
