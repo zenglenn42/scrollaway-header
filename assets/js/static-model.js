@@ -3633,32 +3633,81 @@ StaticModel.prototype.mkCityLatLng = function() {
 //----------------------------------------------------------------------------------
 
 function UnitTestSchema(obj, expectedProperties) {
-  // Is it time for Typescript? :-)
-  let failures = undefined
-  let missingProperties = expectedProperties.filter((property) => {
-    return (!obj.hasOwnProperty(property))
-  })
+  // Is it time for Typescript or 3rd party test harness? :-)
+  let failedProperties = expectedProperties.map((propertyExpr) => {
+    let failure = ""
 
-  let reduceMissingProperties = (accumulator, currentValue, currentIndex) => {
+    // Does property exist in object?
+
+    let property = propertyExpr.split(":")[0]
+    failure = (!obj.hasOwnProperty(property)) ? `Missing property: ${property}\n` : ''
+
+    // Is it of the expected type?
+
+    let parsed = undefined
+    let typeFailure = ""
+    let type = propertyExpr.split(":")[1]
+    let value = obj[property]
+    if (!failure && type) {
+      switch(type) {
+        case 'integer':
+          // NB: This will identify 'string' integers as integers.
+          parsed = parseInt(value)
+          if (isNaN(parsed)) {
+            typeFailure = `Expecting type: ${property}:${type}\n`
+          }
+          break
+        case 'float':
+          // NB: This will identify 'string' floats as floats.
+          parsed = parseFloat(value)
+          if (isNaN(parsed)) {
+            typeFailure = `Expecting type: ${property}:${type}\n`
+          }
+          break
+        case 'object':
+          if (!value || typeof value !== 'object' || value.constructor !== Object) {
+            typeFailure = `Expecting type: ${property}:${type}\n`
+          }
+          break
+        case 'array':
+          if (!Array.isArray(value)) {
+            typeFailure = `Expecting type: ${property}:${type}\n`
+          }
+          break
+        case 'string':
+          if (typeof value !== 'string') {
+            typeFailure = `Expecting type: ${property}:${type}\n`
+          }
+          break
+
+        default:
+          typeFailure = `Unknown type: ${property}:${type}\n`
+      }
+      failure = typeFailure
+    }
+    return failure
+  }).filter((failureStr) => { return failureStr })
+
+  let reducerReportFailures = (accumulator, currentValue, currentIndex) => {
     if (!accumulator) {
-      accumulator = " Missing these expected properties: \n"
+      accumulator = " Failure with these properties: \n"
     }
     accumulator += `  ${currentIndex + 1}. ${currentValue} \n`
     return accumulator
   }
 
-  failures = missingProperties.reduce(reduceMissingProperties, "")
+  failures = failedProperties.reduce(reducerReportFailures, "")
   return failures
 }
 
 //----------------------------------------------------------------------------------
 function UnitTestStaticCitySchema(obj) {
   let expectedCityProperties = [
-    'affordability',
-    'happiness',
-    'img',
-    'location',
-    'politics'
+    'affordability:integer',
+    'happiness:float',
+    'img:object',
+    'location:object',
+    'politics:object'
   ]
 
   let failedCities = obj.reduce((accumulator, cityObj, cityIndex) => {
@@ -3684,17 +3733,16 @@ function UnitTestStaticCitySchema(obj) {
 //----------------------------------------------------------------------------------
 function UnitTestStaticModelSchema(smObj) {
   let expectedProperties = [
-    'maxAffordabilityValue',
-    'minAffordabilityValue',
-    'midAffordabilityValue',
-    'maxAffordabilityValue',
-    'minHappinessValue',
-    'midHappinessValue',
-    'maxHappinessValue',
-    'midPoliticsValue',
-    'wikiErrorImg',
-    'maxResults',
-    'data'
+    'maxAffordabilityValue:integer',
+    'minAffordabilityValue:integer',
+    'midAffordabilityValue:integer',
+    'minHappinessValue:integer',
+    'midHappinessValue:integer',
+    'maxHappinessValue:integer',
+    'midPoliticsValue:object',
+    'wikiErrorImg:string',
+    'maxResults:integer',
+    'data:array'
   ]
 
   let failures = UnitTestSchema(smObj, expectedProperties)
