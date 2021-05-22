@@ -1,15 +1,4 @@
 function StaticModel() {
-  // TODO: Derive these from the data below rather than hardcode.
-  this.minAffordabilityValue = "82500";
-  this.midAffordabilityValue = "504950"; // mid-point of median home price range
-  this.maxAffordabilityValue = "927400";
-  this.minHappinessValue = "29"; // from 3rd party study
-  this.midHappinessValue = "51";
-  this.maxHappinessValue = "73";
-  this.midPoliticsValue = { rep16_frac: 50, dem16_frac: 50 };
-  this.wikiErrorImg = "assets/img/wiki-img-fail.png";
-  this.maxResults = 10;
-
   this.data = [
     {
       "Plano, TX": {
@@ -3572,8 +3561,20 @@ function StaticModel() {
     }
   ];
 
-  // console.log(JSON.stringify(this.getScalarRange("affordability"), null, 2))
-  // console.log(JSON.stringify(this.getScalarRange("happiness"), null, 2))
+  let range = this.getScalarRange("affordability")
+  this.minAffordabilityValue = (range.min !== undefined) ? Math.floor(range.min) : 82500
+  this.maxAffordabilityValue = (range.max !== undefined) ? Math.ceil(range.max) : 927400
+  this.midAffordabilityValue = Math.round((this.minAffordabilityValue + this.maxAffordabilityValue) / 2)
+
+  range = this.getScalarRange("happiness")
+  this.minHappinessValue = (range.min !== undefined) ? Math.floor(range.min) : 29
+  this.maxHappinessValue = (range.max !== undefined) ? Math.ceil(range.max) : 73
+  this.midHappinessValue = Math.round((this.minHappinessValue + this.maxHappinessValue) / 2)
+
+  this.midPoliticsValue = { rep16_frac: 50, dem16_frac: 50 };
+
+  this.wikiErrorImg = "assets/img/wiki-img-fail.png";
+  this.maxResults = 10;
 }
 
 StaticModel.prototype.getScalarRange = function(cityProperty) {
