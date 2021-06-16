@@ -14,10 +14,10 @@ function View(
   maxAffordabilityValue,
   midPoliticsValue,
   githubUrl,
-  hasCachedLocalStateCB,
+  hasPersistedSettingsCB,
   getMaxResultsCB
 ) {
-  this.hasCachedLocalState = hasCachedLocalStateCB;
+  this.hasPersistedSettings = hasPersistedSettingsCB;
   this.getMaxResults = getMaxResultsCB;
 
   this.bodyDivId = bodyDivId;
@@ -1167,7 +1167,7 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   md.appendChild(settingsMenuButtonNode);
   let settingsMenuHtml = "ul"
   let settingsMenuNode = document.createElement(settingsMenuHtml);
-  let enableCacheClear = this.hasCachedLocalState() ? "" : "disabled='disabled'"
+  let enableCacheClear = this.hasPersistedSettings() ? "" : "disabled='disabled'"
   settingsMenuNode.classList.add("mdl-menu");
   settingsMenuNode.classList.add("mdl-js-menu");
   settingsMenuNode.classList.add("mdl-menu--bottom-right");

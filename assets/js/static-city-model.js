@@ -1,4 +1,4 @@
-function StaticModel() {
+function StaticCityModel() {
   this.data = [
     {
       "Plano, TX": {
@@ -3574,10 +3574,9 @@ function StaticModel() {
   this.midPoliticsValue = { rep16_frac: 50, dem16_frac: 50 };
 
   this.wikiErrorImg = "assets/img/wiki-img-fail.png";
-  this.maxResults = 10;
 }
 
-StaticModel.prototype.getScalarRange = function(cityProperty) {
+StaticCityModel.prototype.getScalarRange = function(cityProperty) {
   let range = {min: undefined, max: undefined}
   if (this.isNumericScalarProperty(cityProperty)) {
     range = this.data.reduce((acc, cityData) => {
@@ -3598,7 +3597,7 @@ StaticModel.prototype.getScalarRange = function(cityProperty) {
   return range
 }
 
-StaticModel.prototype.isValidProperty = function(property) {
+StaticCityModel.prototype.isValidProperty = function(property) {
   // Using first city as canonical of all city records.
   let key = Object.keys(this.data[0]);
   let testCityObj = this.data[0][key]
@@ -3606,7 +3605,7 @@ StaticModel.prototype.isValidProperty = function(property) {
   return results
 }
 
-StaticModel.prototype.isNumericScalarProperty = function(property) {
+StaticCityModel.prototype.isNumericScalarProperty = function(property) {
   // Using first city as canonical of all city records.
   let key = Object.keys(this.data[0]);
   let testCityObj = this.data[0][key]
@@ -3614,7 +3613,7 @@ StaticModel.prototype.isNumericScalarProperty = function(property) {
   return results
 }
 
-StaticModel.prototype.mkComboData = function() {
+StaticCityModel.prototype.mkComboData = function() {
   let i = 0;
   let newData = this.data.map(cityData => {
     key = Object.keys(cityData)[0];
@@ -3626,7 +3625,7 @@ StaticModel.prototype.mkComboData = function() {
   console.log(JSON.stringify(newData));
 };
 
-StaticModel.prototype.mkCityLatLng = function() {
+StaticCityModel.prototype.mkCityLatLng = function() {
   let newData = this.data.map(cityData => {
     key = Object.keys(cityData)[0];
     value = cityData[key];
@@ -3642,7 +3641,7 @@ StaticModel.prototype.mkCityLatLng = function() {
 // Requires jQuery but typically just a 1-shot predeployment activity.
 // Code courtesy: https://tinyurl.com/yymbb95e with modifications.
 //
-// StaticModel.prototype.ajaxGetLocationCoordinate = function(address) {
+// StaticCityModel.prototype.ajaxGetLocationCoordinate = function(address) {
 //   var position = {};
 //   $.ajax({
 //     url: "https://maps.google.com/maps/api/geocode/json",
@@ -3772,7 +3771,7 @@ function UnitTestStaticCitySchema(obj) {
 }
 
 //----------------------------------------------------------------------------------
-function UnitTestStaticModelSchema(smObj) {
+function UnitTestStaticCityModelSchema(smObj) {
   let expectedProperties = [
     'maxAffordabilityValue:integer',
     'minAffordabilityValue:integer',
@@ -3782,7 +3781,6 @@ function UnitTestStaticModelSchema(smObj) {
     'maxHappinessValue:integer',
     'midPoliticsValue:object',
     'wikiErrorImg:string',
-    'maxResults:integer',
     'data:array'
   ]
 
@@ -3806,22 +3804,22 @@ function mkPassMsg(codeUnderTest, iterations) {
 }
 
 //----------------------------------------------------------------------------------
-function UnitTestStaticModel() {
-  let module = "static-model.js"
+function UnitTestStaticCityModel() {
+  let module = "static-city-model.js"
   let cut = ""
   let failure = undefined
   let errmsg = undefined
 
   console.log('Starting unit tests for ' + module)
   console.log('---------------------------------------')
-  console.log(' Instantiating static model object ...')
-  this.staticModel = new StaticModel();
+  console.log(' Instantiating static city-model object ...')
+  this.staticModel = new StaticCityModel();
 
   // Test #1
   try {
-    console.log(' Verifying static model schema ...')
-    cut = "UnitTestStaticModelSchema"
-    failure = UnitTestStaticModelSchema(this.staticModel)
+    console.log(' Verifying static city-model schema ...')
+    cut = "UnitTestStaticCityModelSchema"
+    failure = UnitTestStaticCityModelSchema(this.staticModel)
 
     if (failure) {
       throw(mkFailMsg(cut, failure))
@@ -3850,7 +3848,7 @@ function UnitTestStaticModel() {
   // Test #3
   try {
     console.log(' Verifying isValidProperty function positive case ...')
-    cut = "StaticModel.isValidProperty()"
+    cut = "StaticCityModel.isValidProperty()"
     if (!this.staticModel.isValidProperty("affordability")) {
       failure = "Expecting 'affordability' to be a valid city property."
       throw(mkFailMsg(cut, failure))
@@ -3864,7 +3862,7 @@ function UnitTestStaticModel() {
   // Test #4
   try {
     console.log(' Verifying isValidProperty function negative case ...')
-    cut = "StaticModel.isValidProperty()"
+    cut = "StaticCityModel.isValidProperty()"
     if (this.staticModel.isValidProperty("bogusproperty")) {
       failure = "Expecting 'bogusproperty' to be an invalid city property."
       throw(mkFailMsg(cut, failure))
@@ -3878,7 +3876,7 @@ function UnitTestStaticModel() {
   // Test #5
   try {
     console.log(' Verifying getScalarRange positive case ...')
-    cut = "StaticModel.getScalarRange()"
+    cut = "StaticCityModel.getScalarRange()"
     let range = this.staticModel.getScalarRange("affordability")
     if (range.min !== 82500 || range.max !== 927400) {
       failure = "Expecting affordability range of {min: 82500, max: 927400}.  "
@@ -3894,7 +3892,7 @@ function UnitTestStaticModel() {
   // Test #6
   try {
     console.log(' Verifying getScalarRange negative case #1 ...')
-    cut = "StaticModel.getScalarRange()"
+    cut = "StaticCityModel.getScalarRange()"
     let range = this.staticModel.getScalarRange("bogusproperty")
     if (range.min !== undefined && range.max !== undefined) {
       failure = "Expecting undefined range {min: undefined, max: undefined} for bogusproperty.  "
@@ -3910,7 +3908,7 @@ function UnitTestStaticModel() {
   // Test #7
   try {
     console.log(' Verifying getScalarRange negative case #2 ...')
-    cut = "StaticModel.getScalarRange()"
+    cut = "StaticCityModel.getScalarRange()"
     let range = this.staticModel.getScalarRange("politics")
     if (range.min !== undefined && range.max !== undefined) {
       failure = "Expecting undefined range {min: undefined, max: undefined} for politics.  "
@@ -3923,7 +3921,6 @@ function UnitTestStaticModel() {
     console.error(e)
   }
 
-  // this.data = this.staticModel.data;
   console.log('---------------------------------------')
   console.log('Leaving unit tests for ' + module)
 }

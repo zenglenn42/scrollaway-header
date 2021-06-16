@@ -1,5 +1,9 @@
 function Controller(bodyDivId) {
-  this.model = new Model();
+  this.model = new CityModel();
+  this.cache = new LocalPersistence();
+
+  let maxCities = this.model.getNumCities()
+  this.settings = new SettingsModel(maxCities)
 
   this.view = new View(
     bodyDivId,
@@ -17,8 +21,8 @@ function Controller(bodyDivId) {
     this.model.getMaxAffordabilityValue(),
     this.model.getMidPoliticsValue(),
     this.model.githubUrl,
-    this.model.hasCachedLocalStateCB().bind(this.model),
-    this.model.getMaxResultsCB().bind(this.model)
+    this.cache.hasSettingsCB().bind(this.cache),
+    this.settings.getMaxResultsCB().bind(this.settings)
   );
   this.view.createLandingBody();
 }
@@ -67,7 +71,7 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
                                //       Should rebuild modal-occluded page to reflect restored state.
                                //       Really need an update-view entrypoint that.view.update()
                                //       React is calling since it handles this kind of shizzle. (-;
-    if (that.model.hasCachedLocalStateCB()) {
+    if (that.cache.hasSettingsCB()) {
       let clearcache_button = document.querySelector("#settings_clearcache_button")
       if (clearcache_button) {
         clearcache_button.removeAttribute("disabled")
@@ -75,7 +79,7 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
     }
   });
   this.delegate(document, "click", "#settings_clearcache_button", function(e) {
-    if (that.model.clearLocalStorage()) {
+    if (that.cache.clearSettings()) {
       let clearcache_button = document.querySelector("#settings_clearcache_button")
       if (clearcache_button) {
         clearcache_button.setAttribute("disabled", "disabled")
@@ -167,9 +171,12 @@ Controller.prototype.addSettingsPageEventListeners = function() {
            let id = buttonEl.getAttribute("id")
            let attrValue = buttonEl.getAttribute("data-value") || "10"
            let value = JSON.parse(attrValue)
-           if (this.model.setMaxResults(value)) {
-             this.model.saveLocalState()
+           if (this.settings.setMaxResults(value)) {
+             //this.settings.saveLocalState()
              this.view.setMaxResults() // set view based upon model
+                                       // TODO: This should go away once
+                                       // observer pattern is implemented
+                                       // in the model.
            }
            // console.log(`click show top ${value} cities`)
      });
