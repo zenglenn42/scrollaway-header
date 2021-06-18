@@ -28,16 +28,12 @@ LocalPersistence.prototype.hasLocalStorage = function() {
   }
 }
 
-LocalPersistence.prototype.hasAppDataCB = function() {
+LocalPersistence.prototype.hasAppData = function() {
   return this.hasAppData
 }
 
 LocalPersistence.prototype.hasAppData = function() {
   return this.hasSettings() || this.hasPriorities()
-}
-
-LocalPersistence.prototype.hasSettingsCB = function() {
-  return this.hasSettings
 }
 
 LocalPersistence.prototype.hasSettings = function() {
@@ -46,10 +42,6 @@ LocalPersistence.prototype.hasSettings = function() {
     value = localStorage.getItem(this._SETTINGS_KEY)
   }
   return value
-}
-
-LocalPersistence.prototype.hasPrioritiesCB = function() {
-  return this.hasPriorities
 }
 
 LocalPersistence.prototype.hasPriorities = function() {
