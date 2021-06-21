@@ -123,6 +123,18 @@ SettingsModel.prototype.getLangCode = function() {
   }
 };
 
+SettingsModel.prototype.getLangName = function(langCode) {
+  let langName = "missing-langName"
+  if (this.isValidLangCode(this.langCode)) {
+    langName = (this.langOptionsMap.hasOwnProperty(langCode) &&
+                this.langOptionsMap[langCode].hasOwnProperty('name')) ?
+               this.langOptionsMap[langCode].name : langCode + "-" + langName
+  } else {
+    console.error('SettingsModel.getLangName(langCode): Invalid langCode =', langCode)
+  }
+  return langName
+};
+
 SettingsModel.prototype.setLangCode = function(langCode) {
   let result = false;
   if (this.isValidLangCode(langCode)) {
@@ -144,6 +156,19 @@ SettingsModel.prototype.getCountryCode = function() {
   } else {
     return this.dfltCountryCode
   }
+};
+
+SettingsModel.prototype.getCountryName = function(countryCode) {
+  let countryName = "missing-countryName"
+  if (this.isValidCountryCode(this.countryCode)) {
+    countryName =
+        (this.countryOptionsMap.hasOwnProperty(countryCode) &&
+         this.countryOptionsMap[countryCode].hasOwnProperty('name')) ?
+        this.countryOptionsMap[countryCode].name : countryCode + "-" + countryName
+  } else {
+    console.error('SettingsModel.getLangName(countryCode): Invalid countryCode =', countryCode)
+  }
+  return countryName
 };
 
 SettingsModel.prototype.setCountryCode = function(countryCode) {
@@ -322,7 +347,7 @@ function UnitTestSettingsModel() {
       failure = "Expected maxResults == " + settings.dfltMaxResults + " Got maxResults == " + settings.maxResults
     }
     if (settings.langCode !== settings.dfltLangCode) {
-      failure += "\nExpected langCode == " + settings.dfltLangCode + " Got langCode == " + settings.langCode
+      failure += "\nExpected langCode == " + settings.dfltLangCode + " Got langCode == " + settings.countryCode
     }
     if (settings.countryCode !== settings.dfltCountryCode) {
       failure += "\nExpected countryCode == " + settings.dfltCountryCode + " Got countryCode == " + settings.countryCode
@@ -337,4 +362,85 @@ function UnitTestSettingsModel() {
     console.error(e)
   }
 
+  // Test #8
+  failure = undefined
+  try {
+    cut = "SettingsModel.getLangName(langCode) positive case"
+    console.log(' Verifying ability to fetch a language name given a iso lang code ...')
+    let langName = settings.getLangName("en")
+    if (langName !== "English") {
+      failure = "Expected langName == 'English'" + " Got " + langName
+    }
+    langName = settings.getLangName("es")
+    if (langName !== "Español") {
+      failure += "\nExpected langName == 'Español'" + " Got " + langName
+    }
+
+    if (failure) {
+      throw(mkFailMsg(cut, failure))
+    } else {
+      console.log(mkPassMsg(cut))
+    }
+  } catch(e) {
+    console.error(e)
+  }
+
+  // Test #9
+  failure = undefined
+  try {
+    cut = "SettingsModel.getLangName(langCode) negative case"
+    console.log(' Verifying ability to fetch a language name given a iso lang code ...')
+    let langName = settings.getLangName("bogus")
+    if (langName !== "bogus-missing-langName") {
+      failure = "Expected countryName == 'bogus-missing-langName'" + " Got " + langName
+    }
+    if (failure) {
+      throw(mkFailMsg(cut, failure))
+    } else {
+      console.log(mkPassMsg(cut))
+    }
+  } catch(e) {
+    console.error(e)
+  }
+
+  // Test #10
+  failure = undefined
+  try {
+    cut = "SettingsModel.getCountryName(countryCode) positive case"
+    console.log(' Verifying ability to fetch a country name given an iso country code ...')
+    let countryName = settings.getCountryName("US")
+    if (countryName !== "United States") {
+      failure = "Expected countryName == 'United States'" + " Got " + countryName
+    }
+    countryName = settings.getCountryName("CR")
+    if (countryName !== "Costa Rica") {
+      failure += "\nExpected countryName == 'Costa Rica'" + " Got " + countryName
+    }
+
+    if (failure) {
+      throw(mkFailMsg(cut, failure))
+    } else {
+      console.log(mkPassMsg(cut))
+    }
+  } catch(e) {
+    console.error(e)
+  }
+
+  // Test #11
+  failure = undefined
+  try {
+    cut = "SettingsModel.getCountryName(countryCode) negative case"
+    console.log(' Verifying ability to fetch a country name given an iso country code ...')
+    let countryName = settings.getCountryName("bogus")
+    if (countryName !== "bogus-missing-countryName") {
+      failure = "Expected countryName == 'bogus-missing-countryName'" + " Got " + countryName
+    }
+    if (failure) {
+      throw(mkFailMsg(cut, failure))
+    } else {
+      console.log(mkPassMsg(cut))
+    }
+  } catch(e) {
+    console.error(e)
+  }
 }
