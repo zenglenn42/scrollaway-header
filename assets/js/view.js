@@ -14,11 +14,25 @@ function View(
   maxAffordabilityValue,
   midPoliticsValue,
   githubUrl,
-  hasPersistedSettingsCB,
-  getMaxResultsCB
+  hasPersistedSettings,
+  getMaxResults,
+  getMaxResultsOptions,
+  getLangCode,
+  getLangName,
+  getCountryCode,
+  getCountryName
 ) {
-  this.hasPersistedSettings = hasPersistedSettingsCB;
-  this.getMaxResults = getMaxResultsCB;
+
+  // Bind to LocalPersistence interface.
+  this.hasPersistedSettings = hasPersistedSettings;
+
+  // Bind to SettingsModel interface.
+  this.getMaxResults = getMaxResults;
+  this.getMaxResultsOptions = getMaxResultsOptions;
+  this.getLangCode = getLangCode;
+  this.getLangName = getLangName;
+  this.getCountryCode = getCountryCode
+  this.getCountryName = getCountryName
 
   this.bodyDivId = bodyDivId;
   this.rankedList = [];
@@ -167,6 +181,14 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
   let g = document.createElement("div");
   g.classList.add("mdl-grid");
   g.classList.add("settings-grid");
+
+  // List items for 'max results' dropdown selection list box.
+  // Turn settings model for max results options into presentation elements (list items).
+
+  let maxResultsListItems = (this.getMaxResultsOptions().map((numCities, i) => {
+      return `<li id="maxResults-${i + 1}" data-value="${numCities}" class="mdl-menu__item settings-max-results__button">${numCities}</li>`
+  }).reduce((acc, li) => {acc += li; return acc}, ""))
+
   g.innerHTML = `
     <div>
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
@@ -216,6 +238,7 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         </label>
         Select quantity
       </span>
+
       <div class="mdl-textfield mdl-js-textfield">
         <span>Show top &nbsp;</span> 
         <span id="settings-max-results-selected" class="selected-value">${this.getMaxResults()}</span>
@@ -225,12 +248,10 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         <span>cities</span>
         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right"
             data-mdl-for="settings-max-results">
-          <li id="maxResults-1" data-value="3"  class="mdl-menu__item settings-max-results__button">3</li>
-          <li id="maxResults-2" data-value="10" class="mdl-menu__item settings-max-results__button">10</li>
-          <li id="maxResults-3" data-value="20" class="mdl-menu__item settings-max-results__button">20</li>
-          <li disabled id="maxResults-4" data-value="178" class="mdl-menu__item settings-max-results__button">178 (all)</li>
+          ${maxResultsListItems}
         </ul>
       </div>
+
     </div>
     <!-- Adding dummy cell for bottom padding to avoid proximity to FAB.  
          Probably a more elegant way to do this ... like bottom-margin on grid. -->
