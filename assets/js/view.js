@@ -19,8 +19,12 @@ function View(
   getMaxResultsOptions,
   getLangCode,
   getLangName,
+  getLangOptionsMap,
   getCountryCode,
-  getCountryName
+  getCountryName,
+  getCountryOptionsMap,
+  getLocale,
+  getCurrency
 ) {
 
   // Bind to LocalPersistence interface.
@@ -31,8 +35,10 @@ function View(
   this.getMaxResultsOptions = getMaxResultsOptions;
   this.getLangCode = getLangCode;
   this.getLangName = getLangName;
+  this.getLangOptionsMap = getLangOptionsMap;
   this.getCountryCode = getCountryCode
   this.getCountryName = getCountryName
+  this.getCountryOptionsMap = getCountryOptionsMap
 
   this.bodyDivId = bodyDivId;
   this.rankedList = [];
@@ -62,9 +68,12 @@ function View(
     jobSearchEnabled: this.switchJobSearchEnabledDefault
   };
 
-  this.formatter = new Intl.NumberFormat("en-US", {
+  let locale = getLocale()
+  let currency = getCurrency(getCountryCode())
+
+  this.formatter = new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: "USD",
+    currency: currency,
     minimumFractionDigits: 0
   });
 
@@ -189,6 +198,39 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
       return `<li id="maxResults-${i + 1}" data-value="${numCities}" class="mdl-menu__item settings-max-results__button">${numCities}</li>`
   }).reduce((acc, li) => {acc += li; return acc}, ""))
 
+  // List items for language selection dropdown list box.
+
+  let langMap = this.getLangOptionsMap()
+  let langListOptions = Object.keys(langMap).reduce((acc, langKey, i) => {
+    let name = langMap[langKey].name
+    let supported = langMap[langKey].supported
+    let disabled = undefined
+    if (!supported) {
+      disabled="disabled"
+    }
+    let li = `<li ${disabled} id="language-${i+1}" data-value="${langKey}" class="mdl-menu__item settings-language__button">${name}</li>`
+    acc += li
+    return acc
+  }, "")
+
+  // List items for country selection dropdown list box.
+
+  let countryMap = this.getCountryOptionsMap()
+  let countryListOptions = Object.keys(countryMap).reduce((acc, countryKey, i) => {
+    let name = countryMap[countryKey].name
+    let supported = countryMap[countryKey].supported
+    let disabled = undefined
+    if (!supported) {
+      disabled="disabled"
+    }
+    let li = `<li ${disabled} id="country-${i+1}" data-value="${countryKey}" class="mdl-menu__item settings-country__button">${name}</li>`
+    acc += li
+    return acc
+  }, "")
+
+  let langString = this.getLangName(this.getLangCode())
+  let countryString = this.getCountryName(this.getCountryCode())
+
   g.innerHTML = `
     <div>
     <div class='mdl-cell mdl-cell--4-col settings-cell'>
@@ -200,14 +242,13 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
       </span>
       <div class="mdl-textfield mdl-js-textfield">
         <span>Use &nbsp;</span>
-        <span class="selected-value">English</span>
+        <span class="selected-value">${langString}</span>
         <button id="settings-language" class="mdl-button mdl-js-button dropdown-button">
           <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
         </button>
         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right"
             data-mdl-for="settings-language">
-          <li id="language-1" data-value="english" class="mdl-menu__item settings-language__button">English</li>
-          <li disabled id="language-2" data-value="espanol" class="mdl-menu__item settings-language__button">Español</li>
+            ${langListOptions}
         </ul>
       </div>
     </div>
@@ -220,14 +261,13 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
       </span>
       <div class="mdl-textfield mdl-js-textfield">
         <span>Show cities in &nbsp;</span>
-        <span class="selected-value">United States</span>
+        <span class="selected-value">${countryString}</span>
         <button id="settings-country" class="mdl-button mdl-js-button dropdown-button">
           <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
         </button>
         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right"
             data-mdl-for="settings-country">
-          <li id="country-1" data-value="United States"  class="mdl-menu__item settings-country__button">United States</li>
-          <li disabled id="country-2" data-value="Costa Rica" class="mdl-menu__item settings-country__button">Costa Rica</li>
+          ${countryListOptions}
         </ul>
       </div>
     </div>
@@ -1194,13 +1234,15 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
   settingsMenuNode.classList.add("mdl-menu--bottom-right");
   settingsMenuNode.setAttribute("for", "settingsMenu");
   let maxResultsString = "Show top " + this.getMaxResults() + " cities"
+  let langString = "Use " + this.getLangName(this.getLangCode())
+  let countryString = "Show cities in " + this.getCountryName(this.getCountryCode())
 
   settingsMenuNode.innerHTML = ""
 
   settingsMenuNode.innerHTML += "<li id='settings_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Edit ...</span></li>",
 
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span>Use English</span></li>"
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>Show cities in United States</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span>" + langString + "</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>" + countryString + "</span></li>"
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' style='height: 2em; line-height: 1em' disabled><span id='settings-max-results-menu'>" + maxResultsString + "</span></li>"
 
   // Move these next two to the dedicated settings edit page to simplify model/view updates.

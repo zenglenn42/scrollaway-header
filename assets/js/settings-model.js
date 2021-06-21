@@ -33,26 +33,32 @@ function SettingsModel(numCities, maxResults, langCode, countryCode) {
     "en": {
       name: "English",
       enName: "English",
+      supported: true
     },
     "es": {
       name: "Español",
       enName: "Spanish",
-      grayOut: true  // Visible in UI but not selectable.
+      supported: false  // May be used by view to gray out a selection list option.
     }
   }
 
   // Select from among these (ISO 3166) countries when looking for a city match.
   // Populates drop-down selection list in view.
+  // For currency, see:
+  // https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/amendments/lists/list_one.xml
 
   this.dfltCountryCode = "US"
   this.countryCode = (this.isValidCountryCode(countryCode)) ? countryCode : this.dfltCountryCode
   this.countryOptionsMap = {
     "US": {
       name: "United States",
+      supported: true,
+      currency: "USD"
     },
     "CR": {
       name: "Costa Rica",
-      grayOut: true  // Visible in UI but not selectable.
+      supported: false, // Grayed out in user interface.
+      currency: "CRC"
     }
   }
 }
@@ -108,7 +114,7 @@ SettingsModel.prototype.setMaxResults = function(maxResults) {
 };
 
 SettingsModel.prototype.getMaxResultsOptions = function() {
-  return this.maxResultsOptions
+  return this.maxResultsOptions.slice(0)
 };
 
 SettingsModel.prototype.isValidLangCode = function(langCode) {
@@ -133,6 +139,10 @@ SettingsModel.prototype.getLangName = function(langCode) {
     console.error('SettingsModel.getLangName(langCode): Invalid langCode =', langCode)
   }
   return langName
+};
+
+SettingsModel.prototype.getLangOptionsMap = function() {
+  return JSON.parse(JSON.stringify(this.langOptionsMap))
 };
 
 SettingsModel.prototype.setLangCode = function(langCode) {
@@ -171,6 +181,10 @@ SettingsModel.prototype.getCountryName = function(countryCode) {
   return countryName
 };
 
+SettingsModel.prototype.getCountryOptionsMap = function() {
+  return JSON.parse(JSON.stringify(this.countryOptionsMap))
+};
+
 SettingsModel.prototype.setCountryCode = function(countryCode) {
   let result = false;
   if (this.isValidCountryCode(countryCode)) {
@@ -181,6 +195,18 @@ SettingsModel.prototype.setCountryCode = function(countryCode) {
   }
   return result
 };
+
+// BCP 47 locale; used in currency formatting
+
+SettingsModel.prototype.getLocale = function() {
+  return this.langCode + "-" + this.countryCode
+}
+
+SettingsModel.prototype.getCurrency = function(countryCode) {
+  let code = countryCode || this.countryCode
+
+  return this.countryOptionsMap[code].currency
+}
 
 //----------------------------------------------------------------------------------
 // Unit Test

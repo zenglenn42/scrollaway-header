@@ -26,8 +26,12 @@ function Controller(bodyDivId) {
     this.settings.getMaxResultsOptions.bind(this.settings),
     this.settings.getLangCode.bind(this.settings),
     this.settings.getLangName.bind(this.settings),
+    this.settings.getLangOptionsMap.bind(this.settings),
     this.settings.getCountryCode.bind(this.settings),
-    this.settings.getCountryName.bind(this.settings)
+    this.settings.getCountryName.bind(this.settings),
+    this.settings.getCountryOptionsMap.bind(this.settings),
+    this.settings.getLocale.bind(this.settings),
+    this.settings.getCurrency.bind(this.settings)
   );
   this.view.createLandingBody();
 }
