@@ -22,11 +22,11 @@ function Controller(bodyDivId) {
     this.model.getMidPoliticsValue(),
     this.model.githubUrl,
     this.cache.hasSettings.bind(this.cache),
-    this.settings.getMaxResults.bind(this.settings)
-    this.settings.getMaxResultsOptions.bind(this.settings)
-    this.settings.getLangCode.bind(this.settings)
-    this.settings.getLangName.bind(this.settings)
-    this.settings.getCountryCode.bind(this.settings)
+    this.settings.getMaxResults.bind(this.settings),
+    this.settings.getMaxResultsOptions.bind(this.settings),
+    this.settings.getLangCode.bind(this.settings),
+    this.settings.getLangName.bind(this.settings),
+    this.settings.getCountryCode.bind(this.settings),
     this.settings.getCountryName.bind(this.settings)
   );
   this.view.createLandingBody();
