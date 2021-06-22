@@ -11,10 +11,11 @@ function SettingsModel(numCities, maxResults, langCode, countryCode) {
   this.maxResults = (this.isValidMaxResults(maxResults)) ? maxResults : this.dfltMaxResults
 
   // Populates drop-down selection list in view.
+  // TODO: Make this algorithmic, using numCities as an upper-bound on maxResultsOptions.
 
-  this.dfltMaxResultsOptions = [5, 10, 20] 
-  this.maxResultsOptions = [this.maxResults]
-  if (this.isValidNumCities(numCities) && numCities >= 20) {
+  this.dfltMaxResultsOptions = [this.maxResults]
+  this.maxResultsOptions = [5, 10, 20] 
+  if (!this.isValidNumCities(numCities) || numCities < 20) {
     this.maxResultsOptions = this.dfltMaxResultsOptions
   }
 
@@ -44,8 +45,10 @@ function SettingsModel(numCities, maxResults, langCode, countryCode) {
 
   // Select from among these (ISO 3166) countries when looking for a city match.
   // Populates drop-down selection list in view.
-  // For currency, see:
+  //
+  // The currency abbreviation comes from:
   // https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/amendments/lists/list_one.xml
+  // and is used by Intl.NumberFormat() in the view layer to format currency.
 
   this.dfltCountryCode = "US"
   this.countryCode = (this.isValidCountryCode(countryCode)) ? countryCode : this.dfltCountryCode
@@ -114,7 +117,8 @@ SettingsModel.prototype.setMaxResults = function(maxResults) {
 };
 
 SettingsModel.prototype.getMaxResultsOptions = function() {
-  return this.maxResultsOptions.slice(0)
+  // Return a copy of the array so model doesn't get accidentally mutated by view.
+  return this.maxResultsOptions.slice(0)  
 };
 
 SettingsModel.prototype.isValidLangCode = function(langCode) {
@@ -196,11 +200,26 @@ SettingsModel.prototype.setCountryCode = function(countryCode) {
   return result
 };
 
-// BCP 47 locale; used in currency formatting
+// Introduce notion of locale (based upon BCP 47 standard).
+//
+// This descriptor composes language with region and is key
+// to localization efforts.
+//
+// Locales embody regional differences that affect how content
+// is presented (e.g., numeric formatting, currency designators, 
+// written script variants such as 'simplified' versus 'traditional' 
+// Chinese).
 
 SettingsModel.prototype.getLocale = function() {
   return this.langCode + "-" + this.countryCode
 }
+
+// Return the 3-letter iso-currency descriptor associated with
+// a given country code as defined by this site:
+// https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/amendments/lists/list_one.xml
+//
+// For example, given the countryCode = "US" return "USD".
+// This is used by the view to generate the related "$" symbol.
 
 SettingsModel.prototype.getCurrency = function(countryCode) {
   let code = countryCode || this.countryCode
@@ -432,7 +451,8 @@ function UnitTestSettingsModel() {
   // Test #10
   failure = undefined
   try {
-    cut = "SettingsModel.getCountryName(countryCode) positive case"
+    settings = new SettingsModel(178, 10, "en", "US")
+    cut = "SettingsModel.getCountryName(countryCode), *.getLocale(), *.getCurrency()  positive case"
     console.log(' Verifying ability to fetch a country name given an iso country code ...')
     let countryName = settings.getCountryName("US")
     if (countryName !== "United States") {
@@ -441,6 +461,15 @@ function UnitTestSettingsModel() {
     countryName = settings.getCountryName("CR")
     if (countryName !== "Costa Rica") {
       failure += "\nExpected countryName == 'Costa Rica'" + " Got " + countryName
+    }
+    console.log(' Verifying ability to fetch locale and currency abbreviations from a settings object ...')
+    let locale = settings.getLocale()
+    if (locale !== "en-US") {
+      failure = "\nExpected locale == 'en-US'" + " Got " + locale
+    }
+    let currency = settings.getCurrency()
+    if (currency !== "USD") {
+      failure = "\nExpected currency == 'USD'" + " Got " + currency
     }
 
     if (failure) {
