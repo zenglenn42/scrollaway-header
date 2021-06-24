@@ -1,3 +1,8 @@
+// Capture the user's current priorities when it comes
+// to ranking a city's desirability.
+//
+// TODO: Make this observable (in the software patterns sense).
+
 function PrioritiesModel(affordabilityValue, 
                          happinessValue, 
                          politicsValue, 
@@ -8,40 +13,153 @@ function PrioritiesModel(affordabilityValue,
                          politicsEnabled, 
                          jobSearchEnabled) {
 
+  // Validate required input parameters.
+
   if (!this.isValidRange(affordabilityRange)) {
     throw('PriorityModel: Failed constructor.  Invalid affordabilityRange input parameter')
   }
+
   if (!this.isValidRange(happinessRange)) {
     throw('PriorityModel: Failed constructor.  Invalid happinessRange input parameter')
   }
   
-  this.dfltAffordabilityValue = Math.round((affordabilityRange.min + affordabilityRange.max) / 2)
-  this.dfltHappinessValue = Math.round((happinessRange.min + happinessRange.max) / 2)
-  this.dfltPoliticsValue = { rep16_frac: 50, dem16_frac: 50 }
+  //------------------------------------
+  // Desired affordability
+  //------------------------------------
+
+  // Specify a range of valid values for this attribute along with a
+  // desired target value.  Initial value defaults to range midpoint.
 
   this.affordabilityRange = affordabilityRange
+  this.dfltAffordabilityValue = Math.round((this.affordabilityRange.min + this.affordabilityRange.max) / 2)
   this.affordabilityValue = this.isValidAffordabilityValue(affordabilityValue, this.affordabilityRange) ? 
                               affordabilityValue : this.dfltAffordabilityValue
 
-  this.happinessRange = happinessRange
-  this.happinessRange = this.isValidRange(happinessRange) ? happinessRange : this.dfltRange
-  this.happinessValue = this.isValidHappinessValue(happinessValue, this.happinessRange) ? 
-                              happinessValue : this.dfltHappinessValue
-
-  this.politicsRange = {min: 0, max: 100}  // Expressed as percentage.
-  this.politicsValue = this.isValidPoliticsValue(politicsValue, this.politicsRange) ? politicsValue : this.dfltPoliticsValue
+  // Specify if this attribute should contribute to the city ranking algorithm.
+  //
+  // TODO: Replace this with a quantized weighting factor that reflects the
+  //       graded importance of this attribute to the user ranging from
+  //       'not important' to 'very important'.
 
   this.dfltAffordabilityEnabled = true
-  this.dfltHappinessEnabled = true
-  this.dfltPoliticsEnabled = true
+  this.affordabilityEnabled = this.isBoolean(affordabilityEnabled) ?
+                                affordabilityEnabled : this.dfltAffordabilityEnabled
 
-  this.affordabilityEnabled = this.isBoolean(affordabilityEnabled) ? affordabilityEnabled : this.dfltAffordabilityEnabled
+  //------------------------------------
+  // Desired civic happiness
+  //------------------------------------
+
+  // Based upon a 3rd party survey of cities in the U.S.
+
+  // Specify a range of valid values for this attribute along with a
+  // desired target value.  Initial value defaults to range midpoint.
+
+  this.happinessRange = happinessRange
+  this.dfltHappinessValue = Math.round((happinessRange.min + happinessRange.max) / 2)
+  this.happinessValue = this.isValidHappinessValue(happinessValue, this.happinessRange) ?
+                              happinessValue : this.dfltHappinessValue
+
+  // Specify if this attribute contributes to the city ranking algorithm.
+  //
+  // TODO: Replace this with a quantized weighting factor that reflects the
+  //       graded importance of this attribute to the user ranging from
+  //       'not important' to 'very important'.
+
+  this.dfltHappinessEnabled = true
   this.happinessEnabled = this.isBoolean(happinessEnabled) ? happinessEnabled : this.dfltHappinessEnabled
+
+  //------------------------------------
+  // Desired prevailing politics
+  //------------------------------------
+
+  // Based upon 2016 voter data in a national election,
+  // approximating a liberal-to-conservative scale.
+
+  // Specify a range of valid values for this attribute along with a
+  // desired target value.  Initial value defaults to range midpoint.
+
+  this.politicsRange = {min: 0, max: 100}  // Expressed as percentage.
+  this.dfltPoliticsValue = { rep16_frac: 50, dem16_frac: 50 }
+  this.politicsValue = this.isValidPoliticsValue(politicsValue, this.politicsRange) ?
+                          politicsValue : this.dfltPoliticsValue
+
+  // Specify if this attribute contributes to the city ranking algorithm.
+  //
+  // TODO: Replace this with a quantized weighting factor that reflects the
+  //       graded importance of this attribute to the user ranging from 
+  //       'not important' to 'very important'.
+
+  this.dfltPoliticsEnabled = true
   this.politicsEnabled = this.isBoolean(politicsEnabled) ? politicsEnabled : this.dfltPoliticsEnabled
 
-  // TODO: Add support for this Feature.  Perpetually disabled for now.
+  //------------------------------------
+  // Job search feature
+  //------------------------------------
+
+  // TODO: Add support for this Feature.  Disabled for now.
+
   this.dfltJobSearchEnabled = false
   this.jobSearchEnabled = this.isBoolean(jobSearchEnabled) ? false : false
+}
+
+PrioritiesModel.prototype.getNormalizedPriorities = function() {
+
+  // Marshall the user's current priorities into an object
+  // suitable for making a request to rank a list of cities.
+
+  let prioritiesJson = {}
+  if (this.happinessEnabled) {
+    prioritiesJson.happiness = parseInt(this.happinessValue)
+  } else {
+    prioritiesJson.happiness = NaN
+  }
+  if (this.affordabilityEnabled) {
+    prioritiesJson.affordability = parseInt(this.affordabilityValue)
+  } else {
+    prioritiesJson.affordability = NaN
+  }
+  if (this.politicsEnabled) {
+    prioritiesJson.politics = this.politicsValue;
+    prioritiesJson.politics.dem16_frac = parseInt(prioritiesJson.politics.dem16_frac);
+    prioritiesJson.politics.rep16_frac = parseInt(prioritiesJson.politics.rep16_frac);
+  } else {
+    nanPolitics = { rep16_frac: NaN, dem16_frac: NaN }
+    prioritiesJson.politics = nanPolitics;
+  }
+  if (this.isNormalized(prioritiesJson)) {
+    return prioritiesJson
+  } else {
+    throw('PriorityModel: getNormalizedPriorities(). Result failed schema check.')
+  }
+}
+
+PrioritiesModel.prototype.hasNoPriorities = function(prioritiesJson) {
+
+  // Detect if the user fails to specify any priorities.
+  // Useful for creating guard-logic around requests for city ranking.
+
+  if (!this.isNormalized(prioritiesJson)) {
+    throw('PriorityModel: hasNoPriorities(). Input failed schema check:' + JSON.stringify(prioritiesJson))
+  }
+  return (
+    isNaN(normalizedPriorities.happiness) &&
+    isNaN(normalizedPriorities.affordability) &&
+    (isNaN(normalizedPriorities.politics.rep16_frac) ||
+     isNaN(normalizedPriorities.politics.dem16_frac))
+  )
+}
+
+PrioritiesModel.prototype.isNormalized = function(prioritiesJson) {
+
+  // Schema-check the input.  If it passes, it's suitable
+  // for use in making requests of the city ranking algorithm.
+
+  return typeof prioritiesJson === 'object' &&
+         prioritiesJson.hasOwnProperty('happiness') &&
+         prioritiesJson.hasOwnProperty('affordability') &&
+         prioritiesJson.hasOwnProperty('politics') &&
+         prioritiesJson.politics.hasOwnProperty('rep16_frac') &&
+         prioritiesJson.politics.hasOwnProperty('dem16_frac')
 }
 
 PrioritiesModel.prototype.restoreDefaults = function() {
@@ -56,7 +174,10 @@ PrioritiesModel.prototype.restoreDefaults = function() {
 
 PrioritiesModel.prototype.isValidRange = function(range) {
   if (!range) return false
-  return range.hasOwnProperty('min') && range.hasOwnProperty('max') && (typeof range.min === 'number') && (typeof range.max === 'number')
+  return range.hasOwnProperty('min') &&
+         range.hasOwnProperty('max') &&
+         (typeof range.min === 'number') &&
+         (typeof range.max === 'number')
 }
 
 PrioritiesModel.prototype.isBoolean = function(value) {
@@ -66,31 +187,33 @@ PrioritiesModel.prototype.isBoolean = function(value) {
 
 PrioritiesModel.prototype.isValidAffordabilityValue = function(value, range) {
   let isNum = (typeof value === 'number')
-  return (this.isValidRange(range) && isNum && Number.isInteger(value) && (value >= range.min && value <= range.max))
+  return (this.isValidRange(range) &&
+         isNum && Number.isInteger(value) &&
+         (value >= range.min && value <= range.max))
 }
 
 PrioritiesModel.prototype.isValidHappinessValue = function(value, range) {
   let isNum = (typeof value === 'number')
-  return (this.isValidRange(range) && isNum && Number.isInteger(value) && (value >= range.min && value <= range.max))
+  return (this.isValidRange(range) && isNum && Number.isInteger(value) &&
+         (value >= range.min && value <= range.max))
 }
 
 PrioritiesModel.prototype.isValidPoliticsValue = function(value, range) {
   let isObject = (typeof value) === 'object'
-  return (this.isValidRange(range) && 
-          isObject && 
-          value.hasOwnProperty('rep16_frac') && 
-          value.hasOwnProperty('dem16_frac') && 
-          (typeof value.rep16_frac) === 'number' && 
-          (typeof value.dem16_frac) === 'number' && 
+  return (this.isValidRange(range) &&
+          isObject &&
+          value.hasOwnProperty('rep16_frac') &&
+          value.hasOwnProperty('dem16_frac') &&
+          (typeof value.rep16_frac) === 'number' &&
+          (typeof value.dem16_frac) === 'number' &&
           (value.rep16_frac >= range.min && value.rep16_frac <= range.max) &&
           (value.dem16_frac >= range.min && value.dem16_frac <= range.max) &&
           (value.rep16_frac + value.dem16_frac <= range.max))
 }
 
-
 PrioritiesModel.prototype.getAffordabilityValue = function() {
   return this.affordabilityValue
-};
+}
 
 PrioritiesModel.prototype.setAffordabilityValue = function(value) {
   let result = false;
@@ -101,11 +224,11 @@ PrioritiesModel.prototype.setAffordabilityValue = function(value) {
     console.log('[Info] PrioritiesModel.setAffordabilityValue.  Ignoring invalid value:', value)
   }
   return result
-};
+}
 
 PrioritiesModel.prototype.getHappinessValue = function() {
   return this.happinessValue
-};
+}
 
 PrioritiesModel.prototype.setHappinessValue = function(value) {
   let result = false;
@@ -116,11 +239,11 @@ PrioritiesModel.prototype.setHappinessValue = function(value) {
     console.log('[Info] PrioritiesModel.setHappinessValue.  Invalid value:', value)
   }
   return result
-};
+}
 
 PrioritiesModel.prototype.getPoliticsValue = function() {
   return this.politicsValue
-};
+}
 
 PrioritiesModel.prototype.setPoliticsValue = function(value) {
   let result = false;
@@ -131,11 +254,11 @@ PrioritiesModel.prototype.setPoliticsValue = function(value) {
     console.log('[Info] PrioritiesModel.setPoliticsValue.  Invalid value:', value)
   }
   return result
-};
+}
 
 PrioritiesModel.prototype.getAffordabilityEnabled = function() {
   return this.affordabilityEnabled
-};
+}
 
 PrioritiesModel.prototype.setAffordabilityEnabled = function(value) {
   let result = false;
@@ -146,11 +269,11 @@ PrioritiesModel.prototype.setAffordabilityEnabled = function(value) {
     console.log('[Info] PrioritiesModel.setAffordabilityEnabled.  Invalid value:', value)
   }
   return result
-};
+}
 
 PrioritiesModel.prototype.getHappinessEnabled = function() {
   return this.happinessEnabled
-};
+}
 
 PrioritiesModel.prototype.setHappinessEnabled = function(value) {
   let result = false;
@@ -161,11 +284,11 @@ PrioritiesModel.prototype.setHappinessEnabled = function(value) {
     console.log('[Info] PrioritiesModel.setHappinessEnabled.  Invalid value:', value)
   }
   return result
-};
+}
 
 PrioritiesModel.prototype.getPoliticsEnabled = function() {
   return this.politicsEnabled
-};
+}
 
 PrioritiesModel.prototype.setPoliticsEnabled = function(value) {
   let result = false;
@@ -176,11 +299,11 @@ PrioritiesModel.prototype.setPoliticsEnabled = function(value) {
     console.log('[Info] PrioritiesModel.setPoliticsEnabled.  Invalid value:', value)
   }
   return result
-};
+}
 
 PrioritiesModel.prototype.getJobSearchEnabled = function() {
   return this.jobSearchEnabled
-};
+}
 
 PrioritiesModel.prototype.setJobSearchEnabled = function(value) {
   let result = false;
@@ -194,7 +317,7 @@ PrioritiesModel.prototype.setJobSearchEnabled = function(value) {
   }
   */
   return result
-};
+}
 
 //----------------------------------------------------------------------------------
 // Unit Test
@@ -266,8 +389,8 @@ function UnitTestPrioritiesModel() {
       failure = "Expected happinessEnabled == " + testHappinessEnabled + "  Got " + priorities.happinessEnabled
     } else if (priorities.politicsEnabled !== testPoliticsEnabled) {
       failure = "Expected politicsEnabled == " + testPoliticsEnabled + "  Got " + priorities.politicsEnabled
-    //} else if (priorities.jobSearchEnabled !== testJobSearchEnabled) {
-    } else if (priorities.jobSearchEnabled !== false) {
+    } else if (priorities.jobSearchEnabled !== false) { // TODO: Replace 'false' with testJobSearchEnabled
+                                                        //       once feature is implemented.
       failure = "Expected jobSearchEnabled == " + testJobSearchEnabled + "  Got " + priorities.jobSearchEnabled
     } 
 
@@ -537,7 +660,6 @@ function UnitTestPrioritiesModel() {
   } catch(e) {
     console.error(e)
   }
-
 
   // Test #8
   failure = ""
@@ -844,5 +966,4 @@ function UnitTestPrioritiesModel() {
   } catch(e) {
     console.error(e)
   }
-  
-}
+} // End UnitTest
