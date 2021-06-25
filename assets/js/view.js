@@ -7,12 +7,11 @@ function View(
   addSettingsPageEventListeners,
   cityRankModelCB,
   minHappinessValue,
-  midHappinessValue,
   maxHappinessValue,
   minAffordabilityValue,
-  midAffordabilityValue,
   maxAffordabilityValue,
-  midPoliticsValue,
+  minPoliticsValue,
+  maxPoliticsValue,
   githubUrl,
   hasPersistedSettings,
   getMaxResults,
@@ -24,7 +23,16 @@ function View(
   getCountryName,
   getCountryOptionsMap,
   getLocale,
-  getCurrency
+  getCurrency,
+  getAffordabilityValue,
+  getHappinessValue,
+  getPoliticsValue,
+  getAffordabilityEnabled,
+  getHappinessEnabled,
+  getPoliticsEnabled,
+  getJobSearchEnabled,
+  getNormalizedPriorities,
+  hasNoPriorities
 ) {
 
   // Bind to LocalPersistence interface.
@@ -40,6 +48,17 @@ function View(
   this.getCountryName = getCountryName
   this.getCountryOptionsMap = getCountryOptionsMap
 
+  // Bind to PriorityModel interface.
+  this.getAffordabilityValue = getAffordabilityValue
+  this.getHappinessValue = getHappinessValue
+  this.getPoliticsValue = getPoliticsValue
+  this.getAffordabilityEnabled = getAffordabilityEnabled
+  this.getHappinessEnabled = getHappinessEnabled
+  this.getPoliticsEnabled = getPoliticsEnabled
+  this.getJobSearchEnabled = getJobSearchEnabled
+  this.getNormalizedPriorities = getNormalizedPriorities
+  this.hasNoPriorities = hasNoPriorities
+
   this.bodyDivId = bodyDivId;
   this.rankedList = [];
   this.addMenuDrawerEventListeners = addMenuDrawerEventListeners;
@@ -54,20 +73,6 @@ function View(
   this.minAffordabilityValue = minAffordabilityValue;
   this.maxAffordabilityValue = maxAffordabilityValue;
   this.githubUrl = githubUrl;
-
-  this.userPrefs = {
-    happinessEnabled: this.switchHappinessEnabledDefault,
-    happiness: midHappinessValue,
-
-    affordabilityEnabled: this.switchAffordabilityEnabledDefault,
-    affordability: midAffordabilityValue,
-
-    politicsEnabled: this.switchPoliticsEnabledDefault,
-    politics: midPoliticsValue,
-
-    jobSearchEnabled: this.switchJobSearchEnabledDefault
-  };
-
   let locale = getLocale()
   let currency = getCurrency(getCountryCode())
 
@@ -81,30 +86,22 @@ function View(
   this.resultsMain = undefined;
 }
 
-View.prototype.switchHappinessEnabledDefault = true;
 View.prototype.switchHappinessId = "switch-happiness";
 View.prototype.sliderHappinessId = "slider-happiness";
 View.prototype.tooltipHappinessId = "tooltip-happiness";
 
-View.prototype.switchPoliticsEnabledDefault = true;
 View.prototype.switchPoliticsId = "switch-political-affiliation";
 View.prototype.sliderPoliticsId = "slider-politics";
 View.prototype.tooltipPoliticsId = "tooltip-politics";
 
-View.prototype.switchAffordabilityEnabledDefault = true;
 View.prototype.switchAffordabilityId = "switch-affordability";
 View.prototype.sliderAffordabilityId = "slider-affordability";
 View.prototype.tooltipAffordabilityId = "tooltip-affordability";
 
-View.prototype.switchJobSearchEnabledDefault = false;
 View.prototype.switchJobSearchId = "switch-jobsearch";
 View.prototype.tooltipJobSearchId = "tooltip-jobsearch";
 
 View.prototype.defaultDataView = "photo-view"; // photo-view | list-view | chart-view | map-view
-
-View.prototype.setUserPrefs = function(userPrefs) {
-  this.userPrefs = userPrefs;
-};
 
 View.prototype.setMaxResults = function() {
   let settingsPageMaxResultsEl = document.querySelector("#settings-max-results-selected");
@@ -411,15 +408,15 @@ View.prototype.createPreferencesMain = function() {
     rightSliderIcon: "fa-smile",
     minSliderVal: this.minHappinessValue,
     maxSliderVal: this.maxHappinessValue,
-    curSliderVal: this.userPrefs.happiness,
-    sliderEnabled: this.userPrefs.happinessEnabled,
+    curSliderVal: this.getHappinessValue(),
+    sliderEnabled: this.getHappinessEnabled(),
     prefLink: "",
     tooltipText: "Use slider below to adjust this preference.  Based upon a 2019 study by WalletHub across dimensions including overall well-being, employment, and community."
   };
   let c = this.createPreferencesSliderCard(prefParams);
   g.appendChild(c);
 
-  let curPoliticsVal = this.userPrefs.politics.rep16_frac;
+  let curPoliticsVal = this.getPoliticsValue().rep16_frac;
   prefParams = {
     img: "assets/img/politics-flags.jpg",
     titleText: "Prevailing Politics",
@@ -430,10 +427,10 @@ View.prototype.createPreferencesMain = function() {
     iconClass: "fas fa-lg pr-3",
     leftSliderIcon: "fa-democrat blue-text",
     rightSliderIcon: "fa-republican red-text",
-    minSliderVal: "0",
-    maxSliderVal: "100",
-    curSliderVal: `${curPoliticsVal}`,
-    sliderEnabled: this.userPrefs.politicsEnabled,
+    minSliderVal: this.minPoliticsValue,
+    maxSliderVal: this.maxPoliticsValue,
+    curSliderVal: curPoliticsVal,
+    sliderEnabled: this.getPoliticsEnabled(),
     prefLink: "",
     tooltipText: "Use slider below to adjust this preference of desired prevailing political environment.  Based upon county-level 2016 Presidential election data published by opendatasoft."
   };
@@ -452,8 +449,8 @@ View.prototype.createPreferencesMain = function() {
     rightSliderIcon: "fa-dollar-sign",
     minSliderVal: this.minAffordabilityValue,
     maxSliderVal: this.maxAffordabilityValue,
-    curSliderVal: this.userPrefs.affordability,
-    sliderEnabled: this.userPrefs.affordabilityEnabled,
+    curSliderVal: this.getAffordabilityValue(),
+    sliderEnabled: this.getAffordabilityEnabled(),
     prefLink: "",
     tooltipText: "Use slider below to specify desired relative cost of living.  Based upon 2017 median home price by county published by US Census."
   };
@@ -469,7 +466,7 @@ View.prototype.createPreferencesMain = function() {
     iconClass: "far fa-lg pr-3",
     icon: "fa-user",
     placeHolderText: "Job Title",
-    sliderEnabled: this.userPrefs.jobSearchEnabled,
+    sliderEnabled: this.getJobSearchEnabled(),
     prefLink: "",
     tooltipText: "This feature is currently unavailable."
   };
@@ -666,8 +663,8 @@ View.prototype.createResultsMain = function(bodyDiv) {
   let child = document.createElement("div");
   let g = document.createElement("div");
 
-  computedUserPrefs = this.getComputedUserPrefs();
-  if (this.noUserPreferences(computedUserPrefs)) {
+  userPriorities = this.getNormalizedPriorities();
+  if (this.hasNoPriorities(userPriorities)) {
     child.classList.add("grid-content");
     m.appendChild(child);
     let noPrefsParams = {
@@ -681,12 +678,12 @@ View.prototype.createResultsMain = function(bodyDiv) {
     m.appendChild(g);
     bodyDiv.appendChild(m);
   } else {
-    this.rankedList = this.cityRankModelCB(computedUserPrefs);
+    this.rankedList = this.cityRankModelCB(userPriorities);
     this.rankedList.length = this.getMaxResults();
     let rank = 1;
     switch (this.activeDataView) {
       case "list-view":
-        let ol = this.createListView(computedUserPrefs);
+        let ol = this.createListView(userPriorities);
         child.appendChild(ol);
         m.appendChild(child);
         bodyDiv.appendChild(m);
@@ -721,7 +718,7 @@ View.prototype.createResultsMain = function(bodyDiv) {
         // Call the model to get ranked list
         // of cities sorted by user preference.
         //-----------------------------------//
-        console.log("computed prefs passed to model =", computedUserPrefs);
+        console.log("normalized user priorities passed to model =", userPriorities);
         let monetizationPosition1 = 3;
         let monetizationPosition2 = 8;
         this.rankedList.map(cityData => {
@@ -743,12 +740,12 @@ View.prototype.createResultsMain = function(bodyDiv) {
   }
 };
 
-View.prototype.createListView = function(computedUserPrefs, rank = 1) {
+View.prototype.createListView = function(userPriorities, rank = 1) {
   console.log("list-view");
   let ol = document.createElement("ol");
   ol.classList.add("mdl-list");
   ol.setAttribute("style", "width: 95%");
-  console.log("computed prefs passed to model =", computedUserPrefs);
+  console.log("normalized user priorities passed to model =", userPriorities);
 
   // let monetizationPosition1 = 3;
   // let monetizationPosition2 = 8;
@@ -869,37 +866,6 @@ View.prototype.createMapView = function(mapId) {
         .bindPopup(markerText);
     }
   });
-};
-
-View.prototype.getComputedUserPrefs = function() {
-  let userPrefs = {};
-  if (this.userPrefs.happinessEnabled) {
-    userPrefs.happiness = parseInt(this.userPrefs.happiness);
-  } else {
-    userPrefs.happiness = NaN;
-  }
-  if (this.userPrefs.affordabilityEnabled) {
-    userPrefs.affordability = parseInt(this.userPrefs.affordability);
-  } else {
-    userPrefs.affordability = NaN;
-  }
-  if (this.userPrefs.politicsEnabled) {
-    userPrefs.politics = this.userPrefs.politics;
-    userPrefs.politics.dem16_frac = parseInt(userPrefs.politics.dem16_frac);
-    userPrefs.politics.rep16_frac = parseInt(userPrefs.politics.rep16_frac);
-  } else {
-    nanPolitics = { rep16_frac: NaN, dem16_frac: NaN };
-    userPrefs.politics = nanPolitics;
-  }
-  return userPrefs;
-};
-
-View.prototype.noUserPreferences = function(userPrefs) {
-  return (
-    isNaN(userPrefs.happiness) &&
-    isNaN(userPrefs.affordability) &&
-    isNaN(userPrefs.politics.rep16_frac)
-  );
 };
 
 View.prototype.marshallModelData = function(rank, cityData) {

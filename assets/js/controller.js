@@ -1,9 +1,21 @@
 function Controller(bodyDivId) {
-  this.model = new CityModel();
+  this.cityModel = new CityModel();
   this.cache = new LocalPersistence();
 
-  let numCities = this.model.getNumCities()
+  let numCities = this.cityModel.getNumCities()
   this.settings = new SettingsModel(numCities)
+
+  this.priorities = new PrioritiesModel(
+    this.cityModel.getMidAffordabilityValue(),
+    this.cityModel.getMidHappinessValue(),
+    this.cityModel.getMidPoliticsValue(),
+    {min: this.cityModel.getMinAffordabilityValue(),
+     max: this.cityModel.getMaxAffordabilityValue()},
+    {min: this.cityModel.getMinHappinessValue(),
+     max: this.cityModel.getMaxHappinessValue()},
+    {min: this.cityModel.getMinPoliticsValue(),
+     max: this.cityModel.getMaxPoliticsValue()}
+  )
 
   this.view = new View(
     bodyDivId,
@@ -12,15 +24,14 @@ function Controller(bodyDivId) {
     this.getPreferencesPageEventListeners().bind(this),
     this.getResultsPageEventListeners().bind(this),
     this.getSettingsPageEventListeners().bind(this),
-    this.model.getCityRankCB().bind(this.model),
-    this.model.getMinHappinessValue(),
-    this.model.getMidHappinessValue(),
-    this.model.getMaxHappinessValue(),
-    this.model.getMinAffordabilityValue(),
-    this.model.getMidAffordabilityValue(),
-    this.model.getMaxAffordabilityValue(),
-    this.model.getMidPoliticsValue(),
-    this.model.githubUrl,
+    this.cityModel.getCityRankCB().bind(this.cityModel),
+    this.cityModel.getMinHappinessValue(),
+    this.cityModel.getMaxHappinessValue(),
+    this.cityModel.getMinAffordabilityValue(),
+    this.cityModel.getMaxAffordabilityValue(),
+    this.cityModel.getMinPoliticsValue(),
+    this.cityModel.getMaxPoliticsValue(),
+    this.cityModel.githubUrl,
     this.cache.hasSettings.bind(this.cache),
     this.settings.getMaxResults.bind(this.settings),
     this.settings.getMaxResultsOptions.bind(this.settings),
@@ -31,7 +42,16 @@ function Controller(bodyDivId) {
     this.settings.getCountryName.bind(this.settings),
     this.settings.getCountryOptionsMap.bind(this.settings),
     this.settings.getLocale.bind(this.settings),
-    this.settings.getCurrency.bind(this.settings)
+    this.settings.getCurrency.bind(this.settings),
+    this.priorities.getAffordabilityValue.bind(this.priorities),
+    this.priorities.getHappinessValue.bind(this.priorities),
+    this.priorities.getPoliticsValue.bind(this.priorities),
+    this.priorities.getAffordabilityEnabled.bind(this.priorities),
+    this.priorities.getHappinessEnabled.bind(this.priorities),
+    this.priorities.getPoliticsEnabled.bind(this.priorities),
+    this.priorities.getJobSearchEnabled.bind(this.priorities),
+    this.priorities.getNormalizedPriorities.bind(this.priorities),
+    this.priorities.hasNoPriorities.bind(this.priorities)
   );
   this.view.createLandingBody();
 }
@@ -75,7 +95,7 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
     that.view.createSettingsBody()
   });
   this.delegate(document, "click", "#settings_restore_button", function(e) {
-    that.model.restoreDefaultSettings()
+    that.cityModel.restoreDefaultSettings()
     that.view.setMaxResults()  // TODO: really should be something like that.view.setState()
                                //       Should rebuild modal-occluded page to reflect restored state.
                                //       Really need an update-view entrypoint that.view.update()
@@ -251,16 +271,16 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
       } else {
         switch (switchId) {
           case that.view.switchHappinessId:
-            that.view.userPrefs.happinessEnabled = true;
+            that.priorities.setHappinessEnabled(true);
             break;
           case that.view.switchAffordabilityId:
-            that.view.userPrefs.affordabilityEnabled = true;
+            that.priorities.setAffordabilityEnabled(true);
             break;
           case that.view.switchPoliticsId:
-            that.view.userPrefs.politicsEnabled = true;
+            that.priorities.setPoliticsEnabled(true)
             break;
           // case that.view.switchJobSearchId:
-          //   that.userPrefs.jobSearchEnabled = true;
+          //   that.priorities.setJobSearchEnabled(true);
           //   break;
         }
         // console.log("checked");
@@ -269,16 +289,16 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
     } else {
       switch (switchId) {
         case that.view.switchHappinessId:
-          that.view.userPrefs.happinessEnabled = false;
+          that.priorities.setHappinessEnabled(false);
           break;
         case that.view.switchAffordabilityId:
-          that.view.userPrefs.affordabilityEnabled = false;
+          that.priorities.setAffordabilityEnabled(false);
           break;
         case that.view.switchPoliticsId:
-          that.view.userPrefs.politicsEnabled = false;
+          that.priorities.setPoliticsEnabled(false);
           break;
         case that.view.switchJobSearchId:
-          that.view.userPrefs.jobSearchEnabled = false;
+          that.priorities.setJobSearchEnabled(false);
           break;
       }
       // console.log("not checked");
@@ -288,7 +308,7 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
     //       class == ".mdl-card_title"
     let imgDiv = this.parentNode.parentNode.parentNode.childNodes[1];
     imgDiv.style.filter = imgColorFilter;
-    console.log("user prefs known to view = ", that.view.userPrefs);
+    console.log("user priorities known to view = ", that.priorities.getNormalizedPriorities())
   });
 };
 
@@ -309,7 +329,7 @@ Controller.prototype.addSliderEventListerners = function() {
 Controller.prototype.getPreferencesSliderHappinessCB = function() {
   let that = this;
   function innerCB(event) {
-    that.view.userPrefs.happiness = this.value;
+    that.priorities.setHappinessValue(Number(this.value))
     // console.log("happiness value = ", this.value);
   }
   return innerCB;
@@ -321,10 +341,7 @@ Controller.prototype.getPreferencesSliderPoliticsCB = function() {
     let value = this.value;
     let republicanVal = Number(value);
     let democratVal = 100 - republicanVal;
-    that.view.userPrefs.politics = {
-      rep16_frac: republicanVal,
-      dem16_frac: democratVal
-    };
+    that.priorities.setPoliticsValue({rep16_frac: republicanVal, dem16_frac: democratVal})
     // console.log("politics value = ", value);
   }
   return innerCB;
@@ -333,7 +350,7 @@ Controller.prototype.getPreferencesSliderPoliticsCB = function() {
 Controller.prototype.getPreferencesSliderAffordabilityCB = function() {
   let that = this;
   function innerCB(event) {
-    that.view.userPrefs.affordability = this.value;
+    that.priorities.setAffordabilityValue(Number(this.value));
     // console.log("affordability value = ", this.value);
   }
   return innerCB;

@@ -29,8 +29,14 @@ CityModel.prototype.getMidAffordabilityValue = function() {
 CityModel.prototype.getMaxAffordabilityValue = function() {
   return this.staticCityModel.maxAffordabilityValue;
 };
+CityModel.prototype.getMinPoliticsValue = function() {
+  return 0;
+};
 CityModel.prototype.getMidPoliticsValue = function() {
   return this.staticCityModel.midPoliticsValue;
+};
+CityModel.prototype.getMaxPoliticsValue = function() {
+  return 100;
 };
 CityModel.prototype.getNumCities = function() {
   return this.staticCityModel.data.length;

@@ -8,6 +8,7 @@ function PrioritiesModel(affordabilityValue,
                          politicsValue, 
                          affordabilityRange, 
                          happinessRange, 
+                         politicsRange,
                          affordabilityEnabled, 
                          happinessEnabled, 
                          politicsEnabled, 
@@ -21,6 +22,10 @@ function PrioritiesModel(affordabilityValue,
 
   if (!this.isValidRange(happinessRange)) {
     throw('PriorityModel: Failed constructor.  Invalid happinessRange input parameter')
+  }
+
+  if (!this.isValidRange(politicsRange)) {
+    throw('PriorityModel: Failed constructor.  Invalid politicsRange input parameter')
   }
   
   //------------------------------------
@@ -78,7 +83,7 @@ function PrioritiesModel(affordabilityValue,
   // Specify a range of valid values for this attribute along with a
   // desired target value.  Initial value defaults to range midpoint.
 
-  this.politicsRange = {min: 0, max: 100}  // Expressed as percentage.
+  this.politicsRange = politicsRange  // Expressed as percentage.
   this.dfltPoliticsValue = { rep16_frac: 50, dem16_frac: 50 }
   this.politicsValue = this.isValidPoliticsValue(politicsValue, this.politicsRange) ?
                           politicsValue : this.dfltPoliticsValue
@@ -142,10 +147,10 @@ PrioritiesModel.prototype.hasNoPriorities = function(prioritiesJson) {
     throw('PriorityModel: hasNoPriorities(). Input failed schema check:' + JSON.stringify(prioritiesJson))
   }
   return (
-    isNaN(normalizedPriorities.happiness) &&
-    isNaN(normalizedPriorities.affordability) &&
-    (isNaN(normalizedPriorities.politics.rep16_frac) ||
-     isNaN(normalizedPriorities.politics.dem16_frac))
+    isNaN(prioritiesJson.happiness) &&
+    isNaN(prioritiesJson.affordability) &&
+    (isNaN(prioritiesJson.politics.rep16_frac) ||
+     isNaN(prioritiesJson.politics.dem16_frac))
   )
 }
 
