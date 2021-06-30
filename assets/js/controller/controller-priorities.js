@@ -15,7 +15,7 @@ Controller.prototype.addPrioritiesPageEventListeners = function() {
   componentHandler.upgradeDom();
 
   this.addSlideSwitchClassEventListener();
-  this.addSliderEventListerners();
+  this.addSliderEventListeners();
 };
 
 Controller.prototype.addSlideSwitchClassEventListener = function() {
@@ -71,7 +71,7 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
   });
 };
 
-Controller.prototype.addSliderEventListerners = function() {
+Controller.prototype.addSliderEventListeners = function() {
   let sliderH = document.getElementById(this.view.sliderHappinessId);
   sliderH.addEventListener("change", this.getPrioritiesSliderHappinessCB());
 
