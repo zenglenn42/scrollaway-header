@@ -1,9 +1,15 @@
-// Capture the user's current priorities when it comes
-// to ranking a city's desirability.
+//----------------------------------------------------------------------------------
+// ModelPriorities
 //
+// This class maintains state related to the user's current priorities when it
+// comes to ranking a city's desirability.
+//
+// It exports getters for use by the view and setters for use by the controller.
+//----------------------------------------------------------------------------------
 // TODO: Make this observable (in the software patterns sense).
+//----------------------------------------------------------------------------------
 
-function PrioritiesModel(affordabilityValue, 
+function ModelPriorities(affordabilityValue, 
                          happinessValue, 
                          politicsValue, 
                          affordabilityRange, 
@@ -107,7 +113,7 @@ function PrioritiesModel(affordabilityValue,
   this.jobSearchEnabled = this.isBoolean(jobSearchEnabled) ? false : false
 }
 
-PrioritiesModel.prototype.getNormalizedPriorities = function() {
+ModelPriorities.prototype.getNormalizedPriorities = function() {
 
   // Marshall the user's current priorities into an object
   // suitable for making a request to rank a list of cities.
@@ -124,12 +130,12 @@ PrioritiesModel.prototype.getNormalizedPriorities = function() {
     prioritiesJson.affordability = NaN
   }
   if (this.politicsEnabled) {
-    prioritiesJson.politics = this.politicsValue;
-    prioritiesJson.politics.dem16_frac = parseInt(prioritiesJson.politics.dem16_frac);
-    prioritiesJson.politics.rep16_frac = parseInt(prioritiesJson.politics.rep16_frac);
+    prioritiesJson.politics = this.politicsValue
+    prioritiesJson.politics.dem16_frac = parseInt(prioritiesJson.politics.dem16_frac)
+    prioritiesJson.politics.rep16_frac = parseInt(prioritiesJson.politics.rep16_frac)
   } else {
     nanPolitics = { rep16_frac: NaN, dem16_frac: NaN }
-    prioritiesJson.politics = nanPolitics;
+    prioritiesJson.politics = nanPolitics
   }
   if (this.isNormalized(prioritiesJson)) {
     return prioritiesJson
@@ -138,7 +144,7 @@ PrioritiesModel.prototype.getNormalizedPriorities = function() {
   }
 }
 
-PrioritiesModel.prototype.hasNoPriorities = function(prioritiesJson) {
+ModelPriorities.prototype.hasNoPriorities = function(prioritiesJson) {
 
   // Detect if the user fails to specify any priorities.
   // Useful for creating guard-logic around requests for city ranking.
@@ -154,7 +160,7 @@ PrioritiesModel.prototype.hasNoPriorities = function(prioritiesJson) {
   )
 }
 
-PrioritiesModel.prototype.isNormalized = function(prioritiesJson) {
+ModelPriorities.prototype.isNormalized = function(prioritiesJson) {
 
   // Schema-check the input.  If it passes, it's suitable
   // for use in making requests of the city ranking algorithm.
@@ -167,7 +173,7 @@ PrioritiesModel.prototype.isNormalized = function(prioritiesJson) {
          prioritiesJson.politics.hasOwnProperty('dem16_frac')
 }
 
-PrioritiesModel.prototype.restoreDefaults = function() {
+ModelPriorities.prototype.restoreDefaults = function() {
   this.affordabilityValue = this.dfltAffordabilityValue
   this.happinessValue = this.dfltHappinessValue
   this.politicsValue = this.dfltPoliticsValue
@@ -175,9 +181,9 @@ PrioritiesModel.prototype.restoreDefaults = function() {
   this.happinessEnabled = this.dfltHappinessEnabled
   this.politicsEnabled = this.dfltPoliticsEnabled
   this.jobSearchEnabled = this.dfltJobSearchEnabled
-};
+}
 
-PrioritiesModel.prototype.isValidRange = function(range) {
+ModelPriorities.prototype.isValidRange = function(range) {
   if (!range) return false
   return range.hasOwnProperty('min') &&
          range.hasOwnProperty('max') &&
@@ -185,25 +191,25 @@ PrioritiesModel.prototype.isValidRange = function(range) {
          (typeof range.max === 'number')
 }
 
-PrioritiesModel.prototype.isBoolean = function(value) {
+ModelPriorities.prototype.isBoolean = function(value) {
   if (value === undefined) return false
   return (value === true || value === false)
 }
 
-PrioritiesModel.prototype.isValidAffordabilityValue = function(value, range) {
+ModelPriorities.prototype.isValidAffordabilityValue = function(value, range) {
   let isNum = (typeof value === 'number')
   return (this.isValidRange(range) &&
          isNum && Number.isInteger(value) &&
          (value >= range.min && value <= range.max))
 }
 
-PrioritiesModel.prototype.isValidHappinessValue = function(value, range) {
+ModelPriorities.prototype.isValidHappinessValue = function(value, range) {
   let isNum = (typeof value === 'number')
   return (this.isValidRange(range) && isNum && Number.isInteger(value) &&
          (value >= range.min && value <= range.max))
 }
 
-PrioritiesModel.prototype.isValidPoliticsValue = function(value, range) {
+ModelPriorities.prototype.isValidPoliticsValue = function(value, range) {
   let isObject = (typeof value) === 'object'
   return (this.isValidRange(range) &&
           isObject &&
@@ -216,109 +222,109 @@ PrioritiesModel.prototype.isValidPoliticsValue = function(value, range) {
           (value.rep16_frac + value.dem16_frac <= range.max))
 }
 
-PrioritiesModel.prototype.getAffordabilityValue = function() {
+ModelPriorities.prototype.getAffordabilityValue = function() {
   return this.affordabilityValue
 }
 
-PrioritiesModel.prototype.setAffordabilityValue = function(value) {
-  let result = false;
+ModelPriorities.prototype.setAffordabilityValue = function(value) {
+  let result = false
   if (this.isValidAffordabilityValue(value, this.affordabilityRange)) {
     this.affordabilityValue = value
     result = true
   } else {
-    console.log('[Info] PrioritiesModel.setAffordabilityValue.  Ignoring invalid value:', value)
+    console.log('[Info] ModelPriorities.setAffordabilityValue.  Ignoring invalid value:', value)
   }
   return result
 }
 
-PrioritiesModel.prototype.getHappinessValue = function() {
+ModelPriorities.prototype.getHappinessValue = function() {
   return this.happinessValue
 }
 
-PrioritiesModel.prototype.setHappinessValue = function(value) {
-  let result = false;
+ModelPriorities.prototype.setHappinessValue = function(value) {
+  let result = false
   if (this.isValidHappinessValue(value, this.happinessRange)) {
     this.happinessValue = value
     result = true
   } else {
-    console.log('[Info] PrioritiesModel.setHappinessValue.  Invalid value:', value)
+    console.log('[Info] ModelPriorities.setHappinessValue.  Invalid value:', value)
   }
   return result
 }
 
-PrioritiesModel.prototype.getPoliticsValue = function() {
+ModelPriorities.prototype.getPoliticsValue = function() {
   return this.politicsValue
 }
 
-PrioritiesModel.prototype.setPoliticsValue = function(value) {
-  let result = false;
+ModelPriorities.prototype.setPoliticsValue = function(value) {
+  let result = false
   if (this.isValidPoliticsValue(value, this.politicsRange)) {
     this.politicsValue = value
     result = true
   } else {
-    console.log('[Info] PrioritiesModel.setPoliticsValue.  Invalid value:', value)
+    console.log('[Info] ModelPriorities.setPoliticsValue.  Invalid value:', value)
   }
   return result
 }
 
-PrioritiesModel.prototype.getAffordabilityEnabled = function() {
+ModelPriorities.prototype.getAffordabilityEnabled = function() {
   return this.affordabilityEnabled
 }
 
-PrioritiesModel.prototype.setAffordabilityEnabled = function(value) {
-  let result = false;
+ModelPriorities.prototype.setAffordabilityEnabled = function(value) {
+  let result = false
   if (this.isBoolean(value)) {
     this.affordabilityEnabled = value
     result = true
   } else {
-    console.log('[Info] PrioritiesModel.setAffordabilityEnabled.  Invalid value:', value)
+    console.log('[Info] ModelPriorities.setAffordabilityEnabled.  Invalid value:', value)
   }
   return result
 }
 
-PrioritiesModel.prototype.getHappinessEnabled = function() {
+ModelPriorities.prototype.getHappinessEnabled = function() {
   return this.happinessEnabled
 }
 
-PrioritiesModel.prototype.setHappinessEnabled = function(value) {
-  let result = false;
+ModelPriorities.prototype.setHappinessEnabled = function(value) {
+  let result = false
   if (this.isBoolean(value)) {
     this.happinessEnabled = value
     result = true
   } else {
-    console.log('[Info] PrioritiesModel.setHappinessEnabled.  Invalid value:', value)
+    console.log('[Info] ModelPriorities.setHappinessEnabled.  Invalid value:', value)
   }
   return result
 }
 
-PrioritiesModel.prototype.getPoliticsEnabled = function() {
+ModelPriorities.prototype.getPoliticsEnabled = function() {
   return this.politicsEnabled
 }
 
-PrioritiesModel.prototype.setPoliticsEnabled = function(value) {
-  let result = false;
+ModelPriorities.prototype.setPoliticsEnabled = function(value) {
+  let result = false
   if (this.isBoolean(value)) {
     this.politicsEnabled = value
     result = true
   } else {
-    console.log('[Info] PrioritiesModel.setPoliticsEnabled.  Invalid value:', value)
+    console.log('[Info] ModelPriorities.setPoliticsEnabled.  Invalid value:', value)
   }
   return result
 }
 
-PrioritiesModel.prototype.getJobSearchEnabled = function() {
+ModelPriorities.prototype.getJobSearchEnabled = function() {
   return this.jobSearchEnabled
 }
 
-PrioritiesModel.prototype.setJobSearchEnabled = function(value) {
-  let result = false;
-  console.log('[Info] PrioritiesModel.setJobSearchEnabled. Feature disabled. Ignoring request.')
+ModelPriorities.prototype.setJobSearchEnabled = function(value) {
+  let result = false
+  console.log('[Info] ModelPriorities.setJobSearchEnabled. Feature disabled. Ignoring request.')
   /* TODO: Re-enable this once this feature is supported.
   if (this.isBoolean(value)) {
     this.jobSearchEnabled = value
     result = true
   } else {
-    console.log('[Info] PrioritiesModel.setJobSearchEnabled.  Invalid value:', value)
+    console.log('[Info] ModelPriorities.setJobSearchEnabled.  Invalid value:', value)
   }
   */
   return result
@@ -341,33 +347,35 @@ function mkPassMsg(codeUnderTest, iterations) {
   return passMsg
 }
 
-function UnitTestPrioritiesModel() {
+function UnitTestModelPriorities() {
   let cut = ""
   let failure = ""
   let errmsg = undefined
-  let module = "priorities-model.js"
+  let module = "model-priorities.js"
 
   console.log('Starting unit tests for ' + module)
   console.log('----------------------------------------')
 
-  console.log(' Instantiating priorities model object ...')
+  console.log(' Instantiating model priorities object ...')
 
   let testAffordability = 100000
   let testHappiness = 50
   let testPolitics = { rep16_frac: 40, dem16_frac: 60 }
   let testAffordabilityRange = {min: 82500, max: 927400}
   let testHappinessRange = {min: 29, max: 73}
+  let testPoliticsRange = {min: 0, max: 100}
   let testAffordabilityEnabled = true
   let testHappinessEnabled = true
   let testPoliticsEnabled = true
   let testJobSearchEnabled = true
 
-  let priorities = new PrioritiesModel(
+  let priorities = new ModelPriorities(
                           testAffordability, 
                           testHappiness, 
                           testPolitics,
                           testAffordabilityRange,
                           testHappinessRange,
+                          testPoliticsRange,
                           testAffordabilityEnabled, 
                           testHappinessEnabled, 
                           testPoliticsEnabled, 
@@ -375,7 +383,7 @@ function UnitTestPrioritiesModel() {
 
   // Test #1
   try {
-    cut = "PrioritiesModel(ctor)"
+    cut = "ModelPriorities(ctor)"
     console.log(' Verifying object construction ...')
 
     if (priorities.affordabilityValue !== testAffordability) {
@@ -411,7 +419,7 @@ function UnitTestPrioritiesModel() {
   // Test #2
   failure = ""
   try {
-    cut = "PrioritiesModel.isValidRange()"
+    cut = "ModelPriorities.isValidRange()"
 
     console.log(' Verifying we can detect well-formed range objects ...')
     let goodRange = {min: 0, max: 100}
@@ -449,7 +457,7 @@ function UnitTestPrioritiesModel() {
   // Test #3
   failure = ""
   try {
-    cut = "PrioritiesModel.isBoolean()"
+    cut = "ModelPriorities.isBoolean()"
     console.log(' Verifying we can detect boolean parameters ...')
 
     if (!priorities.isBoolean(true)) {
@@ -474,7 +482,7 @@ function UnitTestPrioritiesModel() {
   // Test #4
   failure = ""
   try {
-    cut = "PrioritiesModel.isValidAffordabilityValue()"
+    cut = "ModelPriorities.isValidAffordabilityValue()"
 
     console.log(' Verifying we can detect valid affordability values ...')
     //testAffordabilityRange = {min: 82500, max: 927400}
@@ -525,7 +533,7 @@ function UnitTestPrioritiesModel() {
   // Test #5
   failure = ""
   try {
-    cut = "PrioritiesModel.isValidHappinessValue()"
+    cut = "ModelPriorities.isValidHappinessValue()"
 
     //testHappinessRange = {min: 29, max: 73}
 
@@ -578,7 +586,7 @@ function UnitTestPrioritiesModel() {
   // Test #6
   failure = ""
   try {
-    cut = "PrioritiesModel.isValidPoliticsValue()"
+    cut = "ModelPriorities.isValidPoliticsValue()"
     // typical politics value = { rep16_frac: 50, dem16_frac: 50 }
     let testPoliticsRange = {min: 0, max: 100}
 
@@ -636,7 +644,7 @@ function UnitTestPrioritiesModel() {
   // Test #7
   failure = ""
   try {
-    cut = "PrioritiesModel.getAffordabilityValue() / *.setAffordabilityValue()"
+    cut = "ModelPriorities.getAffordabilityValue() / *.setAffordabilityValue()"
     // affordabilityValue: 100000
 
     console.log(' Verifying we can get affordabilityValue ...')
@@ -669,7 +677,7 @@ function UnitTestPrioritiesModel() {
   // Test #8
   failure = ""
   try {
-    cut = "PrioritiesModel.getHappinessValue() / *.setHappinessValue()"
+    cut = "ModelPriorities.getHappinessValue() / *.setHappinessValue()"
   
     // happinessValue: 50
 
@@ -703,7 +711,7 @@ function UnitTestPrioritiesModel() {
   // Test #9
   failure = ""
   try {
-    cut = "PrioritiesModel.getPoliticsValue() / *.setPoliticsValue()"
+    cut = "ModelPriorities.getPoliticsValue() / *.setPoliticsValue()"
     // politicsValue: { dem16_frac: 60, rep16_frac: 40 }
 
     console.log(' Verifying we can get politicsValue ...')
@@ -736,7 +744,7 @@ function UnitTestPrioritiesModel() {
   // Test #10
   failure = ""
   try {
-    cut = "PrioritiesModel.getAffordabilityEnabled() / *.setAffordabilityEnabled()"
+    cut = "ModelPriorities.getAffordabilityEnabled() / *.setAffordabilityEnabled()"
     // affordabilityEnabled: true
 
     console.log(' Verifying we can get affordabilityEnabled ...')
@@ -770,7 +778,7 @@ function UnitTestPrioritiesModel() {
   // Test #11
   failure = ""
   try {
-    cut = "PrioritiesModel.getHappinessEnabled() / *.setHappinessEnabled()"
+    cut = "ModelPriorities.getHappinessEnabled() / *.setHappinessEnabled()"
     // happinessEnabled: true
 
     console.log(' Verifying we can get happinessEnabled ...')
@@ -803,7 +811,7 @@ function UnitTestPrioritiesModel() {
   // Test #12
   failure = ""
   try {
-    cut = "PrioritiesModel.getPoliticsEnabled() / *.setPoliticsEnabled()"
+    cut = "ModelPriorities.getPoliticsEnabled() / *.setPoliticsEnabled()"
     // politicsEnabled: true
 
     console.log(' Verifying we can get politicsEnabled ...')
@@ -836,7 +844,7 @@ function UnitTestPrioritiesModel() {
   // Test #13
   failure = ""
   try {
-    cut = "PrioritiesModel.getJobSearchEnabled() / *.setJobSearchEnabled()"
+    cut = "ModelPriorities.getJobSearchEnabled() / *.setJobSearchEnabled()"
     // jobSearchEnabled: false
 
     console.log(' Verifying we can get jobSearchEnabled ...')
@@ -871,15 +879,16 @@ function UnitTestPrioritiesModel() {
   // Test #14
   failure = ""
   try {
-    cut = "PrioritiesModel(ctor) negative case"
+    cut = "ModelPriorities(ctor) negative case"
     console.log(' Verifying object construction failure on bad affordability range input parameter ...')
 
-    let failedPriorities = new PrioritiesModel(
+    let failedPriorities = new ModelPriorities(
                           testAffordability,
                           testHappiness,
                           testPolitics,
                           'bogus_affordability_range',
                           testHappinessRange,
+                          testPoliticsRange,
                           testAffordabilityEnabled,
                           testHappinessEnabled,
                           testPoliticsEnabled,
@@ -901,15 +910,16 @@ function UnitTestPrioritiesModel() {
   // Test #15
   failure = ""
   try {
-    cut = "PrioritiesModel(ctor) negative case"
+    cut = "ModelPriorities(ctor) negative case"
     console.log(' Verifying object construction failure on bad happiness range input parameter ...')
 
-    let failedPriorities = new PrioritiesModel(
+    let failedPriorities = new ModelPriorities(
                           testAffordability,
                           testHappiness,
                           testPolitics,
                           testAffordabilityRange,
                           'bogus_happiness_range',
+                          testPoliticsRange,
                           testAffordabilityEnabled,
                           testHappinessEnabled,
                           testPoliticsEnabled,
@@ -931,7 +941,39 @@ function UnitTestPrioritiesModel() {
   // Test #16
   failure = ""
   try {
-    cut = "PrioritiesModel.restoreDefaults()"
+    cut = "ModelPriorities(ctor) negative case"
+    console.log(' Verifying object construction failure on bad politics range input parameter ...')
+
+    let failedPriorities = new ModelPriorities(
+                          testAffordability,
+                          testHappiness,
+                          testPolitics,
+                          testAffordabilityRange,
+                          testHappinessRange,
+                          'bogus_politics_range',
+                          testPoliticsRange,
+                          testAffordabilityEnabled,
+                          testHappinessEnabled,
+                          testPoliticsEnabled,
+                          testJobSearchEnabled)
+
+    failure = "Expected to fail with politicsRange = 'bogus_politics_range', but passed."
+    throw(mkFailMsg(cut, failure))
+  } catch(e) {
+    let expectedError = "PriorityModel: Failed constructor.  Invalid politicsRange input parameter"
+    if (e !== expectedError) {
+      failure = "Expected to catch constructor error: \n"
+      failure += "         " + expectedError + "\n"
+      failure += "  got: " + e + "\n"
+      throw(mkFailMsg(cut, failure))
+    }
+    console.log(mkPassMsg(cut))
+  }
+
+  // Test #17
+  failure = ""
+  try {
+    cut = "ModelPriorities.restoreDefaults()"
     console.log(' Verifying ability to reset a priorities model object to a default state ...')
 
     let testAffordability = priorities.dfltAffordabilityValue
@@ -944,12 +986,13 @@ function UnitTestPrioritiesModel() {
     let testPoliticsEnabled = priorities.dfltPoliticsEnabled
     let testJobSearchEnabled = priorities.dfltJobSearchEnabled
 
-    let dfltPriorities = new PrioritiesModel(
+    let dfltPriorities = new ModelPriorities(
                            testAffordability, 
                            testHappiness, 
                            testPolitics,
                            testAffordabilityRange,
                            testHappinessRange,
+                           testPoliticsRange,
                            testAffordabilityEnabled, 
                            testHappinessEnabled, 
                            testPoliticsEnabled, 

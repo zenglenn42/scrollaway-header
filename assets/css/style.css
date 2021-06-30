@@ -130,17 +130,17 @@ div.mdl-menu__container > ul > li
   color: #fff;
 }
 
-.preference-card-square.mdl-card {
+.priority-card-square.mdl-card {
   width: 100%;
-  /* I'd like to limit the width of pref cells, but it has the
-     side-effect of messing with the centering of pref cards
+  /* I'd like to limit the width of priority cells, but it has the
+     side-effect of messing with the centering of priority cards
      within the grid cell. :-/  */
   /* max-width: 15.3125em; */
 }
 
 .mdl-switch__track,
 .mdl-switch.is-checked .mdl-switch__track {
-  /* Make preference card switch track standout more in enabled state. */
+  /* Make priority card switch track standout more in enabled state. */
   background: rgba(255, 255, 255, 0.7);
 }
 
@@ -303,7 +303,7 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 }
 
 .mdl-grid {
-  /* The mystical key to allowing pref cards
+  /* The mystical key to allowing priority cards
      to disappear before they hit the footer. */
   height: 73vh; /* Hmm ... may want to media query this. */
   overflow: scroll;

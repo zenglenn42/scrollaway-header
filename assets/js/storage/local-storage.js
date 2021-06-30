@@ -1,14 +1,14 @@
 //----------------------------------------------------------------------------------
-// LocalPersistence
+// LocalStorage
 //
-// This class manages the persistence of view models on the client machine.
+// This class manages the storage of view model state on the client machine.
 //
-// It basically wrappers the DOM's localStorage API but adds some modest
-// validation.  It provides a level of indirection should we elect to use
-// something else to persist the view models locally in the future.
+// It wrappers the DOM's localStorage API, adding some modest validation.
+// It provides a level of indirection should we elect to use something else to 
+// persist local state in the future.
 //----------------------------------------------------------------------------------
 
-function LocalPersistence() {
+function LocalStorage() {
   this._SETTINGS_KEY = 'settings'
   this._PRIORITIES_KEY = 'priorities'
 
@@ -16,7 +16,7 @@ function LocalPersistence() {
   this.priorities = this.get(this._PRIORITIES_KEY)
 }
 
-LocalPersistence.prototype.hasLocalStorage = function() {
+LocalStorage.prototype.hasLocalStorage = function() {
   // https://stackoverflow.com/questions/16427636/check-if-localstorage-is-available
   let test = 'test';
   try {
@@ -28,15 +28,15 @@ LocalPersistence.prototype.hasLocalStorage = function() {
   }
 }
 
-LocalPersistence.prototype.hasAppData = function() {
+LocalStorage.prototype.hasAppData = function() {
   return this.hasAppData
 }
 
-LocalPersistence.prototype.hasAppData = function() {
+LocalStorage.prototype.hasAppData = function() {
   return this.hasSettings() || this.hasPriorities()
 }
 
-LocalPersistence.prototype.hasSettings = function() {
+LocalStorage.prototype.hasSettings = function() {
   let value = undefined
   if (this.hasLocalStorage()) {
     value = localStorage.getItem(this._SETTINGS_KEY)
@@ -44,7 +44,7 @@ LocalPersistence.prototype.hasSettings = function() {
   return value
 }
 
-LocalPersistence.prototype.hasPriorities = function() {
+LocalStorage.prototype.hasPriorities = function() {
   let value = undefined
   if (this.hasLocalStorage()) {
     value = localStorage.getItem(this._PRIORITIES_KEY)
@@ -52,11 +52,11 @@ LocalPersistence.prototype.hasPriorities = function() {
   return value
 }
 
-LocalPersistence.prototype.isValidKey = function(key) {
+LocalStorage.prototype.isValidKey = function(key) {
   return (key === this._SETTINGS_KEY || key === this._PRIORITIES_KEY)
 }
 
-LocalPersistence.prototype.get = function(key) {
+LocalStorage.prototype.get = function(key) {
   let localValue = undefined
   const badEncoding = "[object Object]" // This happens if an object is inadequately encoded during setItem.
                                         // Used to prevent exception if JSON.parse attempts to decode as an array.
@@ -70,7 +70,7 @@ LocalPersistence.prototype.get = function(key) {
   return localValue
 }
 
-LocalPersistence.prototype.set = function(key, value) {
+LocalStorage.prototype.set = function(key, value) {
   let result = undefined
 
   if (this.isValidKey(key)) {
@@ -85,15 +85,15 @@ LocalPersistence.prototype.set = function(key, value) {
   return result
 }
 
-LocalPersistence.prototype.clearSettings = function() {
+LocalStorage.prototype.clearSettings = function() {
   return this.clear(this._SETTINGS_KEY)
 }
 
-LocalPersistence.prototype.clearPriorities = function() {
+LocalStorage.prototype.clearPriorities = function() {
   return this.clear(this._PRIORITIES_KEY)
 }
 
-LocalPersistence.prototype.clear = function(localKey) {
+LocalStorage.prototype.clear = function(localKey) {
   let result = false
 
   try {
@@ -108,7 +108,7 @@ LocalPersistence.prototype.clear = function(localKey) {
     }
   } catch(e) {
     let arg = (localKey) ? localKey : ''
-    console.log('LocalPersistence.clear(' + arg + ') failed.')
+    console.log('LocalStorage.clear(' + arg + ') failed.')
   }
   return result
 }
@@ -132,23 +132,23 @@ function mkPassMsg(codeUnderTest, iterations) {
   return passMsg
 }
 
-function UnitTestLocalPersistence() {
+function UnitTestLocalStorage() {
   let cut = ""
   let failure = undefined
   let errmsg = undefined
-  let module = "local-persistence.js"
+  let module = "local-storage.js"
 
   console.log('Starting unit tests for ' + module)
   console.log('---------------------------------------')
-  console.log(' Instantiating local persistence object ...')
-  let cache = new LocalPersistence();
+  console.log(' Instantiating local storage object ...')
+  let cache = new LocalStorage();
 
   console.log(' Clearing any previously persisted app data ...')
   cache.clear()
 
   // Test #1
   try {
-    cut = "LocalPersistence.hasLocalStorage()"
+    cut = "LocalStorage.hasLocalStorage()"
     console.log(' Verifying client browser supports local storage ...')
     if (!cache.hasLocalStorage()) {
       failure = "Unable to write and read a test object to local storage."
@@ -165,7 +165,7 @@ function UnitTestLocalPersistence() {
 
   // Test #2
   try {
-    cut = "LocalPersistence(ctor)"
+    cut = "LocalStorage(ctor)"
     console.log(' Verifying constants ...')
 
     if (cache._SETTINGS_KEY !== 'settings') {
@@ -186,7 +186,7 @@ function UnitTestLocalPersistence() {
 
   // Test #3
   try {
-    cut = "LocalPersistence.hasAppData()"
+    cut = "LocalStorage.hasAppData()"
     console.log(' Verifying no app data is persisted ...')
     if (cache.hasAppData()) {
       failure = "Expecting no persisted app data but found some."
@@ -203,7 +203,7 @@ function UnitTestLocalPersistence() {
 
   // Test #4
   try {
-    cut = "LocalPersistence.isValidKey()"
+    cut = "LocalStorage.isValidKey()"
     console.log(' Verifying key validation (positive case) ...')
     if (!cache.isValidKey(cache._SETTINGS_KEY) || 
         !cache.isValidKey(cache._PRIORITIES_KEY)) {
@@ -221,7 +221,7 @@ function UnitTestLocalPersistence() {
 
   // Test #5
   try {
-    cut = "LocalPersistence.isValidKey()"
+    cut = "LocalStorage.isValidKey()"
     console.log(' Verifying key validation (negative case) ...')
     if (cache.isValidKey('bogusKey')) {
       failure = "Validated a bogus key. :-/"
@@ -238,7 +238,7 @@ function UnitTestLocalPersistence() {
 
   // Test #6
   try {
-    cut = "LocalPersistence.set()"
+    cut = "LocalStorage.set()"
     console.log(' Verifying ability to store a key/value pair ...')
     let key = 'settings'
     let value = {maxResults: 10, country: 'United States', lang: 'en-US'}
@@ -258,7 +258,7 @@ function UnitTestLocalPersistence() {
 
   // Test #7
   try {
-    cut = "LocalPersistence.get()"
+    cut = "LocalStorage.get()"
     console.log(' Verifying ability to retrieve a persisted value with a key ...')
     let key = 'settings'
     let value = {maxResults: 10, country: 'United States', lang: 'en-US'}

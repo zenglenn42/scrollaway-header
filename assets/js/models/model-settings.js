@@ -1,4 +1,22 @@
-function SettingsModel(numCities, maxResults, langCode, countryCode) {
+//----------------------------------------------------------------------------------
+// ModelSettings
+//
+// This class maintains state related to the application's settings:
+//
+//    language, 
+//    country of interest, 
+//    number of cities to include in the ranked results
+//
+// Support for localization is sketched out, though we're currently
+// hard coding for an en-US locale.
+//----------------------------------------------------------------------------------
+// TODO: Make this observable (in the software patterns sense).
+//
+// TODO: Take a page from this model and introduce it to other models for supporting
+//       localization.
+//----------------------------------------------------------------------------------
+
+function ModelSettings(numCities, maxResults, langCode, countryCode) {
 
   // Number of cities in the database for the country indicated by countryCode.
 
@@ -11,10 +29,10 @@ function SettingsModel(numCities, maxResults, langCode, countryCode) {
   this.maxResults = (this.isValidMaxResults(maxResults)) ? maxResults : this.dfltMaxResults
 
   // Populates drop-down selection list in view.
-  // TODO: Make this algorithmic, using numCities as an upper-bound on maxResultsOptions.
 
   this.dfltMaxResultsOptions = [this.maxResults]
-  this.maxResultsOptions = [5, 10, 20] 
+  this.maxResultsOptions = [5, 10, 20] // TODO: Make this algorithmic, using numCities 
+                                       // as an upper-bound on maxResultsOptions.
   if (!this.isValidNumCities(numCities) || numCities < 20) {
     this.maxResultsOptions = this.dfltMaxResultsOptions
   }
@@ -66,113 +84,113 @@ function SettingsModel(numCities, maxResults, langCode, countryCode) {
   }
 }
 
-SettingsModel.prototype.restoreDefaults = function() {
+ModelSettings.prototype.restoreDefaults = function() {
   this.maxResults = this.dfltMaxResults
   this.langCode = this.dfltLangCode
   this.countryCode = this.dfltCountryCode
-};
+}
 
-SettingsModel.prototype.isValidNumCities = function(numCities) {
+ModelSettings.prototype.isValidNumCities = function(numCities) {
   return (numCities && Number.isInteger(numCities) && Number.isInteger(numCities) > 0)
 }
 
-SettingsModel.prototype.getNumCities = function() {
+ModelSettings.prototype.getNumCities = function() {
   return this.numCities
-};
+}
 
-SettingsModel.prototype.setNumCities = function(numCities) {
-  let result = false;
+ModelSettings.prototype.setNumCities = function(numCities) {
+  let result = false
   if (this.isValidNumCities(numCities)) {
     this.numCities = numCities
     result = true
   } else {
-    console.log('Error SettingsModel.setNumCities.  Invalid value:', numCities)
+    console.log('Error ModelSettings.setNumCities.  Invalid value:', numCities)
   }
   return result
-};
+}
 
-SettingsModel.prototype.isValidMaxResults = function(maxResults) {
+ModelSettings.prototype.isValidMaxResults = function(maxResults) {
   // TODO: When city model data becomes dynamic, we should probably
   //       make this model subscribe to city model for changes in numCities.
   return Number.isInteger(maxResults) && maxResults > 0 && maxResults <= this.numCities
-};
+}
 
-SettingsModel.prototype.getMaxResults = function() {
+ModelSettings.prototype.getMaxResults = function() {
   if (this.isValidMaxResults(this.maxResults)) {
     return this.maxResults
   } else {
     return this.dfltMaxResults
   }
-};
+}
 
-SettingsModel.prototype.setMaxResults = function(maxResults) {
-  let result = false;
+ModelSettings.prototype.setMaxResults = function(maxResults) {
+  let result = false
   if (this.isValidMaxResults(maxResults)) {
     this.maxResults = maxResults
     result = true
   } else {
-    console.log('Error SettingsModel.setMaxResults.  maxResults out of range:', maxResults)
+    console.log('Error ModelSettings.setMaxResults.  maxResults out of range:', maxResults)
   }
   return result
-};
+}
 
-SettingsModel.prototype.getMaxResultsOptions = function() {
+ModelSettings.prototype.getMaxResultsOptions = function() {
   // Return a copy of the array so model doesn't get accidentally mutated by view.
   return this.maxResultsOptions.slice(0)  
-};
+}
 
-SettingsModel.prototype.isValidLangCode = function(langCode) {
+ModelSettings.prototype.isValidLangCode = function(langCode) {
   return (langCode === "en")
-};
+}
 
-SettingsModel.prototype.getLangCode = function() {
+ModelSettings.prototype.getLangCode = function() {
   if (this.isValidLangCode(this.langCode)) {
     return this.langCode
   } else {
     return this.dfltLangCode
   }
-};
+}
 
-SettingsModel.prototype.getLangName = function(langCode) {
+ModelSettings.prototype.getLangName = function(langCode) {
   let langName = "missing-langName"
   if (this.isValidLangCode(this.langCode)) {
     langName = (this.langOptionsMap.hasOwnProperty(langCode) &&
                 this.langOptionsMap[langCode].hasOwnProperty('name')) ?
                this.langOptionsMap[langCode].name : langCode + "-" + langName
   } else {
-    console.error('SettingsModel.getLangName(langCode): Invalid langCode =', langCode)
+    console.error('ModelSettings.getLangName(langCode): Invalid langCode =', langCode)
   }
   return langName
-};
+}
 
-SettingsModel.prototype.getLangOptionsMap = function() {
+ModelSettings.prototype.getLangOptionsMap = function() {
   return JSON.parse(JSON.stringify(this.langOptionsMap))
-};
+}
 
-SettingsModel.prototype.setLangCode = function(langCode) {
-  let result = false;
+ModelSettings.prototype.setLangCode = function(langCode) {
+  let result = false
   if (this.isValidLangCode(langCode)) {
     this.langCode = langCode
     result = true
   } else {
-    console.log('Error SettingsModel.setLangCode.  Invalid lang code:', langCode)
+    console.log('Error ModelSettings.setLangCode.  Invalid lang code:', langCode)
   }
   return result
-};
+}
 
-SettingsModel.prototype.isValidCountryCode = function(countryCode) {
+ModelSettings.prototype.isValidCountryCode = function(countryCode) {
   return (countryCode === "US")
-};
+}
 
-SettingsModel.prototype.getCountryCode = function() {
+ModelSettings.prototype.getCountryCode = function() {
   if (this.isValidCountryCode(this.countryCode)) {
     return this.countryCode
   } else {
     return this.dfltCountryCode
   }
-};
+}
 
-SettingsModel.prototype.getCountryName = function(countryCode) {
+ModelSettings.prototype.getCountryName = function(countryCode) {
   let countryName = "missing-countryName"
   if (this.isValidCountryCode(this.countryCode)) {
     countryName =
@@ -180,25 +198,25 @@ SettingsModel.prototype.getCountryName = function(countryCode) {
          this.countryOptionsMap[countryCode].hasOwnProperty('name')) ?
         this.countryOptionsMap[countryCode].name : countryCode + "-" + countryName
   } else {
-    console.error('SettingsModel.getLangName(countryCode): Invalid countryCode =', countryCode)
+    console.error('ModelSettings.getLangName(countryCode): Invalid countryCode =', countryCode)
   }
   return countryName
-};
+}
 
-SettingsModel.prototype.getCountryOptionsMap = function() {
+ModelSettings.prototype.getCountryOptionsMap = function() {
   return JSON.parse(JSON.stringify(this.countryOptionsMap))
-};
+}
 
-SettingsModel.prototype.setCountryCode = function(countryCode) {
-  let result = false;
+ModelSettings.prototype.setCountryCode = function(countryCode) {
+  let result = false
   if (this.isValidCountryCode(countryCode)) {
     this.countryCode = countryCode
     result = true
   } else {
-    console.log('Error SettingsModel.setCountryCode.  Invalid country code:', countryCode)
+    console.log('Error ModelSettings.setCountryCode.  Invalid country code:', countryCode)
   }
   return result
-};
+}
 
 // Introduce notion of locale (based upon BCP 47 standard).
 //
@@ -210,7 +228,7 @@ SettingsModel.prototype.setCountryCode = function(countryCode) {
 // written script variants such as 'simplified' versus 'traditional' 
 // Chinese).
 
-SettingsModel.prototype.getLocale = function() {
+ModelSettings.prototype.getLocale = function() {
   return this.langCode + "-" + this.countryCode
 }
 
@@ -221,7 +239,7 @@ SettingsModel.prototype.getLocale = function() {
 // For example, given the countryCode = "US" return "USD".
 // This is used by the view to generate the related "$" symbol.
 
-SettingsModel.prototype.getCurrency = function(countryCode) {
+ModelSettings.prototype.getCurrency = function(countryCode) {
   let code = countryCode || this.countryCode
 
   return this.countryOptionsMap[code].currency
@@ -244,21 +262,21 @@ function mkPassMsg(codeUnderTest, iterations) {
   return passMsg
 }
 
-function UnitTestSettingsModel() {
+function UnitTestModelSettings() {
   let cut = ""
   let failure = undefined
   let errmsg = undefined
-  let module = "settings-model.js"
+  let module = "model-settings.js"
 
   console.log('Starting unit tests for ' + module)
   console.log('---------------------------------------')
 
-  console.log(' Instantiating settings model object ...')
-  let settings = new SettingsModel()
+  console.log(' Instantiating model settings object ...')
+  let settings = new ModelSettings()
 
   // Test #1
   try {
-    cut = "SettingsModel(ctor)"
+    cut = "ModelSettings(ctor)"
     console.log(' Verifying default construction ...')
     if (settings.numCities !== 0) {
       failure = "Expected numCities == 0.  Got numCities == " + settings.numCities
@@ -282,7 +300,7 @@ function UnitTestSettingsModel() {
   // Test #2
   failure = undefined
   try {
-    cut = "SettingsModel.setNumCities()"
+    cut = "ModelSettings.setNumCities()"
     console.log(' Verifying ability to set numCities ...')
     settings.setNumCities(42)
     let numCities = settings.getNumCities()
@@ -302,7 +320,7 @@ function UnitTestSettingsModel() {
   // Test #3
   failure = undefined
   try {
-    cut = "SettingsModel.setMaxResults()"
+    cut = "ModelSettings.setMaxResults()"
     console.log(' Verifying ability to set maxResults ...')
     settings.setMaxResults(17)
     let maxResults = settings.getMaxResults()
@@ -322,7 +340,7 @@ function UnitTestSettingsModel() {
   // Test #4
   failure = undefined
   try {
-    cut = "SettingsModel.setLangCode()"
+    cut = "ModelSettings.setLangCode()"
     console.log(' Verifying ability to set langCode ...')
     settings.setLangCode("en")
     let langCode = settings.getLangCode()
@@ -342,7 +360,7 @@ function UnitTestSettingsModel() {
   // Test #5
   failure = undefined
   try {
-    cut = "SettingsModel.setCountryCode()"
+    cut = "ModelSettings.setCountryCode()"
     console.log(' Verifying ability to set countryCode ...')
     settings.setCountryCode("US")
     let countryCode = settings.getCountryCode()
@@ -362,9 +380,9 @@ function UnitTestSettingsModel() {
   // Test #6
   failure = undefined
   try {
-    cut = "SettingsModel.getMaxResultsOptions()"
+    cut = "ModelSettings.getMaxResultsOptions()"
     console.log(' Verifying ability to get maxResultsOptions array ...')
-    settings = new SettingsModel(178)
+    settings = new ModelSettings(178)
     let maxResultsOptions = settings.getMaxResultsOptions()
     if (JSON.stringify(maxResultsOptions) !== JSON.stringify([5, 10, 20])) {
       failure = "Expected [5, 10, 20].  Got maxResultsOptions == " + maxResultsOptions
@@ -382,12 +400,12 @@ function UnitTestSettingsModel() {
   // Test #7
   failure = undefined
   try {
-    cut = "SettingsModel(ctor) negative case"
+    cut = "ModelSettings(ctor) negative case"
     console.log(' Verifying fallback to default values on invalid ctor params ...')
     let badMaxResults = "i should be a number"
     let badLangCode = "bd"
     let badCountryCode = "BD"
-    settings = new SettingsModel(178, badMaxResults, badLangCode, badCountryCode)
+    settings = new ModelSettings(178, badMaxResults, badLangCode, badCountryCode)
     if (settings.maxResults !== settings.dfltMaxResults) {
       failure = "Expected maxResults == " + settings.dfltMaxResults + " Got maxResults == " + settings.maxResults
     }
@@ -410,7 +428,7 @@ function UnitTestSettingsModel() {
   // Test #8
   failure = undefined
   try {
-    cut = "SettingsModel.getLangName(langCode) positive case"
+    cut = "ModelSettings.getLangName(langCode) positive case"
     console.log(' Verifying ability to fetch a language name given a iso lang code ...')
     let langName = settings.getLangName("en")
     if (langName !== "English") {
@@ -433,7 +451,7 @@ function UnitTestSettingsModel() {
   // Test #9
   failure = undefined
   try {
-    cut = "SettingsModel.getLangName(langCode) negative case"
+    cut = "ModelSettings.getLangName(langCode) negative case"
     console.log(' Verifying ability to fetch a language name given a iso lang code ...')
     let langName = settings.getLangName("bogus")
     if (langName !== "bogus-missing-langName") {
@@ -451,8 +469,8 @@ function UnitTestSettingsModel() {
   // Test #10
   failure = undefined
   try {
-    settings = new SettingsModel(178, 10, "en", "US")
-    cut = "SettingsModel.getCountryName(countryCode), *.getLocale(), *.getCurrency()  positive case"
+    settings = new ModelSettings(178, 10, "en", "US")
+    cut = "ModelSettings.getCountryName(countryCode), *.getLocale(), *.getCurrency()  positive case"
     console.log(' Verifying ability to fetch a country name given an iso country code ...')
     let countryName = settings.getCountryName("US")
     if (countryName !== "United States") {
@@ -484,7 +502,7 @@ function UnitTestSettingsModel() {
   // Test #11
   failure = undefined
   try {
-    cut = "SettingsModel.getCountryName(countryCode) negative case"
+    cut = "ModelSettings.getCountryName(countryCode) negative case"
     console.log(' Verifying ability to fetch a country name given an iso country code ...')
     let countryName = settings.getCountryName("bogus")
     if (countryName !== "bogus-missing-countryName") {
