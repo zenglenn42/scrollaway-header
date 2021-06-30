@@ -1,9 +1,22 @@
+//----------------------------------------------------------------------------------
+// Controller (for Edit Settings page)
+//
+// These methods define the event listeners associated with the settings view.
+//
+// The event handlers typically cause the settings model and view to be updated
+// for attributes like:
+//
+//    * language / locale
+//    * country of interest
+//    * number of cities to display in results
+//----------------------------------------------------------------------------------
+
 Controller.prototype.getSettingsPageEventListeners = function() {
-  return this.addSettingsPageEventListeners;
-};
+  return this.addSettingsPageEventListeners
+}
 
 Controller.prototype.addSettingsPageEventListeners = function() {
-  nextButton = document.getElementById("navigate_next");
+  nextButton = document.getElementById("navigate_next")
   nextPageAttr = nextButton.getAttribute("data-nextpage") || "landing"
 
   switch(nextPageAttr) {
@@ -11,14 +24,14 @@ Controller.prototype.addSettingsPageEventListeners = function() {
       nextButton.addEventListener(
         "click",
         this.getNextButtonEventListener(this.view.createPrioritiesBody.bind(this.view))
-      );
+      )
       break
 
     case "results":
       nextButton.addEventListener(
         "click",
         this.getNextButtonEventListener(this.view.createResultsBody.bind(this.view))
-      );
+      )
       break
 
     case "landing":
@@ -26,7 +39,7 @@ Controller.prototype.addSettingsPageEventListeners = function() {
       nextButton.addEventListener(
         "click",
         this.getNextButtonEventListener(this.view.createLandingBody.bind(this.view))
-      );
+      )
       break
   }
 
@@ -48,10 +61,10 @@ Controller.prototype.addSettingsPageEventListeners = function() {
                                        // in the model.
            }
            // console.log(`click show top ${value} cities`)
-     });
+     })
   })
 
   /* Make hamburger menu responsive to clicks. */
-  componentHandler.downgradeElements(document.querySelector(".mdl-layout"));
-  componentHandler.upgradeDom();
-};
+  componentHandler.downgradeElements(document.querySelector(".mdl-layout"))
+  componentHandler.upgradeDom()
+}
