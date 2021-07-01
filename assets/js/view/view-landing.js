@@ -14,19 +14,22 @@ View.prototype.createLandingBody = function() {
   let bodyDiv = document.getElementById(this.bodyDivId)
   bodyDiv.innerHTML = ""
 
-  let header = this.createHeader("City Match", "search")
+  let appName = this.getAppName()
+  let slogan = this.getSlogan()
+  let blurb = this.getBlurb()
+  let header = this.createHeader(appName, "search")
+
+  // Split newline-delimited sentences from blurb text into
+  // separate array entries for more latitude with html formatting.
+  let delimitedBlurb = blurb.split("\n")
+
   let menuDrawer = this.createMenuDrawer()
   this.addMenuDrawerEventListeners()
 
   let hamburgerMenu = this.createHamburgerMenu()
-  let landingText1 =
-    "Thinking about a move but not sure which city is your best bet?"
-  let landingText2 =
-    "Share your priorities and we'll offer some options to consider."
   let mainLanding = this.createLandingMain(
-    "Find your city",
-    landingText1,
-    landingText2
+    slogan,
+    delimitedBlurb
   )
   let footer = this.createFooter()
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu)
@@ -35,23 +38,26 @@ View.prototype.createLandingBody = function() {
   this.addLandingPageEventListeners()
 }
 
-View.prototype.createLandingMain = function(
-  titleText,
-  supportText1,
-  supportText2
-) {
+
+View.prototype.createLandingMain = function(slogan, blurbArray) {
   let m = document.createElement("main")
   m.classList.add("content")
   m.setAttribute("id", "main")
   m.setAttribute("data-currpage", "landing")
+
+  // Present each blurb array text element as a separate html paragraph.
+  let blurbParagraphs = blurbArray.reduce((acc, blurbItem) => {
+      acc += `<p>${blurbItem}</p>`
+      return acc
+    }, "")
+
   m.innerHTML = `
       <div class="landing-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-          <h2 class="mdl-card__title-text">${titleText}</h2>
+          <h2 class="mdl-card__title-text">${slogan}</h2>
         </div>
         <div id="landing-text" class="mdl-card__supporting-text">
-          <p>${supportText1}</p>
-          <p>${supportText2}</p>
+          ${blurbParagraphs}
         </div>
       </div>    
     `

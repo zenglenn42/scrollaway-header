@@ -60,7 +60,10 @@ function View(
   getPoliticsEnabled,
   getJobSearchEnabled,
   getNormalizedPriorities,
-  hasNoPriorities
+  hasNoPriorities,
+  getAppName,
+  getSlogan,
+  getBlurb
 ) {
 
   // Bind to LocalPersistence interface.
@@ -86,6 +89,11 @@ function View(
   this.getJobSearchEnabled = getJobSearchEnabled
   this.getNormalizedPriorities = getNormalizedPriorities
   this.hasNoPriorities = hasNoPriorities
+
+  // Bind to LandingModel interface.
+  this.getAppName = getAppName
+  this.getSlogan = getSlogan
+  this.getBlurb = getBlurb
 
   this.bodyDivId = bodyDivId
   this.rankedList = []

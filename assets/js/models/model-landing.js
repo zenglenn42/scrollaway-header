@@ -20,6 +20,10 @@ function ModelLanding(locale) {
     "en-US": {
       appName: "City Match",
       slogan: "Find your city",
+
+      // NB: Strive to keep blurb text short, ideally not more than 2 sentences
+      //     with each sentence < 80 characters.
+
       blurb: "Thinking about a move but not sure which city is your best bet?\n" +
                          "Share your priorities and we'll offer some options to consider."
     }

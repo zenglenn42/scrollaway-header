@@ -29,8 +29,10 @@
 function Controller(bodyDivId) {
   this.cache = new LocalStorage()
 
+  // Instantiate model.
   this.cities = new ModelCities()
 
+  // Instantiate view models.
   let numCities = this.cities.getNumCities()
   this.settings = new ModelSettings(numCities)
 
@@ -45,7 +47,10 @@ function Controller(bodyDivId) {
     {min: this.cities.getMinPoliticsValue(),
      max: this.cities.getMaxPoliticsValue()}
   )
+  this.landing = new ModelLanding()
 
+
+  // Instantiate view, passing in state getters from models.
   this.view = new View(
     bodyDivId,
     this.getMenuDrawerEventListeners().bind(this),
@@ -80,7 +85,10 @@ function Controller(bodyDivId) {
     this.priorities.getPoliticsEnabled.bind(this.priorities),
     this.priorities.getJobSearchEnabled.bind(this.priorities),
     this.priorities.getNormalizedPriorities.bind(this.priorities),
-    this.priorities.hasNoPriorities.bind(this.priorities)
+    this.priorities.hasNoPriorities.bind(this.priorities),
+    this.landing.getAppName.bind(this.landing),
+    this.landing.getSlogan.bind(this.landing),
+    this.landing.getBlurb.bind(this.landing)
   )
 
   this.view.createLandingBody()
