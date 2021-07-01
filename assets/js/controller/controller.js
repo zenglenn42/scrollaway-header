@@ -88,7 +88,8 @@ function Controller(bodyDivId) {
     this.priorities.hasNoPriorities.bind(this.priorities),
     this.landing.getAppName.bind(this.landing),
     this.landing.getSlogan.bind(this.landing),
-    this.landing.getBlurb.bind(this.landing)
+    this.landing.getBlurb.bind(this.landing),
+    this.landing.getCopyrightDate.bind(this.landing)
   )
 
   this.view.createLandingBody()

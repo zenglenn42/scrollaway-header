@@ -25,7 +25,8 @@ function ModelLanding(locale) {
       //     with each sentence < 80 characters.
 
       blurb: "Thinking about a move but not sure which city is your best bet?\n" +
-                         "Share your priorities and we'll offer some options to consider."
+                         "Share your priorities and we'll offer some options to consider.",
+      copyrightDate: "2021"
     }
   }
 }
@@ -94,6 +95,19 @@ ModelLanding.prototype.getBlurb = function() {
   } else {
     result = (this.locale) ? result + "_" + this.locale : result
     console.log("ModelLanding:getBlurb() Error ", result)
+  }
+  return result
+}
+
+ModelLanding.prototype.getCopyrightDate = function() {
+  let result = "missing_date"
+  if (this.isValidLocaleProperty(this.locale, 'copyrightDate')) {
+    result = this.msgCatalog[this.locale].copyrightDate
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'copyrightDate')) {
+    result = this.msgCatalog[this.dfltLocale].copyrightDate
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelLanding:getCopyrightDate() Error ", result)
   }
   return result
 }
@@ -241,6 +255,28 @@ function UnitTestModelLanding() {
 
     if (actualBlurb !== expectedBlurb) {
       failure = "Didn't get expected blurb.  Got " + actualBlurb
+    }
+
+    if (failure) {
+      throw(mkFailMsg(cut, failure))
+    } else {
+      console.log(mkPassMsg(cut))
+    }
+  } catch(e) {
+    console.error(e)
+  }
+
+  // Test #7
+  try {
+    failure = ""
+    cut = "ModelLanding.getCopyrightDate()"
+    console.log(' Verifying expected copyright date is returned from getter ...')
+
+    let actualCrDate = landingModel.getCopyrightDate()
+    let expectCrDate = '2021'
+
+    if (actualCrDate !== expectCrDate) {
+      failure = "Expected copyright date of " + expectCrDate + " Got " + actualCrDate
     }
 
     if (failure) {

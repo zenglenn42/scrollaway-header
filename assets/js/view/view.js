@@ -63,7 +63,8 @@ function View(
   hasNoPriorities,
   getAppName,
   getSlogan,
-  getBlurb
+  getBlurb,
+  getCopyrightDate
 ) {
 
   // Bind to LocalPersistence interface.
@@ -94,6 +95,7 @@ function View(
   this.getAppName = getAppName
   this.getSlogan = getSlogan
   this.getBlurb = getBlurb
+  this.getCopyrightDate = getCopyrightDate
 
   this.bodyDivId = bodyDivId
   this.rankedList = []
@@ -272,6 +274,9 @@ View.prototype.createMenuDrawer = function(title="Menu", menuItemsArray=[]) {
 }
 
 View.prototype.createFooter = function(fabIcon="navigate_next", fabIconId="navigate_next", nextPage="priorities") {
+  let appName = this.getAppName()
+  let copyrightDate = this.getCopyrightDate()
+
   f = document.createElement("footer")
   f.classList.add("mdl-mini-footer")
   f.innerHTML = `
@@ -281,7 +286,7 @@ View.prototype.createFooter = function(fabIcon="navigate_next", fabIconId="navig
       <div class="mdl-mini-footer__left-section"><span class="copyright-text">
         <i class="material-icons footer-icons">location_city</i>
         <i class="material-icons footer-icons" style="position:relative; left:-0.5em">favorite</i>
-        <span class="copyright-text" style="position:relative; left:-1.5em">City Match &copy; 2019</span>
+        <span class="copyright-text" style="position:relative; left:-1.5em">${appName} &copy; ${copyrightDate}</span>
       </div>
       <div class="mdl-mini-footer__right-section">
         <a href="${this.githubUrl}" target="_blank" title="github" ref="noreferrer noopener">
