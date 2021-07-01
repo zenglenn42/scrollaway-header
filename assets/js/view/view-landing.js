@@ -35,6 +35,11 @@ View.prototype.createLandingBody = function() {
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu)
   bodyDiv.appendChild(mainLanding)
   bodyDiv.appendChild(footer)
+
+  // Make hamburger menu responsive to clicks.
+  componentHandler.downgradeElements(document.querySelector(".mdl-layout"))
+  componentHandler.upgradeDom()
+
   this.addLandingPageEventListeners()
 }
 
