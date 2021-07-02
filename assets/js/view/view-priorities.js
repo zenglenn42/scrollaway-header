@@ -28,8 +28,8 @@ View.prototype.tooltipJobSearchId = "tooltip-jobsearch"
 View.prototype.createPrioritiesBody = function createPrioritiesBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
   bodyDiv.innerHTML = ""
-  let header = this.createHeader(
-        "Share your priorities ...", "search")
+  let title = this.getPrioritiesTitle()
+  let header = this.createHeader(title)
   let menuDrawer = this.createMenuDrawer()
   let hamburgerMenu = this.createHamburgerMenu()
   let mainPriorities = this.createPrioritiesMain()
@@ -54,9 +54,11 @@ View.prototype.createPrioritiesMain = function() {
   g.classList.add("mdl-grid")
   m.appendChild(g)
 
+  let happinessTitle = this.getPrioritiesHappinessTitle()
+  let happinessTooltip = this.getPrioritiesHappinessTooltip()
   let priorityParams = {
     img: "assets/img/civic-happiness-sf.jpg",
-    titleText: "Civic Happiness",
+    titleText: happinessTitle,
     id: "happiness",
     switchId: `${this.switchHappinessId}`,
     sliderId: `${this.sliderHappinessId}`,
@@ -70,15 +72,17 @@ View.prototype.createPrioritiesMain = function() {
     curSliderVal: this.getHappinessValue(),
     sliderEnabled: this.getHappinessEnabled(),
     priorityLink: "",
-    tooltipText: "Use slider below to adjust this priority.  Based upon a 2019 study by WalletHub across dimensions including overall well-being, employment, and community."
+    tooltipText: happinessTooltip
   }
   let c = this.createPrioritiesSliderCard(priorityParams)
   g.appendChild(c)
 
+  let politicsTitle = this.getPrioritiesPoliticsTitle()
+  let politicsTooltip = this.getPrioritiesPoliticsTooltip()
   let curPoliticsVal = this.getPoliticsValue().rep16_frac
   priorityParams = {
     img: "assets/img/politics-flags.jpg",
-    titleText: "Prevailing Politics",
+    titleText: politicsTitle,
     switchId: `${this.switchPoliticsId}`,
     sliderId: `${this.sliderPoliticsId}`,
     sliderContainerId: `${this.sliderPoliticsId}-container`,
@@ -91,14 +95,16 @@ View.prototype.createPrioritiesMain = function() {
     curSliderVal: curPoliticsVal,
     sliderEnabled: this.getPoliticsEnabled(),
     priorityLink: "",
-    tooltipText: "Use slider below to adjust this priority of desired prevailing political environment.  Based upon county-level 2016 Presidential election data published by opendatasoft."
+    tooltipText: politicsTooltip
   }
   c = this.createPrioritiesSliderCard(priorityParams)
   g.appendChild(c)
 
+  let affordabilityTitle = this.getPrioritiesAffordabilityTitle()
+  let affordabilityTooltip = this.getPrioritiesAffordabilityTooltip()
   priorityParams = {
     img: "assets/img/affordability-piggybank.jpg",
-    titleText: "Cost of Living",
+    titleText: affordabilityTitle,
     switchId: `${this.switchAffordabilityId}`,
     sliderId: `${this.sliderAffordabilityId}`,
     sliderContainerId: `${this.sliderAffordabilityId}-container`,
@@ -111,23 +117,26 @@ View.prototype.createPrioritiesMain = function() {
     curSliderVal: this.getAffordabilityValue(),
     sliderEnabled: this.getAffordabilityEnabled(),
     priorityLink: "",
-    tooltipText: "Use slider below to specify desired relative cost of living.  Based upon 2017 median home price by county published by US Census."
+    tooltipText: affordabilityTooltip
   }
   c = this.createPrioritiesSliderCard(priorityParams)
   g.appendChild(c)
 
+  let jobSearchTitle = this.getPrioritiesJobSearchTitle()
+  let jobSearchTooltip = this.getPrioritiesJobSearchTooltip()
+  let jobSearchPlaceholder = this.getPrioritiesJobSearchPlaceholder()
   priorityParams = {
     img: "assets/img/job-search.jpg",
     switchId: `${this.switchJobSearchId}`,
     inputId: "input-jobsearch",
     tooltipId: `${this.tooltipJobSearchId}`,
-    titleText: "Job Outlook",
+    titleText: jobSearchTitle,
     iconClass: "far fa-lg pr-3",
     icon: "fa-user",
-    placeHolderText: "Job Title",
+    placeholderText: jobSearchPlaceholder,
     sliderEnabled: this.getJobSearchEnabled(),
     priorityLink: "",
-    tooltipText: "This feature is currently unavailable."
+    tooltipText: jobSearchTooltip
   }
   c = this.createPrioritiesTextinputCard(priorityParams)
   g.appendChild(c)
@@ -273,7 +282,7 @@ View.prototype.createPrioritiesTextinputCard = function(priorityParams) {
               type="text"
               id="${priorityParams.inputId}"
               class="form-control"
-              placeholder="Job Title (disabled)"
+              placeholder="${priorityParams.placeholderText}"
               disabled
             />
           </div>

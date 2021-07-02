@@ -61,6 +61,16 @@ function View(
   getJobSearchEnabled,
   getNormalizedPriorities,
   hasNoPriorities,
+  getPrioritiesTitle,
+  getPrioritiesHappinessTitle,
+  getPrioritiesHappinessTooltip,
+  getPrioritiesPoliticsTitle,
+  getPrioritiesPoliticsTooltip,
+  getPrioritiesAffordabilityTitle,
+  getPrioritiesAffordabilityTooltip,
+  getPrioritiesJobSearchTitle,
+  getPrioritiesJobSearchTooltip,
+  getPrioritiesJobSearchPlaceholder,
   getAppName,
   getSlogan,
   getBlurb,
@@ -102,6 +112,16 @@ function View(
   this.getJobSearchEnabled = getJobSearchEnabled
   this.getNormalizedPriorities = getNormalizedPriorities
   this.hasNoPriorities = hasNoPriorities
+  this.getPrioritiesTitle = getPrioritiesTitle
+  this.getPrioritiesHappinessTitle = getPrioritiesHappinessTitle
+  this.getPrioritiesHappinessTooltip = getPrioritiesHappinessTooltip
+  this.getPrioritiesPoliticsTitle = getPrioritiesPoliticsTitle
+  this.getPrioritiesPoliticsTooltip = getPrioritiesPoliticsTooltip
+  this.getPrioritiesAffordabilityTitle = getPrioritiesAffordabilityTitle
+  this.getPrioritiesAffordabilityTooltip = getPrioritiesAffordabilityTooltip
+  this.getPrioritiesJobSearchTitle = getPrioritiesJobSearchTitle
+  this.getPrioritiesJobSearchTooltip = getPrioritiesJobSearchTooltip
+  this.getPrioritiesJobSearchPlaceholder = getPrioritiesJobSearchPlaceholder
 
   // Bind to LandingModel interface.
   this.getAppName = getAppName

@@ -18,7 +18,8 @@ function ModelPriorities(affordabilityValue,
                          affordabilityEnabled, 
                          happinessEnabled, 
                          politicsEnabled, 
-                         jobSearchEnabled) {
+                         jobSearchEnabled,
+                         locale="en-US") {
 
   // Validate required input parameters.
 
@@ -111,6 +112,191 @@ function ModelPriorities(affordabilityValue,
 
   this.dfltJobSearchEnabled = false
   this.jobSearchEnabled = this.isBoolean(jobSearchEnabled) ? false : false
+
+  //------------------------------------
+  // Presentational strings
+  //------------------------------------
+  this.dfltLocale = "en-US"
+  this.locale = (this.isValidLocale(locale)) ? locale : this.dfltLocale
+
+  this.msgCatalog = {
+    "en-US": {
+      title: "Share your priorities ...",
+      happinessTitle: "Civic Happiness",
+      happinessTooltip: "Use slider below to adjust this priority. " +
+                        "Based upon a 2019 study by WalletHub across dimensions including " +
+                        "overall well-being, employment, and community.",
+      politicsTitle: "Prevailing Politics",
+      politicsTooltip: "Use slider below to adjust this priority of desired prevailing " +
+                       "political environment.  Based upon county-level 2016 Presidential " +
+                       "election data published by opendatasoft.",
+      affordabilityTitle: "Cost of Living",
+      affordabilityTooltip: "Use slider below to specify desired relative cost of living. " +
+                            "Based upon 2017 median home price by county published by US Census.",
+      jobSearchTitle: "Job Outlook",
+      jobSearchTooltip: "This feature is currently unavailable.",
+      jobSearchPlaceholder: "Job Title (disabled)"
+    }
+  }
+}
+
+ModelPriorities.prototype.setLocale = function(locale) {
+  let result = false
+  if (this.isValidLocale(locale)) {
+    this.locale = locale
+    result = true
+  } else {
+    console.log('Error ModelPriorities.setLocale.  Invalid locale:', locale)
+  }
+  return result
+}
+
+ModelPriorities.prototype.isValidLocale = function(locale) {
+  return (locale === "en-US")
+}
+
+ModelPriorities.prototype.getLocale = function() {
+  if (this.isValidLocale(this.locale)) {
+    return this.locale
+  } else {
+    console.log("ModelPriorities.getLocale() Info: returning default locale. Not", this.locale)
+    return this.dfltLocale
+  }
+}
+
+ModelPriorities.prototype.isValidLocaleProperty = function(locale, prop) {
+  return (this.msgCatalog.hasOwnProperty(locale)) &&
+         (this.msgCatalog[locale].hasOwnProperty(prop))
+}
+
+ModelPriorities.prototype.getTitle = function() {
+  let result = "missing_title"
+  if (this.isValidLocaleProperty(this.locale, 'title')) {
+    result = this.msgCatalog[this.locale].title
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'title')) {
+    result = this.msgCatalog[this.dfltLocale].title
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelPriorities:getTitle() Error ", result)
+  }
+  return result
+}
+
+ModelPriorities.prototype.getHappinessTitle = function() {
+  let result = "missing_happiness_title"
+  if (this.isValidLocaleProperty(this.locale, 'happinessTitle')) {
+    result = this.msgCatalog[this.locale].happinessTitle
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'happinessTitle')) {
+    result = this.msgCatalog[this.dfltLocale].happinessTitle
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelPriorities:getHappinessTitle() Error ", result)
+  }
+  return result
+}
+
+ModelPriorities.prototype.getHappinessTooltip = function() {
+  let result = "missing_happiness_tooltip"
+  if (this.isValidLocaleProperty(this.locale, 'happinessTooltip')) {
+    result = this.msgCatalog[this.locale].happinessTooltip
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'happinessTooltip')) {
+    result = this.msgCatalog[this.dfltLocale].happinessTooltip
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelPriorities:getHappinessTooltip() Error ", result)
+  }
+  return result
+}
+
+ModelPriorities.prototype.getPoliticsTitle = function() {
+  let result = "missing_politics_title"
+  if (this.isValidLocaleProperty(this.locale, 'politicsTitle')) {
+    result = this.msgCatalog[this.locale].politicsTitle
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'politicsTitle')) {
+    result = this.msgCatalog[this.dfltLocale].politicsTitle
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelPriorities:getPoliticsTitle() Error ", result)
+  }
+  return result
+}
+
+ModelPriorities.prototype.getPoliticsTooltip = function() {
+  let result = "missing_politics_tooltip"
+  if (this.isValidLocaleProperty(this.locale, 'politicsTooltip')) {
+    result = this.msgCatalog[this.locale].politicsTooltip
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'politicsTooltip')) {
+    result = this.msgCatalog[this.dfltLocale].politicsTooltip
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelPriorities:getPoliticsTooltip() Error ", result)
+  }
+  return result
+}
+
+ModelPriorities.prototype.getAffordabilityTitle = function() {
+  let result = "missing_affordability_title"
+  if (this.isValidLocaleProperty(this.locale, 'affordabilityTitle')) {
+    result = this.msgCatalog[this.locale].affordabilityTitle
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'affordabilityTitle')) {
+    result = this.msgCatalog[this.dfltLocale].affordabilityTitle
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelPriorities:getAffordabilityTitle() Error ", result)
+  }
+  return result
+}
+
+ModelPriorities.prototype.getAffordabilityTooltip = function() {
+  let result = "missing_affordability_tooltip"
+  if (this.isValidLocaleProperty(this.locale, 'affordabilityTooltip')) {
+    result = this.msgCatalog[this.locale].affordabilityTooltip
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'affordabilityTooltip')) {
+    result = this.msgCatalog[this.dfltLocale].affordabilityTooltip
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelPriorities:getAffordabilityTooltip() Error ", result)
+  }
+  return result
+}
+
+ModelPriorities.prototype.getJobSearchTitle = function() {
+  let result = "missing_jobSearch_title"
+  if (this.isValidLocaleProperty(this.locale, 'jobSearchTitle')) {
+    result = this.msgCatalog[this.locale].jobSearchTitle
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'jobSearchTitle')) {
+    result = this.msgCatalog[this.dfltLocale].jobSearchTitle
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelPriorities:getJobSearchTitle() Error ", result)
+  }
+  return result
+}
+
+ModelPriorities.prototype.getJobSearchTooltip = function() {
+  let result = "missing_jobSearch_tooltip"
+  if (this.isValidLocaleProperty(this.locale, 'jobSearchTooltip')) {
+    result = this.msgCatalog[this.locale].jobSearchTooltip
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'jobSearchTooltip')) {
+    result = this.msgCatalog[this.dfltLocale].jobSearchTooltip
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelPriorities:getJobSearchTooltip() Error ", result)
+  }
+  return result
+}
+
+ModelPriorities.prototype.getJobSearchPlaceholder = function() {
+  let result = "missing_jobSearch_placeholder"
+  if (this.isValidLocaleProperty(this.locale, 'jobSearchPlaceholder')) {
+    result = this.msgCatalog[this.locale].jobSearchPlaceholder
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'jobSearchPlaceholder')) {
+    result = this.msgCatalog[this.dfltLocale].jobSearchPlaceholder
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelPriorities:getJobSearchPlaceholder() Error ", result)
+  }
+  return result
 }
 
 ModelPriorities.prototype.getNormalizedPriorities = function() {

@@ -33,9 +33,9 @@ function Controller(bodyDivId) {
   this.cities = new ModelCities()
 
   // Instantiate view models.
-  let numCities = this.cities.getNumCities()
-  this.settings = new ModelSettings(numCities)
-
+  this.menu = new ModelMenu()
+  this.landing = new ModelLanding()
+  this.settings = new ModelSettings(this.cities.getNumCities())
   this.priorities = new ModelPriorities(
     this.cities.getMidAffordabilityValue(),
     this.cities.getMidHappinessValue(),
@@ -46,11 +46,8 @@ function Controller(bodyDivId) {
      max: this.cities.getMaxHappinessValue()},
     {min: this.cities.getMinPoliticsValue(),
      max: this.cities.getMaxPoliticsValue()}
+     // TODO: Eventually add locale param here.
   )
-  this.landing = new ModelLanding()
-
-  this.menu = new ModelMenu()
-
 
   // Instantiate view, passing in state getters from models.
   this.view = new View(
@@ -88,6 +85,16 @@ function Controller(bodyDivId) {
     this.priorities.getJobSearchEnabled.bind(this.priorities),
     this.priorities.getNormalizedPriorities.bind(this.priorities),
     this.priorities.hasNoPriorities.bind(this.priorities),
+    this.priorities.getTitle.bind(this.priorities),
+    this.priorities.getHappinessTitle.bind(this.priorities),
+    this.priorities.getHappinessTooltip.bind(this.priorities),
+    this.priorities.getPoliticsTitle.bind(this.priorities),
+    this.priorities.getPoliticsTooltip.bind(this.priorities),
+    this.priorities.getAffordabilityTitle.bind(this.priorities),
+    this.priorities.getAffordabilityTooltip.bind(this.priorities),
+    this.priorities.getJobSearchTitle.bind(this.priorities),
+    this.priorities.getJobSearchTooltip.bind(this.priorities),
+    this.priorities.getJobSearchPlaceholder.bind(this.priorities),
     this.landing.getAppName.bind(this.landing),
     this.landing.getSlogan.bind(this.landing),
     this.landing.getBlurb.bind(this.landing),
