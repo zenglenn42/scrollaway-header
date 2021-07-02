@@ -92,7 +92,18 @@ function Controller(bodyDivId) {
     this.landing.getSlogan.bind(this.landing),
     this.landing.getBlurb.bind(this.landing),
     this.landing.getCopyrightDate.bind(this.landing),
-    this.menu.getMenuTitle.bind(this.menu)
+    this.menu.getMenuTitle.bind(this.menu),
+    this.menu.getMenuView.bind(this.menu),
+    this.menu.getMenuViewIntro.bind(this.menu),
+    this.menu.getMenuViewPriorities.bind(this.menu),
+    this.menu.getMenuViewBestBets.bind(this.menu),
+    this.menu.getMenuViewBlog.bind(this.menu),
+    this.menu.getMenuSettings.bind(this.menu),
+    this.menu.getMenuSettingsEdit.bind(this.menu),
+    this.menu.getMenuSettingsUseLang.bind(this.menu),
+    this.menu.getMenuSettingsShowCities.bind(this.menu),
+    this.menu.getMenuSettingsShowTop.bind(this.menu),
+    this.menu.getMenuSettingsHelp.bind(this.menu)
   )
 
   this.view.createLandingBody()

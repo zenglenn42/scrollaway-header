@@ -16,7 +16,18 @@ function ModelMenu(locale) {
 
   this.msgCatalog = {
     "en-US": {
-      title: "Menu"
+      title: "Menu",
+      view: "View",
+      viewIntro: "1. Introduction",
+      viewPriorities: "2. Your priorities",
+      viewBestBets: "3. Your best bets",
+      viewBlog: "Blog",
+      settings: "Settings",
+      settingsEdit: "Edit",
+      useLang: "Use %s",
+      showCities: "Show cities in %s",
+      showTop: "Show top %d cities",
+      help: "Help"
     }
   }
 }
@@ -59,6 +70,152 @@ ModelMenu.prototype.getMenuTitle = function() {
   } else {
     result = (this.locale) ? result + "_" + this.locale : result
     console.log("ModelMenu:getMenuTitle() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuView = function() {
+  let result = "missing_view"
+  if (this.isValidLocaleProperty(this.locale, 'view')) {
+    result = this.msgCatalog[this.locale].view
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'view')) {
+    result = this.msgCatalog[this.dfltLocale].view
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelMenu:getMenuView() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuViewIntro = function() {
+  let result = "missing_view_intro"
+  if (this.isValidLocaleProperty(this.locale, 'viewIntro')) {
+    result = this.msgCatalog[this.locale].viewIntro
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'viewIntro')) {
+    result = this.msgCatalog[this.dfltLocale].viewIntro
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelMenu:getMenuViewIntro() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuViewPriorities = function() {
+  let result = "missing_view_priorities"
+  if (this.isValidLocaleProperty(this.locale, 'viewPriorities')) {
+    result = this.msgCatalog[this.locale].viewPriorities
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'viewPriorities')) {
+    result = this.msgCatalog[this.dfltLocale].viewPriorities
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelMenu:getMenuViewPriorities() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuViewBestBets = function() {
+  let result = "missing_view_bestbets"
+  if (this.isValidLocaleProperty(this.locale, 'viewBestBets')) {
+    result = this.msgCatalog[this.locale].viewBestBets
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'viewBestBets')) {
+    result = this.msgCatalog[this.dfltLocale].viewBestBets
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelMenu:getMenuViewBestBets() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuViewBlog = function() {
+  let result = "missing_view_blog"
+  if (this.isValidLocaleProperty(this.locale, 'viewBlog')) {
+    result = this.msgCatalog[this.locale].viewBlog
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'viewBlog')) {
+    result = this.msgCatalog[this.dfltLocale].viewBlog
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelMenu:getMenuViewBlog() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuSettings = function() {
+  let result = "missing_settings"
+  if (this.isValidLocaleProperty(this.locale, 'settings')) {
+    result = this.msgCatalog[this.locale].settings
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'settings')) {
+    result = this.msgCatalog[this.dfltLocale].settings
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelMenu:getMenuSettings() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuSettingsEdit = function() {
+  let result = "missing_settings_edit"
+  if (this.isValidLocaleProperty(this.locale, 'settingsEdit')) {
+    result = this.msgCatalog[this.locale].settingsEdit
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'settingsEdit')) {
+    result = this.msgCatalog[this.dfltLocale].settingsEdit
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelMenu:getMenuSettingsEdit() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuSettingsUseLang = function(lang = "missing_lang") {
+  let result = "missing_settings_useLang"
+  if (this.isValidLocaleProperty(this.locale, 'useLang')) {
+    result = this.msgCatalog[this.locale].useLang
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'useLang')) {
+    result = this.msgCatalog[this.dfltLocale].useLang
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelMenu:getMenuSettingsUseLang() Error ", result)
+  }
+  result = result.replace("%s", lang)
+  return result
+}
+
+ModelMenu.prototype.getMenuSettingsShowCities = function(country = "missing_country") {
+  let result = "missing_settings_showCities"
+  if (this.isValidLocaleProperty(this.locale, 'showCities')) {
+    result = this.msgCatalog[this.locale].showCities
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'showCities')) {
+    result = this.msgCatalog[this.dfltLocale].showCities
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelMenu:getMenuSettingsShowCities() Error ", result)
+  }
+  result = result.replace("%s", country)
+  return result
+}
+
+ModelMenu.prototype.getMenuSettingsShowTop = function(numCities) {
+  let result = "missing_settings_showTop"
+  if (this.isValidLocaleProperty(this.locale, 'showTop')) {
+    result = this.msgCatalog[this.locale].showTop
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'showTop')) {
+    result = this.msgCatalog[this.dfltLocale].showTop
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelMenu:getMenuSettingsShowTop() Error ", result)
+  }
+  result = result.replace("%d", JSON.stringify(numCities))
+  return result
+}
+
+ModelMenu.prototype.getMenuSettingsHelp = function() {
+  let result = "missing_settings_help"
+  if (this.isValidLocaleProperty(this.locale, 'help')) {
+    result = this.msgCatalog[this.locale].help
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'help')) {
+    result = this.msgCatalog[this.dfltLocale].help
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelMenu:getMenuSettingsHelp() Error ", result)
   }
   return result
 }

@@ -66,6 +66,17 @@ function View(
   getBlurb,
   getCopyrightDate,
   getMenuTitle,
+  getMenuView,
+  getMenuViewIntro,
+  getMenuViewPriorities,
+  getMenuViewBestBets,
+  getMenuViewBlog,
+  getMenuSettings,
+  getMenuSettingsEdit,
+  getMenuSettingsUseLang,
+  getMenuSettingsShowCities,
+  getMenuSettingsShowTop,
+  getMenuSettingsHelp
 ) {
 
   // Bind to LocalPersistence interface.
@@ -100,6 +111,17 @@ function View(
 
   // Bind to MenuModel interface.
   this.getMenuTitle = getMenuTitle
+  this.getMenuView = getMenuView
+  this.getMenuViewIntro = getMenuViewIntro
+  this.getMenuViewPriorities = getMenuViewPriorities
+  this.getMenuViewBestBets = getMenuViewBestBets
+  this.getMenuViewBlog = getMenuViewBlog
+  this.getMenuSettings = getMenuSettings
+  this.getMenuSettingsEdit = getMenuSettingsEdit
+  this.getMenuSettingsUseLang = getMenuSettingsUseLang
+  this.getMenuSettingsShowCities = getMenuSettingsShowCities
+  this.getMenuSettingsShowTop = getMenuSettingsShowTop
+  this.getMenuSettingsHelp = getMenuSettingsHelp
 
   this.bodyDivId = bodyDivId
   this.rankedList = []
