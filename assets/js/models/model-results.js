@@ -1,8 +1,7 @@
 //----------------------------------------------------------------------------------
 // ModelResults
 //
-// This class maintains state related to the user's current priorities when it
-// comes to ranking a city's desirability.
+// This class maintains state related to the results page.
 //
 // It exports getters for use by the view and setters for use by the controller.
 //----------------------------------------------------------------------------------
