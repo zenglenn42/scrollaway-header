@@ -3,28 +3,15 @@
 //
 // These view methods update the browser DOM to render the results screen.
 //----------------------------------------------------------------------------------
-// TODO: Add a model for this view.
-//
-//       We should manage current data view state through a model to be more 
-//       MVC-canonical and to facilitate downstream features like persistence.
-//
-// TODO: Replace hardcoded presentation text with calls to (locale-sensitive)
-//       model getter methods.
-//
-//       This will enable localization support.
-//
 // TODO: Replace inline styles with class-based css styles.
 //
 // TODO: Prevent map-view if internet is not available since leaflet is inet dep.
 //----------------------------------------------------------------------------------
 
-View.prototype.defaultDataView = "photo-view" // photo-view | list-view | chart-view | map-view
-                                              // TODO: This state really should be managed in model.
-
 View.prototype.createResultsBody = function createResultsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
   bodyDiv.innerHTML = ""
-  let header = this.createHeader("Your best bets ...", "search")
+  let header = this.createHeader(this.getResultsTitle(), "search")
   let menuDrawer = this.createMenuDrawer()
   let hamburgerMenu = this.createHamburgerMenu()
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu)
@@ -50,9 +37,9 @@ View.prototype.createResultsMain = function(bodyDiv) {
     child.classList.add("grid-content")
     m.appendChild(child)
     let noPrioritiesParams = {
-      img: "assets/img/chess-failure.jpg",
-      titleText: "No results available.",
-      supportingText: "Please go back and specify one or more priorities."
+      img: this.getNoResultsImg(),
+      titleText: this.getNoResults(),
+      supportingText: this.getNoResultsAdvice()
     }
     let c = this.createResultsNoPrioritiesCard(noPrioritiesParams)
     g.classList.add("mdl-grid")
@@ -106,8 +93,8 @@ View.prototype.createResultsMain = function(bodyDiv) {
         this.rankedList.map(cityData => {
           if (rank == monetizationPosition1 || rank == monetizationPosition2) {
             let monetizeParams = {
-              img: "assets/img/monetize.jpg",
-              titleText: "Monetize here $"
+              img: this.getMonetizeImg(),
+              titleText: this.getMonetizeHere()
             }
             let mc = this.createResultsMonetizeCard(monetizeParams)
             g.appendChild(mc)
@@ -168,26 +155,26 @@ View.prototype.createChartView = function(chartId) {
     labels: cityLabels,
     datasets: [
       {
-        label: "Combined",
+        label: this.getChartLabelCombined(),
         backgroundColor: "black",
         stack: "Stack 0",
         data: rankData
       },
       {
-        label: "Happiness",
+        label: this.getChartLabelHappiness(),
         // backgroundColor: "rgba(255, 99, 132, 0.2)",
         backgroundColor: "gold",
         stack: "Stack 1",
         data: happinessData
       },
       {
-        label: "Cost of living",
+        label: this.getChartLabelAffordability(),
         backgroundColor: "lightseagreen",
         stack: "Stack 1",
         data: affordabilityData
       },
       {
-        label: "Politics",
+        label: this.getChartLabelPolitics(),
         backgroundColor: "mediumslateblue",
         stack: "Stack 1",
         data: politicsData
@@ -200,7 +187,7 @@ View.prototype.createChartView = function(chartId) {
     options: {
       title: {
         display: true,
-        text: "Alignment with your priorities (0 = ideal)"
+        text: this.getChartTitle()
       },
       tooltips: {
         mode: "index",
@@ -345,7 +332,7 @@ View.prototype.createResultsMonetizeCard = function(params) {
           <!-- <p style="line-height: 1.25em;">${params.supportingText}</p> -->
           <div class="mdl-card__actions mdl-card--border">
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-              Learn More
+              ${this.getMonetizeLearnMore()}
             </a>
           </div>
           <div class="mdl-card__menu">
@@ -371,9 +358,9 @@ View.prototype.createResultsListItem = function(cityParams) {
 
   let affordability = this.formatter.format(cityParams.affordability)
 
-  let cityStats = `Civic Happiness:  ${
+  let cityStats = `${this.getListLabelHappiness()}:  ${
     cityParams.happiness
-  } | Median Home Price: ${affordability} | ${politics}`
+  } | ${this.getListLabelAffordability()}: ${affordability} | ${politics}`
 
   li.classList.add("mdl-list__item")
   li.classList.add("mdl-list__item--three-line")
@@ -470,6 +457,7 @@ View.prototype.createResultsFooter = function(fabIcon, fabIconId="navigate_befor
 }
 
 View.prototype.findActiveDataView = function() {
+  // TODO: reconcile with ModelResults enumerated types.
   let views = ["photo-view", "list-view", "chart-view", "map-view"]
   for (view of views) {
     if (this.isActiveDataView(view)) return view
@@ -482,6 +470,7 @@ View.prototype.isActiveDataView = function(viewId) {
 }
 
 View.prototype.setActiveDataView = function(viewId) {
+  // TODO: Should be model-driven.
   let activeViewId = this.findActiveDataView()
   if (activeViewId != viewId) {
     let av = document.getElementById(activeViewId)

@@ -22,8 +22,6 @@
 //       synchronized with the models.  Eventually the view will include render()
 //       methods that can be registered with and invoked by the models in response
 //       to state changes therein.
-//
-// TODO: Move activeDataView to results-related component.
 //----------------------------------------------------------------------------------
 
 function View(
@@ -40,8 +38,8 @@ function View(
   maxAffordabilityValue,
   minPoliticsValue,
   maxPoliticsValue,
-  githubUrl,
   hasPersistedSettings,
+  githubUrl,
   getMaxResults,
   getMaxResultsOptions,
   getLangCode,
@@ -86,7 +84,27 @@ function View(
   getMenuSettingsUseLang,
   getMenuSettingsShowCities,
   getMenuSettingsShowTop,
-  getMenuSettingsHelp
+  getMenuSettingsHelp,
+  getDataView,
+  getRankedList,
+  getResultsTitle,
+  getNoResults,
+  getNoResultsImg,
+  getNoResultsAdvice,
+  getMonetizeHere,
+  getMonetizeLearnMore,
+  getMonetizeImg,
+  getPhotoLabelHappiness,
+  getPhotoLabelAffordability,
+  getPhotoLabelPolitics,
+  getChartTitle,
+  getChartLabelCombined,
+  getChartLabelHappiness,
+  getChartLabelAffordability,
+  getChartLabelPolitics,
+  getListLabelHappiness,
+  getListLabelAffordability,
+  getListLabelPolitics
 ) {
 
   // Bind to LocalPersistence interface.
@@ -143,6 +161,28 @@ function View(
   this.getMenuSettingsShowTop = getMenuSettingsShowTop
   this.getMenuSettingsHelp = getMenuSettingsHelp
 
+  // Bind to MenuResults model
+  this.getDataView = getDataView
+  this.getRankedList = getRankedList
+  this.getResultsTitle = getResultsTitle
+  this.getNoResults = getNoResults
+  this.getNoResultsImg = getNoResultsImg
+  this.getNoResultsAdvice = getNoResultsAdvice
+  this.getMonetizeHere = getMonetizeHere
+  this.getMonetizeLearnMore = getMonetizeLearnMore
+  this.getMonetizeImg = getMonetizeImg
+  this.getPhotoLabelHappiness = getPhotoLabelHappiness
+  this.getPhotoLabelAffordability = getPhotoLabelAffordability
+  this.getPhotoLabelPolitics = getPhotoLabelPolitics
+  this.getChartTitle = getChartTitle
+  this.getChartLabelCombined = getChartLabelCombined
+  this.getChartLabelHappiness = getChartLabelHappiness
+  this.getChartLabelAffordability = getChartLabelAffordability
+  this.getChartLabelPolitics = getChartLabelPolitics
+  this.getListLabelHappiness = getListLabelHappiness
+  this.getListLabelAffordability = getListLabelAffordability
+  this.getListLabelPolitics = getListLabelPolitics
+
   this.bodyDivId = bodyDivId
   this.rankedList = []
   this.addMenuDrawerEventListeners = addMenuDrawerEventListeners
@@ -166,9 +206,7 @@ function View(
     minimumFractionDigits: 0
   })
 
-  // TODO: This state really should be managed in model.
-  this.activeDataView = this.defaultDataView
-
+  this.activeDataView = this.getDataView()
   this.resultsMain = undefined
 }
 

@@ -8,8 +8,6 @@
 // It also exports some getters that enable the controller to configure various
 // input controls such as preference sliders.
 //----------------------------------------------------------------------------------
-// TODO: Move githubUrl to another model.  It has nothing to do with cities.
-//----------------------------------------------------------------------------------
 
 function ModelCities() {
   this.modelStaticCities = new ModelStaticCities()
@@ -19,11 +17,12 @@ function ModelCities() {
   // I can't give all the IP away :D
 
   this.data = this.modelStaticCities.data
-}
 
-// TODO: Find me a better home.
-ModelCities.prototype.githubUrl =
-  "https://github.com/zenglenn42/CityMatch/blob/master/README.md"
+  // TODO: Make this a static class method since list validation may be useful to others
+  //       outside the presence of an instantiated city model (e.g., ModelResults ctor)
+
+  this.isValidCityList = this.modelStaticCities.isValidCityList.bind(this.modelStaticCities)
+}
 
 ModelCities.prototype.getMinHappinessValue = function() {
   return this.modelStaticCities.minHappinessValue

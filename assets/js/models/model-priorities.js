@@ -24,15 +24,15 @@ function ModelPriorities(affordabilityValue,
   // Validate required input parameters.
 
   if (!this.isValidRange(affordabilityRange)) {
-    throw('PriorityModel: Failed constructor.  Invalid affordabilityRange input parameter')
+    throw('ModelPriorities: Failed constructor.  Invalid affordabilityRange input parameter')
   }
 
   if (!this.isValidRange(happinessRange)) {
-    throw('PriorityModel: Failed constructor.  Invalid happinessRange input parameter')
+    throw('ModelPriorities: Failed constructor.  Invalid happinessRange input parameter')
   }
 
   if (!this.isValidRange(politicsRange)) {
-    throw('PriorityModel: Failed constructor.  Invalid politicsRange input parameter')
+    throw('ModelPriorities: Failed constructor.  Invalid politicsRange input parameter')
   }
   
   //------------------------------------
@@ -326,7 +326,7 @@ ModelPriorities.prototype.getNormalizedPriorities = function() {
   if (this.isNormalized(prioritiesJson)) {
     return prioritiesJson
   } else {
-    throw('PriorityModel: getNormalizedPriorities(). Result failed schema check.')
+    throw('ModelPriorities: getNormalizedPriorities(). Result failed schema check.')
   }
 }
 
@@ -336,7 +336,7 @@ ModelPriorities.prototype.hasNoPriorities = function(prioritiesJson) {
   // Useful for creating guard-logic around requests for city ranking.
 
   if (!this.isNormalized(prioritiesJson)) {
-    throw('PriorityModel: hasNoPriorities(). Input failed schema check:' + JSON.stringify(prioritiesJson))
+    throw('ModelPriorities: hasNoPriorities(). Input failed schema check:' + JSON.stringify(prioritiesJson))
   }
   return (
     isNaN(prioritiesJson.happiness) &&
@@ -1083,7 +1083,7 @@ function UnitTestModelPriorities() {
     failure = "Expected to fail with affordabilityRange = 'bogus_affordability_range', but passed."
     throw(mkFailMsg(cut, failure))
   } catch(e) {
-    let expectedError = "PriorityModel: Failed constructor.  Invalid affordabilityRange input parameter"
+    let expectedError = "ModelPriorities: Failed constructor.  Invalid affordabilityRange input parameter"
     if (e !== expectedError) {
       failure = "Expected to catch constructor error: \n"
       failure += "         " + expectedError + "\n"
@@ -1114,7 +1114,7 @@ function UnitTestModelPriorities() {
     failure = "Expected to fail with happinessRange = 'bogus_happiness_range', but passed."
     throw(mkFailMsg(cut, failure))
   } catch(e) {
-    let expectedError = "PriorityModel: Failed constructor.  Invalid happinessRange input parameter"
+    let expectedError = "ModelPriorities: Failed constructor.  Invalid happinessRange input parameter"
     if (e !== expectedError) {
       failure = "Expected to catch constructor error: \n"
       failure += "         " + expectedError + "\n"
@@ -1146,7 +1146,7 @@ function UnitTestModelPriorities() {
     failure = "Expected to fail with politicsRange = 'bogus_politics_range', but passed."
     throw(mkFailMsg(cut, failure))
   } catch(e) {
-    let expectedError = "PriorityModel: Failed constructor.  Invalid politicsRange input parameter"
+    let expectedError = "ModelPriorities: Failed constructor.  Invalid politicsRange input parameter"
     if (e !== expectedError) {
       failure = "Expected to catch constructor error: \n"
       failure += "         " + expectedError + "\n"

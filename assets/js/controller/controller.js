@@ -48,6 +48,7 @@ function Controller(bodyDivId) {
      max: this.cities.getMaxPoliticsValue()}
      // TODO: Eventually add locale param here.
   )
+  this.results = new ModelResults(this.cities.isValidCityList, "photo-view")
 
   // Instantiate view, passing in state getters from models.
   this.view = new View(
@@ -64,8 +65,8 @@ function Controller(bodyDivId) {
     this.cities.getMaxAffordabilityValue(),
     this.cities.getMinPoliticsValue(),
     this.cities.getMaxPoliticsValue(),
-    this.cities.githubUrl,
     this.cache.hasSettings.bind(this.cache),
+    this.settings.githubUrl,
     this.settings.getMaxResults.bind(this.settings),
     this.settings.getMaxResultsOptions.bind(this.settings),
     this.settings.getLangCode.bind(this.settings),
@@ -110,7 +111,27 @@ function Controller(bodyDivId) {
     this.menu.getMenuSettingsUseLang.bind(this.menu),
     this.menu.getMenuSettingsShowCities.bind(this.menu),
     this.menu.getMenuSettingsShowTop.bind(this.menu),
-    this.menu.getMenuSettingsHelp.bind(this.menu)
+    this.menu.getMenuSettingsHelp.bind(this.menu),
+    this.results.getDataView.bind(this.results),
+    this.results.getRankedList.bind(this.results),
+    this.results.getResultsTitle.bind(this.results),
+    this.results.getNoResults.bind(this.results),
+    this.results.getNoResultsImg.bind(this.results),
+    this.results.getNoResultsAdvice.bind(this.results),
+    this.results.getMonetizeHere.bind(this.results),
+    this.results.getMonetizeLearnMore.bind(this.results),
+    this.results.getMonetizeImg.bind(this.results),
+    this.results.getPhotoLabelHappiness.bind(this.results),
+    this.results.getPhotoLabelAffordability.bind(this.results),
+    this.results.getPhotoLabelPolitics.bind(this.results),
+    this.results.getChartTitle.bind(this.results),
+    this.results.getChartLabelCombined.bind(this.results),
+    this.results.getChartLabelHappiness.bind(this.results),
+    this.results.getChartLabelAffordability.bind(this.results),
+    this.results.getChartLabelPolitics.bind(this.results),
+    this.results.getListLabelHappiness.bind(this.results),
+    this.results.getListLabelAffordability.bind(this.results),
+    this.results.getListLabelPolitics.bind(this.results)
   )
 
   this.view.createLandingBody()

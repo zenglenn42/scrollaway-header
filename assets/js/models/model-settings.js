@@ -84,6 +84,9 @@ function ModelSettings(numCities, maxResults, langCode, countryCode) {
   }
 }
 
+ModelSettings.prototype.githubUrl = 
+  "https://github.com/zenglenn42/CityMatch/blob/master/README.md"
+
 ModelSettings.prototype.restoreDefaults = function() {
   this.maxResults = this.dfltMaxResults
   this.langCode = this.dfltLangCode

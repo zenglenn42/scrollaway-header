@@ -3637,6 +3637,42 @@ ModelStaticCities.prototype.isNumericScalarProperty = function(property) {
   return results
 }
 
+ModelStaticCities.prototype.reportInvalidCities = function(citiesArray) {
+  let expectedCityProperties = [
+    'affordability:integer',
+    'happiness:float',
+    'img:object',
+    'location:object',
+    'politics:object'
+  ]
+
+  // Okay if citiesArray is empty.
+  if (JSON.stringify(citiesArray) === JSON.stringify([])) return ""
+
+  let failedCities = citiesArray.reduce((accumulator, cityObj, cityIndex) => {
+    let cityKey = Object.keys(cityObj)
+    let cityStr = cityKey ? cityKey : `unknown_city[${cityIndex}]`
+    let cityFailure = undefined
+
+    cityFailure = UnitTestSchema(cityObj[cityKey], expectedCityProperties)
+    if (cityFailure) {
+      if (!accumulator) {
+        accumulator  = `${cityStr}\n`
+      } else {
+        accumulator += `${cityStr}\n`
+      }
+      accumulator += '  ' + cityFailure + '\n'
+    }
+    return accumulator
+  }, "")
+
+  return failedCities
+}
+
+ModelStaticCities.prototype.isValidCityList = function(citiesArray) {
+  return this.reportInvalidCities(citiesArray) === ""
+}
+
 ModelStaticCities.prototype.mkComboData = function() {
   let i = 0
   let newData = this.data.map(cityData => {
@@ -3766,32 +3802,7 @@ function UnitTestSchema(obj, expectedProperties) {
 
 //----------------------------------------------------------------------------------
 function UnitTestStaticCitySchema(obj) {
-  let expectedCityProperties = [
-    'affordability:integer',
-    'happiness:float',
-    'img:object',
-    'location:object',
-    'politics:object'
-  ]
-
-  let failedCities = obj.reduce((accumulator, cityObj, cityIndex) => {
-    let cityKey = Object.keys(cityObj)
-    let cityStr = cityKey ? cityKey : `unknown_city[${cityIndex}]`
-    let cityFailure = undefined
-
-    cityFailure = UnitTestSchema(cityObj[cityKey], expectedCityProperties)
-    if (cityFailure) {
-      if (!accumulator) {
-        accumulator  = `${cityStr}\n`
-      } else {
-        accumulator += `${cityStr}\n`
-      }
-      accumulator += '  ' + cityFailure + '\n'
-    }
-    return accumulator
-  }, "")
-
-  return failedCities
+  return this.reportInvalidCities(obj)
 }
 
 //----------------------------------------------------------------------------------
@@ -3857,8 +3868,8 @@ function UnitTestModelStaticCities() {
   // Test #2
   try {
     console.log(' Verifying model static city schema ...')
-    cut = "UnitTestStaticCitySchema"
-    failure = UnitTestStaticCitySchema(this.staticCities.data)
+    cut = "ModelStaticCities.reportInvalidCities"
+    failure = this.staticCities.reportInvalidCities(this.staticCities.data)
 
     if (failure) {
       throw(mkFailMsg(cut, failure))
