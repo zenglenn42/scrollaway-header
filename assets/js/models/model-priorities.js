@@ -138,7 +138,7 @@ function ModelPriorities(affordabilityValue,
       jobSearchPlaceholder: "Job Title (disabled)"
     },
     "hi-IN": {
-      title: "अपनी प्राथमिकताओं को साझा करें ...",
+      title: "अपनी प्राथमिकताओं को साझा करें",
       happinessTitle: "नागरिक खुशी",
       happinessTooltip: "इस प्राथमिकता को समायोजित करने के लिए नीचे स्लाइडर का उपयोग करें। " +
                         "समग्र कल्याण, रोजगार और समुदाय सहित आयामों में वॉलेटहब द्वारा 2019 के अध्ययन के आधार पर।",
