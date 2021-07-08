@@ -52,12 +52,26 @@ function ModelLanding(locale) {
       blurb: "¿Estás pensando en mudarte pero no estás seguro de cuál es tu mejor opción?\n" +
              "Comparta sus prioridades y le ofreceremos algunas opciones a considerar.",
       copyrightDate: "2021"
+    },
+    "zh-CN": {
+      appName: "梦想之城", // Dream City
+      slogan: "找到你的城市",
+
+      // NB: Strive to keep blurb text short, ideally not more than 2 sentences
+      //     with each sentence < 80 characters.
+
+      blurb: "正在考虑搬家但不确定哪个城市是您的最佳选择？\n" +
+             "分享您的优先事项，我们将提供一些可供考虑的选项。",
+      copyrightDate: "2021"
     }
   }
 }
 
 ModelLanding.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES")
+  return (locale === "en-US" ||
+          locale === "hi-IN" ||
+          locale === "es-ES" ||
+          locale === "zh-CN")
 }
 
 ModelLanding.prototype.getLocale = function() {

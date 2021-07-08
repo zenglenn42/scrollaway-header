@@ -54,14 +54,19 @@ function ModelSettings(numCities, maxResults, locale, countryCode) {
       enName: "English",
       supported: true
     },
+    "es-ES": {
+      name: "Español",
+      enName: "Spanish",
+      supported: true  // May be used by view to gray out a selection list option.
+    },
     "hi-IN": {
       name: "हिंदी",
       enName: "Hindi",
       supported: true
     },
-    "es-ES": {
-      name: "Español",
-      enName: "Spanish",
+    "zh-CN": {
+      name: "普通话",
+      enName: "Mandarin",
       supported: true  // May be used by view to gray out a selection list option.
     }
   }
@@ -123,6 +128,16 @@ function ModelSettings(numCities, maxResults, locale, countryCode) {
       selectQuantity: "Selecciona la cantidad",
       showTop: "Mostrar las",
       showTopCities: "mejores ciudades"
+    },
+    "zh-CN": {
+      title: "编辑设置 ...",
+      selectLang: "选择语言",
+      useLang: "选择",
+      selectCountry: "选择国家",
+      showCities: "显示城市",
+      selectQuantity: "选择数量",
+      showTop: "列举",
+      showTopCities: "城市"
     },
   }
 }
@@ -186,7 +201,7 @@ ModelSettings.prototype.getMaxResultsOptions = function() {
 }
 
 ModelSettings.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" || locale === "hi-IN" || "es-ES")
+  return (locale === "en-US" || locale === "hi-IN" || "es-ES" || "zh-CN")
 }
 
 // Introduce notion of locale (based upon BCP 47 standard).

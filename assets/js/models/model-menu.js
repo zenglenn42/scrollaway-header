@@ -57,11 +57,26 @@ function ModelMenu(locale) {
       showTop: "Mostrar las %d mejores ciudades",
       help: "Ayúdame"
     },
+    "zh-CN": {
+      title: "菜单",
+      view: "看",
+      viewIntro: "1. 简介",
+      viewPriorities: "2. 你的优先事项",
+      viewBestBets: "3. 你最好的城市",
+      viewBlog: "博客",
+      settings: "设置",
+      settingsEdit: "编辑",
+      useLang: "使用 %s",
+      showCities: "从这里显示城市 %s",
+      showTop: "Show top %d cities",
+      showTop: "显示最好的 %d 个城市",
+      help: "协助"
+    }
   }
 }
 
 ModelMenu.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES")
+  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES" || locale === "zh-CN")
 }
 
 ModelMenu.prototype.getLocale = function() {

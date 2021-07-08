@@ -166,7 +166,22 @@ function ModelPriorities(affordabilityValue,
       jobSearchTitle: "Perspectiva Laboral",
       jobSearchTooltip: "Esta función no está disponible actualmente.",
       jobSearchPlaceholder: "Título del Trabajo (discapacitado)"
-    }
+    },
+    "zh-CN": {
+      title: "分享您的优先事项 ...",
+      happinessTitle: "公民幸福",
+      happinessTooltip: "使用下面的滑块调整此优先级。 " +
+                        "基于 WalletHub 2019 年对整体福祉、就业和社区等方面的研究。",
+      politicsTitle: "盛行的政治",
+      politicsTooltip: "使用下面的滑块来调整所需的主流政治环境。 " +
+                       "基于 opendatasoft 发布的 2016 年县级总统选举数据。",
+      affordabilityTitle: "生活成本",
+      affordabilityTooltip: "使用下面的滑块指定所需的相对生活成本。 " +
+                            "基于美国人口普查局公布的 2017 年各县房价中值。",
+      jobSearchTitle: "就业前景",
+      jobSearchTooltip: "此功能目前无法使用。",
+      jobSearchPlaceholder: "职称（已禁用）"
+    },
   }
 }
 
@@ -182,7 +197,7 @@ ModelPriorities.prototype.setLocale = function(locale) {
 }
 
 ModelPriorities.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES")
+  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES" || locale === "zh-CN")
 }
 
 ModelPriorities.prototype.getLocale = function() {

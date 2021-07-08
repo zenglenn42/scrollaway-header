@@ -92,6 +92,24 @@ function ModelResults(isValidCityListFn, dataView, rankedList, locale) {
       listLabelAffordability: "Precio medio de la vivienda",
       listLabelPolitics: ""
     },
+    "zh-CN": {
+      title: "你最好的赌注 ...",
+      noResults: "没有可用的结果。",
+      noResultsAdvice: "请返回并指定一个或多个优先级。",
+      monetizeHere: "在这里获利",
+      monetizeLearnMore: "学到更多",
+      photoLabelHappiness: "公民幸福",
+      photoLabelAffordability: "房价中位数",
+      photoLabelPolitics: "",
+      chartTitle: "最接近您的优先事项 (0 = 理想的)",
+      chartLabelCombined: "组合",
+      chartLabelHappiness: "幸福",
+      chartLabelAffordability: "生活成本",
+      chartLabelPolitics: "政治",
+      listLabelHappiness: "公民幸福",
+      listLabelAffordability: "房价中位数",
+      listLabelPolitics: ""
+    }
   }
 }
 
@@ -136,7 +154,7 @@ ModelResults.prototype.setLocale = function(locale) {
 }
 
 ModelResults.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES")
+  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES" || locale === "zh-CN")
 }
 
 ModelResults.prototype.getLocale = function() {
