@@ -19,7 +19,9 @@ View.prototype.createResultsBody = function createResultsBody() {
   // bodyDiv.appendChild(this.resultsMain)
   let footer = this.createResultsFooter("navigate_before")
   bodyDiv.appendChild(footer)
-  this.setActiveDataView(this.activeDataView)
+
+  // Update presentation of results based upon data-view in model.
+  this.setActiveDataView(this.getActiveDataView())
 
   this.addResultsPageEventListeners()
 }
@@ -50,7 +52,7 @@ View.prototype.createResultsMain = function(bodyDiv) {
     this.rankedList = this.cityRankModelCB(userPriorities)
     this.rankedList.length = this.getMaxResults()
     let rank = 1
-    switch (this.activeDataView) {
+    switch (this.getActiveDataView()) {
       case "list-view":
         let ol = this.createListView(userPriorities)
         child.appendChild(ol)
@@ -456,7 +458,7 @@ View.prototype.createResultsFooter = function(fabIcon, fabIconId="navigate_befor
   return f
 }
 
-View.prototype.findActiveDataView = function() {
+View.prototype.findCurrentDataView = function() {
   // TODO: reconcile with ModelResults enumerated types.
   let views = ["photo-view", "list-view", "chart-view", "map-view"]
   for (view of views) {
@@ -469,14 +471,14 @@ View.prototype.isActiveDataView = function(viewId) {
   return av.classList.contains("is-active")
 }
 
-View.prototype.setActiveDataView = function(viewId) {
-  // TODO: Should be model-driven.
-  let activeViewId = this.findActiveDataView()
-  if (activeViewId != viewId) {
-    let av = document.getElementById(activeViewId)
+View.prototype.setActiveDataView = function(nextViewId) {
+  let clickedView = this.getActiveDataView()
+
+  let currentViewId = this.findCurrentDataView()
+  if (currentViewId != nextViewId) {
+    let av = document.getElementById(currentViewId)
     av.classList.remove("is-active")
-    let newView = document.getElementById(viewId)
-    newView.classList.add("is-active")
-    this.activeDataView = viewId
+    let activeViewId = document.getElementById(nextViewId)
+    activeViewId.classList.add("is-active")
   }
 }

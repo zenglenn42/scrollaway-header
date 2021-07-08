@@ -42,8 +42,14 @@ Controller.prototype.addResultsPageEventListeners = function() {
 Controller.prototype.getViewButtonEventListener = function() {
   let that = this
   function innerFunction() {
-    let theView = this.getAttribute("id")
-    that.view.setActiveDataView(theView)
+    let clickedViewId = this.getAttribute("id")
+
+    // Update model based upon view-button just clicked.
+    that.results.setActiveDataView(clickedViewId)
+
+    // Update view according to model.
+    that.view.setActiveDataView(that.results.getActiveDataView())
+
     that.view.createResultsBody()
   }
   return innerFunction

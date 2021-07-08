@@ -112,7 +112,7 @@ function Controller(bodyDivId) {
     this.menu.getMenuSettingsShowCities.bind(this.menu),
     this.menu.getMenuSettingsShowTop.bind(this.menu),
     this.menu.getMenuSettingsHelp.bind(this.menu),
-    this.results.getDataView.bind(this.results),
+    this.results.getActiveDataView.bind(this.results),
     this.results.getRankedList.bind(this.results),
     this.results.getResultsTitle.bind(this.results),
     this.results.getNoResults.bind(this.results),

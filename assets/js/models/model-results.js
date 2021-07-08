@@ -19,7 +19,7 @@ function ModelResults(isValidCityListFn, dataView, rankedList, locale) {
   this.isValidCityListFn = isValidCityListFn
 
   this.dfltDataView = "photo-view" // photo-view | list-view | chart-view | map-view
-  this.dataView = (this.isValidDataView(dataView)) ? dataView : this.dfltDataView
+  this.activeDataView = (this.isValidDataView(dataView)) ? dataView : this.dfltDataView
 
   this.dfltRankedList = []
 
@@ -73,17 +73,17 @@ ModelResults.prototype.isValidDataView = function(dataView) {
          dataView === "map-view"
 }
 
-ModelResults.prototype.getDataView = function() {
-  return this.dataView
+ModelResults.prototype.getActiveDataView = function() {
+  return this.activeDataView
 }
 
-ModelResults.prototype.setDataView = function(dataView) {
+ModelResults.prototype.setActiveDataView = function(dataView) {
   let result = false
   if (this.isValidDataView(dataView)) {
-    this.dataView = dataView
+    this.activeDataView = dataView
     result = true
   } else {
-    console.log('[Info] ModelResults.setDataView.  Ignoring invalid dataView:', dataView)
+    console.log('[Info] ModelResults.setActiveDataView.  Ignoring invalid dataView:', dataView)
   }
   return result
 }

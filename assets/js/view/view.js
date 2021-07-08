@@ -85,7 +85,7 @@ function View(
   getMenuSettingsShowCities,
   getMenuSettingsShowTop,
   getMenuSettingsHelp,
-  getDataView,
+  getActiveDataView,
   getRankedList,
   getResultsTitle,
   getNoResults,
@@ -162,7 +162,7 @@ function View(
   this.getMenuSettingsHelp = getMenuSettingsHelp
 
   // Bind to MenuResults model
-  this.getDataView = getDataView
+  this.getActiveDataView = getActiveDataView
   this.getRankedList = getRankedList
   this.getResultsTitle = getResultsTitle
   this.getNoResults = getNoResults
@@ -206,7 +206,6 @@ function View(
     minimumFractionDigits: 0
   })
 
-  this.activeDataView = this.getDataView()
   this.resultsMain = undefined
 }
 
