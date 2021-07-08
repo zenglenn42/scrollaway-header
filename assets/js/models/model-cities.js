@@ -64,6 +64,21 @@ ModelCities.prototype.getNumCities = function() {
   return this.modelStaticCities.data.length
 }
 
+ModelCities.prototype.getAffordabilityRange = function() {
+  return {min: this.getMinAffordabilityValue(),
+          max: this.getMaxAffordabilityValue()}
+}
+
+ModelCities.prototype.getHappinessRange = function() {
+  return {min: this.getMinHappinessValue(),
+          max: this.getMaxHappinessValue()}
+}
+
+ModelCities.prototype.getPoliticsRange = function() {
+  return {min: this.getMinPoliticsValue(),
+          max: this.getMaxPoliticsValue()}
+}
+
 ModelCities.prototype.distance = function(v, w) {
   let squaredDiffs = 0
   let distance = NaN

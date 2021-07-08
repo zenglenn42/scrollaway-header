@@ -40,13 +40,10 @@ function Controller(bodyDivId) {
     this.cities.getMidAffordabilityValue(),
     this.cities.getMidHappinessValue(),
     this.cities.getMidPoliticsValue(),
-    {min: this.cities.getMinAffordabilityValue(),
-     max: this.cities.getMaxAffordabilityValue()},
-    {min: this.cities.getMinHappinessValue(),
-     max: this.cities.getMaxHappinessValue()},
-    {min: this.cities.getMinPoliticsValue(),
-     max: this.cities.getMaxPoliticsValue()}
-     // TODO: Eventually add locale param here.
+    this.cities.getAffordabilityRange(),
+    this.cities.getHappinessRange(),
+    this.cities.getPoliticsRange()
+    // TODO: Eventually add locale param here.
   )
   this.results = new ModelResults(this.cities.isValidCityList, "photo-view")
 
