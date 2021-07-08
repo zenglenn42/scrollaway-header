@@ -276,9 +276,9 @@ View.prototype.createResultsCityCard = function(cityParams) {
     '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>'
   let politics = `${donkey}&nbsp;${cityParams.politics.demFraction}%&nbsp;&nbsp; ${elephant}&nbsp;${cityParams.politics.repFraction}%`
   let affordability = this.formatter.format(cityParams.affordability)
-  let cityStats = `<p>Civic Happiness:  ${
+  let cityStats = `<p>${this.getPhotoLabelHappiness()}:  ${
     cityParams.happiness
-  }</br> Median Home Price: ${affordability}</br> ${politics}</p>`
+  }</br> ${this.getPhotoLabelAffordability()}: ${affordability}</br> ${politics}</p>`
 
   p.classList.add("mdl-cell")
   p.classList.add("results-cell")

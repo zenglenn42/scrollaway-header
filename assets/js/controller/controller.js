@@ -26,26 +26,32 @@
 //       layer.
 //----------------------------------------------------------------------------------
 
-function Controller(bodyDivId) {
+function Controller(bodyDivId, locale = "en-US") {
+  this.locale = locale
   this.cache = new LocalStorage()
 
   // Instantiate model.
   this.cities = new ModelCities()
 
   // Instantiate view models.
-  this.menu = new ModelMenu()
-  this.landing = new ModelLanding()
-  this.settings = new ModelSettings(this.cities.getNumCities())
+  this.menu = new ModelMenu(this.locale)
+  this.landing = new ModelLanding(this.locale)
+  this.settings = new ModelSettings(this.cities.getNumCities(), 10, this.locale)
+
   this.priorities = new ModelPriorities(
-    this.cities.getMidAffordabilityValue(),
-    this.cities.getMidHappinessValue(),
-    this.cities.getMidPoliticsValue(),
+    this.cities.getMidAffordabilityValue(), // TODO: Init from cache if available.
+    this.cities.getMidHappinessValue(),     // TODO: Init from cache if available.
+    this.cities.getMidPoliticsValue(),      // TODO: Init from cache if available.
     this.cities.getAffordabilityRange(),
     this.cities.getHappinessRange(),
-    this.cities.getPoliticsRange()
-    // TODO: Eventually add locale param here.
+    this.cities.getPoliticsRange(),
+    true, // TODO: Init affordabilityEnabled from cache if available.
+    true, // TODO: Init happinessEnabled from cache if available.
+    true, // TODO: Init politicsEnabled from cache if available.
+    false,// TODO: Init jobSearchEnabled from cache if availalbe.
+    this.locale
   )
-  this.results = new ModelResults(this.cities.isValidCityList, "photo-view")
+  this.results = new ModelResults(this.cities.isValidCityList, "photo-view", [], this.locale)
 
   // Instantiate view, passing in state getters from models.
   this.view = new View(
@@ -66,14 +72,21 @@ function Controller(bodyDivId) {
     this.settings.githubUrl,
     this.settings.getMaxResults.bind(this.settings),
     this.settings.getMaxResultsOptions.bind(this.settings),
-    this.settings.getLangCode.bind(this.settings),
+    this.settings.getLocale.bind(this.settings),
     this.settings.getLangName.bind(this.settings),
     this.settings.getLangOptionsMap.bind(this.settings),
     this.settings.getCountryCode.bind(this.settings),
     this.settings.getCountryName.bind(this.settings),
     this.settings.getCountryOptionsMap.bind(this.settings),
-    this.settings.getLocale.bind(this.settings),
     this.settings.getCurrency.bind(this.settings),
+    this.settings.getTitle.bind(this.settings),
+    this.settings.getSelectLang.bind(this.settings),
+    this.settings.getUseLang.bind(this.settings),
+    this.settings.getSelectCountry.bind(this.settings),
+    this.settings.getShowCities.bind(this.settings),
+    this.settings.getSelectQuantity.bind(this.settings),
+    this.settings.getShowTopCitiesBegin.bind(this.settings),
+    this.settings.getShowTopCitiesEnd.bind(this.settings),
     this.priorities.getAffordabilityValue.bind(this.priorities),
     this.priorities.getHappinessValue.bind(this.priorities),
     this.priorities.getPoliticsValue.bind(this.priorities),

@@ -114,7 +114,7 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   settingsMenuNode.classList.add("mdl-menu--bottom-right")
   settingsMenuNode.setAttribute("for", "settingsMenu")
   let maxResultsString = this.getMenuSettingsShowTop(this.getMaxResults()) 
-  let langString = this.getMenuSettingsUseLang(this.getLangName(this.getLangCode()))
+  let langString = this.getMenuSettingsUseLang(this.getLangName(this.getLocale()))
   let countryString = this.getMenuSettingsShowCities(this.getCountryName(this.getCountryCode()))
 
   settingsMenuNode.innerHTML = ""
@@ -122,7 +122,7 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   let settingsEdit = this.getMenuSettingsEdit()
   settingsMenuNode.innerHTML += `<li id='settings_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsEdit} ...</span></li>`
 
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span>" + langString + "</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span id='settings-language-menu'>" + langString + "</span></li>"
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>" + countryString + "</span></li>"
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' style='height: 2em; line-height: 1em' disabled><span id='settings-max-results-menu'>" + maxResultsString + "</span></li>"
 

@@ -55,6 +55,24 @@ function ModelResults(isValidCityListFn, dataView, rankedList, locale) {
       listLabelHappiness: "Civic Happiness",      
       listLabelAffordability: "Median Home Price",      
       listLabelPolitics: ""
+    },
+    "hi-IN": {
+      title: "आपके सबसे अच्छे शहर ...",
+      noResults: "कोई परिणाम उपलब्ध नहीं है।",
+      noResultsAdvice: "कृपया वापस जाएं और एक या अधिक प्राथमिकताएं निर्दिष्ट करें।",
+      monetizeHere: "यहाँ विज्ञापन दें। ₹",
+      monetizeLearnMore: "और अधिक जानें",
+      photoLabelHappiness: "नागरिक खुशी",
+      photoLabelAffordability: "मेडियन होम प्राइस",
+      photoLabelPolitics: "",
+      chartTitle: "अपनी प्राथमिकताओं के साथ संरेखण। (0 = आदर्श)",
+      chartLabelCombined: "कम्पोजिट",
+      chartLabelHappiness: "ख़ुशी",
+      chartLabelAffordability: "जीवन यापन की लागत",
+      chartLabelPolitics: "राजनीति",
+      listLabelHappiness: "नागरिक खुशी",   
+      listLabelAffordability: "मेडियन होम प्राइस",  
+      listLabelPolitics: ""
     }
   }
 }
@@ -100,7 +118,7 @@ ModelResults.prototype.setLocale = function(locale) {
 }
 
 ModelResults.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US")
+  return (locale === "en-US" || locale === "hi-IN")
 }
 
 ModelResults.prototype.getLocale = function() {
@@ -468,11 +486,11 @@ function UnitTestModelResults() {
     console.log(' Verifying default object construction ...')
     let model = new ModelResults(cityModel.isValidCityList)
 
-    if (model.dataView !== model.dfltDataView || 
+    if (model.activeDataView !== model.dfltDataView ||
         JSON.stringify(model.rankedList) !== JSON.stringify([]) || 
         model.locale !== 'en-US') {
         failure = "Expected properties of [photo-view, [], 'en-US'].  Got " +
-                  JSON.stringify([model.dataView, model.rankedList, model.locale])
+                  JSON.stringify([model.activeDataView, model.rankedList, model.locale])
     }
 
     if (failure) {
@@ -491,11 +509,11 @@ function UnitTestModelResults() {
     console.log(' Verifying object construction with invalid data-view ...')
     let model = new ModelResults(cityModel.isValidCityList, "bogus-view")
 
-    if (model.dataView !== model.dfltDataView || 
+    if (model.activeDataView !== model.dfltDataView ||
         JSON.stringify(model.rankedList) !== JSON.stringify([]) || 
         model.locale !== 'en-US') {
         failure = "Expected properties of [photo-view, [], 'en-US'].  Got " +
-                  JSON.stringify([model.dataView, model.rankedList, model.locale])
+                  JSON.stringify([model.activeDataView, model.rankedList, model.locale])
     }
 
     if (failure) {
@@ -514,11 +532,11 @@ function UnitTestModelResults() {
     console.log(' Verifying object construction with valid non-default data-view ...')
     let model = new ModelResults(cityModel.isValidCityList, "list-view")
 
-    if (model.dataView !== "list-view" ||
+    if (model.activeDataView !== "list-view" ||
         JSON.stringify(model.rankedList) !== JSON.stringify([]) || 
         model.locale !== 'en-US') {
         failure = "Expected properties of ['list-view', [], 'en-US'].  Got " +
-                  JSON.stringify([model.dataView, model.rankedList, model.locale])
+                  JSON.stringify([model.activeDataView, model.rankedList, model.locale])
     }
 
     if (failure) {

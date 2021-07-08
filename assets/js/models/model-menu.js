@@ -28,12 +28,26 @@ function ModelMenu(locale) {
       showCities: "Show cities in %s",
       showTop: "Show top %d cities",
       help: "Help"
+    },
+    "hi-IN": {
+      title: "मेनू",
+      view: "इधर देखो",
+      viewIntro: "1. परिचय",
+      viewPriorities: "2. आपकी प्राथमिकताएं",
+      viewBestBets: "3. आपका सबसे अच्छा दांव",
+      viewBlog: "ब्लॉग",
+      settings: "सेटिंग्स",
+      settingsEdit: "आधुनिकीकरणअ",
+      useLang: "प्रयोग %s",
+      showCities: "के लिए शहरों दिखाएं %s",
+      showTop: "सर्वश्रेष्ठ %d शहरों को दिखाएं",
+      help: "मदद"
     }
   }
 }
 
 ModelMenu.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US")
+  return (locale === "en-US" || locale == "hi-IN")
 }
 
 ModelMenu.prototype.getLocale = function() {

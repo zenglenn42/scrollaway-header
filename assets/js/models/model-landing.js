@@ -12,6 +12,9 @@
 //       fallback to default values.
 //----------------------------------------------------------------------------------
 
+// The locale codes are based upon a two-letter language tag (see IETF BCP-47)
+// and a two-letter region code (see ISO 3166).
+
 function ModelLanding(locale) {
   this.dfltLocale = "en-US"
   this.locale = (this.isValidLocale(locale)) ? locale : this.dfltLocale
@@ -25,14 +28,25 @@ function ModelLanding(locale) {
       //     with each sentence < 80 characters.
 
       blurb: "Thinking about a move but not sure which city is your best bet?\n" +
-                         "Share your priorities and we'll offer some options to consider.",
+             "Share your priorities and we'll offer some options to consider.",
+      copyrightDate: "2021"
+    },
+    "hi-IN": {
+      appName: "सिटी मैच",
+      slogan: "अपने शहर का पता लगाएं",
+
+      // NB: Strive to keep blurb text short, ideally not more than 2 sentences
+      //     with each sentence < 80 characters.
+
+      blurb: "एक कदम के बारे में सोच लेकिन यकीन नहीं है कि कौन सा शहर आपका सबसे अच्छा दांव है?\n" +
+             "अपनी प्राथमिकताओं को साझा करें और हम विचार करने के लिए कुछ विकल्प पेश करेंगे।",
       copyrightDate: "2021"
     }
   }
 }
 
 ModelLanding.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US")
+  return (locale === "en-US" || locale === "hi-IN")
 }
 
 ModelLanding.prototype.getLocale = function() {

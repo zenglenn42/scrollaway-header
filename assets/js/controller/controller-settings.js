@@ -43,6 +43,33 @@ Controller.prototype.addSettingsPageEventListeners = function() {
       break
   }
 
+  languageButtons = [...document.querySelectorAll(".settings-language__button")]
+  languageButtons.map(button => {
+      button.addEventListener(
+        "click",
+        (e) => {
+           let buttonEl = e.srcElement
+           let id = buttonEl.getAttribute("id")
+           let localeAttr = buttonEl.getAttribute("data-value") || "en-US"
+           if (this.settings.setLocale(localeAttr)) {
+             // TODO: Persist to local storage once that has been integrated.
+
+             // Update the models with new locale.
+             // TODO: This should go away once observer pattern is implemented.
+             this.menu.setLocale(localeAttr)
+             this.landing.setLocale(localeAttr)
+             this.priorities.setLocale(localeAttr)
+             this.results.setLocale(localeAttr)
+
+             // Update view based upon locale in model.
+             // TODO: This should go away once observer pattern is implemented.
+             this.view.setLanguage()
+           }
+           // console.log(`set locale to ${localeAttr}`)
+     })
+  })
+
+
   maxResultsButtons = [...document.querySelectorAll(".settings-max-results__button")]
   maxResultsButtons.map(button => {
       let value = JSON.parse(button.getAttribute("data-value"))
@@ -54,17 +81,17 @@ Controller.prototype.addSettingsPageEventListeners = function() {
            let attrValue = buttonEl.getAttribute("data-value") || "10"
            let value = JSON.parse(attrValue)
            if (this.settings.setMaxResults(value)) {
-             //this.settings.saveLocalState()
-             this.view.setMaxResults() // set view based upon model
-                                       // TODO: This should go away once
-                                       // observer pattern is implemented
-                                       // in the model.
+             // TODO: Persist to local storage once that has been integrated.
+
+             // Update view based upon locale in model.
+             // TODO: This should go away once observer pattern is implemented.
+             this.view.setMaxResults()
            }
            // console.log(`click show top ${value} cities`)
      })
   })
 
-  /* Make hamburger menu responsive to clicks. */
+  // Make hamburger menu responsive to clicks.
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"))
   componentHandler.upgradeDom()
 }

@@ -136,6 +136,21 @@ function ModelPriorities(affordabilityValue,
       jobSearchTitle: "Job Outlook",
       jobSearchTooltip: "This feature is currently unavailable.",
       jobSearchPlaceholder: "Job Title (disabled)"
+    },
+    "hi-IN": {
+      title: "अपनी प्राथमिकताओं को साझा करें ...",
+      happinessTitle: "नागरिक खुशी",
+      happinessTooltip: "इस प्राथमिकता को समायोजित करने के लिए नीचे स्लाइडर का उपयोग करें। " +
+                        "समग्र कल्याण, रोजगार और समुदाय सहित आयामों में वॉलेटहब द्वारा 2019 के अध्ययन के आधार पर।",
+      politicsTitle: "प्रचलित राजनीति",
+      politicsTooltip: "वांछित प्रचलित राजनीतिक माहौल की इस प्राथमिकता को समायोजित करने के लिए नीचे स्लाइडर का उपयोग करें। " + 
+                       "ओपनडेटासॉफ्ट द्वारा प्रकाशित 2016 राष्ट्रपति चुनाव के आंकड़ों के आधार पर।",
+      affordabilityTitle: "रहने की लागत",
+      affordabilityTooltip: "रहने की वांछित सापेक्ष लागत निर्दिष्ट करने के लिए नीचे स्लाइडर का उपयोग करें। " +
+                            "2017 में औसत घर की कीमत के आधार पर। अमेरिकी जनगणना द्वारा प्रकाशित।",
+      jobSearchTitle: "जॉब आउटलुक",
+      jobSearchTooltip: "यह सुविधा वर्तमान में अनुपलब्ध है।",
+      jobSearchPlaceholder: "नौकरी का शीर्षक" + " " + "(विकलांग)"
     }
   }
 }
@@ -152,7 +167,7 @@ ModelPriorities.prototype.setLocale = function(locale) {
 }
 
 ModelPriorities.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US")
+  return (locale === "en-US" || locale === "hi-IN")
 }
 
 ModelPriorities.prototype.getLocale = function() {

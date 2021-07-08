@@ -18,8 +18,24 @@ View.prototype.setMaxResults = function() {
   // TODO: Split this out to a menu component?
   let settingsMenuMaxResultsEl = document.querySelector("#settings-max-results-menu")
   if (settingsMenuMaxResultsEl) {
-    settingsMenuMaxResultsEl.innerHTML = "Show top " + this.getMaxResults() + " cities"
+    settingsMenuMaxResultsEl.innerHTML = `${this.getMenuSettingsShowTop(this.getMaxResults())}`
   }
+}
+
+View.prototype.setLanguage = function() {
+  let settingsPageLanguageEl = document.querySelector("#settings-language-selected")
+  if (settingsPageLanguageEl) {
+    settingsPageLanguageEl.innerHTML = this.getLangName(this.getLocale())
+  }
+  // TODO: Split this out to a menu component?
+  let settingsMenuLanguageEl = document.querySelector("#settings-language-menu")
+  if (settingsMenuLanguageEl) {
+    settingsMenuLanguageEl.innerHTML = `${this.getMenuSettingsUseLang(this.getLangName(this.getLocale()))}`
+  }
+
+  // Recreate the settings page under the new language/locale.
+  // TODO: Is garbage collection a concern?
+  this.createSettingsBody()
 }
 
 View.prototype.createSettingsBody = function createSettingsBody() {
@@ -37,8 +53,7 @@ View.prototype.createSettingsBody = function createSettingsBody() {
   }
 
   bodyDiv.innerHTML = ""
-  let header = this.createHeader(
-        "Edit settings ...", "")
+  let header = this.createHeader(this.getSettingsTitle(), "")
   let menuDrawer = this.createMenuDrawer()
   let hamburgerMenu = this.createHamburgerMenu()
   let mainSettings = this.createSettingsMain(backToPage)
@@ -67,7 +82,7 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
   // Turn settings model for max results options into presentation elements (list items).
 
   let maxResultsListItems = (this.getMaxResultsOptions().map((numCities, i) => {
-      return `<li id="maxResults-${i + 1}" data-value="${numCities}" class="mdl-menu__item settings-max-results__button">${numCities}</li>`
+      return `<li id="maxResults-${i+1}" data-value="${numCities}" class="mdl-menu__item settings-max-results__button">${numCities}</li>`
   }).reduce((acc, li) => {acc += li; return acc}, ""))
 
   // List items for language selection dropdown list box.
@@ -100,7 +115,7 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
     return acc
   }, "")
 
-  let langString = this.getLangName(this.getLangCode())
+  let langString = this.getLangName(this.getLocale())
   let countryString = this.getCountryName(this.getCountryCode())
 
   g.innerHTML = `
@@ -110,11 +125,11 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         <label class="mdl-button mdl-js-button mdl-button--icon" for="languageId">
           <i  class="material-icons">translate</i>
         </label>
-        Select language
+        ${this.getSelectLang()}
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        <span>Use &nbsp;</span>
-        <span class="selected-value">${langString}</span>
+        <span>${this.getUseLang()} &nbsp;</span>
+        <span id="settings-language-selected" class="selected-value">${langString}</span>
         <button id="settings-language" class="mdl-button mdl-js-button dropdown-button">
           <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
         </button>
@@ -129,10 +144,10 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         <label class="mdl-button mdl-js-button mdl-button--icon" for="countryId">
           <i  class="material-icons">travel_explore</i>
         </label>
-        Select country
+        ${this.getSelectCountry()}
       </span>
       <div class="mdl-textfield mdl-js-textfield">
-        <span>Show cities in &nbsp;</span>
+        <span>${this.getShowCities()} &nbsp;</span>
         <span class="selected-value">${countryString}</span>
         <button id="settings-country" class="mdl-button mdl-js-button dropdown-button">
           <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
@@ -148,16 +163,16 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         <label class="mdl-button mdl-js-button mdl-button--icon" for="settings-max-results">
           <i  class="material-icons">location_city</i>
         </label>
-        Select quantity
+        ${this.getSelectQuantity()}
       </span>
 
       <div class="mdl-textfield mdl-js-textfield">
-        <span>Show top &nbsp;</span> 
+        <span>${this.getShowTopCitiesBegin()} &nbsp;</span> 
         <span id="settings-max-results-selected" class="selected-value">${this.getMaxResults()}</span>
         <button id="settings-max-results" class="mdl-button mdl-js-button dropdown-button">
           <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
         </button>
-        <span>cities</span>
+        <span>${this.getShowTopCitiesEnd()}</span>
         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right"
             data-mdl-for="settings-max-results">
           ${maxResultsListItems}

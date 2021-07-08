@@ -42,14 +42,21 @@ function View(
   githubUrl,
   getMaxResults,
   getMaxResultsOptions,
-  getLangCode,
+  getLocale,
   getLangName,
   getLangOptionsMap,
   getCountryCode,
   getCountryName,
   getCountryOptionsMap,
-  getLocale,
   getCurrency,
+  getSettingsTitle,
+  getSelectLang,
+  getUseLang,
+  getSelectCountry,
+  getShowCities,
+  getSelectQuantity,
+  getShowTopCitiesBegin,
+  getShowTopCitiesEnd,
   getAffordabilityValue,
   getHappinessValue,
   getPoliticsValue,
@@ -113,12 +120,20 @@ function View(
   // Bind to SettingsModel interface.
   this.getMaxResults = getMaxResults
   this.getMaxResultsOptions = getMaxResultsOptions
-  this.getLangCode = getLangCode
+  this.getLocale = getLocale
   this.getLangName = getLangName
   this.getLangOptionsMap = getLangOptionsMap
   this.getCountryCode = getCountryCode
   this.getCountryName = getCountryName
   this.getCountryOptionsMap = getCountryOptionsMap
+  this.getSettingsTitle = getSettingsTitle
+  this.getSelectLang = getSelectLang
+  this.getUseLang = getUseLang
+  this.getSelectCountry = getSelectCountry
+  this.getShowCities = getShowCities
+  this.getSelectQuantity = getSelectQuantity
+  this.getShowTopCitiesBegin = getShowTopCitiesBegin
+  this.getShowTopCitiesEnd = getShowTopCitiesEnd
 
   // Bind to PriorityModel interface.
   this.getAffordabilityValue = getAffordabilityValue
@@ -197,6 +212,7 @@ function View(
   this.minAffordabilityValue = minAffordabilityValue
   this.maxAffordabilityValue = maxAffordabilityValue
   this.githubUrl = githubUrl
+
   let locale = getLocale()
   let currency = getCurrency(getCountryCode())
 
