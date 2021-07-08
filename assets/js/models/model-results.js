@@ -73,7 +73,25 @@ function ModelResults(isValidCityListFn, dataView, rankedList, locale) {
       listLabelHappiness: "नागरिक खुशी",   
       listLabelAffordability: "मेडियन होम प्राइस",  
       listLabelPolitics: ""
-    }
+    },
+    "es-ES": {
+      title: "Tus mejores apuestas ...",
+      noResults: "No hay resultados disponibles.",
+      noResultsAdvice: "Regrese y especifique una o más prioridades, por favor.",
+      monetizeHere: "Monetiza aquí $",
+      monetizeLearnMore: "Aprende Más",
+      photoLabelHappiness: "Felicidad Cívica",
+      photoLabelAffordability: "Precio medio de la vivienda",
+      photoLabelPolitics: "",
+      chartTitle: "Alineación con tus prioridades (0 = ideal)",
+      chartLabelCombined: "Conjunta",
+      chartLabelHappiness: "Felicidad",
+      chartLabelAffordability: "Costo de la Vida",
+      chartLabelPolitics: "Política",
+      listLabelHappiness: "Felicidad Cívica",      
+      listLabelAffordability: "Precio medio de la vivienda",
+      listLabelPolitics: ""
+    },
   }
 }
 
@@ -118,7 +136,7 @@ ModelResults.prototype.setLocale = function(locale) {
 }
 
 ModelResults.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" || locale === "hi-IN")
+  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES")
 }
 
 ModelResults.prototype.getLocale = function() {

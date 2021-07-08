@@ -42,12 +42,26 @@ function ModelMenu(locale) {
       showCities: "के लिए शहरों दिखाएं %s",
       showTop: "सर्वश्रेष्ठ %d शहरों को दिखाएं",
       help: "मदद"
-    }
+    },
+    "es-ES": {
+      title: "Menú",
+      view: "Mira",
+      viewIntro: "1. Introducción",
+      viewPriorities: "2. Tus prioridades",
+      viewBestBets: "3. Tus mejores apuestas",
+      viewBlog: "Blog",
+      settings: "Ajustes",
+      settingsEdit: "Editar",
+      useLang: "Usar %s",
+      showCities: "Mostrar ciudades en %s",
+      showTop: "Mostrar las %d mejores ciudades",
+      help: "Ayúdame"
+    },
   }
 }
 
 ModelMenu.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" || locale == "hi-IN")
+  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES")
 }
 
 ModelMenu.prototype.getLocale = function() {

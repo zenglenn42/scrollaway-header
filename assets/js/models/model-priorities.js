@@ -151,6 +151,21 @@ function ModelPriorities(affordabilityValue,
       jobSearchTitle: "जॉब आउटलुक",
       jobSearchTooltip: "यह सुविधा वर्तमान में अनुपलब्ध है।",
       jobSearchPlaceholder: "नौकरी का शीर्षक" + " " + "(विकलांग)"
+    },
+    "es-ES": {
+      title: "Comparta sus prioridades", // TODO: Shorten? Getting clipped on iPhone SE.
+      happinessTitle: "Felicidad cívica",
+      happinessTooltip: "Utilice el control deslizante a continuación para ajustar esta prioridad. " +
+                        "Basado en un estudio de WalletHub de 2019 en muchas dimensiones, incluido el bienestar general, el empleo y la comunidad.",
+      politicsTitle: "Política Imperante",
+      politicsTooltip: "Utilice el control deslizante a continuación para ajustar esta prioridad del entorno político predominante deseado. " +
+                       "Basado en datos de elecciones presidenciales de 2016 a nivel de condado publicados por opendatasoft.",
+      affordabilityTitle: "Costo de la Vida",
+      affordabilityTooltip: "Utilice el control deslizante a continuación para especificar el costo de vida relativo deseado. " +
+                            "Basado en el precio medio de la vivienda por condado de 2017 según lo publicado por el censo de los Estados Unidos.",
+      jobSearchTitle: "Perspectiva Laboral",
+      jobSearchTooltip: "Esta función no está disponible actualmente.",
+      jobSearchPlaceholder: "Título del Trabajo (discapacitado)"
     }
   }
 }
@@ -167,7 +182,7 @@ ModelPriorities.prototype.setLocale = function(locale) {
 }
 
 ModelPriorities.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" || locale === "hi-IN")
+  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES")
 }
 
 ModelPriorities.prototype.getLocale = function() {

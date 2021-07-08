@@ -56,9 +56,15 @@
   z-index: unset;
 }
 
+/* This width is dependent upon the menu localization strings. */
+
+.mdl-layout__drawer.is-visible {
+  width: 280px;
+}
+
 .mdl-layout__drawer .mdl-menu {
   /* Make submenu container width same as menu drawer width. */
-  min-width: 240px;
+  min-width: 280px;
 }
 
 .mdl-layout__drawer .mdl-menu__item > a,
@@ -329,6 +335,13 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 
 .settings-cell {
   text-align: left;
+  margin-left: 0.5em;
+  margin-right: 2em;
+}
+
+.settings-textfield {
+  width: 100%;
+  min-width: 350px; /* Otherwise spanish menu wraps. */
 }
 
 /* Fix visibility issue with long menu drawer content (especially on landscape mobile). */

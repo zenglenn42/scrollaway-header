@@ -62,7 +62,7 @@ function ModelSettings(numCities, maxResults, locale, countryCode) {
     "es-ES": {
       name: "Español",
       enName: "Spanish",
-      supported: false  // May be used by view to gray out a selection list option.
+      supported: true  // May be used by view to gray out a selection list option.
     }
   }
 
@@ -113,7 +113,17 @@ function ModelSettings(numCities, maxResults, locale, countryCode) {
       selectQuantity: "मात्रा चुनें",
       showTop: "शीर्ष ",
       showTopCities: "शहरों को दिखाएं"
-    }
+    },
+    "es-ES": {
+      title: "Editar configuración ...",
+      selectLang: "Seleccione el idioma",
+      useLang: "Usar",
+      selectCountry: "Seleccionar país",
+      showCities: "Mostrar ciudades en",
+      selectQuantity: "Selecciona la cantidad",
+      showTop: "Mostrar las",
+      showTopCities: "mejores ciudades"
+    },
   }
 }
 
@@ -176,7 +186,7 @@ ModelSettings.prototype.getMaxResultsOptions = function() {
 }
 
 ModelSettings.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" || locale === "hi-IN")
+  return (locale === "en-US" || locale === "hi-IN" || "es-ES")
 }
 
 // Introduce notion of locale (based upon BCP 47 standard).

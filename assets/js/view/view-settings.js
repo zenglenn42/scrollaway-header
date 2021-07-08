@@ -120,14 +120,14 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
 
   g.innerHTML = `
     <div>
-    <div class='mdl-cell mdl-cell--4-col settings-cell'>
+    <div class='mdl-cell mdl-cell--6-col settings-cell'>
       <span>
         <label class="mdl-button mdl-js-button mdl-button--icon" for="languageId">
           <i  class="material-icons">translate</i>
         </label>
         ${this.getSelectLang()}
       </span>
-      <div class="mdl-textfield mdl-js-textfield">
+      <div class="mdl-textfield mdl-js-textfield settings-textfield">
         <span>${this.getUseLang()} &nbsp;</span>
         <span id="settings-language-selected" class="selected-value">${langString}</span>
         <button id="settings-language" class="mdl-button mdl-js-button dropdown-button">
@@ -139,14 +139,14 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         </ul>
       </div>
     </div>
-    <div class='mdl-cell mdl-cell--4-col settings-cell'>
+    <div class='mdl-cell mdl-cell--6-col settings-cell'>
       <span>
         <label class="mdl-button mdl-js-button mdl-button--icon" for="countryId">
           <i  class="material-icons">travel_explore</i>
         </label>
         ${this.getSelectCountry()}
       </span>
-      <div class="mdl-textfield mdl-js-textfield">
+      <div class="mdl-textfield mdl-js-textfield settings-textfield">
         <span>${this.getShowCities()} &nbsp;</span>
         <span class="selected-value">${countryString}</span>
         <button id="settings-country" class="mdl-button mdl-js-button dropdown-button">
@@ -158,7 +158,7 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         </ul>
       </div>
     </div>
-    <div class='mdl-cell mdl-cell--4-col settings-cell'>
+    <div class='mdl-cell mdl-cell--6-col settings-cell'>
       <span>
         <label class="mdl-button mdl-js-button mdl-button--icon" for="settings-max-results">
           <i  class="material-icons">location_city</i>
@@ -166,7 +166,7 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
         ${this.getSelectQuantity()}
       </span>
 
-      <div class="mdl-textfield mdl-js-textfield">
+      <div class="mdl-textfield mdl-js-textfield settings-textfield">
         <span>${this.getShowTopCitiesBegin()} &nbsp;</span> 
         <span id="settings-max-results-selected" class="selected-value">${this.getMaxResults()}</span>
         <button id="settings-max-results" class="mdl-button mdl-js-button dropdown-button">
@@ -182,16 +182,16 @@ View.prototype.createSettingsMain = function(backToPage="landing") {
     </div>
     <!-- Adding dummy cell for bottom padding to avoid proximity to FAB.  
          Probably a more elegant way to do this ... like bottom-margin on grid. -->
-    <div class='mdl-cell mdl-cell--4-col settings-cell'>
+    <div class='mdl-cell mdl-cell--6-col settings-cell'>
       &nbsp;
     </div>
-    <div class='mdl-cell mdl-cell--4-col settings-cell'>
+    <div class='mdl-cell mdl-cell--6-col settings-cell'>
       &nbsp;
     </div>
-    <div class='mdl-cell mdl-cell--4-col settings-cell'>
+    <div class='mdl-cell mdl-cell--6-col settings-cell'>
       &nbsp;
     </div>
-    <div class='mdl-cell mdl-cell--4-col settings-cell'>
+    <div class='mdl-cell mdl-cell--6-col settings-cell'>
       &nbsp;
     </div>
     </div>

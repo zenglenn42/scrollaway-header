@@ -41,12 +41,23 @@ function ModelLanding(locale) {
       blurb: "एक कदम के बारे में सोच लेकिन यकीन नहीं है कि कौन सा शहर आपका सबसे अच्छा दांव है?\n" +
              "अपनी प्राथमिकताओं को साझा करें और हम विचार करने के लिए कुछ विकल्प पेश करेंगे।",
       copyrightDate: "2021"
+    },
+    "es-ES": {
+      appName: "Ciudad de Sueños",
+      slogan: "Encuentra tu ciudad",
+
+      // NB: Strive to keep blurb text short, ideally not more than 2 sentences
+      //     with each sentence < 80 characters.
+
+      blurb: "¿Estás pensando en mudarte pero no estás seguro de cuál es tu mejor opción?\n" +
+             "Comparta sus prioridades y le ofreceremos algunas opciones a considerar.",
+      copyrightDate: "2021"
     }
   }
 }
 
 ModelLanding.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" || locale === "hi-IN")
+  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES")
 }
 
 ModelLanding.prototype.getLocale = function() {
