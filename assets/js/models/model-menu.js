@@ -10,7 +10,7 @@
 //       and settings models.
 //----------------------------------------------------------------------------------
 
-function ModelMenu(locale) {
+function ModelMenu(locale = "en-US") {
   this.dfltLocale = "en-US"
   this.locale = (this.isValidLocale(locale)) ? locale : this.dfltLocale
 

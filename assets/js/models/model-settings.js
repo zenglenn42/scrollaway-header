@@ -16,7 +16,7 @@
 //       localization.
 //----------------------------------------------------------------------------------
 
-function ModelSettings(numCities, maxResults, locale, countryCode) {
+function ModelSettings(locale = "en-US", numCities, maxResults, countryCode) {
 
   // Number of cities in the database for the country indicated by countryCode.
 

@@ -8,7 +8,7 @@
 // TODO: Make this observable (in the software patterns sense).
 //----------------------------------------------------------------------------------
 
-function ModelResults(isValidCityListFn, dataView, rankedList, locale) {
+function ModelResults(locale = "en-US", isValidCityListFn, dataView, rankedList) {
 
   // Validate required input parameters.
 
@@ -520,7 +520,7 @@ function UnitTestModelResults() {
   try {
     cut = "ModelResults(ctor)"
     console.log(' Verifying default object construction ...')
-    let model = new ModelResults(cityModel.isValidCityList)
+    let model = new ModelResults("en-US", cityModel.isValidCityList)
 
     if (model.activeDataView !== model.dfltDataView ||
         JSON.stringify(model.rankedList) !== JSON.stringify([]) || 
@@ -543,7 +543,7 @@ function UnitTestModelResults() {
   try {
     cut = "ModelResults(ctor) negative case"
     console.log(' Verifying object construction with invalid data-view ...')
-    let model = new ModelResults(cityModel.isValidCityList, "bogus-view")
+    let model = new ModelResults("en-US", cityModel.isValidCityList, "bogus-view")
 
     if (model.activeDataView !== model.dfltDataView ||
         JSON.stringify(model.rankedList) !== JSON.stringify([]) || 
@@ -566,7 +566,7 @@ function UnitTestModelResults() {
   try {
     cut = "ModelResults(ctor)"
     console.log(' Verifying object construction with valid non-default data-view ...')
-    let model = new ModelResults(cityModel.isValidCityList, "list-view")
+    let model = new ModelResults("en-US", cityModel.isValidCityList, "list-view")
 
     if (model.activeDataView !== "list-view" ||
         JSON.stringify(model.rankedList) !== JSON.stringify([]) || 
@@ -589,7 +589,7 @@ function UnitTestModelResults() {
   try {
     cut = "ModelResults.getRankedList()"
     console.log(' Verifying ability to get ranked list ...')
-    let model = new ModelResults(cityModel.isValidCityList)
+    let model = new ModelResults("en-US", cityModel.isValidCityList)
     let rankedList = model.getRankedList()
 
     if (JSON.stringify(rankedList) !== JSON.stringify([])) {
@@ -610,7 +610,7 @@ function UnitTestModelResults() {
   try {
     cut = "ModelResults.setRankedList()"
     console.log(' Verifying ability to set ranked list ...')
-    let model = new ModelResults(cityModel.isValidCityList)
+    let model = new ModelResults("en-US", cityModel.isValidCityList)
     let dummyList = [
     {
       "Plano, TX": {

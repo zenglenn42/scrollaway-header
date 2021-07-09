@@ -9,17 +9,17 @@
 // TODO: Make this observable (in the software patterns sense).
 //----------------------------------------------------------------------------------
 
-function ModelPriorities(affordabilityValue, 
-                         happinessValue, 
-                         politicsValue, 
-                         affordabilityRange, 
-                         happinessRange, 
+function ModelPriorities(locale="en-US",
+                         affordabilityValue,
+                         happinessValue,
+                         politicsValue,
+                         affordabilityRange,
+                         happinessRange,
                          politicsRange,
-                         affordabilityEnabled, 
-                         happinessEnabled, 
-                         politicsEnabled, 
-                         jobSearchEnabled,
-                         locale="en-US") {
+                         affordabilityEnabled = true,
+                         happinessEnabled = true,
+                         politicsEnabled = true,
+                         jobSearchEnabled = false) {
 
   // Validate required input parameters.
 
@@ -601,6 +601,7 @@ function UnitTestModelPriorities() {
   let testJobSearchEnabled = true
 
   let priorities = new ModelPriorities(
+                          "en-US",
                           testAffordability, 
                           testHappiness, 
                           testPolitics,
@@ -1114,6 +1115,7 @@ function UnitTestModelPriorities() {
     console.log(' Verifying object construction failure on bad affordability range input parameter ...')
 
     let failedPriorities = new ModelPriorities(
+                          "en-US",
                           testAffordability,
                           testHappiness,
                           testPolitics,
@@ -1145,6 +1147,7 @@ function UnitTestModelPriorities() {
     console.log(' Verifying object construction failure on bad happiness range input parameter ...')
 
     let failedPriorities = new ModelPriorities(
+                          "en-US",
                           testAffordability,
                           testHappiness,
                           testPolitics,
@@ -1176,6 +1179,7 @@ function UnitTestModelPriorities() {
     console.log(' Verifying object construction failure on bad politics range input parameter ...')
 
     let failedPriorities = new ModelPriorities(
+                          "en-US",
                           testAffordability,
                           testHappiness,
                           testPolitics,
@@ -1218,6 +1222,7 @@ function UnitTestModelPriorities() {
     let testJobSearchEnabled = priorities.dfltJobSearchEnabled
 
     let dfltPriorities = new ModelPriorities(
+                           "en-US",
                            testAffordability, 
                            testHappiness, 
                            testPolitics,

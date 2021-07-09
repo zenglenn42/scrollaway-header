@@ -15,7 +15,7 @@
 // The locale codes are based upon a two-letter language tag (see IETF BCP-47)
 // and a two-letter region code (see ISO 3166).
 
-function ModelLanding(locale) {
+function ModelLanding(locale = "en-US") {
   this.dfltLocale = "en-US"
   this.locale = (this.isValidLocale(locale)) ? locale : this.dfltLocale
 

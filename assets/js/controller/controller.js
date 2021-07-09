@@ -27,31 +27,26 @@
 //----------------------------------------------------------------------------------
 
 function Controller(bodyDivId, locale = "en-US") {
-  this.locale = locale
   this.cache = new LocalStorage()
 
   // Instantiate model.
   this.cities = new ModelCities()
 
   // Instantiate view models.
-  this.menu = new ModelMenu(this.locale)
-  this.landing = new ModelLanding(this.locale)
-  this.settings = new ModelSettings(this.cities.getNumCities(), 10, this.locale)
+  this.menu = new ModelMenu(locale)
+  this.landing = new ModelLanding(locale)
+  this.settings = new ModelSettings(locale, this.cities.getNumCities())
 
   this.priorities = new ModelPriorities(
-    this.cities.getMidAffordabilityValue(), // TODO: Init from cache if available.
-    this.cities.getMidHappinessValue(),     // TODO: Init from cache if available.
-    this.cities.getMidPoliticsValue(),      // TODO: Init from cache if available.
+    locale,
+    this.cities.getMidAffordabilityValue(), // 
+    this.cities.getMidHappinessValue(),     // TODO: Init these 3 props from cache if avail.
+    this.cities.getMidPoliticsValue(),      // 
     this.cities.getAffordabilityRange(),
     this.cities.getHappinessRange(),
-    this.cities.getPoliticsRange(),
-    true, // TODO: Init affordabilityEnabled from cache if available.
-    true, // TODO: Init happinessEnabled from cache if available.
-    true, // TODO: Init politicsEnabled from cache if available.
-    false,// TODO: Init jobSearchEnabled from cache if availalbe.
-    this.locale
+    this.cities.getPoliticsRange()
   )
-  this.results = new ModelResults(this.cities.isValidCityList, "photo-view", [], this.locale)
+  this.results = new ModelResults(locale, this.cities.isValidCityList)
 
   // Instantiate view, passing in state getters from models.
   this.view = new View(
