@@ -885,16 +885,66 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
 ![alt](docs/img/priscilla-du-preez-tQagUWpAx5k-unsplash.jpg)
 Photo by Priscilla Du Preez
 
+## Menu refactor
 For all the cool potential this little app has, I think it's time to move on to other projects.  As a parting farewell, I give some love to the hamburger menu, factoring in some recent usability feedback.
 
 What started out as a modest, hardcoded mock-up ...
 
 ![alt](docs/img/slideout-menu.png)
 
-has morphed into something which allows menu-based navigation (through the 'View' submenu) and mutation of application settings (at least for number of top cities to report).
+morphs into something which allows menu-based navigation (through the 'View' submenu) and mutation of some application settings.
 
 ![alt](docs/img/menu-refactor.png)
 
-I had to create my own drop-down selection element since Material Design Lite (MDL) doesn't provide one, yet another reason to upgrade to Material Components.  I may noodle around with this at the margins, but the next big lift would probably be a full-stack rollout with React front-end.
+I create my own drop-down selection element since Material Design Lite (MDL) doesn't provide one, yet another reason to upgrade to Material Components.  
 
-Maybe I'll do that in the fullness of time.  Stay tuned and thanks for reading. (-;
+Maybe I'll do that in the fullness of time.  
+
+## Localization (l10n)
+
+![alt](docs/img/l10n-settings.png)
+
+I add localization for 4 of the world's most common languages, though I still need to run the translations by some native speakers since I likely made some funny choices, despite google translate's general prowess.
+
+![alt](docs/img/l10n-refactor.png)
+
+## Granular MVC-ification
+
+The standard quip is MVC stands for "Massive View Controller".  My controller is up past 1000 lines, so it's time for some refactor.
+
+I start by creating view-models for the screens and menu:
+
+* model-menu.js
+* model-settings.js
+* model-landing.js
+* model-priorities.js
+* model-results.js
+
+These manage frontend state instance variables through getters and setters.  I also aggregate my model-specific localization messages catalogs here.  The catalogs are simple javascript maps, keyed by locale (e.g., 'en-US'), with translated strings as value.
+
+I partition the controller along similar file boundaries.  These files define event handlers that set model state in response to user activity.
+
+* controller.js
+* controller-menu.js
+* controller-settings.js
+* controller-landing.js
+* controller-priorities.js
+* controller-results.js
+
+The view gets similar treatment:
+
+* view.js
+* view-menu.js
+* view-landing.js
+* view-priorities.js
+* view-results.js
+* view-settings.js
+
+The methods herein read state from the view-models and render the view accordingly.
+
+
+## Thanks for reading
+
+I still needs to make the models observable by the view for canonical MVC synchronization of state from model to view.  This would make integration of persistence relatively easy.  For now, though, view updates are handled explicitly by the mediating controller on significant event boundaries. 
+
+I may noodle around with this app at the margins, but the next big lift would probably be a full-stack rollout with React front-end.  Stay tuned and thanks for reading. (-;
