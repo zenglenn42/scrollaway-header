@@ -36,14 +36,14 @@ function ModelLanding(getLocale = () => {return "en-US"}) {
       copyrightDate: "2021"
     },
     "hi-IN": {
-      appName: "सिटी मैच",
-      slogan: "अपने शहर का पता लगाएं",
+      appName: "सिसपनों का शहर",
+      slogan: "अपने सपनों का शहर खोजें",
 
       // NB: Strive to keep blurb text short, ideally not more than 2 sentences
       //     with each sentence < 80 characters.
 
-      blurb: "एक कदम के बारे में सोच लेकिन यकीन नहीं है कि कौन सा शहर आपका सबसे अच्छा दांव है?\n" +
-             "अपनी प्राथमिकताओं को साझा करें और हम विचार करने के लिए कुछ विकल्प पेश करेंगे।",
+      blurb: "एक अलग शहर में जाने के बारे में सोच रहे हैं लेकिन यह सुनिश्चित नहीं है कि मेरे लिए सबसे अच्छा शहर कौन सा है?\n" +
+             "अपनी प्राथमिकताएं प्रदान करें और हम कुछ विकल्प देंगे।",
       copyrightDate: "2021"
     },
     "es-ES": {
