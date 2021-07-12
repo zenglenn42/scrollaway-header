@@ -902,7 +902,7 @@ Maybe I'll do that in the fullness of time.
 
 ## Localization (l10n)
 
-assets/js/models/models-landing.js
+![alt](docs/img/l10n-settings.png)
 
 All the MVC and view-model work faciliate multi-language support.  Since all the strings you see on the screen are now pulled from the view model, it's relatively easy to organize these by locale:
 
@@ -931,6 +931,7 @@ All that's needed is a string getter that pulls locale from the Settings model a
 retrieves the corresponding string for that locale:
 
 ```
+assets/js/models/models-landing.js
 
 ModelLanding.prototype.getAppName = function() {
   return this.msgCatalog[this.getLocale()].appName
@@ -940,6 +941,8 @@ ModelLanding.prototype.getAppName = function() {
 The view then simply calls ```landingModel.getAppName()``` to fetch the application name translated into the language of the current locale:
 
 ```
+assets/js/view/view-landing.js
+
 View.prototype.createLandingBody = function() {
   let bodyDiv = document.getElementById(this.bodyDivId)
   bodyDiv.innerHTML = ""
@@ -961,8 +964,6 @@ View.prototype.createHeader = function(title, rightNavIcon) {
   ...
 }
 ```
-
-![alt](docs/img/l10n-settings.png)
 
 With a conducive pattern in place, I add localization for 4 of the world's most common languages, though I still need to run the translations by some native speakers since I likely made some funny choices, despite google translate's general prowess.
 
