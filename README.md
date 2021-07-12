@@ -902,6 +902,8 @@ Maybe I'll do that in the fullness of time.
 
 ## Localization (l10n)
 
+assets/js/models/models-landing.js
+
 All the MVC and view-model work faciliate multi-language support.  Since all the strings you see on the screen are now pulled from the view model, it's relatively easy to organize these by locale:
 
 ```
@@ -929,20 +931,9 @@ All that's needed is a string getter that pulls locale from the Settings model a
 retrieves the corresponding string for that locale:
 
 ```
-assets/js/models/models-landing.js
 
 ModelLanding.prototype.getAppName = function() {
-  let result = "missing_appName"
-  let locale = this.getLocale()
-  if (this.isValidLocaleProperty(locale, 'appName')) {
-    result = this.msgCatalog[locale].appName
-  } else if (this.isValidLocaleProperty(this.dfltLocale, 'appName')) {
-    result = this.msgCatalog[this.dfltLocale].appName
-  } else {
-    result = (locale) ? result + "_" + locale : result
-    console.log("ModelLanding:getAppName() Error ", result)
-  }
-  return result
+  return this.msgCatalog[this.getLocale()].appName
 }
 ```
 
