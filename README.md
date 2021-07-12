@@ -902,9 +902,78 @@ Maybe I'll do that in the fullness of time.
 
 ## Localization (l10n)
 
+All the MVC and view-model work faciliate multi-language support.  Since all the strings you see on the screen are now pulled from the view model, it's relatively easy to organize these by locale:
+
+```
+assets/js/models/models-landing.js
+
+  this.msgCatalog = {
+    "en-US": {
+      appName: "City Match",
+      slogan: "Find your city",
+      blurb: "Thinking about a move but not sure which city is your best bet?\n" +
+             "Share your priorities and we'll offer some options to consider.",
+      copyrightDate: "2021"
+    },
+    "es-ES": {
+      appName: "Ciudad de Sueños",
+      slogan: "Encuentra tu ciudad",
+      blurb: "¿Estás pensando en mudarte pero no estás seguro de cuál es tu mejor opción?\n" +
+             "Comparta sus prioridades y le ofreceremos algunas opciones a considerar.",
+      copyrightDate: "2021"
+    },
+    ...
+```
+
+All that's needed is a string getter that pulls locale from the Settings model and then
+retrieves the corresponding string for that locale:
+
+```
+assets/js/models/models-landing.js
+
+ModelLanding.prototype.getAppName = function() {
+  let result = "missing_appName"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'appName')) {
+    result = this.msgCatalog[locale].appName
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'appName')) {
+    result = this.msgCatalog[this.dfltLocale].appName
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelLanding:getAppName() Error ", result)
+  }
+  return result
+}
+```
+
+The view then simply calls ```landingModel.getAppName()``` to fetch the application name translated into the language of the current locale:
+
+```
+View.prototype.createLandingBody = function() {
+  let bodyDiv = document.getElementById(this.bodyDivId)
+  bodyDiv.innerHTML = ""
+
+  let appName = this.getAppName()
+  let header = this.createHeader(appName)
+  ...
+}
+
+View.prototype.createHeader = function(title, rightNavIcon) {
+  let h = document.createElement("header")
+  h.classList += "mdl-layout__header"
+  h.innerHTML = `
+      <div class="mdl-layout__header-row">
+      <div class="mdl-layout-spacer mdl-layout__header-left-spacer">&nbsp;</div>
+      <span class="mdl-layout-title mdl-layout-title-nudged">${title}</span>
+      ...
+  `
+  ...
+}
+```
+
 ![alt](docs/img/l10n-settings.png)
 
-I add localization for 4 of the world's most common languages, though I still need to run the translations by some native speakers since I likely made some funny choices, despite google translate's general prowess.
+With a conducive pattern in place, I add localization for 4 of the world's most common languages, though I still need to run the translations by some native speakers since I likely made some funny choices, despite google translate's general prowess.
 
 ![alt](docs/img/l10n-refactor.png)
 
