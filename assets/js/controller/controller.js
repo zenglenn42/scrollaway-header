@@ -29,16 +29,17 @@
 function Controller(bodyDivId, locale = "en-US") {
   this.cache = new LocalStorage()
 
-  // Instantiate model.
+  // Instantiate domain model.
   this.cities = new ModelCities()
 
   // Instantiate view models.
-  this.menu = new ModelMenu(locale)
-  this.landing = new ModelLanding(locale)
   this.settings = new ModelSettings(locale, this.cities.getNumCities())
 
+  let getSettingsLocale = this.settings.getLocale.bind(this.settings)
+  this.landing = new ModelLanding(getSettingsLocale)
+  this.menu = new ModelMenu(getSettingsLocale)
   this.priorities = new ModelPriorities(
-    locale,
+    getSettingsLocale,
     this.cities.getMidAffordabilityValue(), // 
     this.cities.getMidHappinessValue(),     // TODO: Init these 3 props from cache if avail.
     this.cities.getMidPoliticsValue(),      // 
@@ -46,7 +47,7 @@ function Controller(bodyDivId, locale = "en-US") {
     this.cities.getHappinessRange(),
     this.cities.getPoliticsRange()
   )
-  this.results = new ModelResults(locale, this.cities.isValidCityList)
+  this.results = new ModelResults(getSettingsLocale, this.cities.isValidCityList)
 
   // Instantiate view, passing in state getters from models.
   this.view = new View(
@@ -64,10 +65,10 @@ function Controller(bodyDivId, locale = "en-US") {
     this.cities.getMinPoliticsValue(),
     this.cities.getMaxPoliticsValue(),
     this.cache.hasSettings.bind(this.cache),
+    getSettingsLocale,
     this.settings.githubUrl,
     this.settings.getMaxResults.bind(this.settings),
     this.settings.getMaxResultsOptions.bind(this.settings),
-    this.settings.getLocale.bind(this.settings),
     this.settings.getLangName.bind(this.settings),
     this.settings.getLangOptionsMap.bind(this.settings),
     this.settings.getCountryCode.bind(this.settings),

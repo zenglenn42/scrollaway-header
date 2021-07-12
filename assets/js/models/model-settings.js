@@ -215,11 +215,7 @@ ModelSettings.prototype.isValidLocale = function(locale) {
 // Chinese).
 
 ModelSettings.prototype.getLocale = function() {
-  if (this.isValidLocale(this.locale)) {
-    return this.locale
-  } else {
-    return this.dfltLocale
-  }
+  return (this.isValidLocale(this.locale)) ? this.locale : this.dfltLocale
 }
 
 ModelSettings.prototype.getLangName = function(locale) {

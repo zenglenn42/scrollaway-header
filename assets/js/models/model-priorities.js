@@ -9,7 +9,7 @@
 // TODO: Make this observable (in the software patterns sense).
 //----------------------------------------------------------------------------------
 
-function ModelPriorities(locale="en-US",
+function ModelPriorities(getLocale = () => {return locale="en-US"},
                          affordabilityValue,
                          happinessValue,
                          politicsValue,
@@ -22,6 +22,10 @@ function ModelPriorities(locale="en-US",
                          jobSearchEnabled = false) {
 
   // Validate required input parameters.
+  if (!getLocale || typeof getLocale !== 'function') {
+    throw('ModelMenu: Failed constructor.  Invalid getLocale fn parameter')
+  }
+  this.getLocale = getLocale
 
   if (!this.isValidRange(affordabilityRange)) {
     throw('ModelPriorities: Failed constructor.  Invalid affordabilityRange input parameter')
@@ -117,8 +121,6 @@ function ModelPriorities(locale="en-US",
   // Presentational strings
   //------------------------------------
   this.dfltLocale = "en-US"
-  this.locale = (this.isValidLocale(locale)) ? locale : this.dfltLocale
-
   this.msgCatalog = {
     "en-US": {
       title: "Share your priorities ...",
@@ -185,28 +187,8 @@ function ModelPriorities(locale="en-US",
   }
 }
 
-ModelPriorities.prototype.setLocale = function(locale) {
-  let result = false
-  if (this.isValidLocale(locale)) {
-    this.locale = locale
-    result = true
-  } else {
-    console.log('Error ModelPriorities.setLocale.  Invalid locale:', locale)
-  }
-  return result
-}
-
 ModelPriorities.prototype.isValidLocale = function(locale) {
   return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES" || locale === "zh-CN")
-}
-
-ModelPriorities.prototype.getLocale = function() {
-  if (this.isValidLocale(this.locale)) {
-    return this.locale
-  } else {
-    console.log("ModelPriorities.getLocale() Info: returning default locale. Not", this.locale)
-    return this.dfltLocale
-  }
 }
 
 ModelPriorities.prototype.isValidLocaleProperty = function(locale, prop) {
@@ -216,12 +198,13 @@ ModelPriorities.prototype.isValidLocaleProperty = function(locale, prop) {
 
 ModelPriorities.prototype.getTitle = function() {
   let result = "missing_title"
-  if (this.isValidLocaleProperty(this.locale, 'title')) {
-    result = this.msgCatalog[this.locale].title
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'title')) {
+    result = this.msgCatalog[locale].title
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'title')) {
     result = this.msgCatalog[this.dfltLocale].title
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getTitle() Error ", result)
   }
   return result
@@ -229,12 +212,13 @@ ModelPriorities.prototype.getTitle = function() {
 
 ModelPriorities.prototype.getHappinessTitle = function() {
   let result = "missing_happiness_title"
-  if (this.isValidLocaleProperty(this.locale, 'happinessTitle')) {
-    result = this.msgCatalog[this.locale].happinessTitle
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'happinessTitle')) {
+    result = this.msgCatalog[locale].happinessTitle
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'happinessTitle')) {
     result = this.msgCatalog[this.dfltLocale].happinessTitle
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getHappinessTitle() Error ", result)
   }
   return result
@@ -242,12 +226,13 @@ ModelPriorities.prototype.getHappinessTitle = function() {
 
 ModelPriorities.prototype.getHappinessTooltip = function() {
   let result = "missing_happiness_tooltip"
-  if (this.isValidLocaleProperty(this.locale, 'happinessTooltip')) {
-    result = this.msgCatalog[this.locale].happinessTooltip
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'happinessTooltip')) {
+    result = this.msgCatalog[locale].happinessTooltip
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'happinessTooltip')) {
     result = this.msgCatalog[this.dfltLocale].happinessTooltip
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getHappinessTooltip() Error ", result)
   }
   return result
@@ -255,12 +240,13 @@ ModelPriorities.prototype.getHappinessTooltip = function() {
 
 ModelPriorities.prototype.getPoliticsTitle = function() {
   let result = "missing_politics_title"
-  if (this.isValidLocaleProperty(this.locale, 'politicsTitle')) {
-    result = this.msgCatalog[this.locale].politicsTitle
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'politicsTitle')) {
+    result = this.msgCatalog[locale].politicsTitle
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'politicsTitle')) {
     result = this.msgCatalog[this.dfltLocale].politicsTitle
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getPoliticsTitle() Error ", result)
   }
   return result
@@ -268,12 +254,13 @@ ModelPriorities.prototype.getPoliticsTitle = function() {
 
 ModelPriorities.prototype.getPoliticsTooltip = function() {
   let result = "missing_politics_tooltip"
-  if (this.isValidLocaleProperty(this.locale, 'politicsTooltip')) {
-    result = this.msgCatalog[this.locale].politicsTooltip
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'politicsTooltip')) {
+    result = this.msgCatalog[locale].politicsTooltip
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'politicsTooltip')) {
     result = this.msgCatalog[this.dfltLocale].politicsTooltip
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getPoliticsTooltip() Error ", result)
   }
   return result
@@ -281,12 +268,13 @@ ModelPriorities.prototype.getPoliticsTooltip = function() {
 
 ModelPriorities.prototype.getAffordabilityTitle = function() {
   let result = "missing_affordability_title"
-  if (this.isValidLocaleProperty(this.locale, 'affordabilityTitle')) {
-    result = this.msgCatalog[this.locale].affordabilityTitle
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'affordabilityTitle')) {
+    result = this.msgCatalog[locale].affordabilityTitle
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'affordabilityTitle')) {
     result = this.msgCatalog[this.dfltLocale].affordabilityTitle
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getAffordabilityTitle() Error ", result)
   }
   return result
@@ -294,12 +282,13 @@ ModelPriorities.prototype.getAffordabilityTitle = function() {
 
 ModelPriorities.prototype.getAffordabilityTooltip = function() {
   let result = "missing_affordability_tooltip"
-  if (this.isValidLocaleProperty(this.locale, 'affordabilityTooltip')) {
-    result = this.msgCatalog[this.locale].affordabilityTooltip
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'affordabilityTooltip')) {
+    result = this.msgCatalog[locale].affordabilityTooltip
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'affordabilityTooltip')) {
     result = this.msgCatalog[this.dfltLocale].affordabilityTooltip
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getAffordabilityTooltip() Error ", result)
   }
   return result
@@ -307,12 +296,13 @@ ModelPriorities.prototype.getAffordabilityTooltip = function() {
 
 ModelPriorities.prototype.getJobSearchTitle = function() {
   let result = "missing_jobSearch_title"
-  if (this.isValidLocaleProperty(this.locale, 'jobSearchTitle')) {
-    result = this.msgCatalog[this.locale].jobSearchTitle
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'jobSearchTitle')) {
+    result = this.msgCatalog[locale].jobSearchTitle
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'jobSearchTitle')) {
     result = this.msgCatalog[this.dfltLocale].jobSearchTitle
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getJobSearchTitle() Error ", result)
   }
   return result
@@ -320,12 +310,13 @@ ModelPriorities.prototype.getJobSearchTitle = function() {
 
 ModelPriorities.prototype.getJobSearchTooltip = function() {
   let result = "missing_jobSearch_tooltip"
-  if (this.isValidLocaleProperty(this.locale, 'jobSearchTooltip')) {
-    result = this.msgCatalog[this.locale].jobSearchTooltip
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'jobSearchTooltip')) {
+    result = this.msgCatalog[locale].jobSearchTooltip
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'jobSearchTooltip')) {
     result = this.msgCatalog[this.dfltLocale].jobSearchTooltip
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getJobSearchTooltip() Error ", result)
   }
   return result
@@ -333,12 +324,13 @@ ModelPriorities.prototype.getJobSearchTooltip = function() {
 
 ModelPriorities.prototype.getJobSearchPlaceholder = function() {
   let result = "missing_jobSearch_placeholder"
-  if (this.isValidLocaleProperty(this.locale, 'jobSearchPlaceholder')) {
-    result = this.msgCatalog[this.locale].jobSearchPlaceholder
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'jobSearchPlaceholder')) {
+    result = this.msgCatalog[locale].jobSearchPlaceholder
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'jobSearchPlaceholder')) {
     result = this.msgCatalog[this.dfltLocale].jobSearchPlaceholder
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getJobSearchPlaceholder() Error ", result)
   }
   return result
@@ -601,7 +593,7 @@ function UnitTestModelPriorities() {
   let testJobSearchEnabled = true
 
   let priorities = new ModelPriorities(
-                          "en-US",
+                          () => {return "en-US"},
                           testAffordability, 
                           testHappiness, 
                           testPolitics,
@@ -1115,7 +1107,7 @@ function UnitTestModelPriorities() {
     console.log(' Verifying object construction failure on bad affordability range input parameter ...')
 
     let failedPriorities = new ModelPriorities(
-                          "en-US",
+                          () => {return "en-US"},
                           testAffordability,
                           testHappiness,
                           testPolitics,
@@ -1147,7 +1139,7 @@ function UnitTestModelPriorities() {
     console.log(' Verifying object construction failure on bad happiness range input parameter ...')
 
     let failedPriorities = new ModelPriorities(
-                          "en-US",
+                          () => {return "en-US"},
                           testAffordability,
                           testHappiness,
                           testPolitics,
@@ -1179,7 +1171,7 @@ function UnitTestModelPriorities() {
     console.log(' Verifying object construction failure on bad politics range input parameter ...')
 
     let failedPriorities = new ModelPriorities(
-                          "en-US",
+                          () => {return "en-US"},
                           testAffordability,
                           testHappiness,
                           testPolitics,
@@ -1222,7 +1214,7 @@ function UnitTestModelPriorities() {
     let testJobSearchEnabled = priorities.dfltJobSearchEnabled
 
     let dfltPriorities = new ModelPriorities(
-                           "en-US",
+                           () => {return "en-US"},
                            testAffordability, 
                            testHappiness, 
                            testPolitics,

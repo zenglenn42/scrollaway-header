@@ -15,9 +15,13 @@
 // The locale codes are based upon a two-letter language tag (see IETF BCP-47)
 // and a two-letter region code (see ISO 3166).
 
-function ModelLanding(locale = "en-US") {
+function ModelLanding(getLocale = () => {return "en-US"}) {
+
+  if (!getLocale || typeof getLocale !== 'function') {
+    throw('ModelLanding: Failed constructor.  Invalid getLocale fn parameter')
+  }
+  this.getLocale = getLocale
   this.dfltLocale = "en-US"
-  this.locale = (this.isValidLocale(locale)) ? locale : this.dfltLocale
 
   this.msgCatalog = {
     "en-US": {
@@ -74,26 +78,6 @@ ModelLanding.prototype.isValidLocale = function(locale) {
           locale === "zh-CN")
 }
 
-ModelLanding.prototype.getLocale = function() {
-  if (this.isValidLocale(this.locale)) {
-    return this.locale
-  } else {
-    console.log("ModelLanding.getLocale() Info: returning default locale. Not", this.locale)
-    return this.dfltLocale
-  }
-}
-
-ModelLanding.prototype.setLocale = function(locale) {
-  let result = false
-  if (this.isValidLocale(locale)) {
-    this.locale = locale
-    result = true
-  } else {
-    console.log('Error ModelLanding.setLocale.  Invalid locale:', locale)
-  }
-  return result
-}
-
 ModelLanding.prototype.isValidLocaleProperty = function(locale, prop) {
   return (this.msgCatalog.hasOwnProperty(locale)) &&
          (this.msgCatalog[locale].hasOwnProperty(prop))
@@ -101,12 +85,13 @@ ModelLanding.prototype.isValidLocaleProperty = function(locale, prop) {
 
 ModelLanding.prototype.getAppName = function() {
   let result = "missing_appName"
-  if (this.isValidLocaleProperty(this.locale, 'appName')) {
-    result = this.msgCatalog[this.locale].appName
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'appName')) {
+    result = this.msgCatalog[locale].appName
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'appName')) {
     result = this.msgCatalog[this.dfltLocale].appName
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelLanding:getAppName() Error ", result)
   }
   return result
@@ -114,12 +99,13 @@ ModelLanding.prototype.getAppName = function() {
 
 ModelLanding.prototype.getSlogan = function() {
   let result = "missing_slogan"
-  if (this.isValidLocaleProperty(this.locale, 'slogan')) {
-    result = this.msgCatalog[this.locale].slogan
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'slogan')) {
+    result = this.msgCatalog[locale].slogan
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'slogan')) {
     result = this.msgCatalog[this.dfltLocale].slogan
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelLanding:getSlogan() Error ", result)
   }
   return result
@@ -127,12 +113,13 @@ ModelLanding.prototype.getSlogan = function() {
 
 ModelLanding.prototype.getBlurb = function() {
   let result = "missing_blurb"
-  if (this.isValidLocaleProperty(this.locale, 'blurb')) {
-    result = this.msgCatalog[this.locale].blurb
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'blurb')) {
+    result = this.msgCatalog[locale].blurb
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'blurb')) {
     result = this.msgCatalog[this.dfltLocale].blurb
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelLanding:getBlurb() Error ", result)
   }
   return result
@@ -140,12 +127,13 @@ ModelLanding.prototype.getBlurb = function() {
 
 ModelLanding.prototype.getCopyrightDate = function() {
   let result = "missing_date"
-  if (this.isValidLocaleProperty(this.locale, 'copyrightDate')) {
-    result = this.msgCatalog[this.locale].copyrightDate
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'copyrightDate')) {
+    result = this.msgCatalog[locale].copyrightDate
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'copyrightDate')) {
     result = this.msgCatalog[this.dfltLocale].copyrightDate
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelLanding:getCopyrightDate() Error ", result)
   }
   return result
@@ -184,8 +172,8 @@ function UnitTestModelLanding() {
     cut = "ModelLanding() dflt constructor"
     console.log(' Verifying default construction when ctor called without params ...')
 
-    if (dfltLandingModel.locale !== "en-US") {
-      failure = "Expected locale of en-US, but got " + dfltLandingModel.locale
+    if (dfltLandingModel.getLocale() !== "en-US") {
+      failure = "Expected locale of en-US, but got " + dfltLandingModel.getLocale()
     }
 
     if (failure) {
@@ -200,12 +188,12 @@ function UnitTestModelLanding() {
   // Test #2
   try {
     failure = ""
-    let nrmlLandingModel = new ModelLanding("en-US")
+    let nrmlLandingModel = new ModelLanding(() => {return "en-US"})
     cut = "ModelLanding('en-US') constructor"
-    console.log(' Verifying nominal construction when ctor called with valid locale ...')
+    console.log(' Verifying nominal construction when ctor called with valid locale getter...')
 
-    if (nrmlLandingModel.locale !== "en-US") {
-      failure = "Expected locale of en-US, but got " + nrmlLandingModel.locale
+    if (nrmlLandingModel.getLocale() !== "en-US") {
+      failure = "Expected locale of en-US, but got " + nrmlLandingModel.getLocale()
     }
 
     if (failure) {
@@ -218,29 +206,7 @@ function UnitTestModelLanding() {
   }
 
   // Test #3
-  try {
-    failure = ""
-    let failLandingModel = new ModelLanding("bogus-locale")
-    cut = "ModelLanding('bogus-locale') constructor"
-
-    // TODO: Should ctor throw exception or resiliently fallback to default construction?
-    console.log(' Verifying fallback construction when ctor called with invalid locale ...')
-
-    if (failLandingModel.locale !== "en-US") {
-      failure = "Expected fallback locale of en-US, but got " + failLandingModel.locale
-    }
-
-    if (failure) {
-      throw(mkFailMsg(cut, failure))
-    } else {
-      console.log(mkPassMsg(cut))
-    }
-  } catch(e) {
-    console.error(e)
-  }
-
-  // Test #4
-  let landingModel = new ModelLanding("en-US")
+  let landingModel = new ModelLanding()
   try {
     failure = ""
     cut = "ModelLanding.getAppName()"
@@ -261,7 +227,7 @@ function UnitTestModelLanding() {
     console.error(e)
   }
 
-  // Test #5
+  // Test #4
   try {
     failure = ""
     cut = "ModelLanding.getSlogan()"
@@ -282,7 +248,7 @@ function UnitTestModelLanding() {
     console.error(e)
   }
 
-  // Test #6
+  // Test #5
   try {
     failure = ""
     cut = "ModelLanding.getBlurb()"
@@ -305,7 +271,7 @@ function UnitTestModelLanding() {
     console.error(e)
   }
 
-  // Test #7
+  // Test #6
   try {
     failure = ""
     cut = "ModelLanding.getCopyrightDate()"

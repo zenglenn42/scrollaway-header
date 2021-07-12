@@ -208,7 +208,7 @@ View.prototype.createPrioritiesSliderCard = function(priorityParams, isEnabled) 
           </div>
         </div>
         <div class="mdl-card__menu"></div>
-        <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--top" data-mdl-for=${tooltipId}>${priorityParams.tooltipText}</div>
+        <div class="mdl-tooltip mdl-tooltip--medium mdl-tooltip--top" data-mdl-for=${tooltipId}>${priorityParams.tooltipText}</div>
       </div>
     `
   let mdlSwitch = this.createSlideSwitch(
@@ -288,7 +288,7 @@ View.prototype.createPrioritiesTextinputCard = function(priorityParams) {
           </div>
         </div>
         <div class="mdl-card__menu"></div>
-        <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--top" data-mdl-for=${tooltipId}>${priorityParams.tooltipText}</div>
+        <div class="mdl-tooltip mdl-tooltip--medium mdl-tooltip--top" data-mdl-for=${tooltipId}>${priorityParams.tooltipText}</div>
       </div>
     `
   /* Disable switch since job outlook feature not yet implemented. */

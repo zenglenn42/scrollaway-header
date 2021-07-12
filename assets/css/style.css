@@ -144,6 +144,10 @@ div.mdl-menu__container > ul > li
   /* max-width: 15.3125em; */
 }
 
+/* Tweak styling of tooltip here. */
+.mdl-tooltip.is-active {
+}
+
 .mdl-switch__track,
 .mdl-switch.is-checked .mdl-switch__track {
   /* Make priority card switch track standout more in enabled state. */

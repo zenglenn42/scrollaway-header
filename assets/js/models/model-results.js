@@ -8,14 +8,18 @@
 // TODO: Make this observable (in the software patterns sense).
 //----------------------------------------------------------------------------------
 
-function ModelResults(locale = "en-US", isValidCityListFn, dataView, rankedList) {
+function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dataView, rankedList) {
 
   // Validate required input parameters.
+
+  if (!getLocale || typeof getLocale !== 'function') {
+    throw('ModelResults: Failed constructor.  Invalid getLocale fn parameter')
+  }
+  this.getLocale = getLocale
 
   if (!isValidCityListFn || typeof isValidCityListFn !== 'function') {
     throw('ModelResults: Failed constructor.  Invalid isValidCityList fn parameter')
   }
-
   this.isValidCityListFn = isValidCityListFn
 
   this.dfltDataView = "photo-view" // photo-view | list-view | chart-view | map-view
@@ -31,8 +35,6 @@ function ModelResults(locale = "en-US", isValidCityListFn, dataView, rankedList)
   // Presentational strings
   //------------------------------------
   this.dfltLocale = "en-US"
-  this.locale = (this.isValidLocale(locale)) ? locale : this.dfltLocale
-
   this.msgCatalog = {
     "all": {
       noResultsImg: "assets/img/chess-failure.jpg",
@@ -142,28 +144,8 @@ ModelResults.prototype.setActiveDataView = function(dataView) {
   return result
 }
 
-ModelResults.prototype.setLocale = function(locale) {
-  let result = false
-  if (this.isValidLocale(locale)) {
-    this.locale = locale
-    result = true
-  } else {
-    console.log('Error ModelResults.setLocale.  Invalid locale:', locale)
-  }
-  return result
-}
-
 ModelResults.prototype.isValidLocale = function(locale) {
   return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES" || locale === "zh-CN")
-}
-
-ModelResults.prototype.getLocale = function() {
-  if (this.isValidLocale(this.locale)) {
-    return this.locale
-  } else {
-    console.log("ModelResults.getLocale() Info: returning default locale. Not", this.locale)
-    return this.dfltLocale
-  }
 }
 
 ModelResults.prototype.isValidLocaleProperty = function(locale, prop) {
@@ -188,12 +170,13 @@ ModelResults.prototype.setRankedList = function(list) {
 
 ModelResults.prototype.getResultsTitle = function() {
   let result = "missing_title"
-  if (this.isValidLocaleProperty(this.locale, 'title')) {
-    result = this.msgCatalog[this.locale].title
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'title')) {
+    result = this.msgCatalog[locale].title
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'title')) {
     result = this.msgCatalog[this.dfltLocale].title
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getTitle() Error ", result)
   }
   return result
@@ -201,12 +184,13 @@ ModelResults.prototype.getResultsTitle = function() {
 
 ModelResults.prototype.getNoResults = function() {
   let result = "missing_noResults"
-  if (this.isValidLocaleProperty(this.locale, 'noResults')) {
-    result = this.msgCatalog[this.locale].noResults
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'noResults')) {
+    result = this.msgCatalog[locale].noResults
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'noResults')) {
     result = this.msgCatalog[this.dfltLocale].noResults
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getNoResults() Error ", result)
   }
   return result
@@ -219,7 +203,7 @@ ModelResults.prototype.getNoResultsImg = function() {
   } else if (this.isValidLocaleProperty('all', 'noResultsImg')) {
     result = this.msgCatalog['all'].noResultsImg
   } else {
-    result = (this.locale) ? result + "_" + 'all' : result
+    result = result + "_" + 'all'
     console.log("ModelPriorities:getNoResultsImg() Error ", result)
   }
   return result
@@ -227,12 +211,13 @@ ModelResults.prototype.getNoResultsImg = function() {
 
 ModelResults.prototype.getNoResultsAdvice = function() {
   let result = "missing_noResultsAdvice"
-  if (this.isValidLocaleProperty(this.locale, 'noResultsAdvice')) {
-    result = this.msgCatalog[this.locale].noResultsAdvice
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'noResultsAdvice')) {
+    result = this.msgCatalog[locale].noResultsAdvice
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'noResultsAdvice')) {
     result = this.msgCatalog[this.dfltLocale].noResultsAdvice
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getNoResultsAdvice() Error ", result)
   }
   return result
@@ -240,12 +225,13 @@ ModelResults.prototype.getNoResultsAdvice = function() {
   
 ModelResults.prototype.getMonetizeHere = function() {
   let result = "missing_monetizeHere"
-  if (this.isValidLocaleProperty(this.locale, 'monetizeHere')) {
-    result = this.msgCatalog[this.locale].monetizeHere
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'monetizeHere')) {
+    result = this.msgCatalog[locale].monetizeHere
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'monetizeHere')) {
     result = this.msgCatalog[this.dfltLocale].monetizeHere
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getMonetizeHere() Error ", result)
   }
   return result
@@ -253,12 +239,13 @@ ModelResults.prototype.getMonetizeHere = function() {
 
 ModelResults.prototype.getMonetizeLearnMore = function() {
   let result = "missing_monetizeLearnMore"
-  if (this.isValidLocaleProperty(this.locale, 'monetizeLearnMore')) {
-    result = this.msgCatalog[this.locale].monetizeLearnMore
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'monetizeLearnMore')) {
+    result = this.msgCatalog[locale].monetizeLearnMore
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'monetizeLearnMore')) {
     result = this.msgCatalog[this.dfltLocale].monetizeLearnMore
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getMonetizeLearnMore() Error ", result)
   }
   return result
@@ -271,7 +258,7 @@ ModelResults.prototype.getMonetizeImg = function() {
   } else if (this.isValidLocaleProperty('all', 'monetizeImg')) {
     result = this.msgCatalog['all'].monetizeImg
   } else {
-    result = (this.locale) ? result + "_" + 'all' : result
+    result = result + "_" + 'all'
     console.log("ModelPriorities:getMonetizeImg() Error ", result)
   }
   return result
@@ -279,12 +266,13 @@ ModelResults.prototype.getMonetizeImg = function() {
 
 ModelResults.prototype.getPhotoLabelHappiness = function() {
   let result = "missing_photoLabelHappiness"
-  if (this.isValidLocaleProperty(this.locale, 'photoLabelHappiness')) {
-    result = this.msgCatalog[this.locale].photoLabelHappiness
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'photoLabelHappiness')) {
+    result = this.msgCatalog[locale].photoLabelHappiness
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'photoLabelHappiness')) {
     result = this.msgCatalog[this.dfltLocale].photoLabelHappiness
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getPhotoLabelHappiness() Error ", result)
   }
   return result
@@ -292,12 +280,13 @@ ModelResults.prototype.getPhotoLabelHappiness = function() {
 
 ModelResults.prototype.getPhotoLabelAffordability = function() {
   let result = "missing_photoLabelAffordability"
-  if (this.isValidLocaleProperty(this.locale, 'photoLabelAffordability')) {
-    result = this.msgCatalog[this.locale].photoLabelAffordability
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'photoLabelAffordability')) {
+    result = this.msgCatalog[locale].photoLabelAffordability
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'photoLabelAffordability')) {
     result = this.msgCatalog[this.dfltLocale].photoLabelAffordability
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getPhotoLabelAffordability() Error ", result)
   }
   return result
@@ -305,12 +294,13 @@ ModelResults.prototype.getPhotoLabelAffordability = function() {
 
 ModelResults.prototype.getPhotoLabelPolitics = function() {
   let result = "missing_photoLabelPolitics"
-  if (this.isValidLocaleProperty(this.locale, 'photoLabelPolitics')) {
-    result = this.msgCatalog[this.locale].photoLabelPolitics
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'photoLabelPolitics')) {
+    result = this.msgCatalog[locale].photoLabelPolitics
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'photoLabelPolitics')) {
     result = this.msgCatalog[this.dfltLocale].photoLabelPolitics
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getPhotoLabelPolitics() Error ", result)
   }
   return result
@@ -318,12 +308,13 @@ ModelResults.prototype.getPhotoLabelPolitics = function() {
 
 ModelResults.prototype.getChartTitle = function() {
   let result = "missing_chartTitle"
-  if (this.isValidLocaleProperty(this.locale, 'chartTitle')) {
-    result = this.msgCatalog[this.locale].chartTitle
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'chartTitle')) {
+    result = this.msgCatalog[locale].chartTitle
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'chartTitle')) {
     result = this.msgCatalog[this.dfltLocale].chartTitle
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getChartTitle() Error ", result)
   }
   return result
@@ -331,12 +322,13 @@ ModelResults.prototype.getChartTitle = function() {
 
 ModelResults.prototype.getChartLabelCombined = function() {
   let result = "missing_chartLabelCombined"
-  if (this.isValidLocaleProperty(this.locale, 'chartLabelCombined')) {
-    result = this.msgCatalog[this.locale].chartLabelCombined
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'chartLabelCombined')) {
+    result = this.msgCatalog[locale].chartLabelCombined
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'chartLabelCombined')) {
     result = this.msgCatalog[this.dfltLocale].chartLabelCombined
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getChartLabelCombined() Error ", result)
   }
   return result
@@ -344,12 +336,13 @@ ModelResults.prototype.getChartLabelCombined = function() {
 
 ModelResults.prototype.getChartLabelHappiness = function() {
   let result = "missing_chartLabelHappiness"
-  if (this.isValidLocaleProperty(this.locale, 'chartLabelHappiness')) {
-    result = this.msgCatalog[this.locale].chartLabelHappiness
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'chartLabelHappiness')) {
+    result = this.msgCatalog[locale].chartLabelHappiness
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'chartLabelHappiness')) {
     result = this.msgCatalog[this.dfltLocale].chartLabelHappiness
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getChartLabelHappiness() Error ", result)
   }
   return result
@@ -357,12 +350,13 @@ ModelResults.prototype.getChartLabelHappiness = function() {
 
 ModelResults.prototype.getChartLabelAffordability = function() {
   let result = "missing_chartLabelAffordability"
-  if (this.isValidLocaleProperty(this.locale, 'chartLabelAffordability')) {
-    result = this.msgCatalog[this.locale].chartLabelAffordability
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'chartLabelAffordability')) {
+    result = this.msgCatalog[locale].chartLabelAffordability
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'chartLabelAffordability')) {
     result = this.msgCatalog[this.dfltLocale].chartLabelAffordability
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getChartLabelAffordability() Error ", result)
   }
   return result
@@ -370,12 +364,13 @@ ModelResults.prototype.getChartLabelAffordability = function() {
 
 ModelResults.prototype.getChartLabelPolitics = function() {
   let result = "missing_chartLabelPolitics"
-  if (this.isValidLocaleProperty(this.locale, 'chartLabelPolitics')) {
-    result = this.msgCatalog[this.locale].chartLabelPolitics
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'chartLabelPolitics')) {
+    result = this.msgCatalog[locale].chartLabelPolitics
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'chartLabelPolitics')) {
     result = this.msgCatalog[this.dfltLocale].chartLabelPolitics
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getChartLabelPolitics() Error ", result)
   }
   return result
@@ -383,12 +378,13 @@ ModelResults.prototype.getChartLabelPolitics = function() {
 
 ModelResults.prototype.getListLabelHappiness = function() {
   let result = "missing_listLabelHappiness"
-  if (this.isValidLocaleProperty(this.locale, 'listLabelHappiness')) {
-    result = this.msgCatalog[this.locale].listLabelHappiness
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'listLabelHappiness')) {
+    result = this.msgCatalog[locale].listLabelHappiness
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'listLabelHappiness')) {
     result = this.msgCatalog[this.dfltLocale].listLabelHappiness
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getListLabelHappiness() Error ", result)
   }
   return result
@@ -396,12 +392,13 @@ ModelResults.prototype.getListLabelHappiness = function() {
 
 ModelResults.prototype.getListLabelAffordability = function() {
   let result = "missing_listLabelAffordability"
-  if (this.isValidLocaleProperty(this.locale, 'listLabelAffordability')) {
-    result = this.msgCatalog[this.locale].listLabelAffordability
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'listLabelAffordability')) {
+    result = this.msgCatalog[locale].listLabelAffordability
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'listLabelAffordability')) {
     result = this.msgCatalog[this.dfltLocale].listLabelAffordability
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getListLabelAffordability() Error ", result)
   }
   return result
@@ -409,12 +406,13 @@ ModelResults.prototype.getListLabelAffordability = function() {
 
 ModelResults.prototype.getListLabelPolitics = function() {
   let result = "missing_listLabelPolitics"
-  if (this.isValidLocaleProperty(this.locale, 'listLabelPolitics')) {
-    result = this.msgCatalog[this.locale].listLabelPolitics
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'listLabelPolitics')) {
+    result = this.msgCatalog[locale].listLabelPolitics
   } else if (this.isValidLocaleProperty(this.dfltLocale, 'listLabelPolitics')) {
     result = this.msgCatalog[this.dfltLocale].listLabelPolitics
   } else {
-    result = (this.locale) ? result + "_" + this.locale : result
+    result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getListLabelPolitics() Error ", result)
   }
   return result
@@ -520,13 +518,13 @@ function UnitTestModelResults() {
   try {
     cut = "ModelResults(ctor)"
     console.log(' Verifying default object construction ...')
-    let model = new ModelResults("en-US", cityModel.isValidCityList)
+    let model = new ModelResults(() => {return "en-US"}, cityModel.isValidCityList)
 
     if (model.activeDataView !== model.dfltDataView ||
         JSON.stringify(model.rankedList) !== JSON.stringify([]) || 
-        model.locale !== 'en-US') {
-        failure = "Expected properties of [photo-view, [], 'en-US'].  Got " +
-                  JSON.stringify([model.activeDataView, model.rankedList, model.locale])
+        model.getLocale() !== 'en-US') {
+        failure = "Expected properties of ['en-US', photo-view, []].  Got " +
+                  JSON.stringify([model.getLocale(), model.activeDataView, model.rankedList])
     }
 
     if (failure) {
@@ -543,13 +541,15 @@ function UnitTestModelResults() {
   try {
     cut = "ModelResults(ctor) negative case"
     console.log(' Verifying object construction with invalid data-view ...')
-    let model = new ModelResults("en-US", cityModel.isValidCityList, "bogus-view")
+    let model = new ModelResults(() => {return "en-US"}, 
+                                 cityModel.isValidCityList, 
+                                 "bogus-view")
 
     if (model.activeDataView !== model.dfltDataView ||
         JSON.stringify(model.rankedList) !== JSON.stringify([]) || 
-        model.locale !== 'en-US') {
-        failure = "Expected properties of [photo-view, [], 'en-US'].  Got " +
-                  JSON.stringify([model.activeDataView, model.rankedList, model.locale])
+        model.getLocale() !== 'en-US') {
+        failure = "Expected properties of ['en-US', photo-view, []].  Got " +
+                  JSON.stringify([model.getLocale(), model.activeDataView, model.rankedList])
     }
 
     if (failure) {
@@ -566,13 +566,13 @@ function UnitTestModelResults() {
   try {
     cut = "ModelResults(ctor)"
     console.log(' Verifying object construction with valid non-default data-view ...')
-    let model = new ModelResults("en-US", cityModel.isValidCityList, "list-view")
+    let model = new ModelResults(() => {return "en-US"}, cityModel.isValidCityList, "list-view")
 
     if (model.activeDataView !== "list-view" ||
         JSON.stringify(model.rankedList) !== JSON.stringify([]) || 
-        model.locale !== 'en-US') {
-        failure = "Expected properties of ['list-view', [], 'en-US'].  Got " +
-                  JSON.stringify([model.activeDataView, model.rankedList, model.locale])
+        model.getLocale() !== 'en-US') {
+        failure = "Expected properties of ['en-US','list-view', [],].  Got " +
+                  JSON.stringify([model.getLocale(), model.activeDataView, model.rankedList])
     }
 
     if (failure) {
@@ -589,7 +589,7 @@ function UnitTestModelResults() {
   try {
     cut = "ModelResults.getRankedList()"
     console.log(' Verifying ability to get ranked list ...')
-    let model = new ModelResults("en-US", cityModel.isValidCityList)
+    let model = new ModelResults(() => {return "en-US"}, cityModel.isValidCityList)
     let rankedList = model.getRankedList()
 
     if (JSON.stringify(rankedList) !== JSON.stringify([])) {
@@ -610,7 +610,7 @@ function UnitTestModelResults() {
   try {
     cut = "ModelResults.setRankedList()"
     console.log(' Verifying ability to set ranked list ...')
-    let model = new ModelResults("en-US", cityModel.isValidCityList)
+    let model = new ModelResults(() => {return "en-US"}, cityModel.isValidCityList)
     let dummyList = [
     {
       "Plano, TX": {

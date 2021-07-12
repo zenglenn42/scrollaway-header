@@ -54,13 +54,6 @@ Controller.prototype.addSettingsPageEventListeners = function() {
            if (this.settings.setLocale(localeAttr)) {
              // TODO: Persist to local storage once that has been integrated.
 
-             // Update the models with new locale.
-             // TODO: This should go away once observer pattern is implemented.
-             this.menu.setLocale(localeAttr)
-             this.landing.setLocale(localeAttr)
-             this.priorities.setLocale(localeAttr)
-             this.results.setLocale(localeAttr)
-
              // Update view based upon locale in model.
              // TODO: This should go away once observer pattern is implemented.
              this.view.setLanguage()
