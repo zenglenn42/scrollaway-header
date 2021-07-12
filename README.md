@@ -904,7 +904,7 @@ Maybe I'll do that in the fullness of time.
 
 ![alt](docs/img/l10n-settings.png)
 
-All the MVC and view-model work faciliate multi-language support.  Since all the strings you see on the screen are now pulled from the view model, it's relatively easy to organize these by locale:
+All the MVC and view-model work facilitate multi-language support.  Since all the strings you see on the screen are now pulled from the view model, it's relatively easy to organize these by locale:
 
 ```
 assets/js/models/models-landing.js
