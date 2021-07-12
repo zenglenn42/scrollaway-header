@@ -900,6 +900,40 @@ I create my own drop-down selection element since Material Design Lite (MDL) doe
 
 Maybe I'll do that in the fullness of time.  
 
+## Granular MVC-ification
+
+The standard quip is MVC stands for "Massive View Controller".  My controller is up past 1000 lines, so it's time for some refactor.
+
+I start by creating view-models for the screens and menu:
+
+* model-menu.js
+* model-settings.js
+* model-landing.js
+* model-priorities.js
+* model-results.js
+
+These manage frontend state instance variables through getters and setters.  I also aggregate my model-specific localization messages catalogs here.  The catalogs are simple javascript maps, keyed by locale (e.g., 'en-US'), with translated strings as value.
+
+I partition the controller along similar file boundaries.  These files define event handlers that set model state in response to user activity.
+
+* controller.js
+* controller-menu.js
+* controller-settings.js
+* controller-landing.js
+* controller-priorities.js
+* controller-results.js
+
+The view gets similar treatment:
+
+* view.js
+* view-menu.js
+* view-landing.js
+* view-priorities.js
+* view-results.js
+* view-settings.js
+
+The methods herein read state from the view-models and render the view accordingly.
+
 ## Localization (l10n)
 
 ![alt](docs/img/l10n-settings.png)
@@ -968,41 +1002,6 @@ View.prototype.createHeader = function(title, rightNavIcon) {
 With a conducive pattern in place, I add localization for 4 of the world's most common languages, though I still need to run the translations by some native speakers since I likely made some funny choices, despite google translate's general prowess.
 
 ![alt](docs/img/l10n-refactor.png)
-
-## Granular MVC-ification
-
-The standard quip is MVC stands for "Massive View Controller".  My controller is up past 1000 lines, so it's time for some refactor.
-
-I start by creating view-models for the screens and menu:
-
-* model-menu.js
-* model-settings.js
-* model-landing.js
-* model-priorities.js
-* model-results.js
-
-These manage frontend state instance variables through getters and setters.  I also aggregate my model-specific localization messages catalogs here.  The catalogs are simple javascript maps, keyed by locale (e.g., 'en-US'), with translated strings as value.
-
-I partition the controller along similar file boundaries.  These files define event handlers that set model state in response to user activity.
-
-* controller.js
-* controller-menu.js
-* controller-settings.js
-* controller-landing.js
-* controller-priorities.js
-* controller-results.js
-
-The view gets similar treatment:
-
-* view.js
-* view-menu.js
-* view-landing.js
-* view-priorities.js
-* view-results.js
-* view-settings.js
-
-The methods herein read state from the view-models and render the view accordingly.
-
 
 ## Thanks for reading
 
