@@ -9,11 +9,8 @@
 //----------------------------------------------------------------------------------
 
 function LocalStorage() {
-  this._SETTINGS_KEY = 'settings'
-  this._PRIORITIES_KEY = 'priorities'
-
-  this.settings = this.get(this._SETTINGS_KEY)
-  this.priorities = this.get(this._PRIORITIES_KEY)
+  this._SETTINGS_KEY = 'settings'     // TODO: Some day I'll be a proper enum.
+  this._PRIORITIES_KEY = 'priorities' //       Me too.
 }
 
 LocalStorage.prototype.hasLocalStorage = function() {

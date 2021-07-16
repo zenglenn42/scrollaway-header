@@ -40,18 +40,24 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
     that.view.createSettingsBody()
   })
   this.delegate(document, "click", "#settings_restore_button", function(e) {
-    that.cities.restoreDefaultSettings()
-    that.view.setMaxResults()  // TODO: really should be something like that.view.setState()
-                               //       Should rebuild modal-occluded page to reflect restored state.
-                               //       Really need an update-view entrypoint that.view.update()
-                               //       React is calling since it handles this kind of shizzle. (-:
-    if (that.cache.hasSettingsCB()) {
+    that.settings.restoreDefaults()
+
+    that.view.setMaxResults()     //
+    //that.view.setLocale()       // TODO: Ug, this really should be something like
+    //that.view.setCountryCode()  //       that.view.update(that.settings) if using flow-sync.
+                                  //       Otherwise the view should just be an observer of
+                                  //       settings model which invokes registered update-view
+                                  //       callbacks upon state change (if using observer-sync).
+                                  //
+
+    if (that.cache.hasSettings()) {
       let clearcache_button = document.querySelector("#settings_clearcache_button")
       if (clearcache_button) {
         clearcache_button.removeAttribute("disabled")
       }
     }
   })
+
   this.delegate(document, "click", "#settings_clearcache_button", function(e) {
     if (that.cache.clearSettings()) {
       let clearcache_button = document.querySelector("#settings_clearcache_button")
