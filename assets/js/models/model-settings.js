@@ -40,12 +40,6 @@ function ModelSettings(locale = "en-US", numCities, maxResults, countryCode) {
   // Select from among these (ISO 639-1) languages for the user interface.
   // Populates drop-down selection list in view.
 
-  //--------------------------------------------------------------------------------
-  // NB: We really don't have internationalization support yet, but sketch
-  //     out how that could integrate with the front-end with some 
-  //     place-holder parameters for language and country code.
-  //--------------------------------------------------------------------------------
-
   this.dfltLocale = "en-US"
   this.locale = (this.isValidLocale(locale)) ? locale : this.dfltLocale
   this.langOptionsMap = {
