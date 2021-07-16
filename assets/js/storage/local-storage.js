@@ -82,6 +82,21 @@ LocalStorage.prototype.set = function(key, value) {
   return result
 }
 
+LocalStorage.prototype.getSettings = function() {
+  return (this.hasSettings()) ? this.get(this._SETTINGS_KEY) : undefined
+}
+
+LocalStorage.prototype.setSettings = function(jsObj) {
+  if (this.hasLocalStorage()) {
+    let jsonObj = (typeof jsObj === 'obj') ? JSON.stringify(jsObj) : jsObj
+    this.set(this._SETTINGS_KEY, jsonObj)
+  }
+}
+
+LocalStorage.prototype.getPriorities = function() {
+  return (this.hasPriorities()) ? this.get(this._PRIORITIES_KEY) : undefined
+}
+
 LocalStorage.prototype.clearSettings = function() {
   return this.clear(this._SETTINGS_KEY)
 }
@@ -238,7 +253,7 @@ function UnitTestLocalStorage() {
     cut = "LocalStorage.set()"
     console.log(' Verifying ability to store a key/value pair ...')
     let key = 'settings'
-    let value = {maxResults: 10, country: 'United States', lang: 'en-US'}
+    let value = {numCities: 178, maxResults: 10, countryCode: 'US', locale: 'en-US'}
 
     if (!cache.set(key, value)) {
       failure = "Unable to persist key:value = " + key + ":" + JSON.stringify(value)
@@ -258,7 +273,7 @@ function UnitTestLocalStorage() {
     cut = "LocalStorage.get()"
     console.log(' Verifying ability to retrieve a persisted value with a key ...')
     let key = 'settings'
-    let value = {maxResults: 10, country: 'United States', lang: 'en-US'}
+    let value = {numCities: 178, maxResults: 10, countryCode: 'US', locale: 'en-US'}
     let expectedValueStr = JSON.stringify(value)
 
     let actualValueStr = JSON.stringify(cache.get(key))

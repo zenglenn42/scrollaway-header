@@ -281,6 +281,47 @@ ModelSettings.prototype.setCountryCode = function(countryCode) {
   return result
 }
 
+// The use-case for this method is initialization from persisted state.
+
+ModelSettings.prototype.set = function(jsonObj) {
+  if (jsonObj) {
+    // TODO: Add schema version to validate what props and prop naming we /expect/.
+
+    let props = (typeof jsonObj === 'object') ? jsonObj : JSON.parse(jsonObj)
+
+   // Validate incoming json before mutating state.  Default to current state.
+
+   let numCities = (props.numCities && this.isValidNumCities(props.numCities)) ?
+                       props.numCities : this.numCities
+   let maxResults = (props.maxResults && this.isValidMaxResults(props.maxResults)) ?
+                       props.maxResults : this.maxResults
+   let locale = (props.locale && this.isValidLocale(props.locale)) ?
+                       props.locale : this.locale
+   let countryCode = (props.countryCode && this.isValidCountryCode(props.countryCode)) ?
+                       props.countryCode : this.countryCode
+
+   this.setNumCities(numCities)
+   this.setMaxResults(maxResults)
+   this.setLocale(locale)
+   this.setCountryCode(props.countryCode)
+  } else {
+    console.log("[Info] ModelSettings.set(json): Ignoring set, json parameter is undefined.")
+  }
+}
+
+ModelSettings.prototype.get = function() {
+  let obj = {}
+
+  obj = {
+    numCities: this.numCities,
+    maxResults: this.maxResults,
+    locale: this.locale,
+    countryCode: this.countryCode
+  }
+
+  return obj
+}
+
 // Return the 3-letter iso-currency descriptor associated with
 // a given country code as defined by this site:
 // https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/amendments/lists/list_one.xml

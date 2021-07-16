@@ -30,10 +30,18 @@ function Controller(bodyDivId, locale = "en-US") {
   this.cache = new LocalStorage()
 
   // Instantiate domain model.
+
   this.cities = new ModelCities()
 
   // Instantiate view models.
+
   this.settings = new ModelSettings(locale, this.cities.getNumCities())
+  if (this.cache.hasSettings()) {
+    // Update current settings state from cached settings.
+
+    let persistedSettings = this.cache.getSettings()
+    this.settings.set(persistedSettings)
+  }
 
   let getSettingsLocale = this.settings.getLocale.bind(this.settings)
   this.landing = new ModelLanding(getSettingsLocale)

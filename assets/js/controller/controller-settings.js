@@ -52,7 +52,12 @@ Controller.prototype.addSettingsPageEventListeners = function() {
            let id = buttonEl.getAttribute("id")
            let localeAttr = buttonEl.getAttribute("data-value") || "en-US"
            if (this.settings.setLocale(localeAttr)) {
-             // TODO: Persist to local storage once that has been integrated.
+
+             // Persist to local storage.
+
+             let settingsState = this.settings.get()
+             this.cache.setSettings(settingsState)
+
 
              // Update view based upon locale in model.
              // TODO: This should go away once observer pattern is implemented.
@@ -74,7 +79,10 @@ Controller.prototype.addSettingsPageEventListeners = function() {
            let attrValue = buttonEl.getAttribute("data-value") || "10"
            let value = JSON.parse(attrValue)
            if (this.settings.setMaxResults(value)) {
-             // TODO: Persist to local storage once that has been integrated.
+             // Persist to local storage.
+
+             let settingsState = this.settings.get()
+             this.cache.setSettings(settingsState)
 
              // Update view based upon locale in model.
              // TODO: This should go away once observer pattern is implemented.
