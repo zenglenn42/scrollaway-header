@@ -201,7 +201,7 @@ ModelSettings.prototype.getMaxResultsOptions = function() {
 }
 
 ModelSettings.prototype.isValidLocale = function(locale) {
-  return (locale === "en-US" || locale === "hi-IN" || "es-ES" || "zh-CN")
+  return (locale === "en-US" || locale === "hi-IN" || locale === "es-ES" || locale === "zh-CN")
 }
 
 // Introduce notion of locale (based upon BCP 47 standard).
@@ -544,7 +544,7 @@ function UnitTestModelSettings() {
   try {
     cut = "ModelSettings.getMaxResultsOptions()"
     console.log(' Verifying ability to get maxResultsOptions array ...')
-    settings = new ModelSettings(178)
+    settings = new ModelSettings("en-US", 178)
     let maxResultsOptions = settings.getMaxResultsOptions()
     if (JSON.stringify(maxResultsOptions) !== JSON.stringify([5, 10, 20])) {
       failure = "Expected [5, 10, 20].  Got maxResultsOptions == " + maxResultsOptions
@@ -564,18 +564,20 @@ function UnitTestModelSettings() {
   try {
     cut = "ModelSettings(ctor) negative case"
     console.log(' Verifying fallback to default values on invalid ctor params ...')
+    let numCities = 178
     let badMaxResults = "i should be a number"
     let badLocale = "bd"
     let badCountryCode = "BD"
-    settings = new ModelSettings(178, badMaxResults, badLocale, badCountryCode)
+    settings = new ModelSettings(badLocale, numCities, badMaxResults, badCountryCode)
     if (settings.maxResults !== settings.dfltMaxResults) {
       failure = "Expected maxResults == " + settings.dfltMaxResults + " Got maxResults == " + settings.maxResults
     }
     if (settings.locale !== settings.dfltLocale) {
-      failure += "\nExpected locale == " + settings.dfltLocale + " Got locale == " + settings.countryCode
+      failure += "\nExpected locale == " + settings.dfltLocale + " Got locale == " + settings.locale
     }
     if (settings.countryCode !== settings.dfltCountryCode) {
-      failure += "\nExpected countryCode == " + settings.dfltCountryCode + " Got countryCode == " + settings.countryCode
+      failure += "\nExpected countryCode == " + settings.dfltCountryCode + 
+                 " Got countryCode == " + settings.countryCode
     }
 
     if (failure) {
@@ -631,7 +633,7 @@ function UnitTestModelSettings() {
   // Test #10
   failure = undefined
   try {
-    settings = new ModelSettings(178, 10, "en-US", "US")
+    settings = new ModelSettings("en-US", 178, 10, "US")
     cut = "ModelSettings.getCountryName(countryCode), *.getLocale(), *.getCurrency()  positive case"
     console.log(' Verifying ability to fetch a country name given an iso country code ...')
     let countryName = settings.getCountryName("US")
