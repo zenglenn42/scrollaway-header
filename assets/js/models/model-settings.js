@@ -11,9 +11,6 @@
 // hard coding for an en-US locale.
 //----------------------------------------------------------------------------------
 // TODO: Make this observable (in the software patterns sense).
-//
-// TODO: Take a page from this model and introduce it to other models for supporting
-//       localization.
 //----------------------------------------------------------------------------------
 
 function ModelSettings(locale = "en-US", numCities, maxResults, countryCode) {
