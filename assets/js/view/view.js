@@ -216,9 +216,14 @@ function View(
   let locale = getLocale()
   let currency = getCurrency(getCountryCode())
 
-  this.formatter = new Intl.NumberFormat(locale, {
+  // TODO: Make sensitive to locale and locale changes.
+  //       For now, just hardcode for en-US number formatting and USD.
+  //       Implication is we need a new formatter when changing
+  //       locale or currency from the settings page.
+
+  this.formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: currency,
+    currency: "USD",
     minimumFractionDigits: 0
   })
 
