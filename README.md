@@ -1008,7 +1008,7 @@ With a conducive pattern in place, I add localization for 4 of the world's most 
 ![alt](docs/img/art-wall-kittenprint-9Wq1HpghQ4A-unsplash.jpg)
 Photo by Art Wall - Kittenprint
 
-The localization work is more satisfying if changes to the locale (and any other setting, really) are remembered across CityMatch sessions.  So I add a commit to persist settings state to local storage whenever the settings state changes.
+The localization work is more satisfying if changes to the locale (and any other setting, really) are remembered across CityMatch sessions.  So I add a [commit](https://github.com/zenglenn42/CityMatch/commit/f4e7800da7d16171ecc0c6740eb449ec62ab9279) to persist settings state to local storage whenever that state changes.
 
 At application start-up, the controller detects for valid, locally cached settings and updates runtime state accordingly:
 
