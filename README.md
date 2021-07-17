@@ -1033,12 +1033,11 @@ function Controller(bodyDivId, locale = "en-US") {
 }
 
 ```
-
 Of course, saving settings implies the need to clear settings, so I add a menu button for doing that:
 
 ![alt](docs/img/clear-cache.png)
 
-once you clear the cache, the button presents as disabled since there is nothing to clear.
+Once you clear the cache, the button presents as disabled since there is nothing to clear.
 I should run through the same exercise with user priorities, but that is left as an exercise to the motivated reader.
 
 

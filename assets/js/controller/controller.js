@@ -22,8 +22,8 @@
 //       Currently the controller shoulders responsibility for keeping the view
 //       synchronized with the models.
 //
-// TODO: Enable persistence of state between user sessions by integrating storage
-//       layer.
+// TODO: Enable persistence of priority state between user sessions by integrating
+//       storage layer.
 //----------------------------------------------------------------------------------
 
 function Controller(bodyDivId, locale = "en-US") {
