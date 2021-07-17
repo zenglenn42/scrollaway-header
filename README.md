@@ -1003,6 +1003,45 @@ With a conducive pattern in place, I add localization for 4 of the world's most 
 
 ![alt](docs/img/l10n-refactor.png)
 
+## Local Persistence
+
+![alt](docs/img/art-wall-kittenprint-9Wq1HpghQ4A-unsplash.jpg)
+Photo by Art Wall - Kittenprint
+
+The localization work is more satisfying if changes to the locale (and any other setting, really) are remembered across CityMatch sessions.  So I add a commit to persist settings state to local storage whenever the settings state changes.
+
+At application start-up, the controller detects for valid, locally cached settings and updates runtime state accordingly:
+
+```
+function Controller(bodyDivId, locale = "en-US") {
+  this.cache = new LocalStorage()
+
+  // Instantiate domain model.
+
+  this.cities = new ModelCities()
+
+  // Instantiate view models.
+
+  this.settings = new ModelSettings(locale, this.cities.getNumCities())
+  if (this.cache.hasSettings()) {
+    // Update current settings state from cached settings.
+
+    let persistedSettings = this.cache.getSettings()
+>>  this.settings.set(persistedSettings)
+  }
+  ...
+}
+
+```
+
+Of course, saving settings implies the need to clear settings, so I add a menu button for doing that:
+
+![alt](docs/img/clear-cache.png)
+
+once you clear the cache, the button presents as disabled since there is nothing to clear.
+I should run through the same exercise with user priorities, but that is left as an exercise to the motivated reader.
+
+
 ## Thanks for reading
 
 I still needs to make the models observable by the view for canonical MVC synchronization of state from model to view.  This would make integration of persistence relatively easy.  For now, though, view updates are handled explicitly by the mediating controller on significant event boundaries. 
