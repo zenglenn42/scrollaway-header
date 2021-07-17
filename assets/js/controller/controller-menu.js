@@ -50,6 +50,10 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
                                   //       callbacks upon state change (if using observer-sync).
                                   //
 
+
+    // Assume that restoring to defaults implies clearing whatever
+    // (potentially non-default) settings currently cached in local storage.
+
     if (that.cache.hasSettings()) {
       let clearcache_button = document.querySelector("#settings_clearcache_button")
       if (clearcache_button) {

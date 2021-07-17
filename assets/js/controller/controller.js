@@ -122,6 +122,7 @@ function Controller(bodyDivId, locale = "en-US") {
     this.menu.getMenuViewBlog.bind(this.menu),
     this.menu.getMenuSettings.bind(this.menu),
     this.menu.getMenuSettingsEdit.bind(this.menu),
+    this.menu.getMenuSettingsClear.bind(this.menu),
     this.menu.getMenuSettingsUseLang.bind(this.menu),
     this.menu.getMenuSettingsShowCities.bind(this.menu),
     this.menu.getMenuSettingsShowTop.bind(this.menu),

@@ -120,6 +120,7 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   settingsMenuNode.innerHTML = ""
 
   let settingsEdit = this.getMenuSettingsEdit()
+  let settingsClear = this.getMenuSettingsClear()
   settingsMenuNode.innerHTML += `<li id='settings_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsEdit} ...</span></li>`
 
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span id='settings-language-menu'>" + langString + "</span></li>"
@@ -128,7 +129,7 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
 
   // Move these next two to the dedicated settings edit page to simplify model/view updates.
   // settingsMenuNode.innerHTML += "<li disabled id='settings_restore_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Restore defaults</span></li>",
-  // settingsMenuNode.innerHTML += "<li disabled id='settings_clearcache_button' class='mdl-menu__item mdl-button'" + enableCacheClear + "><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Clear cached settings</span></li>",
+  settingsMenuNode.innerHTML += `<li id='settings_clearcache_button' class='mdl-menu__item mdl-button' ${enableCacheClear}><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsClear}</span></li>`,
 
   md.appendChild(settingsMenuNode)
 

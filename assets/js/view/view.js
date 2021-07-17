@@ -88,6 +88,7 @@ function View(
   getMenuViewBlog,
   getMenuSettings,
   getMenuSettingsEdit,
+  getMenuSettingsClear,
   getMenuSettingsUseLang,
   getMenuSettingsShowCities,
   getMenuSettingsShowTop,
@@ -171,6 +172,7 @@ function View(
   this.getMenuViewBlog = getMenuViewBlog
   this.getMenuSettings = getMenuSettings
   this.getMenuSettingsEdit = getMenuSettingsEdit
+  this.getMenuSettingsClear = getMenuSettingsClear
   this.getMenuSettingsUseLang = getMenuSettingsUseLang
   this.getMenuSettingsShowCities = getMenuSettingsShowCities
   this.getMenuSettingsShowTop = getMenuSettingsShowTop

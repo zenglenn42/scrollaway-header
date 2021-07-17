@@ -27,6 +27,7 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       viewBlog: "Blog",
       settings: "Settings",
       settingsEdit: "Edit",
+      settingsClear: "Clear cached settings",
       useLang: "Use %s",
       showCities: "Show cities in %s",
       showTop: "Show top %d cities",
@@ -41,6 +42,7 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       viewBlog: "ब्लॉग",
       settings: "सेटिंग्स",
       settingsEdit: "आधुनिकीकरणअ",
+      settingsClear: "कैश हटाएं",
       useLang: "प्रयोग %s",
       showCities: "के लिए शहरों दिखाएं %s",
       showTop: "सर्वश्रेष्ठ %d शहरों को दिखाएं",
@@ -55,6 +57,7 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       viewBlog: "Blog",
       settings: "Ajustes",
       settingsEdit: "Editar",
+      settingsClear: "Limpiar cache",
       useLang: "Usar %s",
       showCities: "Mostrar ciudades en %s",
       showTop: "Mostrar las %d mejores ciudades",
@@ -69,6 +72,7 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       viewBlog: "博客",
       settings: "设置",
       settingsEdit: "编辑",
+      settingsClear: "清除缓存",
       useLang: "使用 %s",
       showCities: "从这里显示城市 %s",
       showTop: "Show top %d cities",
@@ -195,6 +199,20 @@ ModelMenu.prototype.getMenuSettingsEdit = function() {
   } else {
     result = (locale) ? result + "_" + locale : result
     console.log("ModelMenu:getMenuSettingsEdit() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuSettingsClear = function() {
+  let result = "missing_settings_clear"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'settingsClear')) {
+    result = this.msgCatalog[locale].settingsClear
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'settingsClear')) {
+    result = this.msgCatalog[this.dfltLocale].settingsClear
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelMenu:getMenuSettingsClear() Error ", result)
   }
   return result
 }
