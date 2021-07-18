@@ -1043,6 +1043,6 @@ I should run through the same exercise with user priorities, but that is left as
 
 ## Thanks for reading
 
-I still needs to make the models observable by the view for canonical MVC synchronization of state from model to view.  This would make integration of persistence relatively easy.  For now, though, view updates are handled explicitly by the mediating controller on significant event boundaries. 
+I still need to make the models observable by the view for canonical MVC synchronization of state from model to view.  This would make integration of persistence relatively easy.  For now, though, view updates are handled explicitly by the mediating controller on significant event boundaries. 
 
 I may noodle around with this app at the margins, but the next big lift would probably be a full-stack rollout with React front-end.  Stay tuned and thanks for reading. (-;
