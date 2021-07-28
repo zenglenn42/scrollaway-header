@@ -417,8 +417,7 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
     0 0.375em 0.375em rgba(0, 0, 0, 0.23);
 }
 
-#navigate_before,
-#navigate_next {
+.mdl-button--fab.mdl-button--mini-fab {
   width: 2.75em;
   height: 2.75em;
 }
