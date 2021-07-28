@@ -42,7 +42,6 @@ View.prototype.createPrioritiesMain = function() {
   let m = document.createElement("main")
   m.setAttribute("id", "main")
   m.classList.add("mdl-layout__content")
-  m.setAttribute("data-currpage", "priorities")
   let child = document.createElement("div")
   child.classList.add("grid-content")
   m.appendChild(child)

@@ -39,7 +39,6 @@ View.prototype.createLandingMain = function(slogan, blurbArray) {
   let m = document.createElement("main")
   m.classList.add("content")
   m.setAttribute("id", "main")
-  m.setAttribute("data-currpage", "landing")
 
   // Present each blurb array text element as a separate html paragraph.
   let blurbParagraphs = blurbArray.reduce((acc, blurbItem) => {

@@ -39,24 +39,12 @@ View.prototype.setLanguage = function() {
 View.prototype.createSettingsBody = function createSettingsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
 
-  // Fetch the page we should navigate back to (from the FAB)
-  // after we're done editing settings.
-
-  let backToPage = "landing"  // default
-
-  // TODO: Fetch this from the FAB model.
-  let currMain = document.getElementById("main")
-  if (currMain) {
-    let currPage = currMain.getAttribute("data-currpage")
-    backToPage = currPage || "landing"
-  }
-
   this.removeChildNodes(bodyDiv)
   let header = this.createHeader(this.getSettingsTitle(), "")
   let menuDrawer = this.createMenuDrawer()
   this.addMenuDrawerEventListeners()
   let hamburgerMenu = this.createHamburgerMenu()
-  let mainSettings = this.createSettingsMain(backToPage)
+  let mainSettings = this.createSettingsMain()
   let footer = this.createFooter()
 
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu)
@@ -66,10 +54,9 @@ View.prototype.createSettingsBody = function createSettingsBody() {
   this.addSettingsPageEventListeners()
 }
 
-View.prototype.createSettingsMain = function(backToPage="landing") {
+View.prototype.createSettingsMain = function() {
   let m = document.createElement("main")
   m.setAttribute("id", "main")
-  m.setAttribute("data-currpage", backToPage)
   m.classList.add("mdl-layout__content")
   let child = document.createElement("div")
   child.classList.add("grid-content")
