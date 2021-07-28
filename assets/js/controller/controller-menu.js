@@ -30,35 +30,84 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
        modalObfuscator.classList.remove("is-visible")
      }
   })
-  this.delegate(document, "click", "#view_values_button", function(e) {
+  this.delegate(document, "click", "#view_landing_button", function(e) {
+    // TODO: Replace this with that.FAB.setCurrPage and infer prevPage?
+    that.FAB.set({pageState: "dontcare_landing"})
+    // Persist to local storage
+    that.cache.setFAB(that.FAB.get())
+    that.view.createLandingBody()
+  })
+  this.delegate(document, "click", "#view_priorities_button", function(e) {
+    // TODO: Replace this with that.FAB.setCurrPage and infer prevPage?
+    that.FAB.set({pageState: "landing_priorities"})
+    // Persist to local storage
+    that.cache.setFAB(that.FAB.get())
     that.view.createPrioritiesBody()
   })
   this.delegate(document, "click", "#view_cities_button", function(e) {
+    // TODO: Replace this with that.FAB.setCurrPage and infer prefPage?
+    that.FAB.set({pageState: "priorities_results"})
+    // Persist to local storage
+    that.cache.setFAB(that.FAB.get())
     that.view.createResultsBody()
   })
   this.delegate(document, "click", "#settings_edit_button", function(e) {
+    that.FAB.setNextPageState("settings")
+    // Persist to local storage
+    that.cache.setFAB(that.FAB.get())
     that.view.createSettingsBody()
   })
   this.delegate(document, "click", "#settings_restore_button", function(e) {
     that.settings.restoreDefaults()
 
-    that.view.setMaxResults()     //
-    //that.view.setLocale()       // TODO: Ug, this really should be something like
-    //that.view.setCountryCode()  //       that.view.update(that.settings) if using flow-sync.
-                                  //       Otherwise the view should just be an observer of
-                                  //       settings model which invokes registered update-view
-                                  //       callbacks upon state change (if using observer-sync).
-                                  //
-
-
     // Assume that restoring to defaults implies clearing whatever
-    // (potentially non-default) settings currently cached in local storage.
+    // (potentially) non-default settings are currently cached in local storage.
 
     if (that.cache.hasSettings()) {
-      let clearcache_button = document.querySelector("#settings_clearcache_button")
-      if (clearcache_button) {
-        clearcache_button.removeAttribute("disabled")
+      if (that.cache.clearSettings()) {
+        let clearcache_button = document.querySelector("#settings_clearcache_button")
+        if (clearcache_button) {
+          clearcache_button.setAttribute("disabled", "disabled")
+        }
       }
+    }
+
+    // Forget memory of current page.
+    //
+    // TODO: Disable restore button?
+
+    if (that.cache.hasFAB()) {
+      if (that.cache.clearFAB()) {
+        //let clearcache_button = document.querySelector("#settings_clearcache_button")
+        //if (clearcache_button) {
+        //  clearcache_button.setAttribute("disabled", "disabled")
+        //}
+      }
+    }
+
+    // Update the current view to reflect changes in the settings model.
+
+    // Here we're using flow synchronization to keep the view updated.
+    // Once the models become observable, the re-render methods for the active
+    // views will be invoked from within the mutated models as a side-effect
+    // of the changed state and we'll not need the code below.
+
+    let currPage = that.FAB.getCurrPage()
+    switch(currPage) {
+      case "landing":
+        that.view.createLandingBody()
+        break
+      case "settings":
+        that.view.createSettingsBody()
+        break
+      case "priorities":
+        that.view.createPrioritiesBody()
+        break
+      case "results":
+        that.view.createResultsBody()
+        break
+      default:
+        that.view.createLandingBody()
     }
   })
 

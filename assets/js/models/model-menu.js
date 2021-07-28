@@ -28,6 +28,7 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       settings: "Settings",
       settingsEdit: "Edit",
       settingsClear: "Clear cached settings",
+      settingsDefault: "Restore defaults",
       useLang: "Use %s",
       showCities: "Show cities in %s",
       showTop: "Show top %d cities",
@@ -43,6 +44,7 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       settings: "सेटिंग्स",
       settingsEdit: "आधुनिकीकरणअ",
       settingsClear: "कैश हटाएं",
+      settingsDefault: "डिफॉल्ट्स का पुनःस्थापन",
       useLang: "प्रयोग %s",
       showCities: "के लिए शहरों दिखाएं %s",
       showTop: "सर्वश्रेष्ठ %d शहरों को दिखाएं",
@@ -58,6 +60,7 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       settings: "Ajustes",
       settingsEdit: "Editar",
       settingsClear: "Limpiar cache",
+      settingsDefault: "Valores predeterminados",
       useLang: "Usar %s",
       showCities: "Mostrar ciudades en %s",
       showTop: "Mostrar las %d mejores ciudades",
@@ -73,6 +76,7 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       settings: "设置",
       settingsEdit: "编辑",
       settingsClear: "清除缓存",
+      settingsDefault: "恢复默认值",
       useLang: "使用 %s",
       showCities: "从这里显示城市 %s",
       showTop: "Show top %d cities",
@@ -213,6 +217,20 @@ ModelMenu.prototype.getMenuSettingsClear = function() {
   } else {
     result = (locale) ? result + "_" + locale : result
     console.log("ModelMenu:getMenuSettingsClear() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuSettingsDefault = function() {
+  let result = "missing_settings_restore"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'settingsDefault')) {
+    result = this.msgCatalog[locale].settingsDefault
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'settingsDefault')) {
+    result = this.msgCatalog[this.dfltLocale].settingsDefault
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelMenu:getMenuSettingsDefault() Error ", result)
   }
   return result
 }

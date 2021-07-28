@@ -42,8 +42,8 @@ function Controller(bodyDivId, locale = "en-US") {
     let persistedSettings = this.cache.getSettings()
     this.settings.set(persistedSettings)
   }
-
   let getSettingsLocale = this.settings.getLocale.bind(this.settings)
+
   this.landing = new ModelLanding(getSettingsLocale)
   this.menu = new ModelMenu(getSettingsLocale)
   this.priorities = new ModelPriorities(
@@ -57,9 +57,18 @@ function Controller(bodyDivId, locale = "en-US") {
   )
   this.results = new ModelResults(getSettingsLocale, this.cities.isValidCityList)
 
+  this.FAB = new ModelFAB(getSettingsLocale)
+  if (this.cache.hasFAB()) {
+    // Update current fab state from cached settings.
+
+    let persistedFAB = this.cache.getFAB()
+    this.FAB.set(persistedFAB)
+  }
+
   // Instantiate view, passing in state getters from models.
   this.view = new View(
     bodyDivId,
+    this.FAB,
     this.getMenuDrawerEventListeners().bind(this),
     this.getLandingPageEventListeners().bind(this),
     this.getPrioritiesPageEventListeners().bind(this),
@@ -73,6 +82,7 @@ function Controller(bodyDivId, locale = "en-US") {
     this.cities.getMinPoliticsValue(),
     this.cities.getMaxPoliticsValue(),
     this.cache.hasSettings.bind(this.cache),
+    this.cache.hasFAB.bind(this.cache),
     getSettingsLocale,
     this.settings.githubUrl,
     this.settings.getMaxResults.bind(this.settings),
@@ -123,6 +133,7 @@ function Controller(bodyDivId, locale = "en-US") {
     this.menu.getMenuSettings.bind(this.menu),
     this.menu.getMenuSettingsEdit.bind(this.menu),
     this.menu.getMenuSettingsClear.bind(this.menu),
+    this.menu.getMenuSettingsDefault.bind(this.menu),
     this.menu.getMenuSettingsUseLang.bind(this.menu),
     this.menu.getMenuSettingsShowCities.bind(this.menu),
     this.menu.getMenuSettingsShowTop.bind(this.menu),
@@ -149,7 +160,25 @@ function Controller(bodyDivId, locale = "en-US") {
     this.results.getListLabelPolitics.bind(this.results)
   )
 
-  this.view.createLandingBody()
+  let currPage = this.FAB.getCurrPage()
+  switch(currPage) {
+    case "landing":
+      this.view.createLandingBody()
+      break
+    case "settings":
+      this.view.createSettingsBody()
+      break
+    case "priorities":
+      this.view.createPrioritiesBody()
+      break
+    case "results":
+      this.view.createResultsBody()
+      break
+    default:
+      this.view.createLandingBody()
+  }
+
+  //this.view.createLandingBody()
 }
 
 // https://stackoverflow.com/questions/30880757/javascript-equivalent-to-on
@@ -163,12 +192,4 @@ Controller.prototype.delegate = function(el, evt, sel, handler) {
       t = t.parentNode
     }
   })
-}
-
-Controller.prototype.getNextButtonEventListener = function(createBodyFn) {
-  let that = this
-  function innerFunction() {
-    createBodyFn()
-  }
-  return innerFunction
 }

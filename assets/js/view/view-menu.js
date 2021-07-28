@@ -91,9 +91,11 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   let viewPriorities = this.getMenuViewPriorities()
   let viewBestBets = this.getMenuViewBestBets()
   let viewBlog = this.getMenuViewBlog()
-  viewMenuNode.innerHTML  = `<li class='mdl-menu__item mdl-button'><a href='' ref='noreferrer noopener' title='home'><i class='material-icons header-icons'>home</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewIntro}</span></a></li>`
-  viewMenuNode.innerHTML += `<li id='view_values_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewPriorities}</span></li>`
+
+  viewMenuNode.innerHTML  = `<li id='view_landing_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>home</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewIntro}</span></li>`
+  viewMenuNode.innerHTML += `<li id='view_priorities_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewPriorities}</span></li>`
   viewMenuNode.innerHTML += `<li id='view_cities_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>location_city</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewBestBets}</span></li>`
+
   viewMenuNode.innerHTML += `<li class='mdl-menu__item'><a href='${this.githubUrl}' target='_blank' ref='noreferrer noopener' title='blog'><i class='material-icons header-icons'>local_library</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewBlog}</span></a></li>`
   md.appendChild(viewMenuNode)
 
@@ -121,14 +123,15 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
 
   let settingsEdit = this.getMenuSettingsEdit()
   let settingsClear = this.getMenuSettingsClear()
+  let settingsDefault = this.getMenuSettingsDefault()
+
   settingsMenuNode.innerHTML += `<li id='settings_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsEdit} ...</span></li>`
 
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span id='settings-language-menu'>" + langString + "</span></li>"
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>" + countryString + "</span></li>"
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' style='height: 2em; line-height: 1em' disabled><span id='settings-max-results-menu'>" + maxResultsString + "</span></li>"
 
-  // Move these next two to the dedicated settings edit page to simplify model/view updates.
-  // settingsMenuNode.innerHTML += "<li disabled id='settings_restore_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>Restore defaults</span></li>",
+  settingsMenuNode.innerHTML += `<li id='settings_restore_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsDefault}</span></li>`,
   settingsMenuNode.innerHTML += `<li id='settings_clearcache_button' class='mdl-menu__item mdl-button' ${enableCacheClear}><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsClear}</span></li>`,
 
   md.appendChild(settingsMenuNode)

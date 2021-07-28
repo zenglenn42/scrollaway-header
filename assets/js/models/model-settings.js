@@ -3,7 +3,7 @@
 //
 // This class maintains state related to the application's settings:
 //
-//    language, 
+//    locale,
 //    country of interest, 
 //    number of cities to include in the ranked results
 //
@@ -197,9 +197,6 @@ ModelSettings.prototype.isValidLocale = function(locale) {
 
 // Introduce notion of locale (based upon BCP 47 standard).
 //
-// This descriptor composes language with region and is key
-// to localization efforts.
-//
 // Locales embody regional differences that affect how content
 // is presented (e.g., numeric formatting, currency designators, 
 // written script variants such as 'simplified' versus 'traditional' 
@@ -261,7 +258,7 @@ ModelSettings.prototype.getCountryName = function(countryCode) {
          this.countryOptionsMap[countryCode].hasOwnProperty('name')) ?
         this.countryOptionsMap[countryCode].name : countryCode + "-" + countryName
   } else {
-    console.error('ModelSettings.getLangName(countryCode): Invalid countryCode =', countryCode)
+    console.error('ModelSettings.getCountryName(countryCode): Invalid countryCode =', countryCode)
   }
   return countryName
 }
@@ -278,6 +275,19 @@ ModelSettings.prototype.setCountryCode = function(countryCode) {
   } else {
     console.log('Error ModelSettings.setCountryCode.  Invalid country code:', countryCode)
   }
+  return result
+}
+
+ModelSettings.prototype.get = function() {
+  // TODO: Add optional schema version as input to validate what props are expected.
+
+  let result = {
+    numCities: this.getNumCities(),
+    maxResults: this.getMaxResults(),
+    locale: this.getLocale(),
+    countryCode: this.getCountryCode()
+  }
+
   return result
 }
 
@@ -625,7 +635,7 @@ function UnitTestModelSettings() {
   failure = undefined
   try {
     cut = "ModelSettings.getLangName(locale) positive case"
-    console.log(' Verifying ability to fetch a language name given a iso lang code ...')
+    console.log(' Verifying ability to fetch a language name given a locale ...')
     let langName = settings.getLangName("en-US")
     if (langName !== "English") {
       failure = "Expected langName == 'English'" + " Got " + langName
@@ -648,7 +658,7 @@ function UnitTestModelSettings() {
   failure = undefined
   try {
     cut = "ModelSettings.getLangName(locale) negative case"
-    console.log(' Verifying ability to fetch a language name given a iso lang code ...')
+    console.log(' Verifying ability to fetch a language name given a locale ...')
     let langName = settings.getLangName("bogus")
     if (langName !== "bogus-missing-langName") {
       failure = "Expected countryName == 'bogus-missing-langName'" + " Got " + langName

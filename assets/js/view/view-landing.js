@@ -4,15 +4,10 @@
 // These view methods update the browser DOM to render the initial screen when
 // the user starts the app.
 //----------------------------------------------------------------------------------
-// TODO: Replace hardcoded presentation text with calls to (locale-sensitive) 
-//       landing model getter methods.
-//
-//       This will enable localization support.
-//----------------------------------------------------------------------------------
 
 View.prototype.createLandingBody = function() {
   let bodyDiv = document.getElementById(this.bodyDivId)
-  bodyDiv.innerHTML = ""
+  this.removeChildNodes(bodyDiv)
 
   let appName = this.getAppName()
   let slogan = this.getSlogan()
@@ -35,10 +30,6 @@ View.prototype.createLandingBody = function() {
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu)
   bodyDiv.appendChild(mainLanding)
   bodyDiv.appendChild(footer)
-
-  // Make hamburger menu responsive to clicks.
-  componentHandler.downgradeElements(document.querySelector(".mdl-layout"))
-  componentHandler.upgradeDom()
 
   this.addLandingPageEventListeners()
 }

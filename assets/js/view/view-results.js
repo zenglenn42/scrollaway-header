@@ -10,17 +10,18 @@
 
 View.prototype.createResultsBody = function createResultsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
-  bodyDiv.innerHTML = ""
+  this.removeChildNodes(bodyDiv)
   let header = this.createHeader(this.getResultsTitle(), "search")
   let menuDrawer = this.createMenuDrawer()
+  this.addMenuDrawerEventListeners()
   let hamburgerMenu = this.createHamburgerMenu()
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu)
   this.resultsMain = this.createResultsMain(bodyDiv)
-  // bodyDiv.appendChild(this.resultsMain)
-  let footer = this.createResultsFooter("navigate_before")
+  let footer = this.createResultsFooter()
   bodyDiv.appendChild(footer)
 
   // Update presentation of results based upon data-view in model.
+  // TODO: We really should be persisting this state between sessions.
   this.setActiveDataView(this.getActiveDataView())
 
   this.addResultsPageEventListeners()
@@ -80,7 +81,7 @@ View.prototype.createResultsMain = function(bodyDiv) {
         break
       case "photo-view":
       default:
-        console.log("photo-view")
+        //console.log("photo-view")
         child.classList.add("grid-content")
         m.appendChild(child)
         g.classList.add("mdl-grid")
@@ -89,7 +90,7 @@ View.prototype.createResultsMain = function(bodyDiv) {
         // Call the model to get ranked list
         // of cities sorted by user priority.
         //-----------------------------------//
-        console.log("normalized user priorities passed to model =", userPriorities)
+        //console.log("normalized user priorities passed to model =", userPriorities)
         let monetizationPosition1 = 3
         let monetizationPosition2 = 8
         this.rankedList.map(cityData => {
@@ -112,11 +113,11 @@ View.prototype.createResultsMain = function(bodyDiv) {
 }
 
 View.prototype.createListView = function(userPriorities, rank = 1) {
-  console.log("list-view")
+  //console.log("list-view")
   let ol = document.createElement("ol")
   ol.classList.add("mdl-list")
   ol.setAttribute("style", "width: 95%")
-  console.log("normalized user priorities passed to model =", userPriorities)
+  //console.log("normalized user priorities passed to model =", userPriorities)
 
   // let monetizationPosition1 = 3
   // let monetizationPosition2 = 8
@@ -144,7 +145,7 @@ View.prototype.createChartView = function(chartId) {
   let politicsData = []
   let rankData = []
   let r = 1
-  console.log(this.rankedList)
+  //console.log(this.rankedList)
   this.rankedList.map(cityData => {
     let cp = this.marshallModelData(r++, cityData)
     cityLabels.push(cp.titleText)
@@ -412,15 +413,13 @@ View.prototype.createResultsNoPrioritiesCard = function(params) {
   return p
 }
 
-View.prototype.createResultsFooter = function(fabIcon, fabIconId="navigate_before") {
+View.prototype.createResultsFooter = function() {
+  let fab = this.createFAB()
+
   let f = document.createElement("footer")
   f.classList.add("mdl-mini-foote")
   f.innerHTML = `
-      <button id="${fabIconId}"
-      class="footer-fab mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--primary"
-    >
-      <i class="material-icons">${fabIcon}</i>
-      </button>
+      ${fab}
       <div class="view-buttons mdl-tabs mdl-js-tabs">
         <div class="mdl-tabs__tab-bar view-button-tab-bar">
           <a id="photo-view" href="#photo-button" class="mdl-tabs__tab view-link is-active">

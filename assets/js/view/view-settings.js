@@ -4,11 +4,6 @@
 // These view methods update the browser DOM to render the 'Edit settings'
 // screen.
 //----------------------------------------------------------------------------------
-// TODO: Replace hardcoded presentation text with calls to (locale-sensitive)
-//       model getter methods.
-//
-//       This will enable localization support.
-//----------------------------------------------------------------------------------
 
 View.prototype.setMaxResults = function() {
   let settingsPageMaxResultsEl = document.querySelector("#settings-max-results-selected")
@@ -34,7 +29,10 @@ View.prototype.setLanguage = function() {
   }
 
   // Recreate the settings page under the new language/locale.
-  // TODO: Is garbage collection a concern?
+  //
+  // TODO: Not crazy about this.  Really should be happening as a result
+  //       of state change in the model rather than element change in view.
+
   this.createSettingsBody()
 }
 
@@ -46,18 +44,20 @@ View.prototype.createSettingsBody = function createSettingsBody() {
 
   let backToPage = "landing"  // default
 
+  // TODO: Fetch this from the FAB model.
   let currMain = document.getElementById("main")
   if (currMain) {
     let currPage = currMain.getAttribute("data-currpage")
     backToPage = currPage || "landing"
   }
 
-  bodyDiv.innerHTML = ""
+  this.removeChildNodes(bodyDiv)
   let header = this.createHeader(this.getSettingsTitle(), "")
   let menuDrawer = this.createMenuDrawer()
+  this.addMenuDrawerEventListeners()
   let hamburgerMenu = this.createHamburgerMenu()
   let mainSettings = this.createSettingsMain(backToPage)
-  let footer = this.createFooter("navigate_before", "navigate_next", backToPage)
+  let footer = this.createFooter()
 
   this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu)
   bodyDiv.appendChild(mainSettings)

@@ -19,13 +19,23 @@ Controller.prototype.getResultsPageEventListeners = function() {
 }
 
 Controller.prototype.addResultsPageEventListeners = function() {
-  nextButton = document.getElementById("navigate_before")
+  let fabEl = this.view.getFAB()
 
-  nextButton.addEventListener(
+  fabEl.addEventListener(
     "click",
-    this.getNextButtonEventListener(
+    this.getFabEventListener(
       this.view.createPrioritiesBody.bind(this.view)
     )
+  )
+
+  let homeEl = document.getElementById("header-home-button")
+  homeEl.addEventListener(
+    "click",
+    (e) => {
+      this.FAB.set({pageState: "dontcare_landing"})
+      this.cache.setFAB(this.FAB.get())
+      this.view.createLandingBody()
+    }
   )
 
   viewButtons = document.getElementsByClassName("view-link")

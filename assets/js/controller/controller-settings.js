@@ -16,29 +16,39 @@ Controller.prototype.getSettingsPageEventListeners = function() {
 }
 
 Controller.prototype.addSettingsPageEventListeners = function() {
-  nextButton = document.getElementById("navigate_next")
-  nextPageAttr = nextButton.getAttribute("data-nextpage") || "landing"
+  let homeEl = document.getElementById("header-home-button")
+  homeEl.addEventListener(
+    "click",
+    (e) => {
+      this.FAB.set({pageState: "dontcare_landing"})
+      this.cache.setFAB(this.FAB.get())
+      this.view.createLandingBody()
+    }
+  )
 
-  switch(nextPageAttr) {
+  fabEl = this.view.getFAB()
+  gotoPage = fabEl.getAttribute("data-goto-page") || "landing"
+
+  switch(gotoPage) {
     case "priorities":
-      nextButton.addEventListener(
+      fabEl.addEventListener(
         "click",
-        this.getNextButtonEventListener(this.view.createPrioritiesBody.bind(this.view))
+        this.getFabEventListener(this.view.createPrioritiesBody.bind(this.view))
       )
       break
 
     case "results":
-      nextButton.addEventListener(
+      fabEl.addEventListener(
         "click",
-        this.getNextButtonEventListener(this.view.createResultsBody.bind(this.view))
+        this.getFabEventListener(this.view.createResultsBody.bind(this.view))
       )
       break
 
     case "landing":
     default:
-      nextButton.addEventListener(
+      fabEl.addEventListener(
         "click",
-        this.getNextButtonEventListener(this.view.createLandingBody.bind(this.view))
+        this.getFabEventListener(this.view.createLandingBody.bind(this.view))
       )
       break
   }

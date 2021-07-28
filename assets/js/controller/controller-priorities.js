@@ -14,11 +14,20 @@ Controller.prototype.getPrioritiesPageEventListeners = function() {
 }
 
 Controller.prototype.addPrioritiesPageEventListeners = function() {
-  nextButton = document.getElementById("navigate_next")
-
-  nextButton.addEventListener(
+  let homeEl = document.getElementById("header-home-button")
+  homeEl.addEventListener(
     "click",
-    this.getNextButtonEventListener(this.view.createResultsBody.bind(this.view))
+    (e) => {
+      this.FAB.set({pageState: "dontcare_landing"})
+      this.cache.setFAB(this.FAB.get())
+      this.view.createLandingBody()
+    }
+  )
+
+  let fabEl = this.view.getFAB()
+  fabEl.addEventListener(
+    "click",
+    this.getFabEventListener(this.view.createResultsBody.bind(this.view))
   )
 
   /* Make hamburger menu responsive to clicks. */
@@ -124,14 +133,6 @@ Controller.prototype.getPrioritiesSliderAffordabilityCB = function() {
     // console.log("affordability value = ", this.value)
   }
   return innerCB
-}
-
-Controller.prototype.getNextButtonEventListener = function(createBodyFn) {
-  let that = this
-  function innerFunction() {
-    createBodyFn()
-  }
-  return innerFunction
 }
 
 Controller.prototype.switchIsEnabled = function(switchId) {

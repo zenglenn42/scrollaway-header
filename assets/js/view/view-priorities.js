@@ -4,11 +4,6 @@
 // These view methods update the browser DOM to render the 'Share your priorities'
 // screen.
 //----------------------------------------------------------------------------------
-// TODO: Replace hardcoded presentation text with calls to (locale-sensitive)
-//       model getter methods.
-//
-//       This will enable localization support.
-//----------------------------------------------------------------------------------
 
 View.prototype.switchHappinessId = "switch-happiness"
 View.prototype.sliderHappinessId = "slider-happiness"
@@ -27,10 +22,11 @@ View.prototype.tooltipJobSearchId = "tooltip-jobsearch"
 
 View.prototype.createPrioritiesBody = function createPrioritiesBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
-  bodyDiv.innerHTML = ""
+  this.removeChildNodes(bodyDiv)
   let title = this.getPrioritiesTitle()
   let header = this.createHeader(title)
   let menuDrawer = this.createMenuDrawer()
+  this.addMenuDrawerEventListeners()
   let hamburgerMenu = this.createHamburgerMenu()
   let mainPriorities = this.createPrioritiesMain()
   let footer = this.createFooter()
@@ -291,7 +287,7 @@ View.prototype.createPrioritiesTextinputCard = function(priorityParams) {
         <div class="mdl-tooltip mdl-tooltip--medium mdl-tooltip--top" data-mdl-for=${tooltipId}>${priorityParams.tooltipText}</div>
       </div>
     `
-  /* Disable switch since job outlook feature not yet implemented. */
+  // Disable switch since job outlook feature not yet implemented.
   /*
   let mdlSwitch = this.createSlideSwitch(
     priorityParams.switchId,

@@ -26,6 +26,7 @@
 
 function View(
   bodyDivId,
+  fabModel,
   addMenuDrawerEventListeners,
   addLandingPageEventListeners,
   addPrioritiesPageEventListeners,
@@ -39,6 +40,7 @@ function View(
   minPoliticsValue,
   maxPoliticsValue,
   hasPersistedSettings,
+  hasPersistedFAB,
   getLocale,
   githubUrl,
   getMaxResults,
@@ -89,6 +91,7 @@ function View(
   getMenuSettings,
   getMenuSettingsEdit,
   getMenuSettingsClear,
+  getMenuSettingsDefault,
   getMenuSettingsUseLang,
   getMenuSettingsShowCities,
   getMenuSettingsShowTop,
@@ -115,8 +118,11 @@ function View(
   getListLabelPolitics
 ) {
 
+  this.fabModel = fabModel
+
   // Bind to LocalPersistence interface.
   this.hasPersistedSettings = hasPersistedSettings
+  this.hasPersistedFAB = hasPersistedFAB
 
   // Bind to SettingsModel interface.
   this.getMaxResults = getMaxResults
@@ -173,6 +179,7 @@ function View(
   this.getMenuSettings = getMenuSettings
   this.getMenuSettingsEdit = getMenuSettingsEdit
   this.getMenuSettingsClear = getMenuSettingsClear
+  this.getMenuSettingsDefault = getMenuSettingsDefault
   this.getMenuSettingsUseLang = getMenuSettingsUseLang
   this.getMenuSettingsShowCities = getMenuSettingsShowCities
   this.getMenuSettingsShowTop = getMenuSettingsShowTop
@@ -232,6 +239,22 @@ function View(
   this.resultsMain = undefined
 }
 
+// Pages associated with the application are constructed in real-time and anchored
+// off a single parent <div> as the user navigates from page to page.
+//
+// The following primitive is for removing obsolete nodes and associated event 
+// handlers between page transitions.
+//
+// Simply clearing innerHTML doesn't suffice since it doesn't remove event handlers.
+// You may otherwise end up with nuisance/duplicate event handlers responding to the
+// same event.
+
+View.prototype.removeChildNodes = function(parentNode) {
+  while (parentNode.firstChild) {
+    parentNode.removeChild(parentNode.firstChild);
+  }
+}
+
 View.prototype.createHeader = function(title, rightNavIcon) {
   let h = document.createElement("header")
   h.classList += "mdl-layout__header"
@@ -241,14 +264,17 @@ View.prototype.createHeader = function(title, rightNavIcon) {
       <span class="mdl-layout-title mdl-layout-title-nudged">${title}</span>
       <div class="mdl-layout-spacer">&nbsp;</div>
       <nav class="mdl-navigation">
+          <button id="header-home-button" class="mdl-navigation__link mdl-button mdl-js-button mdl-button--icon">
+            <i class='material-icons header-icons'>home</i>
+          </button>
         <!--
           <a class="mdl-navigation__link" href="">
             <i id="header-search" class="material-icons">${rightNavIcon}</i>
           </a>
-        -->
           <a id="header-logo__link" class="mdl-navigation__link mdl-button mdl-js-button mdl-button--icon" href="" title="home" ref="noreferrer noopener">
             <i class='material-icons header-icons'>home</i>
           </a>
+        -->
       </nav>
     `
   return h
@@ -260,16 +286,36 @@ View.prototype.makeNav = function(bodyDiv, header, menuDrawer, hamburgerMenu) {
   bodyDiv.appendChild(hamburgerMenu)
 }
 
-View.prototype.createFooter = function(fabIcon="navigate_next", fabIconId="navigate_next", nextPage="priorities") {
+// Some view models maintain ascii icons (since models are inherently more abstract).
+// This routine allows the view to map those to an actual icon.
+//
+// Most of the actual icons are pulled from Google's Material Icons.
+// See: https://fonts.google.com/icons
+
+View.prototype.getIconFromAsciiIcon = function(asciiIcon) {
+  let bugIcon = "pest_control" // Flag unknown asciiIcons with a bug icon.
+  let realIcon = bugIcon
+
+  switch(asciiIcon) {
+    case "<":
+      realIcon = "navigate_before"  // Used by floating action button.
+      break;
+    case ">":
+      realIcon = "navigate_next"    // Used by floating action button.
+      break;
+  }
+  return realIcon
+}
+
+View.prototype.createFooter = function() {
   let appName = this.getAppName()
   let copyrightDate = this.getCopyrightDate()
+  let fabHTML = this.createFAB()
 
   f = document.createElement("footer")
   f.classList.add("mdl-mini-footer")
   f.innerHTML = `
-      <button id="${fabIconId}" data-nextpage="${nextPage}" class="footer-fab mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--primary">
-        <i class="material-icons">${fabIcon}</i>
-      </button>
+      ${fabHTML}
       <div class="mdl-mini-footer__left-section"><span class="copyright-text">
         <i class="material-icons footer-icons">location_city</i>
         <i class="material-icons footer-icons" style="position:relative; left:-0.5em">favorite</i>

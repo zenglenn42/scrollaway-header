@@ -12,14 +12,25 @@ Controller.prototype.getLandingPageEventListeners = function() {
 }
 
 Controller.prototype.addLandingPageEventListeners = function() {
-  nextButton = document.getElementById("navigate_next")
-  nextPageAttr = nextButton.getAttribute("data-nextpage")
-
-  console.log('nextPageAttr =', nextPageAttr)
-  nextButton.addEventListener(
+  let homeEl = document.getElementById("header-home-button")
+  homeEl.addEventListener(
     "click",
-    this.getNextButtonEventListener(
+    (e) => {
+      this.FAB.set({pageState: "dontcare_landing"})
+      this.cache.setFAB(this.FAB.get())
+      this.view.createLandingBody()
+    }
+  )
+
+  let fabEl = this.view.getFAB()
+  fabEl.addEventListener(
+    "click",
+    this.getFabEventListener(
       this.view.createPrioritiesBody.bind(this.view)
     )
   )
+
+  // Make hamburger menu responsive to clicks.
+  componentHandler.downgradeElements(document.querySelector(".mdl-layout"))
+  componentHandler.upgradeDom()
 }
