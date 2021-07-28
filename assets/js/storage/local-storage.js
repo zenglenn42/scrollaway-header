@@ -11,6 +11,7 @@
 function LocalStorage() {
   this._SETTINGS_KEY = 'settings'     // TODO: Some day I'll be a proper enum.
   this._PRIORITIES_KEY = 'priorities' //       Me too.
+  this._FAB_KEY = 'fab'               //       Me too.
 }
 
 LocalStorage.prototype.hasLocalStorage = function() {
@@ -30,7 +31,7 @@ LocalStorage.prototype.hasAppData = function() {
 }
 
 LocalStorage.prototype.hasAppData = function() {
-  return this.hasSettings() || this.hasPriorities()
+  return this.hasSettings() || this.hasPriorities() || this.hasFAB()
 }
 
 LocalStorage.prototype.hasSettings = function() {
@@ -49,14 +50,25 @@ LocalStorage.prototype.hasPriorities = function() {
   return value
 }
 
+LocalStorage.prototype.hasFAB = function() {
+  let value = undefined
+  if (this.hasLocalStorage()) {
+    value = localStorage.getItem(this._FAB_KEY)
+  }
+  return value
+}
+
 LocalStorage.prototype.isValidKey = function(key) {
-  return (key === this._SETTINGS_KEY || key === this._PRIORITIES_KEY)
+  return (key === this._SETTINGS_KEY   ||
+          key === this._PRIORITIES_KEY ||
+          key === this._FAB_KEY)
 }
 
 LocalStorage.prototype.get = function(key) {
   let localValue = undefined
-  const badEncoding = "[object Object]" // This happens if an object is inadequately encoded during setItem.
-                                        // Used to prevent exception if JSON.parse attempts to decode as an array.
+  const badEncoding = "[object Object]" // This happens if an object is inadequately
+                                        // encoded during setItem. Used to prevent exception
+                                        // if JSON.parse attempts to decode as an array.
 
   if (this.isValidKey(key)) {
     let localValueStr = localStorage.getItem(key)
@@ -97,12 +109,34 @@ LocalStorage.prototype.getPriorities = function() {
   return (this.hasPriorities()) ? this.get(this._PRIORITIES_KEY) : undefined
 }
 
+LocalStorage.prototype.setPriorities = function(jsObj) {
+  if (this.hasLocalStorage()) {
+    let jsonObj = (typeof jsObj === 'obj') ? JSON.stringify(jsObj) : jsObj
+    this.set(this._PRIORITIES_KEY, jsonObj)
+  }
+}
+
+LocalStorage.prototype.getFAB = function() {
+  return (this.hasFAB()) ? this.get(this._FAB_KEY) : undefined
+}
+
+LocalStorage.prototype.setFAB = function(jsObj) {
+  if (this.hasLocalStorage()) {
+    let jsonObj = (typeof jsObj === 'obj') ? JSON.stringify(jsObj) : jsObj
+    this.set(this._FAB_KEY, jsonObj)
+  }
+}
+
 LocalStorage.prototype.clearSettings = function() {
   return this.clear(this._SETTINGS_KEY)
 }
 
 LocalStorage.prototype.clearPriorities = function() {
   return this.clear(this._PRIORITIES_KEY)
+}
+
+LocalStorage.prototype.clearFAB = function() {
+  return this.clear(this._FAB_KEY)
 }
 
 LocalStorage.prototype.clear = function(localKey) {
@@ -218,7 +252,8 @@ function UnitTestLocalStorage() {
     cut = "LocalStorage.isValidKey()"
     console.log(' Verifying key validation (positive case) ...')
     if (!cache.isValidKey(cache._SETTINGS_KEY) || 
-        !cache.isValidKey(cache._PRIORITIES_KEY)) {
+        !cache.isValidKey(cache._PRIORITIES_KEY) ||
+        !cache.isValidKey(cache._FAB_KEY)) {
       failure = "Unable to validate what should be one or more valid keys."
     }
 
