@@ -20,6 +20,7 @@ Controller.prototype.getMenuDrawerEventListeners = function() {
 
 Controller.prototype.addMenuDrawerEventListeners = function() {
   var that = this
+
   this.delegate(document, "click", "#dismiss_menu_button", function(e) {
      let md = document.querySelector(".mdl-layout__drawer")
      if (md) {
@@ -30,26 +31,82 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
        modalObfuscator.classList.remove("is-visible")
      }
   })
+
   this.delegate(document, "click", "#view_landing_button", function(e) {
     that.FAB.set({pageState: "dontcare_landing"})
     that.cache.setFAB(that.FAB.get()) // Persist to local storage.
     that.view.render()
   })
+
   this.delegate(document, "click", "#view_priorities_button", function(e) {
     that.FAB.set({pageState: "landing_priorities"})
     that.cache.setFAB(that.FAB.get()) // Persist to local storage.
     that.view.render()
   })
+
   this.delegate(document, "click", "#view_cities_button", function(e) {
     that.FAB.set({pageState: "priorities_results"})
     that.cache.setFAB(that.FAB.get()) // Persist to local storage.
     that.view.render()
   })
+
+  this.delegate(document, "click", "#prioritiesMenu", function(e) {
+    // Normally we only persist user priorities when transitioning from
+    // priorities page to results page (implicit 'submit' event).
+    // But this is also a logical place for that.
+    that.cache.setPriorities(that.priorities.get()) 
+
+    // TODO: FIX multiplicty of event listeners!!
+    // Noticing multiple clicks when there should only be one.
+    // Suspect i'm leaking event handlers.
+    // console.log('click')
+  })
+
+  this.delegate(document, "click", "#priorities_edit_button", function(e) {
+    that.FAB.set({pageState: "landing_priorities"})
+    that.cache.setFAB(that.FAB.get()) // Persist to local storage.
+    that.view.render()
+  })
+
+  this.delegate(document, "click", "#priorities_restore_button", function(e) {
+    that.priorities.restoreDefaults()
+
+    // Assume that restoring to defaults implies clearing whatever
+    // (potentially) non-default settings are currently cached in local storage.
+
+    if (that.cache.hasPriorities()) {
+      if (that.cache.clearPriorities()) {
+        let clearcache_button = document.querySelector("#priorities_clearcache_button")
+        if (clearcache_button) {
+          clearcache_button.setAttribute("disabled", "disabled")
+        }
+      }
+    }
+    // Update the current view to reflect changes in the priorities model.
+
+    // Here we're using flow synchronization to keep the view updated.
+    // Once the models become observable, the re-render methods for the active
+    // views will be invoked from within the mutated models as a side-effect
+    // of the changed state and we'll not need the code below.
+
+    that.view.render()
+  })
+
+  this.delegate(document, "click", "#priorities_clearcache_button", function(e) {
+    if (that.cache.clearPriorities()) {
+      let clearcache_button = document.querySelector("#priorities_clearcache_button")
+      if (clearcache_button) {
+        clearcache_button.setAttribute("disabled", "disabled")
+      }
+    }
+  })
+  
   this.delegate(document, "click", "#settings_edit_button", function(e) {
     that.FAB.setNextPageState("settings")
     that.cache.setFAB(that.FAB.get()) // Persist to local storage.
     that.view.render()
   })
+
   this.delegate(document, "click", "#settings_restore_button", function(e) {
     that.settings.restoreDefaults()
 

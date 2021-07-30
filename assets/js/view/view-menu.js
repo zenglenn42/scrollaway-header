@@ -30,8 +30,22 @@ View.prototype.createHamburgerMenu = function() {
 }
 
 View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
+
+  //------------------------------------------------------------
+  // MENU header
+  //------------------------------------------------------------
+
   let title = (!menuTitle) ? this.getMenuTitle() : menuTitle
-  let md = document.createElement("span")
+  let md = document.getElementById("menu-drawer")
+
+  if (md) {
+    // Remove any obsolete event handlers before we rebuild the menu drawer.
+    this.removeChildNodes(md)
+  } else {
+    md = document.createElement("span")
+    md.setAttribute("id", "menu-drawer")
+  }
+
   md.classList.add("mdl-layout__drawer")
   let mdHeader = document.createElement("div")
   mdHeader.classList.add("mdl-layout__header-row")
@@ -70,7 +84,9 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   })
   */
 
-  // TODO: DRY this up with a map lambda.
+  //------------------------------------------------------------
+  // VIEW
+  //------------------------------------------------------------
 
   let viewMenuButton = "button"
   let viewMenuButtonNode = document.createElement(viewMenuButton)
@@ -99,6 +115,65 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   viewMenuNode.innerHTML += `<li class='mdl-menu__item'><a href='${this.githubUrl}' target='_blank' ref='noreferrer noopener' title='blog'><i class='material-icons header-icons'>local_library</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewBlog}</span></a></li>`
   md.appendChild(viewMenuNode)
 
+  //------------------------------------------------------------
+  // PRIORITIES
+  //------------------------------------------------------------
+
+  let prioritiesMenuButton = "button"
+  let prioritiesMenuButtonNode = document.createElement(prioritiesMenuButton)
+  prioritiesMenuButtonNode.setAttribute("id", "prioritiesMenu")
+  prioritiesMenuButtonNode.setAttribute("style", "text-align:left")
+  prioritiesMenuButtonNode.classList.add("mdl-button")
+  prioritiesMenuButtonNode.classList.add("mdl-js-button")
+  let prioritiesText = this.getMenuPriorities() // TODO
+  prioritiesMenuButtonNode.innerHTML = `<i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-layout-title-nudged'>${prioritiesText} ...</span>`
+  md.appendChild(prioritiesMenuButtonNode)
+  let prioritiesMenuHtml = "ul"
+  let prioritiesMenuNode = document.createElement(prioritiesMenuHtml)
+  let prioritiesEnableCacheClear = this.hasPersistedPriorities() ? "" : "disabled='disabled'"
+
+  // TODO:  Implement hasNonDefaultPriorities() method which looks at runtime state
+  //        as opposed to persisted state.
+  // let prioritiesEnableRestoreDefaults = this.hasNonDefaultPriorities() ? "" : "disabled='disabled'"
+  let prioritiesEnableRestoreDefaults = ""
+
+  prioritiesMenuNode.classList.add("mdl-menu")
+  prioritiesMenuNode.classList.add("mdl-js-menu")
+  prioritiesMenuNode.classList.add("mdl-menu--bottom-right")
+  prioritiesMenuNode.setAttribute("for", "prioritiesMenu")
+
+  let happinessString = this.getMenuPrioritiesHappiness(this.getHappinessValue()) 
+  let politicsValue = this.getPoliticsValue()
+  let donkey =
+    '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>'
+  let elephant =
+    '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>'
+  let politicsFormattedString = `&nbsp;${donkey}&nbsp;${politicsValue.dem16_frac}%&nbsp;&nbsp; ${elephant}&nbsp;${politicsValue.rep16_frac}%`
+  let politicsString = this.getMenuPrioritiesPolitics(politicsFormattedString)
+  let costString = this.getMenuPrioritiesCost(this.formatter.format(this.getAffordabilityValue())
+  )
+
+  prioritiesMenuNode.innerHTML = ""
+
+  let prioritiesEdit = this.getMenuPrioritiesEdit()
+  let prioritiesClear = this.getMenuPrioritiesClear()
+  let prioritiesDefault = this.getMenuPrioritiesDefault()
+
+  prioritiesMenuNode.innerHTML += `<li id='priorities_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${prioritiesEdit} ...</span></li>`
+
+  prioritiesMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span id='priorities-happiness-menu'>" + happinessString + "</span></li>"
+  prioritiesMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span id='priorities-politics-menu'>" + politicsString + "</span></li>"
+  prioritiesMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' style='height: 2em; line-height: 1em' disabled><span id='priorities-cost-menu'>" + costString + "</span></li>"
+
+  prioritiesMenuNode.innerHTML += `<li id='priorities_restore_button' class='mdl-menu__item mdl-button' ${prioritiesEnableRestoreDefaults}><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${prioritiesDefault}</span></li>`,
+  prioritiesMenuNode.innerHTML += `<li id='priorities_clearcache_button' class='mdl-menu__item mdl-button' ${prioritiesEnableCacheClear}><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${prioritiesClear}</span></li>`,
+
+  md.appendChild(prioritiesMenuNode)
+
+  //------------------------------------------------------------
+  // SETTINGS
+  //------------------------------------------------------------
+
   let settingsMenuButton = "button"
   let settingsMenuButtonNode = document.createElement(settingsMenuButton)
   settingsMenuButtonNode.setAttribute("id", "settingsMenu")
@@ -110,12 +185,12 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   md.appendChild(settingsMenuButtonNode)
   let settingsMenuHtml = "ul"
   let settingsMenuNode = document.createElement(settingsMenuHtml)
-  let enableCacheClear = this.hasPersistedSettings() ? "" : "disabled='disabled'"
+  let settingsEnableCacheClear = this.hasPersistedSettings() ? "" : "disabled='disabled'"
 
   // TODO:  Implement hasNonDefaultSettings() method which looks at runtime state
   //        as opposed to persisted state.
-  // let enableRestoreDefaults = this.hasNonDefaultSettings() ? "" : "disabled='disabled'"
-  let enableRestoreDefaults = ""
+  // let settingsEnableRestoreDefaults = this.hasNonDefaultSettings() ? "" : "disabled='disabled'"
+  let settingsEnableRestoreDefaults = ""
 
   settingsMenuNode.classList.add("mdl-menu")
   settingsMenuNode.classList.add("mdl-js-menu")
@@ -137,10 +212,14 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>" + countryString + "</span></li>"
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' style='height: 2em; line-height: 1em' disabled><span id='settings-max-results-menu'>" + maxResultsString + "</span></li>"
 
-  settingsMenuNode.innerHTML += `<li id='settings_restore_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsDefault}</span></li>`,
-  settingsMenuNode.innerHTML += `<li id='settings_clearcache_button' class='mdl-menu__item mdl-button' ${enableCacheClear}><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsClear}</span></li>`,
+  settingsMenuNode.innerHTML += `<li id='settings_restore_button' class='mdl-menu__item mdl-button' ${settingsEnableRestoreDefaults}><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsDefault}</span></li>`,
+  settingsMenuNode.innerHTML += `<li id='settings_clearcache_button' class='mdl-menu__item mdl-button' ${settingsEnableCacheClear}><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsClear}</span></li>`,
 
   md.appendChild(settingsMenuNode)
+
+  //------------------------------------------------------------
+  // HELP
+  //------------------------------------------------------------
 
   let helpMenuButton = "button"
   let helpMenuButtonNode = document.createElement(helpMenuButton)

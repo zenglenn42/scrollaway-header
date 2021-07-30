@@ -46,6 +46,7 @@ function Controller(bodyDivId, locale = "en-US") {
 
   this.landing = new ModelLanding(getSettingsLocale)
   this.menu = new ModelMenu(getSettingsLocale)
+
   this.priorities = new ModelPriorities(
     getSettingsLocale,
     this.cities.getMidAffordabilityValue(), // 
@@ -55,6 +56,15 @@ function Controller(bodyDivId, locale = "en-US") {
     this.cities.getHappinessRange(),
     this.cities.getPoliticsRange()
   )
+  if (this.cache.hasPriorities()) {
+    // Update current priorities state from cached settings.
+
+    let persistedPriorities = this.cache.getPriorities()
+    console.log('persistedPriorities:', persistedPriorities)
+    this.priorities.set(persistedPriorities)
+    console.log('get persistedPriorities:', this.priorities.get())
+  }
+
   this.results = new ModelResults(getSettingsLocale, this.cities.isValidCityList)
 
   this.FAB = new ModelFAB(getSettingsLocale)
@@ -83,6 +93,7 @@ function Controller(bodyDivId, locale = "en-US") {
     this.cities.getMaxPoliticsValue(),
     this.cache.hasSettings.bind(this.cache),
     this.cache.hasFAB.bind(this.cache),
+    this.cache.hasPriorities.bind(this.cache),
     getSettingsLocale,
     this.settings.githubUrl,
     this.settings.getMaxResults.bind(this.settings),
@@ -130,6 +141,13 @@ function Controller(bodyDivId, locale = "en-US") {
     this.menu.getMenuViewPriorities.bind(this.menu),
     this.menu.getMenuViewBestBets.bind(this.menu),
     this.menu.getMenuViewBlog.bind(this.menu),
+    this.menu.getMenuPriorities.bind(this.menu),
+    this.menu.getMenuPrioritiesEdit.bind(this.menu),
+    this.menu.getMenuPrioritiesClear.bind(this.menu),
+    this.menu.getMenuPrioritiesDefault.bind(this.menu),
+    this.menu.getMenuPrioritiesHappiness.bind(this.menu),
+    this.menu.getMenuPrioritiesPolitics.bind(this.menu),
+    this.menu.getMenuPrioritiesCost.bind(this.menu),
     this.menu.getMenuSettings.bind(this.menu),
     this.menu.getMenuSettingsEdit.bind(this.menu),
     this.menu.getMenuSettingsClear.bind(this.menu),

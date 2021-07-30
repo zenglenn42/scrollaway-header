@@ -27,7 +27,16 @@ Controller.prototype.addPrioritiesPageEventListeners = function() {
   let fabEl = this.view.getFAB()
   fabEl.addEventListener(
     "click",
-    this.getFabEventListener(this.view.createResultsBody.bind(this.view))
+    (e) => {
+      this.FAB.set({pageState: "priorities_results"})
+      this.cache.setFAB(this.FAB.get())
+      // Cache priorities only if clicking from priorities into results page.
+      // This is a convenient event-boundary upon which to latch in all the current
+      // user priorities.
+      //
+      this.cache.setPriorities(this.priorities.get())
+      this.view.createResultsBody()
+    }
   )
 
   /* Make hamburger menu responsive to clicks. */

@@ -67,7 +67,13 @@ function ModelFAB(
   this.setPageAndFabState(pageState)
 
   this.dfltVisibility = true
-  this.visibility = (typeof visiblity === 'boolean') ? visibility : this.dfltVisibility
+  this.visibility = this.isBoolean(visibility) ? visibility : this.dfltVisibility
+}
+
+// Is it time for typescript? :-)
+ModelFAB.prototype.isBoolean = function(value) {
+  if (value === undefined) return false
+  return (value === true || value === false)
 }
 
 ModelFAB.prototype.getVisibility = function() {
@@ -117,8 +123,24 @@ ModelFAB.prototype.set = function(jsonObj) {
     // TODO: Add schema version to validate what props and prop naming we /expect/.
 
     let props = (typeof jsonObj === 'object') ? jsonObj : JSON.parse(jsonObj)
-    this.setVisibility(props.visibility)
-    this.setPageAndFabState(props.pageState)
+
+    // Validate incoming json before mutating state.  Otherwise defer to current state.
+
+    let visibility = (props.hasOwnProperty('visibility') && this.isBoolean(props.visibility))
+                        ? props.visibility
+                        : (this.isBoolean(this.getVisibility())
+                            ? this.getVisibility()
+                            : this.dfltVisibility)
+
+    let pageState = (props.hasOwnProperty('pageState') &&
+                     this.isValidPageState(props.pageState))
+                        ? props.pageState
+                        : (this.isValidPageState(this.getPageState())
+                            ? this.getPageState()
+                            : this.dfltPageState)
+
+    this.setVisibility(visibility)
+    this.setPageAndFabState(pageState)
   } else {
     console.log("[Info] ModelFAB.set(json): Ignoring set, json parameter is undefined.")
   }

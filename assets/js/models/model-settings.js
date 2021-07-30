@@ -313,23 +313,10 @@ ModelSettings.prototype.set = function(jsonObj) {
    this.setNumCities(numCities)
    this.setMaxResults(maxResults)
    this.setLocale(locale)
-   this.setCountryCode(props.countryCode)
+   this.setCountryCode(countryCode)
   } else {
     console.log("[Info] ModelSettings.set(json): Ignoring set, json parameter is undefined.")
   }
-}
-
-ModelSettings.prototype.get = function() {
-  let obj = {}
-
-  obj = {
-    numCities: this.numCities,
-    maxResults: this.maxResults,
-    locale: this.locale,
-    countryCode: this.countryCode
-  }
-
-  return obj
 }
 
 // Return the 3-letter iso-currency descriptor associated with

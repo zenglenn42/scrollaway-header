@@ -144,7 +144,7 @@ function ModelPriorities(getLocale = () => {return locale="en-US"},
       happinessTitle: "नागरिक खुशी",
       happinessTooltip: "इस प्राथमिकता को समायोजित करने के लिए नीचे स्लाइडर का उपयोग करें। " +
                         "समग्र कल्याण, रोजगार और समुदाय सहित आयामों में वॉलेटहब द्वारा 2019 के अध्ययन के आधार पर।",
-      politicsTitle: "प्रचलित राजनीति",
+      politicsTitle: "राजनीतिक झुकाव",
       politicsTooltip: "वांछित प्रचलित राजनीतिक माहौल की इस प्राथमिकता को समायोजित करने के लिए नीचे स्लाइडर का उपयोग करें। " + 
                        "ओपनडेटासॉफ्ट द्वारा प्रकाशित 2016 राष्ट्रपति चुनाव के आंकड़ों के आधार पर।",
       affordabilityTitle: "रहने की लागत",
@@ -156,7 +156,7 @@ function ModelPriorities(getLocale = () => {return locale="en-US"},
     },
     "es-ES": {
       title: "Comparta sus prioridades", // TODO: Shorten? Getting clipped on iPhone SE.
-      happinessTitle: "Felicidad cívica",
+      happinessTitle: "Felicidad Cívica",
       happinessTooltip: "Utilice el control deslizante a continuación para ajustar esta prioridad. " +
                         "Basado en un estudio de WalletHub de 2019 en muchas dimensiones, incluido el bienestar general, el empleo y la comunidad.",
       politicsTitle: "Política Imperante",
@@ -551,6 +551,89 @@ ModelPriorities.prototype.setJobSearchEnabled = function(value) {
   }
   */
   return result
+}
+
+ModelPriorities.prototype.get = function() {
+  // TODO: Add optional schema version as input to validate what props are expected.
+
+  let result = {
+    happinessValue: this.getHappinessValue(),
+    happinessEnabled: this.getHappinessEnabled(),
+
+    affordabilityValue: this.getAffordabilityValue(),
+    affordabilityEnabled: this.getAffordabilityEnabled(),
+
+    politicsValue: this.getPoliticsValue(),
+    politicsEnabled: this.getPoliticsEnabled(),
+  }
+  return result
+}
+
+// The use-case for this method is initialization from persisted state.
+
+ModelPriorities.prototype.set = function(jsonObj) {
+  if (jsonObj) {
+    // TODO: Add schema version to validate what props and prop naming we /expect/.
+
+    let props = (typeof jsonObj === 'object') ? jsonObj : JSON.parse(jsonObj)
+
+    // Validate incoming json before mutating state.  Default to current state if invalid input.
+
+    let happinessValue = (props.hasOwnProperty('happinessValue') && 
+                     this.isValidHappinessValue(props.happinessValue, this.happinessRange)) 
+                        ? props.happinessValue 
+                        : (this.isValidHappinessValue(this.getHappinessValue(), this.happinessRange)
+                            ? this.getHappinessValue()
+                            : this.dfltHappinessValue)
+
+    let happinessEnabled = 
+                    (props.hasOwnProperty('happinessEnabled') && 
+                     this.isBoolean(props.happinessEnabled))
+                        ? props.happinessEnabled 
+                        : (this.isBoolean(this.getHappinessEnabled())
+                            ? this.getHappinessEnabled()
+                            : this.dfltHappinessValue)
+
+    let affordabilityValue = (props.hasOwnProperty('affordabilityValue') && 
+                     this.isValidAffordabilityValue(props.affordabilityValue, this.affordabilityRange)) 
+                        ? props.affordabilityValue 
+                        : (this.isValidAffordabilityValue(this.getAffordabilityValue(), this.affordabilityRange)
+                            ? this.getAffordabilityValue()
+                            : this.dfltAffordabilityValue)
+
+    let affordabilityEnabled = 
+                    (props.hasOwnProperty('affordabilityEnabled') && 
+                     this.isBoolean(props.affordabilityEnabled))
+                        ? props.affordabilityEnabled 
+                        : (this.isBoolean(this.getAffordabilityEnabled())
+                            ? this.getAffordabilityEnabled()
+                            : this.dfltAffordabilityValue)
+
+    let politicsValue = (props.hasOwnProperty('politicsValue') && 
+                     this.isValidPoliticsValue(props.politicsValue, this.politicsRange)) 
+                        ? props.politicsValue 
+                        : (this.isValidPoliticsValue(this.getPoliticsValue(), this.politicsRange)
+                            ? this.getPoliticsValue()
+                            : this.dfltPoliticsValue)
+
+    let politicsEnabled = 
+                    (props.hasOwnProperty('politicsEnabled') && 
+                     this.isBoolean(props.politicsEnabled))
+                        ? props.politicsEnabled 
+                        : (this.isBoolean(this.getPoliticsEnabled())
+                            ? this.getPoliticsEnabled()
+                            : this.dfltPoliticsValue)
+
+   this.setHappinessValue(happinessValue)
+   this.setAffordabilityValue(affordabilityValue)
+   this.setPoliticsValue(politicsValue)
+
+   this.setHappinessEnabled(happinessEnabled)
+   this.setAffordabilityEnabled(affordabilityEnabled)
+   this.setPoliticsEnabled(politicsEnabled)
+  } else {
+    console.log("[Info] ModelPriorities.set(json): Ignoring set, json parameter is undefined.")
+  }
 }
 
 //----------------------------------------------------------------------------------

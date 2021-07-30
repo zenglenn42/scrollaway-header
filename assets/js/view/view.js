@@ -41,6 +41,7 @@ function View(
   maxPoliticsValue,
   hasPersistedSettings,
   hasPersistedFAB,
+  hasPersistedPriorities,
   getLocale,
   githubUrl,
   getMaxResults,
@@ -88,6 +89,13 @@ function View(
   getMenuViewPriorities,
   getMenuViewBestBets,
   getMenuViewBlog,
+  getMenuPriorities,
+  getMenuPrioritiesEdit,
+  getMenuPrioritiesClear,
+  getMenuPrioritiesDefault,
+  getMenuPrioritiesHappiness,
+  getMenuPrioritiesPolitics,
+  getMenuPrioritiesCost,
   getMenuSettings,
   getMenuSettingsEdit,
   getMenuSettingsClear,
@@ -123,6 +131,7 @@ function View(
   // Bind to LocalPersistence interface.
   this.hasPersistedSettings = hasPersistedSettings
   this.hasPersistedFAB = hasPersistedFAB
+  this.hasPersistedPriorities = hasPersistedPriorities
 
   // Bind to SettingsModel interface.
   this.getMaxResults = getMaxResults
@@ -176,6 +185,13 @@ function View(
   this.getMenuViewPriorities = getMenuViewPriorities
   this.getMenuViewBestBets = getMenuViewBestBets
   this.getMenuViewBlog = getMenuViewBlog
+  this.getMenuPriorities = getMenuPriorities
+  this.getMenuPrioritiesEdit = getMenuPrioritiesEdit
+  this.getMenuPrioritiesClear = getMenuPrioritiesClear
+  this.getMenuPrioritiesDefault = getMenuPrioritiesDefault
+  this.getMenuPrioritiesHappiness = getMenuPrioritiesHappiness
+  this.getMenuPrioritiesPolitics = getMenuPrioritiesPolitics
+  this.getMenuPrioritiesCost = getMenuPrioritiesCost
   this.getMenuSettings = getMenuSettings
   this.getMenuSettingsEdit = getMenuSettingsEdit
   this.getMenuSettingsClear = getMenuSettingsClear

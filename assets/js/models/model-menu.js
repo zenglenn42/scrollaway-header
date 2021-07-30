@@ -25,6 +25,13 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       viewPriorities: "2. Your priorities",
       viewBestBets: "3. Your best bets",
       viewBlog: "Blog",
+      priorities: "Priorities",
+      prioritiesEdit: "Edit",
+      prioritiesClear: "Clear cached priorities",
+      prioritiesDefault: "Restore defaults",
+      prioritiesHappiness: "Civic Happiness: %d",
+      prioritiesPolitics: "Prevailing Politics: %d",
+      prioritiesCost: "Cost of Living: %s",
       settings: "Settings",
       settingsEdit: "Edit",
       settingsClear: "Clear cached settings",
@@ -41,6 +48,13 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       viewPriorities: "2. आपकी प्राथमिकताएं",
       viewBestBets: "3. आपका सबसे अच्छा दांव",
       viewBlog: "ब्लॉग",
+      priorities: "आपकी प्राथमिकताएं",
+      prioritiesEdit: "संपादित करें",
+      prioritiesClear: "कैश्ड वरीयताएँ साफ़ करें",
+      prioritiesDefault: "डिफॉल्ट्स का पुनःस्थापन",
+      prioritiesHappiness: "नागरिक खुशी: %d",
+      prioritiesPolitics: "राजनीतिक झुकाव: %d",
+      prioritiesCost: "रहने की लागत: %s" ,
       settings: "सेटिंग्स",
       settingsEdit: "आधुनिकीकरणअ",
       settingsClear: "कैश हटाएं",
@@ -57,6 +71,13 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       viewPriorities: "2. Tus prioridades",
       viewBestBets: "3. Tus mejores apuestas",
       viewBlog: "Blog",
+      priorities: "Prioridades",
+      prioritiesEdit: "Editar",
+      prioritiesClear: "Limpiar cache",
+      prioritiesDefault: "Valores predeterminados",
+      prioritiesHappiness: "Felicidad Cívica: %d",
+      prioritiesPolitics: "Política Imperante: %d",
+      prioritiesCost: "Costo de la Vida: %s",
       settings: "Ajustes",
       settingsEdit: "Editar",
       settingsClear: "Limpiar cache",
@@ -73,13 +94,19 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       viewPriorities: "2. 你的优先事项",
       viewBestBets: "3. 你最好的城市",
       viewBlog: "博客",
+      priorities: "你的优先事项",
+      prioritiesEdit: "编辑",
+      prioritiesClear: "清除缓存",
+      prioritiesDefault: "恢复默认值",
+      prioritiesHappiness: "公民幸福: %d",
+      prioritiesPolitics: "盛行的政治: %d",
+      prioritiesCost: "生活成本: %s",
       settings: "设置",
       settingsEdit: "编辑",
       settingsClear: "清除缓存",
       settingsDefault: "恢复默认值",
       useLang: "使用 %s",
       showCities: "从这里显示城市 %s",
-      showTop: "Show top %d cities",
       showTop: "显示最好的 %d 个城市",
       help: "协助"
     }
@@ -95,6 +122,8 @@ ModelMenu.prototype.isValidLocaleProperty = function(locale, prop) {
          (this.msgCatalog[locale].hasOwnProperty(prop))
 }
 
+// MENU header getters
+
 ModelMenu.prototype.getMenuTitle = function() {
   let result = "missing_title"
   let locale = this.getLocale()
@@ -108,6 +137,8 @@ ModelMenu.prototype.getMenuTitle = function() {
   }
   return result
 }
+
+// VIEW menu getters
 
 ModelMenu.prototype.getMenuView = function() {
   let result = "missing_view"
@@ -178,6 +209,111 @@ ModelMenu.prototype.getMenuViewBlog = function() {
   }
   return result
 }
+
+// PRIORITIES menu getters
+
+ModelMenu.prototype.getMenuPriorities = function() {
+  let result = "missing_priorities"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'priorities')) {
+    result = this.msgCatalog[locale].priorities
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'priorities')) {
+    result = this.msgCatalog[this.dfltLocale].settings
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelMenu:getMenuPriorities() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuPrioritiesEdit = function() {
+  let result = "missing_priorities_edit"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'prioritiesEdit')) {
+    result = this.msgCatalog[locale].prioritiesEdit
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'prioritiesEdit')) {
+    result = this.msgCatalog[this.dfltLocale].prioritiesEdit
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelMenu:getMenuPrioritiesEdit() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuPrioritiesClear = function() {
+  let result = "missing_priorities_clear"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'prioritiesClear')) {
+    result = this.msgCatalog[locale].prioritiesClear
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'prioritiesClear')) {
+    result = this.msgCatalog[this.dfltLocale].prioritiesClear
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelMenu:getMenuPrioritiesClear() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuPrioritiesDefault = function() {
+  let result = "missing_priorities_restore"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'prioritiesDefault')) {
+    result = this.msgCatalog[locale].prioritiesDefault
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'prioritiesDefault')) {
+    result = this.msgCatalog[this.dfltLocale].prioritiesDefault
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelMenu:getMenuPrioritiesDefault() Error ", result)
+  }
+  return result
+}
+
+ModelMenu.prototype.getMenuPrioritiesHappiness = function(happinessValue = 0) {
+  let result = "missing_priorities_happiness"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'prioritiesHappiness')) {
+    result = this.msgCatalog[locale].prioritiesHappiness
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'prioritiesHappiness')) {
+    result = this.msgCatalog[this.dfltLocale].prioritiesHappiness
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelMenu:getMenuPrioritiesHappiness() Error ", result)
+  }
+  result = result.replace("%d", JSON.stringify(happinessValue))
+  return result
+}
+
+ModelMenu.prototype.getMenuPrioritiesPolitics = function(politicsValue = 0) {
+  let result = "missing_priorities_politics"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'prioritiesPolitics')) {
+    result = this.msgCatalog[locale].prioritiesPolitics
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'prioritiesPolitics')) {
+    result = this.msgCatalog[this.dfltLocale].prioritiesPolitics
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelMenu:getMenuPrioritiesPolitics() Error ", result)
+  }
+  result = result.replace("%d", politicsValue)
+  return result
+}
+
+ModelMenu.prototype.getMenuPrioritiesCost = function(currencyStr = "$ ???") {
+  let result = "missing_priorities_cost"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'prioritiesCost')) {
+    result = this.msgCatalog[locale].prioritiesCost
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'prioritiesCost')) {
+    result = this.msgCatalog[this.dfltLocale].prioritiesCost
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelMenu:getMenuPrioritiesCost() Error ", result)
+  }
+  result = result.replace("%s", currencyStr)
+  return result
+}
+
+// SETTINGS  menu getters
 
 ModelMenu.prototype.getMenuSettings = function() {
   let result = "missing_settings"
