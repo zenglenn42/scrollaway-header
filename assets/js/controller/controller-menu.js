@@ -56,6 +56,10 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
     // But this is also a logical place for that.
     that.cache.setPriorities(that.priorities.get()) 
 
+    // Update view state of menu with latest model state.
+    // This should go away once models become observable.
+    that.view.renderMenuPriorities()
+
     // TODO: FIX multiplicty of event listeners!!
     // Noticing multiple clicks when there should only be one.
     // Suspect i'm leaking event handlers.

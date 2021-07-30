@@ -60,9 +60,7 @@ function Controller(bodyDivId, locale = "en-US") {
     // Update current priorities state from cached settings.
 
     let persistedPriorities = this.cache.getPriorities()
-    console.log('persistedPriorities:', persistedPriorities)
     this.priorities.set(persistedPriorities)
-    console.log('get persistedPriorities:', this.priorities.get())
   }
 
   this.results = new ModelResults(getSettingsLocale, this.cities.isValidCityList)

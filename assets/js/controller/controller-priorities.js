@@ -20,6 +20,7 @@ Controller.prototype.addPrioritiesPageEventListeners = function() {
     (e) => {
       this.FAB.set({pageState: "dontcare_landing"})
       this.cache.setFAB(this.FAB.get())
+      this.cache.setPriorities(this.priorities.get())
       this.view.createLandingBody()
     }
   )

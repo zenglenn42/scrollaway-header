@@ -20,6 +20,7 @@
 View.prototype.createHamburgerMenu = function() {
   let m = document.createElement("div")
   m.classList.add("mdl-layout__drawer-button")
+  m.setAttribute("id", "hamburger-menu")
   m.setAttribute("role", "button")
   m.setAttribute("aria-expanded", "false")
   let iconEl = document.createElement("i")
@@ -142,6 +143,7 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   prioritiesMenuNode.classList.add("mdl-menu--bottom-right")
   prioritiesMenuNode.setAttribute("for", "prioritiesMenu")
 
+/*
   let happinessString = this.getMenuPrioritiesHappiness(this.getHappinessValue()) 
   let politicsValue = this.getPoliticsValue()
   let donkey =
@@ -152,6 +154,11 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   let politicsString = this.getMenuPrioritiesPolitics(politicsFormattedString)
   let costString = this.getMenuPrioritiesCost(this.formatter.format(this.getAffordabilityValue())
   )
+*/
+
+  let happinessString = this.getMenuPrioritiesFormattedHappiness() 
+  let politicsString = this.getMenuPrioritiesFormattedPolitics()
+  let costString = this.getMenuPrioritiesFormattedCost()
 
   prioritiesMenuNode.innerHTML = ""
 
@@ -233,4 +240,43 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   md.appendChild(helpMenuButtonNode)
 
   return md
+}
+
+View.prototype.getMenuPrioritiesFormattedHappiness = function() {
+  let happinessString = this.getMenuPrioritiesHappiness(this.getHappinessValue()) 
+  return happinessString
+}
+
+View.prototype.getMenuPrioritiesFormattedPolitics = function() {
+  let politicsValue = this.getPoliticsValue()
+  let donkey = '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>'
+  let elephant = '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>'
+  let politicsFormattedString = `&nbsp;${donkey}&nbsp;${politicsValue.dem16_frac}%&nbsp;&nbsp; ${elephant}&nbsp;${politicsValue.rep16_frac}%`
+  let politicsString = this.getMenuPrioritiesPolitics(politicsFormattedString)
+  return politicsString
+}
+
+View.prototype.getMenuPrioritiesFormattedCost = function() {
+  let costString = this.getMenuPrioritiesCost(this.formatter.format(this.getAffordabilityValue()))
+  return costString
+}
+
+// Refresh priorty-related values in the menu view
+// with current state.
+//
+// TODO: This should just observe the priorities model ... one day soon.
+
+View.prototype.renderMenuPriorities = function() {
+  let happinessString = this.getMenuPrioritiesFormattedHappiness()
+  let politicsString = this.getMenuPrioritiesFormattedPolitics()
+  let costString = this.getMenuPrioritiesFormattedCost()
+
+  let hEl = document.getElementById('priorities-happiness-menu')
+  hEl.innerHTML = happinessString
+
+  let pEl = document.getElementById('priorities-politics-menu')
+  pEl.innerHTML = politicsString
+
+  let aEl = document.getElementById('priorities-cost-menu')
+  aEl.innerHTML = costString
 }
