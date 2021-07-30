@@ -239,6 +239,32 @@ function View(
   this.resultsMain = undefined
 }
 
+View.prototype.render = function() {
+  let page = this.fabModel.getCurrPage()
+  this.createPageBody(page)
+}
+
+View.prototype.createPageBody = function(page) {
+  switch(page) {
+    case "landing":
+      this.createLandingBody()
+      break
+    case "settings":
+      this.createSettingsBody()
+      break
+    case "priorities":
+      this.createPrioritiesBody()
+      break
+    case "results":
+      this.createResultsBody()
+      break
+    default:
+      console.log("View.createPageBody().  Unrecognized page:", page, " ",
+                  "Default to landing page")
+      this.createLandingBody()
+  }
+}
+
 // Pages associated with the application are constructed in real-time and anchored
 // off a single parent <div> as the user navigates from page to page.
 //

@@ -160,25 +160,7 @@ function Controller(bodyDivId, locale = "en-US") {
     this.results.getListLabelPolitics.bind(this.results)
   )
 
-  let currPage = this.FAB.getCurrPage()
-  switch(currPage) {
-    case "landing":
-      this.view.createLandingBody()
-      break
-    case "settings":
-      this.view.createSettingsBody()
-      break
-    case "priorities":
-      this.view.createPrioritiesBody()
-      break
-    case "results":
-      this.view.createResultsBody()
-      break
-    default:
-      this.view.createLandingBody()
-  }
-
-  //this.view.createLandingBody()
+  this.view.render()
 }
 
 // https://stackoverflow.com/questions/30880757/javascript-equivalent-to-on

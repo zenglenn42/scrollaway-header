@@ -31,31 +31,24 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
      }
   })
   this.delegate(document, "click", "#view_landing_button", function(e) {
-    // TODO: Replace this with that.FAB.setCurrPage and infer prevPage?
     that.FAB.set({pageState: "dontcare_landing"})
-    // Persist to local storage
-    that.cache.setFAB(that.FAB.get())
-    that.view.createLandingBody()
+    that.cache.setFAB(that.FAB.get()) // Persist to local storage.
+    that.view.render()
   })
   this.delegate(document, "click", "#view_priorities_button", function(e) {
-    // TODO: Replace this with that.FAB.setCurrPage and infer prevPage?
     that.FAB.set({pageState: "landing_priorities"})
-    // Persist to local storage
-    that.cache.setFAB(that.FAB.get())
-    that.view.createPrioritiesBody()
+    that.cache.setFAB(that.FAB.get()) // Persist to local storage.
+    that.view.render()
   })
   this.delegate(document, "click", "#view_cities_button", function(e) {
-    // TODO: Replace this with that.FAB.setCurrPage and infer prefPage?
     that.FAB.set({pageState: "priorities_results"})
-    // Persist to local storage
-    that.cache.setFAB(that.FAB.get())
-    that.view.createResultsBody()
+    that.cache.setFAB(that.FAB.get()) // Persist to local storage.
+    that.view.render()
   })
   this.delegate(document, "click", "#settings_edit_button", function(e) {
     that.FAB.setNextPageState("settings")
-    // Persist to local storage
-    that.cache.setFAB(that.FAB.get())
-    that.view.createSettingsBody()
+    that.cache.setFAB(that.FAB.get()) // Persist to local storage.
+    that.view.render()
   })
   this.delegate(document, "click", "#settings_restore_button", function(e) {
     that.settings.restoreDefaults()
@@ -73,15 +66,15 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
     }
 
     // Forget memory of current page.
-    //
-    // TODO: Disable restore button?
 
     if (that.cache.hasFAB()) {
       if (that.cache.clearFAB()) {
-        //let clearcache_button = document.querySelector("#settings_clearcache_button")
-        //if (clearcache_button) {
-        //  clearcache_button.setAttribute("disabled", "disabled")
-        //}
+        // TODO: Disable restore-defaults button since we're now in default state?
+        //
+        // let restore_button = document.querySelector("#settings_restore_button")
+        // if (restore_button) {
+        //   restore_button.setAttribute("disabled", "disabled")
+        // }
       }
     }
 
@@ -92,23 +85,7 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
     // views will be invoked from within the mutated models as a side-effect
     // of the changed state and we'll not need the code below.
 
-    let currPage = that.FAB.getCurrPage()
-    switch(currPage) {
-      case "landing":
-        that.view.createLandingBody()
-        break
-      case "settings":
-        that.view.createSettingsBody()
-        break
-      case "priorities":
-        that.view.createPrioritiesBody()
-        break
-      case "results":
-        that.view.createResultsBody()
-        break
-      default:
-        that.view.createLandingBody()
-    }
+    that.view.render()
   })
 
   this.delegate(document, "click", "#settings_clearcache_button", function(e) {

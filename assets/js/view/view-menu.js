@@ -111,6 +111,12 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   let settingsMenuHtml = "ul"
   let settingsMenuNode = document.createElement(settingsMenuHtml)
   let enableCacheClear = this.hasPersistedSettings() ? "" : "disabled='disabled'"
+
+  // TODO:  Implement hasNonDefaultSettings() method which looks at runtime state
+  //        as opposed to persisted state.
+  // let enableRestoreDefaults = this.hasNonDefaultSettings() ? "" : "disabled='disabled'"
+  let enableRestoreDefaults = ""
+
   settingsMenuNode.classList.add("mdl-menu")
   settingsMenuNode.classList.add("mdl-js-menu")
   settingsMenuNode.classList.add("mdl-menu--bottom-right")
