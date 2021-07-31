@@ -20,7 +20,6 @@ Controller.prototype.addPrioritiesPageEventListeners = function() {
     (e) => {
       this.FAB.set({pageState: "dontcare_landing"})
       this.cache.setFAB(this.FAB.get())
-      this.cache.setPriorities(this.priorities.get())
       this.view.createLandingBody()
     }
   )
@@ -31,11 +30,6 @@ Controller.prototype.addPrioritiesPageEventListeners = function() {
     (e) => {
       this.FAB.set({pageState: "priorities_results"})
       this.cache.setFAB(this.FAB.get())
-      // Cache priorities only if clicking from priorities into results page.
-      // This is a convenient event-boundary upon which to latch in all the current
-      // user priorities.
-      //
-      this.cache.setPriorities(this.priorities.get())
       this.view.createResultsBody()
     }
   )
@@ -93,11 +87,12 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
       // console.log("not checked")
       imgColorFilter = "grayscale(100%)" // make image black & white
     }
+    that.cache.setPriorities(that.priorities.get())
+
     // TODO: Fragile!  Walk DOM subtree and find childNode with
     //       class == ".mdl-card_title"
     let imgDiv = this.parentNode.parentNode.parentNode.childNodes[1]
     imgDiv.style.filter = imgColorFilter
-    console.log("user priorities known to view = ", that.priorities.getNormalizedPriorities())
   })
 }
 
@@ -119,7 +114,7 @@ Controller.prototype.getPrioritiesSliderHappinessCB = function() {
   let that = this
   function innerCB(event) {
     that.priorities.setHappinessValue(Number(this.value))
-    // console.log("happiness value = ", this.value)
+    that.cache.setPriorities(that.priorities.get())
   }
   return innerCB
 }
@@ -131,7 +126,7 @@ Controller.prototype.getPrioritiesSliderPoliticsCB = function() {
     let republicanVal = Number(value)
     let democratVal = 100 - republicanVal
     that.priorities.setPoliticsValue({rep16_frac: republicanVal, dem16_frac: democratVal})
-    // console.log("politics value = ", value)
+    that.cache.setPriorities(that.priorities.get())
   }
   return innerCB
 }
@@ -140,7 +135,7 @@ Controller.prototype.getPrioritiesSliderAffordabilityCB = function() {
   let that = this
   function innerCB(event) {
     that.priorities.setAffordabilityValue(Number(this.value))
-    // console.log("affordability value = ", this.value)
+    that.cache.setPriorities(that.priorities.get())
   }
   return innerCB
 }
