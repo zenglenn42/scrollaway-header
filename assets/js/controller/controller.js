@@ -179,15 +179,49 @@ function Controller(bodyDivId, locale = "en-US") {
   this.view.render()
 }
 
-// https://stackoverflow.com/questions/30880757/javascript-equivalent-to-on
+// Use this object to manage dynamically added event handlers.
+// See: https://www.jimmycuadra.com/posts/keeping-track-of-javascript-event-handlers
+
+var gTrackedEventHandlers = {}
+
+// Add event handlers for dynamically created elements.
+// See: https://stackoverflow.com/questions/30880757/javascript-equivalent-to-on
+//
+// We only want singleton event handlers registered for a given
+// element & event combination.  
+// For dynamically created elements, we can't really register the handlers upfront, 
+// to my knowledge.  So we're left to register the handler against some top-level
+// element we /are/ guaranteed to have and go walking the DOM at runtime in search 
+// of a matching (dynamic) child node for which we actually want do want to invoke
+// an event handler.
+//
+// TODO: There has got to be a widely supported, DOM-native way to do this without
+//       using jQuery in 2021.  What is best practice for this?
+
 Controller.prototype.delegate = function(el, evt, sel, handler) {
-  el.addEventListener(evt, function(event) {
-    let t = event.target
-    while (t && t !== this) {
-      if (t.matches(sel)) {
-        handler.call(t, event)
+  let key = `${evt}_${sel}`
+  let alreadyAdded = gTrackedEventHandlers.hasOwnProperty(key)
+
+  if (!alreadyAdded) {
+
+    // Globally track requests for adding delegated event listeners to 
+    // dynamically-created DOM elements so we can avoid adding duplicates.
+    //
+    // Otherwise, the view code as written will register duplicate handlers
+    // and we'll see performance steadily degrade as the DOM runs the same
+    // event through all of them. :-|
+
+    gTrackedEventHandlers[key] = []
+    gTrackedEventHandlers[key].push(handler)
+
+    el.addEventListener(evt, function(event) {
+      let t = event.target
+      while (t && t !== this) {
+        if (t.matches(sel)) {
+          handler.call(t, event)
+        }
+        t = t.parentNode
       }
-      t = t.parentNode
-    }
-  })
+    })
+  }
 }
