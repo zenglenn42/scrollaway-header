@@ -143,22 +143,14 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   prioritiesMenuNode.classList.add("mdl-menu--bottom-right")
   prioritiesMenuNode.setAttribute("for", "prioritiesMenu")
 
-/*
-  let happinessString = this.getMenuPrioritiesHappiness(this.getHappinessValue()) 
-  let politicsValue = this.getPoliticsValue()
-  let donkey =
-    '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>'
-  let elephant =
-    '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>'
-  let politicsFormattedString = `&nbsp;${donkey}&nbsp;${politicsValue.dem16_frac}%&nbsp;&nbsp; ${elephant}&nbsp;${politicsValue.rep16_frac}%`
-  let politicsString = this.getMenuPrioritiesPolitics(politicsFormattedString)
-  let costString = this.getMenuPrioritiesCost(this.formatter.format(this.getAffordabilityValue())
-  )
-*/
-
   let happinessString = this.getMenuPrioritiesFormattedHappiness() 
   let politicsString = this.getMenuPrioritiesFormattedPolitics()
   let costString = this.getMenuPrioritiesFormattedCost()
+
+  let happinessEn = this.getMenuPrioritiesFormattedHappinessEn() 
+  let politicsEn = this.getMenuPrioritiesFormattedPoliticsEn()
+  let costEn = this.getMenuPrioritiesFormattedCostEn()
+
 
   prioritiesMenuNode.innerHTML = ""
 
@@ -168,9 +160,9 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
 
   prioritiesMenuNode.innerHTML += `<li id='priorities_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${prioritiesEdit} ...</span></li>`
 
-  prioritiesMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span id='priorities-happiness-menu'>" + happinessString + "</span></li>"
-  prioritiesMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span id='priorities-politics-menu'>" + politicsString + "</span></li>"
-  prioritiesMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' style='height: 2em; line-height: 1em' disabled><span id='priorities-cost-menu'>" + costString + "</span></li>"
+  prioritiesMenuNode.innerHTML += `<li id='priorities-happiness-li' class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' ${happinessEn}><span id='priorities-happiness-menu'>${happinessString}</span></li>`
+  prioritiesMenuNode.innerHTML += `<li id='priorities-politics-li' class='mdl-menu__item' style='height: 2em; line-height: 1em' ${politicsEn}><span id='priorities-politics-menu'>${politicsString}</span></li>`
+  prioritiesMenuNode.innerHTML += `<li id='priorities-cost-li' class='mdl-menu__item mdl-menu__item--full-bleed-divider' style='height: 2em; line-height: 1em' ${costEn}d><span id='priorities-cost-menu'>${costString}</span></li>`
 
   prioritiesMenuNode.innerHTML += `<li id='priorities_restore_button' class='mdl-menu__item mdl-button' ${prioritiesEnableRestoreDefaults}><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${prioritiesDefault}</span></li>`,
   prioritiesMenuNode.innerHTML += `<li id='priorities_clearcache_button' class='mdl-menu__item mdl-button' ${prioritiesEnableCacheClear}><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${prioritiesClear}</span></li>`,
@@ -215,9 +207,9 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
 
   settingsMenuNode.innerHTML += `<li id='settings_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsEdit} ...</span></li>`
 
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em' disabled><span id='settings-language-menu'>" + langString + "</span></li>"
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em' disabled><span>" + countryString + "</span></li>"
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' style='height: 2em; line-height: 1em' disabled><span id='settings-max-results-menu'>" + maxResultsString + "</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 2em; line-height: 1em'><span id='settings-language-menu'>" + langString + "</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 2em; line-height: 1em'><span>" + countryString + "</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' style='height: 2em; line-height: 1em'><span id='settings-max-results-menu'>" + maxResultsString + "</span></li>"
 
   settingsMenuNode.innerHTML += `<li id='settings_restore_button' class='mdl-menu__item mdl-button' ${settingsEnableRestoreDefaults}><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsDefault}</span></li>`,
   settingsMenuNode.innerHTML += `<li id='settings_clearcache_button' class='mdl-menu__item mdl-button' ${settingsEnableCacheClear}><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsClear}</span></li>`,
@@ -247,6 +239,11 @@ View.prototype.getMenuPrioritiesFormattedHappiness = function() {
   return happinessString
 }
 
+View.prototype.getMenuPrioritiesFormattedHappinessEn = function() {
+  let happinessEn = this.getHappinessEnabled() ? "" : "disabled"
+  return happinessEn
+}
+
 View.prototype.getMenuPrioritiesFormattedPolitics = function() {
   let politicsValue = this.getPoliticsValue()
   let donkey = '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>'
@@ -256,9 +253,19 @@ View.prototype.getMenuPrioritiesFormattedPolitics = function() {
   return politicsString
 }
 
+View.prototype.getMenuPrioritiesFormattedPoliticsEn = function() {
+  let politicsEn = this.getPoliticsEnabled() ? "" : "disabled"
+  return politicsEn
+}
+
 View.prototype.getMenuPrioritiesFormattedCost = function() {
   let costString = this.getMenuPrioritiesCost(this.formatter.format(this.getAffordabilityValue()))
   return costString
+}
+
+View.prototype.getMenuPrioritiesFormattedCostEn = function() {
+  let costEn = this.getAffordabilityEnabled() ? "" : "disabled"
+  return costEn
 }
 
 // Refresh priorty-related values in the menu view
@@ -279,4 +286,29 @@ View.prototype.renderMenuPriorities = function() {
 
   let aEl = document.getElementById('priorities-cost-menu')
   aEl.innerHTML = costString
+
+  
+  let hEn = document.getElementById('priorities-happiness-li')
+  let hEnAttr = this.getMenuPrioritiesFormattedHappinessEn()
+  if (hEnAttr) {
+    hEn.setAttribute("disabled", "disabled")
+  } else {
+    hEn.removeAttribute("disabled")
+  }
+
+  let pEn = document.getElementById('priorities-politics-li')
+  let pEnAttr = this.getMenuPrioritiesFormattedPoliticsEn()
+  if (pEnAttr) {
+    pEn.setAttribute("disabled", "disabled")
+  } else {
+    pEn.removeAttribute("disabled")
+  }
+
+  let aEn = document.getElementById('priorities-cost-li')
+  let aEnAttr = this.getMenuPrioritiesFormattedCostEn()
+  if (aEnAttr) {
+    aEn.setAttribute("disabled", "disabled")
+  } else {
+    aEn.removeAttribute("disabled")
+  }
 }
