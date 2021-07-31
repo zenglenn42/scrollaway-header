@@ -100,7 +100,6 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   md.appendChild(viewMenuButtonNode)
   let viewMenuHtml = "ul"
   let viewMenuNode = document.createElement(viewMenuHtml)
-  viewMenuNode.classList.add("sub-menu")
   viewMenuNode.classList.add("mdl-menu")
   viewMenuNode.classList.add("mdl-js-menu")
   viewMenuNode.classList.add("mdl-menu--bottom-right")
@@ -161,9 +160,9 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
 
   prioritiesMenuNode.innerHTML += `<li id='priorities_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${prioritiesEdit} ...</span></li>`
 
-  prioritiesMenuNode.innerHTML += `<li id='priorities-happiness-li' class='mdl-menu__item' style='margin-top: 1em; height: 1.75em; line-height: 1em' ${happinessEn}><span id='priorities-happiness-menu'>${happinessString}</span></li>`
-  prioritiesMenuNode.innerHTML += `<li id='priorities-politics-li' class='mdl-menu__item' style='height: 1.75em; line-height: 1em' ${politicsEn}><span id='priorities-politics-menu'>${politicsString}</span></li>`
-  prioritiesMenuNode.innerHTML += `<li id='priorities-cost-li' class='mdl-menu__item mdl-menu__item--full-bleed-divider' style='height: 1.75em; line-height: 1em' ${costEn}d><span id='priorities-cost-menu'>${costString}</span></li>`
+  prioritiesMenuNode.innerHTML += `<li id='priorities-happiness-li' class='mdl-menu__item mdl-menu__item-noselect' style='margin-top: 1em; height: 1.75em; line-height: 1em' ${happinessEn}><span id='priorities-happiness-menu'>${happinessString}</span></li>`
+  prioritiesMenuNode.innerHTML += `<li id='priorities-politics-li' class='mdl-menu__item mdl-menu__item-noselect' style='height: 1.75em; line-height: 1em' ${politicsEn}><span id='priorities-politics-menu'>${politicsString}</span></li>`
+  prioritiesMenuNode.innerHTML += `<li id='priorities-cost-li' class='mdl-menu__item mdl-menu__item-noselect mdl-menu__item--full-bleed-divider' style='height: 1.75em; line-height: 1em' ${costEn}d><span id='priorities-cost-menu'>${costString}</span></li>`
 
   prioritiesMenuNode.innerHTML += `<li id='priorities_restore_button' class='mdl-menu__item mdl-button' ${prioritiesEnableRestoreDefaults}><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${prioritiesDefault}</span></li>`,
   prioritiesMenuNode.innerHTML += `<li id='priorities_clearcache_button' class='mdl-menu__item mdl-button' ${prioritiesEnableCacheClear}><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${prioritiesClear}</span></li>`,
@@ -208,9 +207,9 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
 
   settingsMenuNode.innerHTML += `<li id='settings_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsEdit} ...</span></li>`
 
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='margin-top: 1em; height: 1.75em; line-height: 1em'><span id='settings-language-menu'>" + langString + "</span></li>"
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item' style='height: 1.75em; line-height: 1em'><span>" + countryString + "</span></li>"
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item--full-bleed-divider' style='height: 1.75em; line-height: 1em'><span id='settings-max-results-menu'>" + maxResultsString + "</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item-noselect' style='margin-top: 1em; height: 1.75em; line-height: 1em'><span id='settings-language-menu'>" + langString + "</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item-noselect' style='height: 1.75em; line-height: 1em'><span>" + countryString + "</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item-noselect mdl-menu__item--full-bleed-divider' style='height: 1.75em; line-height: 1em'><span id='settings-max-results-menu'>" + maxResultsString + "</span></li>"
 
   settingsMenuNode.innerHTML += `<li id='settings_restore_button' class='mdl-menu__item mdl-button' ${settingsEnableRestoreDefaults}><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsDefault}</span></li>`,
   settingsMenuNode.innerHTML += `<li id='settings_clearcache_button' class='mdl-menu__item mdl-button' ${settingsEnableCacheClear}><i class='material-icons header-icons'>clear</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsClear}</span></li>`,
@@ -260,7 +259,8 @@ View.prototype.getMenuPrioritiesFormattedPoliticsEn = function() {
 }
 
 View.prototype.getMenuPrioritiesFormattedCost = function() {
-  let costString = this.getMenuPrioritiesCost(this.formatter.format(this.getAffordabilityValue()))
+  let house = '<i class="fas fa-home fa-sm black-text pr-3" aria-hidden="true"></i>'
+  let costString = this.getMenuPrioritiesCost(`&nbsp;${house}&nbsp;${this.formatter.format(this.getAffordabilityValue())}`)
   return costString
 }
 
