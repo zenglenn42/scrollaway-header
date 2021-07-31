@@ -363,6 +363,13 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   background-color: rgba(103, 121, 221, 1); /* lighter shade of primary color */
 }
 
+/* Some items in the submenu are just text, not selectable buttons. */
+/* Therefore, their background color should not change on hover.    */
+
+.mdl-menu__item-noselect:hover {
+  background-color: rgba(103, 121, 221, 1); /* lighter shade of primary color */
+}
+
 .mdl-grid.settings-grid .selected-value {
   color: black;
   padding: 0.25em .75em;
