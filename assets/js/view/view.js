@@ -39,6 +39,7 @@ function View(
   maxAffordabilityValue,
   minPoliticsValue,
   maxPoliticsValue,
+  getSketchyQuartile,
   hasPersistedSettings,
   hasPersistedFAB,
   hasPersistedPriorities,
@@ -236,6 +237,8 @@ function View(
   this.maxHappinessValue = maxHappinessValue
   this.minAffordabilityValue = minAffordabilityValue
   this.maxAffordabilityValue = maxAffordabilityValue
+  this.getSketchyQuartile = getSketchyQuartile
+
   this.githubUrl = githubUrl
 
   let locale = getLocale()

@@ -89,6 +89,7 @@ function Controller(bodyDivId, locale = "en-US") {
     this.cities.getMaxAffordabilityValue(),
     this.cities.getMinPoliticsValue(),
     this.cities.getMaxPoliticsValue(),
+    this.cities.getSketchyQuartile.bind(this.cities),
     this.cache.hasSettings.bind(this.cache),
     this.cache.hasFAB.bind(this.cache),
     this.cache.hasPriorities.bind(this.cache),

@@ -22,6 +22,7 @@ function ModelCities() {
   //       outside the presence of an instantiated city model (e.g., ModelResults ctor)
 
   this.isValidCityList = this.modelStaticCities.isValidCityList.bind(this.modelStaticCities)
+  this.getSketchyQuartile = this.modelStaticCities.getSketchyQuartile.bind(this.modelStaticCities)
 }
 
 ModelCities.prototype.getMinHappinessValue = function() {

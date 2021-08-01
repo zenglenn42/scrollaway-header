@@ -29,7 +29,7 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       prioritiesEdit: "Edit",
       prioritiesClear: "Clear cached priorities",
       prioritiesDefault: "Restore defaults",
-      prioritiesHappiness: "Civic Happiness: %d",
+      prioritiesHappiness: "Civic Happiness: %s",
       prioritiesPolitics: "Prevailing Politics: %d",
       prioritiesCost: "Cost of Living: %s",
       settings: "Settings",
@@ -52,7 +52,7 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       prioritiesEdit: "संपादित करें",
       prioritiesClear: "कैश्ड वरीयताएँ साफ़ करें",
       prioritiesDefault: "डिफॉल्ट्स का पुनःस्थापन",
-      prioritiesHappiness: "नागरिक खुशी: %d",
+      prioritiesHappiness: "नागरिक खुशी: %s",
       prioritiesPolitics: "राजनीतिक झुकाव: %d",
       prioritiesCost: "रहने की लागत: %s" ,
       settings: "सेटिंग्स",
@@ -75,7 +75,7 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       prioritiesEdit: "Editar",
       prioritiesClear: "Limpiar cache",
       prioritiesDefault: "Valores predeterminados",
-      prioritiesHappiness: "Felicidad Cívica: %d",
+      prioritiesHappiness: "Felicidad Cívica: %s",
       prioritiesPolitics: "Política Imperante: %d",
       prioritiesCost: "Costo de la Vida: %s",
       settings: "Ajustes",
@@ -98,7 +98,7 @@ function ModelMenu(getLocale = () => {return "en-US"}) {
       prioritiesEdit: "编辑",
       prioritiesClear: "清除缓存",
       prioritiesDefault: "恢复默认值",
-      prioritiesHappiness: "公民幸福: %d",
+      prioritiesHappiness: "公民幸福: %s",
       prioritiesPolitics: "盛行的政治: %d",
       prioritiesCost: "生活成本: %s",
       settings: "设置",
@@ -268,7 +268,7 @@ ModelMenu.prototype.getMenuPrioritiesDefault = function() {
   return result
 }
 
-ModelMenu.prototype.getMenuPrioritiesHappiness = function(happinessValue = 0) {
+ModelMenu.prototype.getMenuPrioritiesHappiness = function(happinessStr = "???") {
   let result = "missing_priorities_happiness"
   let locale = this.getLocale()
   if (this.isValidLocaleProperty(locale, 'prioritiesHappiness')) {
@@ -279,7 +279,7 @@ ModelMenu.prototype.getMenuPrioritiesHappiness = function(happinessValue = 0) {
     result = (locale) ? result + "_" + locale : result
     console.log("ModelMenu:getMenuPrioritiesHappiness() Error ", result)
   }
-  result = result.replace("%d", JSON.stringify(happinessValue))
+  result = result.replace("%s", happinessStr)
   return result
 }
 

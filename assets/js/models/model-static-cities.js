@@ -3621,6 +3621,46 @@ ModelStaticCities.prototype.getScalarRange = function(cityProperty) {
   return range
 }
 
+ModelStaticCities.prototype.getPercentile = function(cityProperty, value) {
+  let percentile = NaN
+  let range = this.getScalarRange(cityProperty)
+  if (range.min !== undefined && range.max !== undefined) {
+    if (value >= Math.floor(range.min) && value <= Math.ceil(range.max)) {
+      percentile = ((value - Math.floor(range.min)) / (Math.ceil(range.max) - (Math.floor(range.min)))) * 100
+    } else {
+      console.log("ModelStaticCities.getPercentile() Out of range value:", cityProperty, value)
+    }
+  }
+  return percentile
+}
+
+ModelStaticCities.prototype.isValidPercentile = function(value) {
+  return !isNaN(value) && (value <= 100 && value >= 0)
+}
+
+// TODO: Caclulate a proper quartile.  This entails sorting data and looking
+//       at proportion of values that reside in one of 4 bands of the range.
+//
+// Since this app is just a sketch, I'm being expedient and lumping a value
+// into a band based upon its percent value relative to the range.
+
+ModelStaticCities.prototype.getSketchyQuartile = function(cityProperty, value) {
+  let quartile = NaN
+  let percentile = this.getPercentile(cityProperty, value)
+  if (this.isValidPercentile(percentile)) {
+    if (percentile <= 25) {
+      quartile = 1
+    } else if (percentile <= 50) {
+      quartile = 2
+    } else if (percentile <= 75) {
+      quartile = 3
+    } else if (percentile <= 100) {
+      quartile = 4
+    }
+  }
+  return quartile
+}
+
 ModelStaticCities.prototype.isValidProperty = function(property) {
   // Using first city as canonical of all city records.
   let key = Object.keys(this.data[0])

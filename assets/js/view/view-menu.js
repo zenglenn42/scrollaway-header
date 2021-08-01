@@ -235,7 +235,28 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
 }
 
 View.prototype.getMenuPrioritiesFormattedHappiness = function() {
-  let happinessString = this.getMenuPrioritiesHappiness(this.getHappinessValue()) 
+  let happinessValue = this.getHappinessValue()
+  let quartile = this.getSketchyQuartile("happiness", happinessValue)
+  let emojiIcon = ''
+  switch (quartile) {
+    case 1:
+      emojiIcon = 'fa-meh'        // :|
+      break
+    case 2:
+      emojiIcon = 'fa-smile'      // :)
+      break
+    case 3:
+      emojiIcon = 'fa-grin'       // :D
+      break
+    case 4:
+      emojiIcon = 'fa-grin-beam'  // `:D
+      break
+    default:
+      emojiIcon = 'fa-meh-blank'
+  }
+  let emoji = `<i class="far ${emojiIcon} fa-sm black-text pr-3" aria-hidden="true"></i>`
+  let happinessFormattedString = `&nbsp;${emoji}&nbsp;${happinessValue}` 
+  let happinessString = this.getMenuPrioritiesHappiness(happinessFormattedString)
   return happinessString
 }
 
