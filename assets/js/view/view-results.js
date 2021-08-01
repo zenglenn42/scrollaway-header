@@ -267,18 +267,45 @@ View.prototype.marshallModelData = function(rank, cityData) {
   return cityParams
 }
 
+// Alias happiness index to emoji based (roughly) on quartile.
+//
+// TODO: DRY this code up.  Very similar to getMenuPrioritiesFormattedHappiness()
+
+View.prototype.getResultsFormattedHappiness = function(happinessValue) {
+  let quartile = this.getSketchyQuartile("happiness", happinessValue)
+  let emojiIcon = ''
+  switch (quartile) {
+    case 1:
+      emojiIcon = 'fa-meh'        // :|
+      break
+    case 2:
+      emojiIcon = 'fa-smile'      // :)
+      break
+    case 3:
+      emojiIcon = 'fa-grin'       // :D
+      break
+    case 4:
+      emojiIcon = 'fa-grin-beam'  // `:D
+      break
+    default:
+      emojiIcon = 'fa-meh-blank'
+  }
+  let emoji = `<i class="far ${emojiIcon} black-text fa-lg pr-3" aria-hidden="true"></i>`
+  let happinessFormattedString = `&nbsp;${emoji}&nbsp;${happinessValue}`
+  return happinessFormattedString
+}
+
 View.prototype.createResultsCityCard = function(cityParams) {
   let p = document.createElement("div")
 
+  let happinessString = this.getResultsFormattedHappiness(cityParams.happiness)
   let donkey =
     '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>'
   let elephant =
     '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>'
   let politics = `${donkey}&nbsp;${cityParams.politics.demFraction}%&nbsp;&nbsp; ${elephant}&nbsp;${cityParams.politics.repFraction}%`
   let affordability = this.formatter.format(cityParams.affordability)
-  let cityStats = `<p>${this.getPhotoLabelHappiness()}:  ${
-    cityParams.happiness
-  }</br> ${this.getPhotoLabelAffordability()}: ${affordability}</br> ${politics}</p>`
+  let cityStats = `<p>${this.getPhotoLabelHappiness()}:  ${happinessString}</br> ${this.getPhotoLabelAffordability()}: ${affordability}</br> ${politics}</p>`
 
   p.classList.add("mdl-cell")
   p.classList.add("results-cell")
@@ -349,6 +376,8 @@ View.prototype.createResultsMonetizeCard = function(params) {
 }
 
 View.prototype.createResultsListItem = function(cityParams) {
+  let happinessString = this.getResultsFormattedHappiness(cityParams.happiness)
+
   let li = document.createElement("li")
   let donkey =
     '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>'
@@ -360,9 +389,7 @@ View.prototype.createResultsListItem = function(cityParams) {
 
   let affordability = this.formatter.format(cityParams.affordability)
 
-  let cityStats = `${this.getListLabelHappiness()}:  ${
-    cityParams.happiness
-  } | ${this.getListLabelAffordability()}: ${affordability} | ${politics}`
+  let cityStats = `${this.getListLabelHappiness()}:  ${happinessString} | ${this.getListLabelAffordability()}: ${affordability} | ${politics}`
 
   li.classList.add("mdl-list__item")
   li.classList.add("mdl-list__item--three-line")
