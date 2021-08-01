@@ -370,6 +370,14 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   background-color: rgba(103, 121, 221, 1); /* lighter shade of primary color */
 }
 
+.mdl-menu__item-noselect {
+  color: white;
+}
+
+.mdl-menu__item-noselect[disabled] {
+  text-decoration: line-through;
+}
+
 .mdl-grid.settings-grid .selected-value {
   color: black;
   padding: 0.25em .75em;
