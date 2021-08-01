@@ -276,16 +276,16 @@ View.prototype.getResultsFormattedHappiness = function(happinessValue) {
   let emojiIcon = ''
   switch (quartile) {
     case 1:
-      emojiIcon = 'fa-meh'        // :|
+      emojiIcon = 'fa-meh-rolling-eyes'  // 8| 
       break
     case 2:
-      emojiIcon = 'fa-smile'      // :)
+      emojiIcon = 'fa-meh'         // :|
       break
     case 3:
-      emojiIcon = 'fa-grin'       // :D
+      emojiIcon = 'fa-smile'       // :)
       break
     case 4:
-      emojiIcon = 'fa-grin-beam'  // `:D
+      emojiIcon = 'fa-grin-beam'   // :D
       break
     default:
       emojiIcon = 'fa-meh-blank'
