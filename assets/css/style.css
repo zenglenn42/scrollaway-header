@@ -312,6 +312,11 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   width: 17.313em;
 }
 
+.mdl-list__item--three-line .mdl-list__item-text-body {
+  /* Seeing some vertical clipping on mobile. */
+  height: 58px;
+}
+
 .mdl-grid {
   /* The mystical key to allowing priority cards
      to disappear before they hit the footer. */
