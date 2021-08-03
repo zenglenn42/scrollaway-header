@@ -21,7 +21,7 @@ Controller.prototype.getMenuDrawerEventListeners = function() {
 Controller.prototype.addMenuDrawerEventListeners = function() {
   var that = this
 
-  this.delegate(document, "click", "#dismiss_menu_button", function(e) {
+  this.delegatedHandlers.addEventListener(document, "click", "#dismiss_menu_button", function(e) {
      let md = document.querySelector(".mdl-layout__drawer")
      if (md) {
        md.classList.remove("is-visible")
@@ -32,25 +32,25 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
      }
   })
 
-  this.delegate(document, "click", "#view_landing_button", function(e) {
+  this.delegatedHandlers.addEventListener(document, "click", "#view_landing_button", function(e) {
     that.FAB.set({pageState: "dontcare_landing"})
     that.cache.setFAB(that.FAB.get()) // Persist to local storage.
     that.view.render()
   })
 
-  this.delegate(document, "click", "#view_priorities_button", function(e) {
+  this.delegatedHandlers.addEventListener(document, "click", "#view_priorities_button", function(e) {
     that.FAB.set({pageState: "landing_priorities"})
     that.cache.setFAB(that.FAB.get()) // Persist to local storage.
     that.view.render()
   })
 
-  this.delegate(document, "click", "#view_cities_button", function(e) {
+  this.delegatedHandlers.addEventListener(document, "click", "#view_cities_button", function(e) {
     that.FAB.set({pageState: "priorities_results"})
     that.cache.setFAB(that.FAB.get()) // Persist to local storage.
     that.view.render()
   })
 
-  this.delegate(document, "click", "#prioritiesMenu", function(e) {
+  this.delegatedHandlers.addEventListener(document, "click", "#prioritiesMenu", function(e) {
     // Normally we only persist user priorities when transitioning from
     // priorities page to results page (implicit 'submit' event).
     // But this is also a logical place for that.
@@ -66,13 +66,13 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
     // console.log('click')
   })
 
-  this.delegate(document, "click", "#priorities_edit_button", function(e) {
+  this.delegatedHandlers.addEventListener(document, "click", "#priorities_edit_button", function(e) {
     that.FAB.set({pageState: "landing_priorities"})
     that.cache.setFAB(that.FAB.get()) // Persist to local storage.
     that.view.render()
   })
 
-  this.delegate(document, "click", "#priorities_restore_button", function(e) {
+  this.delegatedHandlers.addEventListener(document, "click", "#priorities_restore_button", function(e) {
     that.priorities.restoreDefaults()
 
     // Assume that restoring to defaults implies clearing whatever
@@ -96,7 +96,7 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
     that.view.render()
   })
 
-  this.delegate(document, "click", "#priorities_clearcache_button", function(e) {
+  this.delegatedHandlers.addEventListener(document, "click", "#priorities_clearcache_button", function(e) {
     if (that.cache.clearPriorities()) {
       let clearcache_button = document.querySelector("#priorities_clearcache_button")
       if (clearcache_button) {
@@ -105,13 +105,13 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
     }
   })
   
-  this.delegate(document, "click", "#settings_edit_button", function(e) {
+  this.delegatedHandlers.addEventListener(document, "click", "#settings_edit_button", function(e) {
     that.FAB.setNextPageState("settings")
     that.cache.setFAB(that.FAB.get()) // Persist to local storage.
     that.view.render()
   })
 
-  this.delegate(document, "click", "#settings_restore_button", function(e) {
+  this.delegatedHandlers.addEventListener(document, "click", "#settings_restore_button", function(e) {
     that.settings.restoreDefaults()
 
     // Assume that restoring to defaults implies clearing whatever
@@ -149,7 +149,7 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
     that.view.render()
   })
 
-  this.delegate(document, "click", "#settings_clearcache_button", function(e) {
+  this.delegatedHandlers.addEventListener(document, "click", "#settings_clearcache_button", function(e) {
     if (that.cache.clearSettings()) {
       let clearcache_button = document.querySelector("#settings_clearcache_button")
       if (clearcache_button) {

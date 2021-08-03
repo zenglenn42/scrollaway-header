@@ -183,14 +183,45 @@ function Controller(bodyDivId, locale = "en-US") {
   this.view.render()
 }
 
-// Use this singleton object to manage dynamically added event handlers.
-// See: https://www.jimmycuadra.com/posts/keeping-track-of-javascript-event-handlers
+// Use this singleton object to manage delegating event handlers.
+//
+// Prevents duplicate listeners from being added to dynamically created
+// DOM elements.  We need this in the absence of jQuery's $.on() method.
+//
+// Inspired by:
+// Learning Javascript Design Patterns by Addy Osmani
+// https://stackoverflow.com/questions/30880757/javascript-equivalent-to-on
+// https://www.jimmycuadra.com/posts/keeping-track-of-javascript-event-handlers
+//
+// TODO: Is there a more canonical way to do this in 2021? :-)
 
 Controller.prototype.ManagedEventHandlers = (function() {
   var _singleton
 
   function createInstance() {
-    let _registered = {}
+    let _registered = {}  // private key-value store for registered event handlers
+
+    // Adding a polyfill for el.matches() for IE 9-11 & Android 2x-4x
+    // Needed below by our delegated addEventListener method.
+    //
+    // Courtesy:
+    // https://stackoverflow.com/questions/30880757/javascript-equivalent-to-on
+
+    if (!Element.prototype.matches) {
+      Element.prototype.matches =
+        Element.prototype.matchesSelector       ||
+        Element.prototype.webkitMatchesSelector ||
+        Element.prototype.mozMatchesSelector    ||
+        Element.prototype.msMatchesSelector     ||
+        Element.prototype.oMatchesSelector      ||
+        function(s) {
+            let matches = (this.document || this.ownerDocument).querySelectorAll(s)
+            let i = matches.length
+            while (--i >= 0 && matches.item(i) !== this) {}
+            return i > -1
+        }
+    }
+
     return {
       isAlreadyAdded: function(evt, sel) {
         let key = `${evt}_${sel}`
@@ -202,6 +233,34 @@ Controller.prototype.ManagedEventHandlers = (function() {
         if (!this.isAlreadyAdded(key)) {
           _registered[key] = []
           _registered[key].push(handler)
+        }
+      },
+
+      // Add event handlers for dynamically created elements.
+      // See: https://stackoverflow.com/questions/30880757/javascript-equivalent-to-on
+
+      addEventListener: function(el, evt, sel, handler) {
+
+        // Track requests for adding delegated event handlers to
+        // dynamically-created DOM elements so we can avoid adding duplicates.
+        //
+        // Otherwise, the view code as written may register duplicate handlers
+        // and we'll see performance steadily degrade as the DOM runs the same
+        // event through all of them. :-|
+
+        let alreadyAdded = this.isAlreadyAdded(evt, sel)
+
+        if (!alreadyAdded) {
+          this.track(evt, sel, handler)
+          el.addEventListener(evt, function(event) {
+            let t = event.target
+            while (t && t !== this) {
+              if (t.matches(sel)) {
+                handler.call(t, event)
+              }
+              t = t.parentNode
+            }
+          })
         }
       }
     }
@@ -216,43 +275,3 @@ Controller.prototype.ManagedEventHandlers = (function() {
     }
   }
 })()
-
-
-// Add event handlers for dynamically created elements.
-// See: https://stackoverflow.com/questions/30880757/javascript-equivalent-to-on
-//
-// We only want singleton event handlers registered for a given element & event combination.  
-// For dynamically created elements, we can't really register the handlers upfront, 
-// to my knowledge.  So we're left to register the handler against some top-level
-// element we /are/ guaranteed to have and go walking the DOM at runtime in search 
-// of a matching (dynamic) child node for which we actually /do/ want to invoke
-// an event handler.
-//
-// TODO: There has got to be a widely supported, DOM-native way to do this without
-//       using jQuery in 2021.  What is best practice for this?
-
-Controller.prototype.delegate = function(el, evt, sel, handler) {
-
-  // Track requests for adding delegated event handlers to
-  // dynamically-created DOM elements so we can avoid adding duplicates.
-  //
-  // Otherwise, the view code as written may register duplicate handlers
-  // and we'll see performance steadily degrade as the DOM runs the same
-  // event through all of them. :-|
-
-  let alreadyAdded = this.delegatedHandlers.isAlreadyAdded(evt, sel)
-
-  if (!alreadyAdded) {
-    this.delegatedHandlers.track(evt, sel, handler)
-
-    el.addEventListener(evt, function(event) {
-      let t = event.target
-      while (t && t !== this) {
-        if (t.matches(sel)) {
-          handler.call(t, event)
-        }
-        t = t.parentNode
-      }
-    })
-  } 
-}

@@ -44,7 +44,7 @@ Controller.prototype.addPrioritiesPageEventListeners = function() {
 
 Controller.prototype.addSlideSwitchClassEventListener = function() {
   var that = this
-  this.delegate(document, "click", ".mdl-switch__input", function(e) {
+  this.delegatedHandlers.addEventListener(document, "click", ".mdl-switch__input", function(e) {
     let imgColorFilter = ""
     let switchId = this.getAttribute("id")
     if (that.switchIsEnabled(switchId)) {
