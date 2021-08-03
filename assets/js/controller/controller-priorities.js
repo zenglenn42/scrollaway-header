@@ -15,24 +15,41 @@ Controller.prototype.getPrioritiesPageEventListeners = function() {
 
 Controller.prototype.addPrioritiesPageEventListeners = function() {
   let homeEl = document.getElementById("nav-home-button")
-  homeEl.addEventListener(
-    "click",
-    (e) => {
-      this.FAB.set({pageState: "dontcare_landing"})
-      this.cache.setFAB(this.FAB.get())
-      this.view.createLandingBody()
-    }
-  )
+  if (homeEl) {
+    homeEl.addEventListener(
+      "click",
+      (e) => {
+        this.FAB.set({pageState: "dontcare_landing"})
+        this.cache.setFAB(this.FAB.get())
+        this.view.createLandingBody()
+      }
+    )
+  }
+
+  let homeTitleEl = document.getElementById("nav-title-text")
+  if (homeTitleEl) {
+    homeTitleEl.addEventListener(
+      "click",
+      (e) => {
+        this.FAB.set({pageState: "dontcare_landing"})
+        this.cache.setFAB(this.FAB.get())
+        this.view.createLandingBody()
+      }
+    )
+  }
 
   let fabEl = this.view.getFAB()
-  fabEl.addEventListener(
-    "click",
-    (e) => {
-      this.FAB.set({pageState: "priorities_results"})
-      this.cache.setFAB(this.FAB.get())
-      this.view.createResultsBody()
-    }
-  )
+  if (fabEl) {
+    fabEl.addEventListener(
+      "click",
+      (e) => {
+        this.FAB.set({pageState: "priorities_results"})
+        this.cache.setFAB(this.FAB.get())
+        this.view.createResultsBody()
+        console.log('click')
+      }
+    )
+  }
 
   /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"))

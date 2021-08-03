@@ -325,16 +325,22 @@ View.prototype.createNav = function(navItems = []) {
   return navHtml
 }
 
-View.prototype.createHeader = function(title, navItems) {
+View.prototype.createHeader = function(title, navItems = [], subTitle) {
   let h = document.createElement("header")
   let navHtml = this.createNav(navItems)
+  let subTitleHtml = (subTitle) 
+                        ? `<section style="padding: 0.25em 0; background-color: gray; text-align: center">${subTitle}</section>`
+                        : ''
+
   h.classList += "mdl-layout__header"
   h.innerHTML = `
       <div class="mdl-layout__header-row">
       <div class="mdl-layout-spacer mdl-layout__header-left-spacer">&nbsp;</div>
-      <span class="mdl-layout-title mdl-layout-title-nudged">${title}</span>
+      <span id="nav-title-text" class="mdl-layout-title mdl-button" style="position: relative; left: -10px; color:white; text-transform: none; padding-top: 8px;">${title}</span>
       <div class="mdl-layout-spacer">&nbsp;</div>
       ${navHtml}
+      </div>
+      ${subTitleHtml}
     `
   return h
 }

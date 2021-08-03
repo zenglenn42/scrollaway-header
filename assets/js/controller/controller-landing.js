@@ -13,22 +13,38 @@ Controller.prototype.getLandingPageEventListeners = function() {
 
 Controller.prototype.addLandingPageEventListeners = function() {
   let homeEl = document.getElementById("nav-home-button")
-  homeEl.addEventListener(
-    "click",
-    (e) => {
-      this.FAB.set({pageState: "dontcare_landing"})
-      this.cache.setFAB(this.FAB.get())
-      this.view.createLandingBody()
-    }
-  )
+  if (homeEl) {
+    homeEl.addEventListener(
+      "click",
+      (e) => {
+        this.FAB.set({pageState: "dontcare_landing"})
+        this.cache.setFAB(this.FAB.get())
+        this.view.createLandingBody()
+      }
+    )
+  }
+
+  let homeTitleEl = document.getElementById("nav-title-text")
+  if (homeTitleEl) {
+    homeTitleEl.addEventListener(
+      "click",
+      (e) => {
+        this.FAB.set({pageState: "dontcare_landing"})
+        this.cache.setFAB(this.FAB.get())
+        this.view.createLandingBody()
+      }
+    )
+  }
 
   let fabEl = this.view.getFAB()
-  fabEl.addEventListener(
-    "click",
-    this.getFabEventListener(
-      this.view.createPrioritiesBody.bind(this.view)
+  if (fabEl) {
+    fabEl.addEventListener(
+      "click",
+      this.getFabEventListener(
+        this.view.createPrioritiesBody.bind(this.view)
+      )
     )
-  )
+  }
 
   // Make hamburger menu responsive to clicks.
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"))

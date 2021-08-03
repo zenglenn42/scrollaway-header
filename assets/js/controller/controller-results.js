@@ -20,28 +20,42 @@ Controller.prototype.getResultsPageEventListeners = function() {
 
 Controller.prototype.addResultsPageEventListeners = function() {
   let fabEl = this.view.getFAB()
-
-  fabEl.addEventListener(
+  if (fabEl) {
+    fabEl.addEventListener(
     "click",
     this.getFabEventListener(
       this.view.createPrioritiesBody.bind(this.view)
     )
-  )
+  )}
 
-  let homeEl = document.getElementById("nav-home-button")
-  homeEl.addEventListener(
+  let homeTitleEl = document.getElementById("nav-title-text")
+  if (homeTitleEl) {
+    homeTitleEl.addEventListener(
     "click",
     (e) => {
       this.FAB.set({pageState: "dontcare_landing"})
       this.cache.setFAB(this.FAB.get())
       this.view.createLandingBody()
     }
-  )
+  )}
+
+  let homeEl = document.getElementById("nav-home-button")
+  if (homeEl) {
+    homeEl.addEventListener(
+    "click",
+    (e) => {
+      this.FAB.set({pageState: "dontcare_landing"})
+      this.cache.setFAB(this.FAB.get())
+      this.view.createLandingBody()
+    }
+  )}
 
   viewButtons = document.getElementsByClassName("view-link")
-  for (let i = 0; i < viewButtons.length; ++i) {
-    let el = viewButtons[i]
-    el.addEventListener("click", this.getViewButtonEventListener())
+  if (viewButtons) {
+    for (let i = 0; i < viewButtons.length; ++i) {
+      let el = viewButtons[i]
+      el.addEventListener("click", this.getViewButtonEventListener())
+    }
   }
 
   /* Make hamburger menu responsive to clicks. */

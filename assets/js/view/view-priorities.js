@@ -23,8 +23,9 @@ View.prototype.tooltipJobSearchId = "tooltip-jobsearch"
 View.prototype.createPrioritiesBody = function createPrioritiesBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
   this.removeChildNodes(bodyDiv)
-  let title = this.getPrioritiesTitle()
-  let header = this.createHeader(title, ["home"])
+  let title = this.getAppName()
+  let subTitle  = this.getPrioritiesTitle()
+  let header = this.createHeader(title, [], subTitle)
   let menuDrawer = this.createMenuDrawer()
   this.addMenuDrawerEventListeners()
   let hamburgerMenu = this.createHamburgerMenu()

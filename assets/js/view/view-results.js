@@ -11,7 +11,12 @@
 View.prototype.createResultsBody = function createResultsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
   this.removeChildNodes(bodyDiv)
-  let header = this.createHeader(this.getResultsTitle(), ["home"])
+
+  let title = this.getAppName()
+  let subTitle  = `<i class="fas fa-trophy"></i>&nbsp;&nbsp;`
+      subTitle += this.getResultsTitle()
+  let header = this.createHeader(title, [], subTitle)
+
   let menuDrawer = this.createMenuDrawer()
   this.addMenuDrawerEventListeners()
   let hamburgerMenu = this.createHamburgerMenu()
