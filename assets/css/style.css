@@ -359,21 +359,21 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
 
 .mdl-grid.settings-grid .mdl-menu__container.is-visible .mdl-menu__outline {
   z-index: -1;
-  background-color: rgba(103, 121, 221, 1); /* lighter shade of primary color */
+  background-color: rgba(123, 161, 261, 1); /* lighter shade of primary color */
   //background-color: rgba(63, 81, 181, .97); /* indigo */
 }
 
 /* Give submenus their own distinctive color in the menu drawer. */
 
 .mdl-menu__container.is-visible .mdl-menu {
-  background-color: rgba(103, 121, 221, 1); /* lighter shade of primary color */
+  background-color: rgba(123, 161, 261, 1); /* lighter shade of primary color */
 }
 
 /* Some items in the submenu are just text, not selectable buttons. */
 /* Therefore, their background color should not change on hover.    */
 
 .mdl-menu__item-noselect:hover {
-  background-color: rgba(103, 121, 221, 1); /* lighter shade of primary color */
+  background-color: rgba(123, 161, 261, 1); /* lighter shade of primary color */
 }
 
 .mdl-menu__item-noselect {
