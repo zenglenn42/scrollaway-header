@@ -136,7 +136,8 @@ function ModelPriorities(getLocale = () => {return locale="en-US"},
       affordabilityTooltip: "Use slider below to specify desired relative cost of living. " +
                             "Based upon 2017 median home price by county published by US Census.",
       jobSearchTitle: "Job Outlook",
-      jobSearchTooltip: "This feature is currently unavailable.",
+      //jobSearchTooltip: "This feature is currently unavailable.",
+      jobSearchTooltip: "You must be logged in to use this feature.",
       jobSearchPlaceholder: "Job Title (disabled)"
     },
     "hi-IN": {
@@ -151,7 +152,8 @@ function ModelPriorities(getLocale = () => {return locale="en-US"},
       affordabilityTooltip: "रहने की वांछित सापेक्ष लागत निर्दिष्ट करने के लिए नीचे स्लाइडर का उपयोग करें। " +
                             "2017 में औसत घर की कीमत के आधार पर। अमेरिकी जनगणना द्वारा प्रकाशित।",
       jobSearchTitle: "जॉब आउटलुक",
-      jobSearchTooltip: "यह सुविधा वर्तमान में अनुपलब्ध है।",
+      //jobSearchTooltip: "यह सुविधा वर्तमान में अनुपलब्ध है।",
+      jobSearchTooltip: "आपको इस सुविधा का उपयोग करने के लिए लॉग इन करना होगा।",
       jobSearchPlaceholder: "नौकरी का शीर्षक" + " " + "(विकलांग)"
     },
     "es-ES": {
@@ -166,7 +168,8 @@ function ModelPriorities(getLocale = () => {return locale="en-US"},
       affordabilityTooltip: "Utilice el control deslizante a continuación para especificar el costo de vida relativo deseado. " +
                             "Basado en el precio medio de la vivienda por condado de 2017 según lo publicado por el censo de los Estados Unidos.",
       jobSearchTitle: "Perspectiva Laboral",
-      jobSearchTooltip: "Esta función no está disponible actualmente.",
+      //jobSearchTooltip: "Esta función no está disponible actualmente.",
+      jobSearchTooltip: "Debe iniciar sesión para utilizar esta función.",
       jobSearchPlaceholder: "Título del Trabajo (discapacitado)"
     },
     "zh-CN": {
@@ -181,7 +184,8 @@ function ModelPriorities(getLocale = () => {return locale="en-US"},
       affordabilityTooltip: "使用下面的滑块指定所需的相对生活成本。 " +
                             "基于美国人口普查局公布的 2017 年各县房价中值。",
       jobSearchTitle: "就业前景",
-      jobSearchTooltip: "此功能目前无法使用。",
+      //jobSearchTooltip: "此功能目前无法使用。",
+      jobSearchTooltip: "您必须先登录才能使用此功能。",
       jobSearchPlaceholder: "职称（已禁用）"
     },
   }
