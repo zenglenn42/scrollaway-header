@@ -47,7 +47,7 @@ View.prototype.createSettingsBody = function createSettingsBody() {
   let mainSettings = this.createSettingsMain()
   let footer = this.createFooter()
 
-  this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu)
+  this.addHeader(bodyDiv, header, menuDrawer, hamburgerMenu)
   bodyDiv.appendChild(mainSettings)
   bodyDiv.appendChild(footer)
 

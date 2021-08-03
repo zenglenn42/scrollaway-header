@@ -31,7 +31,7 @@ View.prototype.createPrioritiesBody = function createPrioritiesBody() {
   let mainPriorities = this.createPrioritiesMain()
   let footer = this.createFooter()
 
-  this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu)
+  this.addHeader(bodyDiv, header, menuDrawer, hamburgerMenu)
   bodyDiv.appendChild(mainPriorities)
   bodyDiv.appendChild(footer)
 

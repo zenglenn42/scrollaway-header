@@ -325,7 +325,7 @@ View.prototype.createHeader = function(title, rightNavIcon) {
   return h
 }
 
-View.prototype.makeNav = function(bodyDiv, header, menuDrawer, hamburgerMenu) {
+View.prototype.addHeader = function(bodyDiv, header, menuDrawer, hamburgerMenu) {
   bodyDiv.appendChild(header)
   bodyDiv.appendChild(menuDrawer)
   bodyDiv.appendChild(hamburgerMenu)

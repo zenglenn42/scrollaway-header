@@ -27,7 +27,7 @@ View.prototype.createLandingBody = function() {
     delimitedBlurb
   )
   let footer = this.createFooter()
-  this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu)
+  this.addHeader(bodyDiv, header, menuDrawer, hamburgerMenu)
   bodyDiv.appendChild(mainLanding)
   bodyDiv.appendChild(footer)
 

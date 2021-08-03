@@ -15,7 +15,7 @@ View.prototype.createResultsBody = function createResultsBody() {
   let menuDrawer = this.createMenuDrawer()
   this.addMenuDrawerEventListeners()
   let hamburgerMenu = this.createHamburgerMenu()
-  this.makeNav(bodyDiv, header, menuDrawer, hamburgerMenu)
+  this.addHeader(bodyDiv, header, menuDrawer, hamburgerMenu)
   this.resultsMain = this.createResultsMain(bodyDiv)
   let footer = this.createResultsFooter()
   bodyDiv.appendChild(footer)
