@@ -342,11 +342,18 @@ View.prototype.getIconFromAsciiIcon = function(asciiIcon) {
   let realIcon = bugIcon
 
   switch(asciiIcon) {
+    // Used by floating action button (FAB).
     case "<":
-      realIcon = "navigate_before"  // Used by floating action button.
+      realIcon = "navigate_before"
       break;
     case ">":
-      realIcon = "navigate_next"    // Used by floating action button.
+      realIcon = "navigate_next"
+      break;
+    case "city":
+      realIcon = "location_city"
+      break;
+    case "sliders":
+      realIcon = "tune"
       break;
   }
   return realIcon

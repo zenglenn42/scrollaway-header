@@ -268,14 +268,14 @@ ModelFAB.prototype.getProps = function(pageState = this.pageState) {
 
     case `landing${delim}priorities`: {
       props.fabPage = "results"
-      props.fabIcon = ">"
+      props.fabIcon = "city"
       props.fabTooltip = this.getGotoNextStep()
     }
     break
 
     case `priorities${delim}results`: {
       props.fabPage = "priorities"
-      props.fabIcon = "<"
+      props.fabIcon = "sliders"
       props.fabTooltip = this.getGotoPrevStep()
     }
     break
@@ -291,7 +291,7 @@ ModelFAB.prototype.getProps = function(pageState = this.pageState) {
     case `priorities${delim}settings`: 
     case `priorities${delim}overview`: {
       props.fabPage = "priorities"
-      props.fabIcon = "<"
+      props.fabIcon = "sliders"
       props.fabTooltip = this.getGotoPrevStep()
     }
     break
@@ -299,7 +299,7 @@ ModelFAB.prototype.getProps = function(pageState = this.pageState) {
     case `results${delim}settings`: 
     case `results${delim}overview`: {
       props.fabPage = "results"
-      props.fabIcon = "<"
+      props.fabIcon = "city"
       props.fabTooltip = this.getGotoPrevStep()
     }
     break
