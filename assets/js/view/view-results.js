@@ -11,7 +11,7 @@
 View.prototype.createResultsBody = function createResultsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
   this.removeChildNodes(bodyDiv)
-  let header = this.createHeader(this.getResultsTitle(), "search")
+  let header = this.createHeader(this.getResultsTitle(), ["home"])
   let menuDrawer = this.createMenuDrawer()
   this.addMenuDrawerEventListeners()
   let hamburgerMenu = this.createHamburgerMenu()

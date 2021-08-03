@@ -300,18 +300,19 @@ View.prototype.removeChildNodes = function(parentNode) {
   }
 }
 
-View.prototype.createHeader = function(title, rightNavIcon) {
-  let h = document.createElement("header")
-  h.classList += "mdl-layout__header"
-  h.innerHTML = `
-      <div class="mdl-layout__header-row">
-      <div class="mdl-layout-spacer mdl-layout__header-left-spacer">&nbsp;</div>
-      <span class="mdl-layout-title mdl-layout-title-nudged">${title}</span>
-      <div class="mdl-layout-spacer">&nbsp;</div>
-      <nav class="mdl-navigation">
-          <button id="header-home-button" class="mdl-navigation__link mdl-button mdl-js-button mdl-button--icon">
-            <i class='material-icons header-icons'>home</i>
+View.prototype.createNav = function(navItems = []) {
+  let navContentHtml = navItems.map((item) => {
+    let navItemId = `nav-${item}-button`
+    let itemHtml = `
+          <button id="${navItemId}" class="mdl-navigation__link mdl-button mdl-js-button mdl-button--icon">
+            <i class='material-icons header-icons'>${item}</i>
           </button>
+    `
+    return itemHtml
+  }).join('')
+
+  let navHtml = `<nav class="mdl-navigation">${navContentHtml}</nav>`
+  /*
         <!--
           <a class="mdl-navigation__link" href="">
             <i id="header-search" class="material-icons">${rightNavIcon}</i>
@@ -320,7 +321,20 @@ View.prototype.createHeader = function(title, rightNavIcon) {
             <i class='material-icons header-icons'>home</i>
           </a>
         -->
-      </nav>
+  */
+  return navHtml
+}
+
+View.prototype.createHeader = function(title, navItems) {
+  let h = document.createElement("header")
+  let navHtml = this.createNav(navItems)
+  h.classList += "mdl-layout__header"
+  h.innerHTML = `
+      <div class="mdl-layout__header-row">
+      <div class="mdl-layout-spacer mdl-layout__header-left-spacer">&nbsp;</div>
+      <span class="mdl-layout-title mdl-layout-title-nudged">${title}</span>
+      <div class="mdl-layout-spacer">&nbsp;</div>
+      ${navHtml}
     `
   return h
 }

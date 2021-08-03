@@ -28,7 +28,7 @@ Controller.prototype.addResultsPageEventListeners = function() {
     )
   )
 
-  let homeEl = document.getElementById("header-home-button")
+  let homeEl = document.getElementById("nav-home-button")
   homeEl.addEventListener(
     "click",
     (e) => {

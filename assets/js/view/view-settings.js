@@ -40,7 +40,7 @@ View.prototype.createSettingsBody = function createSettingsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
 
   this.removeChildNodes(bodyDiv)
-  let header = this.createHeader(this.getSettingsTitle(), "")
+  let header = this.createHeader(this.getSettingsTitle(), ["home"])
   let menuDrawer = this.createMenuDrawer()
   this.addMenuDrawerEventListeners()
   let hamburgerMenu = this.createHamburgerMenu()

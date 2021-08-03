@@ -12,7 +12,7 @@ View.prototype.createLandingBody = function() {
   let appName = this.getAppName()
   let slogan = this.getSlogan()
   let blurb = this.getBlurb()
-  let header = this.createHeader(appName, "search")
+  let header = this.createHeader(appName, ["home"])
 
   // Split newline-delimited sentences from blurb text into
   // separate array entries for more latitude with html formatting.
