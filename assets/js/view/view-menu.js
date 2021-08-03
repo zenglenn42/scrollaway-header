@@ -109,7 +109,7 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   let viewBestBets = this.getMenuViewBestBets()
   let viewBlog = this.getMenuViewBlog()
 
-  viewMenuNode.innerHTML  = `<li id='view_landing_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>home</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewIntro}</span></li>`
+  viewMenuNode.innerHTML  = `<li id='view_landing_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>emoji_people</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewIntro}</span></li>`
   viewMenuNode.innerHTML += `<li id='view_priorities_button' class='mdl-menu__item mdl-button'><i class='material-icons header-icons'>tune</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewPriorities}</span></li>`
   viewMenuNode.innerHTML += `<li id='view_cities_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>location_city</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${viewBestBets}</span></li>`
 
