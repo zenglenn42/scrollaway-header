@@ -208,7 +208,7 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   settingsMenuNode.innerHTML += `<li id='settings_edit_button' class='mdl-menu__item mdl-button mdl-menu__item--full-bleed-divider'><i class='material-icons header-icons'>edit</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsEdit} ...</span></li>`
 
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item-noselect' style='margin-top: 1em; height: 1.75em; line-height: 1em'><span id='settings-language-menu'>" + langString + "</span></li>"
-  settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item-noselect' style='height: 1.75em; line-height: 1em'><span>" + countryString + "</span></li>"
+  settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item-noselect mdl-menu__item-noedit' style='height: 1.75em; line-height: 1em' disabled><span>" + countryString + "</span></li>"
   settingsMenuNode.innerHTML += "<li class='mdl-menu__item mdl-menu__item-noselect mdl-menu__item--full-bleed-divider' style='height: 1.75em; line-height: 1em'><span id='settings-max-results-menu'>" + maxResultsString + "</span></li>"
 
   settingsMenuNode.innerHTML += `<li id='settings_restore_button' class='mdl-menu__item mdl-button' ${settingsEnableRestoreDefaults}><i class='material-icons header-icons'>restore_page</i>&nbsp;&nbsp;<span class='mdl-menu__itemtext-nudged'>${settingsDefault}</span></li>`,

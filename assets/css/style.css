@@ -383,6 +383,13 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   text-decoration: line-through;
 }
 
+/* Useful for items that cannot be mutated at this time */
+/* (e.g. 'Show cities in [ United States ]')            */
+
+.mdl-menu__item-noedit[disabled] {
+  text-decoration: none;
+}
+
 .mdl-grid.settings-grid .selected-value {
   color: black;
   padding: 0.25em .75em;
