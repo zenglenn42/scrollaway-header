@@ -180,16 +180,46 @@ function Controller(bodyDivId, locale = "en-US") {
   this.view.render()
 }
 
-// Use this object to manage dynamically added event handlers.
+// Use this singleton object to manage dynamically added event handlers.
 // See: https://www.jimmycuadra.com/posts/keeping-track-of-javascript-event-handlers
 
-var gTrackedEventHandlers = {}
+let ManagedEventHandlers = (function() {
+  var _singleton
+
+  function createInstance() {
+    let _registered = {}
+    return {
+      isAlreadyAdded: function(evt, sel) {
+        let key = `${evt}_${sel}`
+        return _registered.hasOwnProperty(key)
+      },
+
+      track: function(evt, sel, handler) {
+        let key = `${evt}_${sel}`
+        if (!this.isAlreadyAdded(key)) {
+          _registered[key] = []
+          _registered[key].push(handler)
+        }
+      }
+    }
+  }
+
+  return {
+    getInstance: function() {
+      if (!_singleton) {
+        _singleton = createInstance()
+      }
+      return _singleton
+    }
+  }
+})()
+
+var gDelegatedHandlers = ManagedEventHandlers.getInstance()
 
 // Add event handlers for dynamically created elements.
 // See: https://stackoverflow.com/questions/30880757/javascript-equivalent-to-on
 //
-// We only want singleton event handlers registered for a given
-// element & event combination.  
+// We only want singleton event handlers registered for a given element & event combination.  
 // For dynamically created elements, we can't really register the handlers upfront, 
 // to my knowledge.  So we're left to register the handler against some top-level
 // element we /are/ guaranteed to have and go walking the DOM at runtime in search 
@@ -200,20 +230,18 @@ var gTrackedEventHandlers = {}
 //       using jQuery in 2021.  What is best practice for this?
 
 Controller.prototype.delegate = function(el, evt, sel, handler) {
-  let key = `${evt}_${sel}`
-  let alreadyAdded = gTrackedEventHandlers.hasOwnProperty(key)
+
+  // Globally track requests for adding delegated event handlers to 
+  // dynamically-created DOM elements so we can avoid adding duplicates.
+  //
+  // Otherwise, the view code as written may register duplicate handlers
+  // and we'll see performance steadily degrade as the DOM runs the same
+  // event through all of them. :-|
+
+  let alreadyAdded = gDelegatedHandlers.isAlreadyAdded(evt, sel)
 
   if (!alreadyAdded) {
-
-    // Globally track requests for adding delegated event listeners to 
-    // dynamically-created DOM elements so we can avoid adding duplicates.
-    //
-    // Otherwise, the view code as written will register duplicate handlers
-    // and we'll see performance steadily degrade as the DOM runs the same
-    // event through all of them. :-|
-
-    gTrackedEventHandlers[key] = []
-    gTrackedEventHandlers[key].push(handler)
+    gDelegatedHandlers.track(evt, sel, handler)
 
     el.addEventListener(evt, function(event) {
       let t = event.target
@@ -224,5 +252,5 @@ Controller.prototype.delegate = function(el, evt, sel, handler) {
         t = t.parentNode
       }
     })
-  }
+  } 
 }
