@@ -46,7 +46,6 @@ Controller.prototype.addPrioritiesPageEventListeners = function() {
         this.FAB.set({pageState: "priorities_results"})
         this.cache.setFAB(this.FAB.get())
         this.view.createResultsBody()
-        console.log('click')
       }
     )
   }

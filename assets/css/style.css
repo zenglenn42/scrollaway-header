@@ -354,6 +354,11 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   min-width: 350px; /* Otherwise spanish menu wraps. */
 }
 
+.getmdl-select_fix-width {
+  width: 75%;
+  min-width: unset; /* Otherwise language dropdown clips. */
+}
+
 /* Fix visibility issue with long menu drawer content (especially on landscape mobile). */
 /* Push menu outline behind foreground dropdown content so content is not occluded. */
 

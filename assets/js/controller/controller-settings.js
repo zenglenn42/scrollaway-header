@@ -69,30 +69,33 @@ Controller.prototype.addSettingsPageEventListeners = function() {
     }
   }
 
-  languageButtons = [...document.querySelectorAll(".settings-language__button")]
-  languageButtons.map(button => {
-      button.addEventListener(
-        "click",
-        (e) => {
-           let buttonEl = e.srcElement
-           let id = buttonEl.getAttribute("id")
-           let localeAttr = buttonEl.getAttribute("data-value") || "en-US"
-           if (this.settings.setLocale(localeAttr)) {
+  this.delegatedHandlers.addEventListener(document, "click", "#dropdown-settings-language", (e) => {
 
-             // Persist to local storage.
+      // BTW: This is very specific to the HTML idiom recommended by the 3rd-party
+      //      'getmdl-select' extension we're using at the moment for pretty selection
+      //      lists in MDL.  This would likely change if/when upgrading to MDC (web components).
 
-             let settingsState = this.settings.get()
-             this.cache.setSettings(settingsState)
+      let inputEl = document.querySelector("#dropdown-settings-language input")
+      let inputHiddenEl = document.querySelector("#dropdown-settings-language input[type='hidden']")
 
+      let language = (inputEl && inputEl.value) ? inputEl.value : ""
+      let locale = (inputHiddenEl && inputHiddenEl.value) ? inputHiddenEl.value : ""
 
-             // Update view based upon locale in model.
-             // TODO: This should go away once observer pattern is implemented.
-             this.view.setLanguage()
-           }
-           // console.log(`set locale to ${localeAttr}`)
-     })
-  })
+      if (locale) {
+        if (this.settings.setLocale(locale)) {
 
+          // Persist to local storage.
+
+          let settingsState = this.settings.get()
+          this.cache.setSettings(settingsState)
+
+          // Update view based upon locale in model.
+          // TODO: This should go away once observer pattern is implemented.
+          this.view.setLanguage()
+        }
+      }
+    }
+  )
 
   maxResultsButtons = [...document.querySelectorAll(".settings-max-results__button")]
   maxResultsButtons.map(button => {

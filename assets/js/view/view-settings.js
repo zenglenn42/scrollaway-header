@@ -18,14 +18,11 @@ View.prototype.setMaxResults = function() {
 }
 
 View.prototype.setLanguage = function() {
-  let settingsPageLanguageEl = document.querySelector("#settings-language-selected")
-  if (settingsPageLanguageEl) {
-    settingsPageLanguageEl.innerHTML = this.getLangName(this.getLocale())
-  }
   // TODO: Split this out to a menu component?
   let settingsMenuLanguageEl = document.querySelector("#settings-language-menu")
   if (settingsMenuLanguageEl) {
-    settingsMenuLanguageEl.innerHTML = `${this.getMenuSettingsUseLang(this.getLangName(this.getLocale()))}`
+    settingsMenuLanguageEl.innerHTML = 
+          `${this.getMenuSettingsUseLang(this.getLangName(this.getLocale()))}`
   }
 
   // Recreate the settings page under the new language/locale.
@@ -56,6 +53,12 @@ View.prototype.createSettingsBody = function createSettingsBody() {
   bodyDiv.appendChild(footer)
 
   this.addSettingsPageEventListeners()
+
+  // Add event listeners for dynamically added 3rd party dropdown-selection 
+  // elements.
+  //
+  // TODO:  Add some abstraction around this.
+  getmdlSelect.init('.getmdl-select')
 }
 
 View.prototype.createSettingsMain = function() {
@@ -82,11 +85,19 @@ View.prototype.createSettingsMain = function() {
   let langListOptions = Object.keys(langMap).reduce((acc, langKey, i) => {
     let name = langMap[langKey].name
     let supported = langMap[langKey].supported
-    let disabled = undefined
-    if (!supported) {
-      disabled="disabled"
-    }
-    let li = `<li ${disabled} id="language-${i+1}" data-value="${langKey}" class="mdl-menu__item settings-language__button">${name}</li>`
+    let currentKey = this.getLocale()
+    let selected = (currentKey === langKey) ? `data-selected="true"` : ''
+    let disabled = ""
+
+    // Snip this feature out while integrating getmdl-select.
+    // if (!supported) {
+    //   disabled="disabled"
+    // }
+
+    let li = `<li id="language-${i+1}" data-val="${langKey}" data-value="${langKey}" ${selected} ${disabled}
+                  class="mdl-menu__item">
+                  ${name}
+              </li>`
     acc += li
     return acc
   }, "")
@@ -110,7 +121,9 @@ View.prototype.createSettingsMain = function() {
   let countryString = this.getCountryName(this.getCountryCode())
 
   g.innerHTML = `
-    <div>
+  <div>
+    <!-- Select language -->
+
     <div class='mdl-cell mdl-cell--6-col settings-cell'>
       <span>
         <label class="mdl-button mdl-js-button mdl-button--icon" for="languageId">
@@ -118,18 +131,21 @@ View.prototype.createSettingsMain = function() {
         </label>
         ${this.getSelectLang()}
       </span>
-      <div class="mdl-textfield mdl-js-textfield settings-textfield">
-        <span>${this.getUseLang()} &nbsp;</span>
-        <span id="settings-language-selected" class="selected-value">${langString}</span>
-        <button id="settings-language" class="mdl-button mdl-js-button dropdown-button">
-          <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
-        </button>
-        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right"
-            data-mdl-for="settings-language">
+      <div id="dropdown-settings-language" 
+           class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label 
+                  getmdl-select getmdl-select__fix-height getmdl-select_fix-width settings-textfield">
+        <input id="settings-language" type="text" value="" class="mdl-textfield__input" readonly>
+        <input type="hidden" value="" name="settings-language"/>
+        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+        <label class="mdl-textfield__label" for="settings-language">Language</label>
+        <ul for="settings-language" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
             ${langListOptions}
         </ul>
       </div>
     </div>
+
+    <!-- Select country -->
+
     <div class='mdl-cell mdl-cell--6-col settings-cell'>
       <span>
         <label class="mdl-button mdl-js-button mdl-button--icon" for="countryId">
@@ -149,6 +165,9 @@ View.prototype.createSettingsMain = function() {
         </ul>
       </div>
     </div>
+
+    <!-- Select city quantity -->
+
     <div class='mdl-cell mdl-cell--6-col settings-cell'>
       <span>
         <label class="mdl-button mdl-js-button mdl-button--icon" for="settings-max-results">
@@ -169,8 +188,9 @@ View.prototype.createSettingsMain = function() {
           ${maxResultsListItems}
         </ul>
       </div>
-
     </div>
+
+
     <!-- Adding dummy cell for bottom padding to avoid proximity to FAB.  
          Probably a more elegant way to do this ... like bottom-margin on grid. -->
     <div class='mdl-cell mdl-cell--6-col settings-cell'>
@@ -185,7 +205,7 @@ View.prototype.createSettingsMain = function() {
     <div class='mdl-cell mdl-cell--6-col settings-cell'>
       &nbsp;
     </div>
-    </div>
+  </div>
   `
   m.appendChild(g)
   return m
