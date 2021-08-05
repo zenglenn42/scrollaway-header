@@ -6,10 +6,13 @@
 //----------------------------------------------------------------------------------
 
 View.prototype.setMaxResults = function() {
-  let settingsPageMaxResultsEl = document.querySelector("#settings-max-results-selected")
-  if (settingsPageMaxResultsEl) {
-    settingsPageMaxResultsEl.innerHTML = this.getMaxResults()
+
+  // TODO: Split this out to a menu component?
+  let settingsLabelMaxResultsEl = document.querySelector("#label-settings-max-results")
+  if (settingsLabelMaxResultsEl) {
+    settingsLabelMaxResultsEl.innerHTML = `${this.getMenuSettingsShowTop(this.getMaxResults())}`
   }
+
   // TODO: Split this out to a menu component?
   let settingsMenuMaxResultsEl = document.querySelector("#settings-max-results-menu")
   if (settingsMenuMaxResultsEl) {
@@ -72,13 +75,6 @@ View.prototype.createSettingsMain = function() {
   g.classList.add("mdl-grid")
   g.classList.add("settings-grid")
 
-  // List items for 'max results' dropdown selection list box.
-  // Turn settings model for max results options into presentation elements (list items).
-
-  let maxResultsListItems = (this.getMaxResultsOptions().map((numCities, i) => {
-      return `<li id="maxResults-${i+1}" data-value="${numCities}" class="mdl-menu__item settings-max-results__button">${numCities}</li>`
-  }).reduce((acc, li) => {acc += li; return acc}, ""))
-
   // List items for language selection dropdown list box.
 
   let langMap = this.getLangOptionsMap()
@@ -107,18 +103,37 @@ View.prototype.createSettingsMain = function() {
   let countryMap = this.getCountryOptionsMap()
   let countryListOptions = Object.keys(countryMap).reduce((acc, countryKey, i) => {
     let name = countryMap[countryKey].name
+    let currentKey = this.getCountryCode()
+    let selected = (currentKey === countryKey) ? `data-selected="true"` : ''
     let supported = countryMap[countryKey].supported
-    let disabled = undefined
-    if (!supported) {
-      disabled="disabled"
+    if (supported) {
+      let li = `<li id="country-${i+1}" data-val="${countryKey}" data-value="${countryKey}" ${selected}
+                    class="mdl-menu__item">
+                    ${name}
+                </li>`
+      acc += li
     }
-    let li = `<li ${disabled} id="country-${i+1}" data-value="${countryKey}" class="mdl-menu__item settings-country__button">${name}</li>`
-    acc += li
     return acc
   }, "")
 
-  let langString = this.getLangName(this.getLocale())
-  let countryString = this.getCountryName(this.getCountryCode())
+  // List items for 'max results' dropdown selection list box.
+  // Turn settings model for max results options into presentation elements (list items).
+
+/*
+  let maxResultsListItems = (this.getMaxResultsOptions().map((numCities, i) => {
+      return `<li id="maxResults-${i+1}" data-value="${numCities}" class="mdl-menu__item settings-max-results__button">${numCities}</li>`
+  }).reduce((acc, li) => {acc += li; return acc}, ""))
+*/
+
+  let maxResultsListItems = (this.getMaxResultsOptions().map((numCities, i) => {
+      let currentNum = this.getMaxResults()
+      let selected = (currentNum === numCities) ? `data-selected="true"` : ''
+      let li = `<li id="maxResults-${i+1}" data-val="${numCities}" data-value="${numCities}" ${selected}
+                      class="mdl-menu__item">
+                      ${numCities}
+                </li>`
+      return li
+    }).reduce((acc, li) => {acc += li; return acc}, ""))
 
   g.innerHTML = `
   <div>
@@ -129,7 +144,8 @@ View.prototype.createSettingsMain = function() {
         <label class="mdl-button mdl-js-button mdl-button--icon" for="languageId">
           <i  class="material-icons">translate</i>
         </label>
-        ${this.getSelectLang()}
+        <!--${this.getSelectLang()}-->
+        ${this.getMenuSettingsUseLang(this.getLangName(this.getLocale()))}
       </span>
       <div id="dropdown-settings-language" 
            class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label 
@@ -137,7 +153,7 @@ View.prototype.createSettingsMain = function() {
         <input id="settings-language" type="text" value="" class="mdl-textfield__input" readonly>
         <input type="hidden" value="" name="settings-language"/>
         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-        <label class="mdl-textfield__label" for="settings-language">Language</label>
+        <label class="mdl-textfield__label" for="settings-language">Select language</label>
         <ul for="settings-language" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
             ${langListOptions}
         </ul>
@@ -151,45 +167,44 @@ View.prototype.createSettingsMain = function() {
         <label class="mdl-button mdl-js-button mdl-button--icon" for="countryId">
           <i  class="material-icons">travel_explore</i>
         </label>
-        ${this.getSelectCountry()}
+        ${this.getMenuSettingsShowCities(this.getCountryName(this.getCountryCode()))}
       </span>
-      <div class="mdl-textfield mdl-js-textfield settings-textfield">
-        <span>${this.getShowCities()} &nbsp;</span>
-        <span class="selected-value">${countryString}</span>
-        <button id="settings-country" class="mdl-button mdl-js-button dropdown-button">
-          <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
-        </button>
-        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right"
-            data-mdl-for="settings-country">
+      <div id="dropdown-settings-country"
+           class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label
+                  getmdl-select getmdl-select__fix-height getmdl-select_fix-width settings-textfield">
+        <input id="settings-country" type="text" value="" class="mdl-textfield__input" readonly>
+        <input type="hidden" value="" name="settings-country"/>
+        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+        <label class="mdl-textfield__label" for="settings-country">${this.getSelectCountry()}</label>
+        <ul for="settings-country" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
           ${countryListOptions}
         </ul>
       </div>
     </div>
 
-    <!-- Select city quantity -->
+    <!-- Select city quantity --> 
 
     <div class='mdl-cell mdl-cell--6-col settings-cell'>
       <span>
-        <label class="mdl-button mdl-js-button mdl-button--icon" for="settings-max-results">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="maxResultsId">
           <i  class="material-icons">location_city</i>
         </label>
-        ${this.getSelectQuantity()}
+        <span id="label-settings-max-results">
+          ${this.getMenuSettingsShowTop(this.getMaxResults())}
+        </span>
       </span>
-
-      <div class="mdl-textfield mdl-js-textfield settings-textfield">
-        <span>${this.getShowTopCitiesBegin()} &nbsp;</span> 
-        <span id="settings-max-results-selected" class="selected-value">${this.getMaxResults()}</span>
-        <button id="settings-max-results" class="mdl-button mdl-js-button dropdown-button">
-          <i class="material-icons dropdown-button-icon">arrow_drop_down</i>
-        </button>
-        <span>${this.getShowTopCitiesEnd()}</span>
-        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right"
-            data-mdl-for="settings-max-results">
+      <div id="dropdown-settings-max-results"
+           class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label
+                  getmdl-select getmdl-select__fix-height getmdl-select_fix-width settings-textfield">
+        <input id="settings-max-results" type="text" value="" class="mdl-textfield__input" readonly>
+        <input type="hidden" value="" name="settings-max-results"/>
+        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+        <label class="mdl-textfield__label" for="settings-max-results">${this.getSelectQuantity()}</label>
+        <ul for="settings-max-results" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
           ${maxResultsListItems}
         </ul>
       </div>
     </div>
-
 
     <!-- Adding dummy cell for bottom padding to avoid proximity to FAB.  
          Probably a more elegant way to do this ... like bottom-margin on grid. -->

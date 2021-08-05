@@ -97,29 +97,65 @@ Controller.prototype.addSettingsPageEventListeners = function() {
     }
   )
 
-  maxResultsButtons = [...document.querySelectorAll(".settings-max-results__button")]
-  maxResultsButtons.map(button => {
-      let value = JSON.parse(button.getAttribute("data-value"))
-      button.addEventListener(
-        "click",
-        (e) => {
-           let buttonEl = e.srcElement
-           let id = buttonEl.getAttribute("id")
-           let attrValue = buttonEl.getAttribute("data-value") || "10"
-           let value = JSON.parse(attrValue)
-           if (this.settings.setMaxResults(value)) {
-             // Persist to local storage.
+  this.delegatedHandlers.addEventListener(document, "click", "#dropdown-settings-country", (e) => {
 
-             let settingsState = this.settings.get()
-             this.cache.setSettings(settingsState)
+      // BTW: This is very specific to the HTML idiom recommended by the 3rd-party
+      //      'getmdl-select' extension we're using at the moment for pretty selection
+      //      lists in MDL.  This would likely change if/when upgrading to MDC (web components).
 
-             // Update view based upon locale in model.
-             // TODO: This should go away once observer pattern is implemented.
-             this.view.setMaxResults()
-           }
-           // console.log(`click show top ${value} cities`)
-     })
-  })
+      let inputEl = document.querySelector("#dropdown-settings-country input")
+      let inputHiddenEl = document.querySelector("#dropdown-settings-country input[type='hidden']")
+
+      let country = (inputEl && inputEl.value) ? inputEl.value : ""
+      let countryCode = (inputHiddenEl && inputHiddenEl.value) ? inputHiddenEl.value : ""
+
+      if (countryCode) {
+        if (this.settings.setCountryCode(countryCode)) {
+
+          // Persist to local storage.
+
+          let settingsState = this.settings.get()
+          this.cache.setSettings(settingsState)
+
+          // Update view based upon country-code in model.
+          // TODO: This should go away once observer pattern is implemented.
+          //
+          // Since we can only selection one country for now, this is commented out.
+          // this.view.setCountry()
+        }
+      }
+    }
+  )
+
+  this.delegatedHandlers.addEventListener(document, "click", "#dropdown-settings-max-results", (e) => {
+
+      // BTW: This is very specific to the HTML idiom recommended by the 3rd-party
+      //      'getmdl-select' extension we're using at the moment for pretty selection
+      //      lists in MDL.  This would likely change if/when upgrading to MDC (web components).
+
+      //let inputEl = document.querySelector("#dropdown-settings-max-results input")
+      let inputHiddenEl = document.querySelector("#dropdown-settings-max-results input[type='hidden']")
+
+      //let numCities = (inputEl && inputEl.value) ? inputEl.value : ""
+      let numCities = (inputHiddenEl && inputHiddenEl.value) ? inputHiddenEl.value : ""
+      numCities = (typeof numCities === 'string') ? JSON.parse(numCities) : numCities
+
+      if (numCities) {
+        if (this.settings.setMaxResults(numCities)) {
+
+          // Persist to local storage.
+
+          let settingsState = this.settings.get()
+          this.cache.setSettings(settingsState)
+
+          // Update view based upon country-code in model.
+          // TODO: This should go away once observer pattern is implemented.
+          //
+          this.view.setMaxResults()
+        }
+      }
+    }
+  )
 
   // Make hamburger menu responsive to clicks.
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"))
