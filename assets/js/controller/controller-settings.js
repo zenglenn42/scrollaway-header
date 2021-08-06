@@ -133,12 +133,11 @@ Controller.prototype.addSettingsPageEventListeners = function() {
       //      'getmdl-select' extension we're using at the moment for pretty selection
       //      lists in MDL.  This would likely change if/when upgrading to MDC (web components).
 
-      //let inputEl = document.querySelector("#dropdown-settings-max-results input")
       let inputHiddenEl = document.querySelector("#dropdown-settings-max-results input[type='hidden']")
-
-      //let numCities = (inputEl && inputEl.value) ? inputEl.value : ""
       let numCities = (inputHiddenEl && inputHiddenEl.value) ? inputHiddenEl.value : ""
-      numCities = (typeof numCities === 'string') ? JSON.parse(numCities) : numCities
+
+      // Marshall possible string to integer.
+      numCities = parseInt(numCities)
 
       if (numCities) {
         if (this.settings.setMaxResults(numCities)) {
