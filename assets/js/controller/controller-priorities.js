@@ -114,7 +114,11 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
     let imgDiv = this.parentNode.parentNode.parentNode.childNodes[1]
     imgDiv.style.filter = imgColorFilter
 
+    // Enable/disable the corresponding slider in sync with the
+    // enable/disable state of the switch.
+    //
     // TODO: Make creation of sliderId more robust.
+
     let sliderId = switchId.replace("switch", "slider")
     let sliderEl = document.getElementById(sliderId)
     if (sliderEl && disabled) {
