@@ -9,7 +9,7 @@ View.prototype.switchHappinessId = "switch-happiness"
 View.prototype.sliderHappinessId = "slider-happiness"
 View.prototype.tooltipHappinessId = "tooltip-happiness"
 
-View.prototype.switchPoliticsId = "switch-political-affiliation"
+View.prototype.switchPoliticsId = "switch-politics"
 View.prototype.sliderPoliticsId = "slider-politics"
 View.prototype.tooltipPoliticsId = "tooltip-politics"
 
@@ -163,8 +163,10 @@ View.prototype.createPrioritiesSliderCard = function(priorityParams, isEnabled) 
   }
 
   let colorFilter = ""
+  let disabled = ""
   if (!priorityParams.sliderEnabled) {
     colorFilter = `filter: grayscale(100%);`
+    disabled = "disabled"
   }
 
   p.classList.add("mdl-cell")
@@ -199,6 +201,7 @@ View.prototype.createPrioritiesSliderCard = function(priorityParams, isEnabled) 
               max=${priorityParams.maxSliderVal}
               value=${priorityParams.curSliderVal}
               tabindex="0"
+              ${disabled}
             />
             ${rightIconHTML}
           </div>

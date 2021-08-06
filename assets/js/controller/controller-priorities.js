@@ -62,11 +62,13 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
   var that = this
   this.delegatedHandlers.addEventListener(document, "click", ".mdl-switch__input", function(e) {
     let imgColorFilter = ""
+    let disabled = ""
     let switchId = this.getAttribute("id")
     if (that.switchIsEnabled(switchId)) {
       // Ignore the Job Outlook slide switch until I implement this feature.
       if (switchId == that.view.switchJobSearchId) {
         imgColorFilter = "grayscale(100%)" // make JobSearch img always gray for now.
+        disabled = "disabled"
       } else {
         switch (switchId) {
           case that.view.switchHappinessId:
@@ -84,6 +86,7 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
         }
         // console.log("checked")
         imgColorFilter = "grayscale(0%)" // make image colorful
+        disabled = ""
       }
     } else {
       switch (switchId) {
@@ -102,6 +105,7 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
       }
       // console.log("not checked")
       imgColorFilter = "grayscale(100%)" // make image black & white
+      disabled = "disabled"
     }
     that.cache.setPriorities(that.priorities.get())
 
@@ -109,6 +113,16 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
     //       class == ".mdl-card_title"
     let imgDiv = this.parentNode.parentNode.parentNode.childNodes[1]
     imgDiv.style.filter = imgColorFilter
+
+    // TODO: Make creation of sliderId more robust.
+    let sliderId = switchId.replace("switch", "slider")
+    let sliderEl = document.getElementById(sliderId)
+    if (sliderEl && disabled) {
+      sliderEl.removeAttribute("disabled")
+      sliderEl.setAttribute("disabled", "disabled")
+    } else if (sliderEl && !disabled) {
+      sliderEl.removeAttribute("disabled")
+    }
   })
 }
 
