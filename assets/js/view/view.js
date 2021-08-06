@@ -365,16 +365,21 @@ View.prototype.getIconFromAsciiIcon = function(asciiIcon) {
     // Used by floating action button (FAB).
     case "<":
       realIcon = "navigate_before"
-      break;
+      break
     case ">":
       realIcon = "navigate_next"
-      break;
+      break
     case "city":
       realIcon = "location_city"
-      break;
+      break
     case "sliders":
       realIcon = "tune"
-      break;
+      break
+    case "welcome":
+      realIcon = "emoji_people"
+      break
+    default:
+      console.log("View.getIconFromAsciiIcon: Unrecognized asciiIcon:", asciiIcon)
   }
   return realIcon
 }

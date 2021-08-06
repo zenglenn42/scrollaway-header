@@ -283,7 +283,7 @@ ModelFAB.prototype.getProps = function(pageState = this.pageState) {
     case `landing${delim}settings`: 
     case `landing${delim}overview`: {
       props.fabPage = "landing"
-      props.fabIcon = "<"
+      props.fabIcon = "welcome"
       props.fabTooltip = this.getGotoPrevStep()
     }
     break
