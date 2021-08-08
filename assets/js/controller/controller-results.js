@@ -30,25 +30,13 @@ Controller.prototype.addResultsPageEventListeners = function() {
 
   let homeTitleEl = document.getElementById("nav-title-text")
   if (homeTitleEl) {
-    homeTitleEl.addEventListener(
-    "click",
-    (e) => {
-      this.FAB.set({pageState: "dontcare_landing"})
-      this.cache.setFAB(this.FAB.get())
-      this.view.createLandingBody()
-    }
-  )}
-
-  let homeEl = document.getElementById("nav-home-button")
-  if (homeEl) {
-    homeEl.addEventListener(
-    "click",
-    (e) => {
-      this.FAB.set({pageState: "dontcare_landing"})
-      this.cache.setFAB(this.FAB.get())
-      this.view.createLandingBody()
-    }
-  )}
+    this.delegatedHandlers.addEventListener(document, "click", "#nav-title-text", (e) => {
+        this.FAB.set({pageState: "dontcare_landing"})
+        this.cache.setFAB(this.FAB.get())
+        this.view.createLandingBody()
+      }
+    )
+  }
 
   viewButtons = document.getElementsByClassName("view-link")
   if (viewButtons) {

@@ -14,23 +14,9 @@ Controller.prototype.getPrioritiesPageEventListeners = function() {
 }
 
 Controller.prototype.addPrioritiesPageEventListeners = function() {
-  let homeEl = document.getElementById("nav-home-button")
-  if (homeEl) {
-    homeEl.addEventListener(
-      "click",
-      (e) => {
-        this.FAB.set({pageState: "dontcare_landing"})
-        this.cache.setFAB(this.FAB.get())
-        this.view.createLandingBody()
-      }
-    )
-  }
-
   let homeTitleEl = document.getElementById("nav-title-text")
   if (homeTitleEl) {
-    homeTitleEl.addEventListener(
-      "click",
-      (e) => {
+    this.delegatedHandlers.addEventListener(document, "click", "#nav-title-text", (e) => {
         this.FAB.set({pageState: "dontcare_landing"})
         this.cache.setFAB(this.FAB.get())
         this.view.createLandingBody()
@@ -40,9 +26,8 @@ Controller.prototype.addPrioritiesPageEventListeners = function() {
 
   let fabEl = this.view.getFAB()
   if (fabEl) {
-    fabEl.addEventListener(
-      "click",
-      (e) => {
+    fabEl.addEventListener("click", (e) => {
+        //this.FAB.setNextPageState("fab")
         this.FAB.set({pageState: "priorities_results"})
         this.cache.setFAB(this.FAB.get())
         this.view.createResultsBody()
@@ -132,46 +117,45 @@ Controller.prototype.addSlideSwitchClassEventListener = function() {
 
 Controller.prototype.addSliderEventListeners = function() {
   let sliderH = document.getElementById(this.view.sliderHappinessId)
-  sliderH.addEventListener("change", this.getPrioritiesSliderHappinessCB())
+  let sliderHSel = `#${this.view.sliderHappinessId}`
+  this.delegatedHandlers.addEventListener(
+      document,
+      "change",
+      sliderHSel,
+      (e) => {
+        let value = e.target.value
+        this.priorities.setHappinessValue(Number(value))
+        this.cache.setPriorities(this.priorities.get())
+      }
+  )
 
   let sliderP = document.getElementById(this.view.sliderPoliticsId)
-  sliderP.addEventListener("change", this.getPrioritiesSliderPoliticsCB())
+  let sliderPSel = `#${this.view.sliderPoliticsId}`
+  this.delegatedHandlers.addEventListener(
+      document,
+      "change",
+      sliderPSel,
+      (e) => {
+        let value = e.target.value
+        let republicanVal = Number(value)
+        let democratVal = 100 - republicanVal
+        this.priorities.setPoliticsValue({rep16_frac: republicanVal, dem16_frac: democratVal})
+        this.cache.setPriorities(this.priorities.get())
+      }
+  )
 
   let sliderA = document.getElementById(this.view.sliderAffordabilityId)
-  sliderA.addEventListener(
-    "change",
-    this.getPrioritiesSliderAffordabilityCB()
+  let sliderASel = `#${this.view.sliderAffordabilityId}`
+  this.delegatedHandlers.addEventListener(
+      document,
+      "change",
+      sliderASel,
+      (e) => {
+        let value = e.target.value
+        this.priorities.setAffordabilityValue(Number(value))
+        this.cache.setPriorities(this.priorities.get())
+      }
   )
-}
-
-Controller.prototype.getPrioritiesSliderHappinessCB = function() {
-  let that = this
-  function innerCB(event) {
-    that.priorities.setHappinessValue(Number(this.value))
-    that.cache.setPriorities(that.priorities.get())
-  }
-  return innerCB
-}
-
-Controller.prototype.getPrioritiesSliderPoliticsCB = function() {
-  let that = this
-  function innerCB(event) {
-    let value = this.value
-    let republicanVal = Number(value)
-    let democratVal = 100 - republicanVal
-    that.priorities.setPoliticsValue({rep16_frac: republicanVal, dem16_frac: democratVal})
-    that.cache.setPriorities(that.priorities.get())
-  }
-  return innerCB
-}
-
-Controller.prototype.getPrioritiesSliderAffordabilityCB = function() {
-  let that = this
-  function innerCB(event) {
-    that.priorities.setAffordabilityValue(Number(this.value))
-    that.cache.setPriorities(that.priorities.get())
-  }
-  return innerCB
 }
 
 Controller.prototype.switchIsEnabled = function(switchId) {
