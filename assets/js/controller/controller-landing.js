@@ -24,20 +24,12 @@ Controller.prototype.addLandingPageEventListeners = function() {
 
   let fabEl = this.view.getFAB()
   if (fabEl) {
-    fabEl.addEventListener(
-      "click",
-      this.getFabEventListener(
-        this.view.createPageBody.bind(this.view)
-      )
-    )
-    /*
     this.delegatedHandlers.addEventListener(
           document,
           "click",
           "#floating-access-button",
           this.getFabEventListener(this.view.createPageBody.bind(this.view))
     )
-    */
   }
 
   // Make hamburger menu responsive to clicks.
