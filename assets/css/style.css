@@ -446,6 +446,13 @@ input[type="range"].enhanced-slider:focus::-ms-fill-upper {
   flex: 1;
 }
 
+/* Encourage 'main' portion of layout to take up maximal vertial space, */
+/* pushing the footer to the bottom of the viewport.                    */
+
+.maxy-main {
+  flex: 1;
+}
+
 .footer-fab {
   position: absolute;
   bottom: 0.4em;

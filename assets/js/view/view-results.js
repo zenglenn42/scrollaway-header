@@ -35,7 +35,7 @@ View.prototype.createResultsBody = function createResultsBody() {
 View.prototype.createResultsMain = function(bodyDiv) {
   let m = document.createElement("main")
   m.setAttribute("id", "main")
-  m.classList.add("mdl-layout__content")
+  m.classList.add("maxy-main")
   let child = document.createElement("div")
   let g = document.createElement("div")
 
