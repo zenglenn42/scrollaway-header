@@ -14,7 +14,13 @@
 
 Controller.prototype.getFabEventListener = function(createBodyFn) {
   let that = this
-  function innerFunction() {
+
+  function innerFunction(e) {
+    let fabEl = this
+    let gotoPage = (fabEl && fabEl.getAttribute("data-goto-page"))
+                      ? fabEl.getAttribute("data-goto-page")
+                      : "landing"
+
     that.FAB.setNextPageState("fab")
 
     // Persist to local storage if available.
@@ -26,7 +32,7 @@ Controller.prototype.getFabEventListener = function(createBodyFn) {
     let fabState = that.FAB.get()
     that.cache.setFAB(fabState)
 
-    createBodyFn()
+    createBodyFn(gotoPage)
   }
   return innerFunction
 }

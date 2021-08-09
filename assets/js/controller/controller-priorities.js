@@ -26,12 +26,11 @@ Controller.prototype.addPrioritiesPageEventListeners = function() {
 
   let fabEl = this.view.getFAB()
   if (fabEl) {
-    fabEl.addEventListener("click", (e) => {
-        //this.FAB.setNextPageState("fab")
-        this.FAB.set({pageState: "priorities_results"})
-        this.cache.setFAB(this.FAB.get())
-        this.view.createPageBody("results")
-      }
+    fabEl.addEventListener(
+        "click",
+        this.getFabEventListener(
+          this.view.createPageBody.bind(this.view)
+        )
     )
   }
 

@@ -19,15 +19,6 @@ Controller.prototype.getResultsPageEventListeners = function() {
 }
 
 Controller.prototype.addResultsPageEventListeners = function() {
-  let fabEl = this.view.getFAB()
-  if (fabEl) {
-    fabEl.addEventListener(
-    "click",
-    this.getFabEventListener(
-      this.view.createPrioritiesBody.bind(this.view)
-    )
-  )}
-
   let homeTitleEl = document.getElementById("nav-title-text")
   if (homeTitleEl) {
     this.delegatedHandlers.addEventListener(document, "click", "#nav-title-text", (e) => {
@@ -35,6 +26,16 @@ Controller.prototype.addResultsPageEventListeners = function() {
         this.cache.setFAB(this.FAB.get())
         this.view.createPageBody("landing")
       }
+    )
+  }
+
+  let fabEl = this.view.getFAB()
+  if (fabEl) {
+    fabEl.addEventListener(
+        "click",
+        this.getFabEventListener(
+          this.view.createPageBody.bind(this.view)
+        )
     )
   }
 

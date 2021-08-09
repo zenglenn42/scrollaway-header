@@ -28,31 +28,12 @@ Controller.prototype.addSettingsPageEventListeners = function() {
 
   fabEl = this.view.getFAB()
   if (fabEl) {
-    gotoPage = fabEl.getAttribute("data-goto-page") || "landing"
-
-    switch(gotoPage) {
-      case "priorities":
-        fabEl.addEventListener(
-          "click",
-          this.getFabEventListener(this.view.createPrioritiesBody.bind(this.view))
-        )
-        break
-
-      case "results":
-        fabEl.addEventListener(
-          "click",
-          this.getFabEventListener(this.view.createResultsBody.bind(this.view))
-        )
-        break
-
-      case "landing":
-      default:
-        fabEl.addEventListener(
-          "click",
-          this.getFabEventListener(this.view.createLandingBody.bind(this.view))
-        )
-        break
-    }
+    fabEl.addEventListener(
+      "click",
+      this.getFabEventListener(
+        this.view.createPageBody.bind(this.view)
+      )
+    )
   }
 
   this.delegatedHandlers.addEventListener(document, "click", "#dropdown-settings-language", (e) => {

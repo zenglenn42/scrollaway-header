@@ -13,9 +13,12 @@
 //       synchronized with the models.  Eventually the view will include render()
 //       methods that can be registered with and invoked by the models in response
 //       to state changes therein.
+//
+// TODO: Should probably create FAB as a singleton since there is only one per app.
 //----------------------------------------------------------------------------------
 
-View.prototype.createFAB = function(fabId = "fabId") {
+View.prototype.createFAB = function(fabId = "floating-access-button") {
+  this.fabId = fabId  // Save stateful fab element id.
 
   let fabClasses  = "footer-fab mdl-button mdl-js-button mdl-button--fab "
       fabClasses += "mdl-js-ripple-effect mdl-button--mini-fab mdl-button--primary"
@@ -26,7 +29,7 @@ View.prototype.createFAB = function(fabId = "fabId") {
   let fabVisibility = this.fabModel.getVisibility() ? "visible" : "hidden"
 
   let fabHTML = `
-    <button id="${fabId}"
+    <button id="${this.fabId}"
             class="${fabClasses}"
             data-goto-page="${fabPage}"
             style="visibility: ${fabVisibility}">
@@ -36,8 +39,8 @@ View.prototype.createFAB = function(fabId = "fabId") {
   return fabHTML
 }
 
-View.prototype.getFAB = function(fabId = "fabId") {
+View.prototype.getFAB = function() {
   // TODO: Add error handling.
-  let fabEl = document.getElementById(fabId)
+  let fabEl = document.getElementById(this.fabId)
   return fabEl
 }
