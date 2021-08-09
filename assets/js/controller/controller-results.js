@@ -33,7 +33,7 @@ Controller.prototype.addResultsPageEventListeners = function() {
     this.delegatedHandlers.addEventListener(document, "click", "#nav-title-text", (e) => {
         this.FAB.set({pageState: "dontcare_landing"})
         this.cache.setFAB(this.FAB.get())
-        this.view.createLandingBody()
+        this.view.createPageBody("landing")
       }
     )
   }
@@ -61,8 +61,7 @@ Controller.prototype.getViewButtonEventListener = function() {
 
     // Update view according to model.
     that.view.setActiveDataView(that.results.getActiveDataView())
-
-    that.view.createResultsBody()
+    that.view.createPageBody("results")
   }
   return innerFunction
 }

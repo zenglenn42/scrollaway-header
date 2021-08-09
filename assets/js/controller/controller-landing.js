@@ -17,7 +17,7 @@ Controller.prototype.addLandingPageEventListeners = function() {
     this.delegatedHandlers.addEventListener(document, "click", "#nav-title-text", (e) => {
         this.FAB.set({pageState: "dontcare_landing"})
         this.cache.setFAB(this.FAB.get())
-        this.view.createLandingBody()
+        this.view.createPageBody("landing")
       }
     )
   }
