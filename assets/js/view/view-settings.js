@@ -122,12 +122,6 @@ View.prototype.createSettingsMain = function() {
   // List items for 'max results' dropdown selection list box.
   // Turn settings model for max results options into presentation elements (list items).
 
-/*
-  let maxResultsListItems = (this.getMaxResultsOptions().map((numCities, i) => {
-      return `<li id="maxResults-${i+1}" data-value="${numCities}" class="mdl-menu__item settings-max-results__button">${numCities}</li>`
-  }).reduce((acc, li) => {acc += li; return acc}, ""))
-*/
-
   let maxResultsListItems = (this.getMaxResultsOptions().map((numCities, i) => {
       let currentNum = this.getMaxResults()
       let selected = (currentNum === numCities) ? `data-selected="true"` : ''
@@ -147,7 +141,6 @@ View.prototype.createSettingsMain = function() {
         <label class="mdl-button mdl-js-button mdl-button--icon" for="languageId">
           <i  class="material-icons">language</i>
         </label>
-        <!--${this.getSelectLang()}-->
         ${this.getMenuSettingsUseLang(this.getLangName(this.getLocale()))}
       </span>
       <div id="dropdown-settings-language" 
