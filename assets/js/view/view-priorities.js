@@ -60,6 +60,7 @@ View.prototype.createPrioritiesMain = function() {
     sliderId: `${this.sliderHappinessId}`,
     sliderContainerId: `${this.sliderHappinessId}-container`,
     tooltipId: `${this.tooltipHappinessId}`,
+    tooltipIcon: 'info',
     iconClass: "far fa-lg pr-3",
     leftSliderIcon: "fa-meh",
     rightSliderIcon: "fa-smile",
@@ -83,6 +84,7 @@ View.prototype.createPrioritiesMain = function() {
     sliderId: `${this.sliderPoliticsId}`,
     sliderContainerId: `${this.sliderPoliticsId}-container`,
     tooltipId: `${this.tooltipPolitics}`,
+    tooltipIcon: 'info',
     iconClass: "fas fa-lg pr-3",
     leftSliderIcon: "fa-democrat blue-text",
     rightSliderIcon: "fa-republican red-text",
@@ -105,6 +107,7 @@ View.prototype.createPrioritiesMain = function() {
     sliderId: `${this.sliderAffordabilityId}`,
     sliderContainerId: `${this.sliderAffordabilityId}-container`,
     tooltipId: `${this.tooltipAffordabilityId}`,
+    tooltipIcon: 'info',
     iconClass: "fas fa-md pr-3",
     leftSliderIcon: "fa-dollar-sign",
     rightSliderIcon: "fa-dollar-sign",
@@ -126,6 +129,7 @@ View.prototype.createPrioritiesMain = function() {
     switchId: `${this.switchJobSearchId}`,
     inputId: "input-jobsearch",
     tooltipId: `${this.tooltipJobSearchId}`,
+    tooltipIcon: 'lock',
     titleText: jobSearchTitle,
     iconClass: "far fa-lg pr-3",
     icon: "fa-user",
@@ -185,7 +189,7 @@ View.prototype.createPrioritiesSliderCard = function(priorityParams, isEnabled) 
             style="padding: 0 0.2em; border-radius: 0.1em; background-color: rgba(6,6,6,0.6)"
           >
             ${priorityParams.titleText} &nbsp;
-            <i class="material-icons info-icon">info</i>
+            <i class="material-icons info-icon">${priorityParams.tooltipIcon}</i>
           </h2>
         </div>
         <div class="mdl-card__supporting-text">
@@ -269,7 +273,7 @@ View.prototype.createPrioritiesTextinputCard = function(priorityParams) {
             style="padding: 0 0.2em; border-radius: 0.1em; background-color: rgba(6,6,6,0.6)"
           >
             ${priorityParams.titleText} &nbsp;
-            <i class="material-icons info-icon">info</i>
+            <i class="material-icons info-icon">${priorityParams.tooltipIcon}</i>
           </h2>
         </div>
         <div class="mdl-card__supporting-text">
