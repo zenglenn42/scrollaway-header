@@ -322,7 +322,7 @@ View.prototype.createNav = function(navItems = []) {
 View.prototype.createHeader = function(title, navItems = [], subTitle) {
   let h = document.createElement("header")
   let navHtml = this.createNav(navItems)
-  let centerBelowTitle = "&nbsp".repeat(1)  // Slightly more pleasing subTitle centering. TODO: Do this in CSS.
+  let centerBelowTitle = "&nbsp".repeat(0)  // Slightly more pleasing subTitle centering. TODO: Do this in CSS.
   let subTitleHtml = (subTitle) 
                         ? `<section style="padding: 0.25em 0; background-color: gray; text-align: center">${centerBelowTitle}${subTitle}</section>`
                         : ''
