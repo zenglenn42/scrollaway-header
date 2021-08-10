@@ -15,7 +15,10 @@ View.prototype.createResultsBody = function createResultsBody() {
   let title = this.getAppName()
   let subTitle  = `<i class="fas fa-trophy"></i>&nbsp;&nbsp;`
       subTitle += this.getResultsTitle()
-  let header = this.createHeader(title, [], subTitle)
+  let header = this.createHeader(title, [
+        {id: 'nav-lang-button', icon: 'language',       tooltip: 'language', enabled: false},
+        {id: 'nav-acct-button', icon: 'account_circle', tooltip: 'login',    enabled: false}],
+        subTitle)
 
   let menuDrawer = this.createMenuDrawer()
   this.addMenuDrawerEventListeners()

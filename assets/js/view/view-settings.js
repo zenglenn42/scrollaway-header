@@ -43,7 +43,10 @@ View.prototype.createSettingsBody = function createSettingsBody() {
 
   let title = this.getAppName()
   let subTitle  = this.getSettingsTitle()
-  let header = this.createHeader(title, [], subTitle)
+  let header = this.createHeader(title, [
+        {id: 'nav-lang-button', icon: 'language',       tooltip: 'language', enabled: false},
+        {id: 'nav-acct-button', icon: 'account_circle', tooltip: 'login',    enabled: false}],
+        subTitle)
 
   let menuDrawer = this.createMenuDrawer()
   this.addMenuDrawerEventListeners()
@@ -142,7 +145,7 @@ View.prototype.createSettingsMain = function() {
     <div class='mdl-cell mdl-cell--6-col settings-cell'>
       <span>
         <label class="mdl-button mdl-js-button mdl-button--icon" for="languageId">
-          <i  class="material-icons">translate</i>
+          <i  class="material-icons">language</i>
         </label>
         <!--${this.getSelectLang()}-->
         ${this.getMenuSettingsUseLang(this.getLangName(this.getLocale()))}

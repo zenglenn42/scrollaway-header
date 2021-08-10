@@ -18,7 +18,7 @@
      edge of the menu icon instead of the right, causing the
      header text to drift left by the width of the icon.
   */
-  margin-left: 24px;
+  margin-left: 72px;  /* TODO: Calc me.  Function of right-nav icons. */
 }
 
 .mdl-layout-title-nudged {

@@ -12,7 +12,9 @@ View.prototype.createLandingBody = function() {
   let appName = this.getAppName()
   let slogan = this.getSlogan()
   let blurb = this.getBlurb()
-  let header = this.createHeader(appName, [])
+  let header = this.createHeader(appName, [
+        {id: 'nav-lang-button', icon: 'language',       tooltip: 'language', enabled: false},
+        {id: 'nav-acct-button', icon: 'account_circle', tooltip: 'login',    enabled: false}])
 
   // Split newline-delimited sentences from blurb text into
   // separate array entries for more latitude with html formatting.

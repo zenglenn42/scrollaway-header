@@ -25,7 +25,10 @@ View.prototype.createPrioritiesBody = function createPrioritiesBody() {
   this.removeChildNodes(bodyDiv)
   let title = this.getAppName()
   let subTitle  = this.getPrioritiesTitle()
-  let header = this.createHeader(title, [], subTitle)
+  let header = this.createHeader(title, [
+        {id: 'nav-lang-button', icon: 'language',       tooltip: 'language', enabled: false},
+        {id: 'nav-acct-button', icon: 'account_circle', tooltip: 'login',    enabled: false}],
+        subTitle)
   let menuDrawer = this.createMenuDrawer()
   this.addMenuDrawerEventListeners()
   let hamburgerMenu = this.createHamburgerMenu()
