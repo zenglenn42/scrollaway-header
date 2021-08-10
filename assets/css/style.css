@@ -8,6 +8,10 @@
   padding: 0 16px 0 16px;
 }
 
+/* Centering the app title in the header row is a bit of a dark art */
+/* that factors in the number of right-side nav icons and also      */
+/* compromises for longer titles (like with Spanish).               */
+
 .mdl-layout__header-left-spacer {
   /* 
      Allow header title text to be centered despite absolutely
@@ -18,7 +22,15 @@
      edge of the menu icon instead of the right, causing the
      header text to drift left by the width of the icon.
   */
-  margin-left: 72px;  /* TODO: Calc me.  Function of right-nav icons. */
+  margin-left: 48px;  /* TODO: Calc me.  Function of right-nav icons. */
+}
+
+@media screen and (max-width: 320px) {
+  /* Without this, the right-side nav icons get clipped with longer */
+  /* titles on smaller screens.                                     */
+  .mdl-layout__header-left-spacer {
+    margin-left: 24px;  /* TODO: Calc me. */
+  }
 }
 
 .mdl-layout-title-nudged {
