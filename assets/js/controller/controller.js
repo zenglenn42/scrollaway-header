@@ -75,6 +75,13 @@ function Controller(bodyDivId, locale = "en-US") {
 
   this.delegatedHandlers = this.ManagedEventHandlers.getSingleton()
 
+  // Get network status at object creation-time.
+  //
+  // We may want to set this up on an interval, but for now, we just check at
+  // a few significant junctures in the code-flow.
+
+  this.isOnline = 'unknown'
+  this.checkInternet("", this.setOnlineStatus.bind(this))
 
   // Instantiate view, passing in state getters from models.
   this.view = new View(
@@ -165,6 +172,8 @@ function Controller(bodyDivId, locale = "en-US") {
     this.results.getNoResults.bind(this.results),
     this.results.getNoResultsImg.bind(this.results),
     this.results.getNoResultsAdvice.bind(this.results),
+    this.results.getNoMapView.bind(this.results),
+    this.results.getMissingCityImg.bind(this.results),
     this.results.getMonetizeHere.bind(this.results),
     this.results.getMonetizeLearnMore.bind(this.results),
     this.results.getMonetizeImg.bind(this.results),
@@ -178,7 +187,9 @@ function Controller(bodyDivId, locale = "en-US") {
     this.results.getChartLabelPolitics.bind(this.results),
     this.results.getListLabelHappiness.bind(this.results),
     this.results.getListLabelAffordability.bind(this.results),
-    this.results.getListLabelPolitics.bind(this.results)
+    this.results.getListLabelPolitics.bind(this.results),
+    this.checkInternet.bind(this),
+    this.getOnlineStatus.bind(this)
   )
 
   this.view.render()
@@ -276,3 +287,93 @@ Controller.prototype.ManagedEventHandlers = (function() {
     }
   }
 })()
+
+
+// Check if we have connectivity to internet resources.
+//
+// This defaults to a blocking request on an internet resource so don't
+// abuse.  If you want periodic checks during runtime, consider wrappering
+// in an interval in asynchronous mode.
+//
+// Inspired by:
+// www.kirupa.com/html5/check_if_internet_connection_exists_in_javascript.htm
+//
+// See also:
+// www.freecodecamp.org/news/how-to-check-internet-connection-status-with-javascript
+
+Controller.prototype.checkInternet = function(
+          checkUrl = "",
+          callback = this.setOnlineStatus,
+          runAsynchronously = false) {
+
+  let avoidCache = Math.round(Math.random() * 10000)
+  let dfltUrl = `https://i.imgur.com/7ofBNix.png?rand=${avoidCache}`  // smiley image
+  let rqstUrl = (checkUrl) ? checkUrl : dfltUrl
+
+  let xhr = new XMLHttpRequest()
+
+  let checkFileOnly = 'HEAD'
+  let httpMethod = checkFileOnly
+  let useCapture = false
+
+  if (typeof callback === 'function') {
+    xhr.addEventListener("readystatechange", handleResponse, useCapture)
+    if (runAsynchronously) {
+      xhr.timeout = 5000  // Cancel request if nothing back after 5 seconds.
+    }
+    xhr.open(httpMethod, rqstUrl, runAsynchronously)
+    try {
+      xhr.send()
+    } catch(err) {
+
+      // Typically we get here on network-related problems:
+      //  * wifi down
+      //  * ethernet cable unplugged
+
+      callback(false)
+    }
+  } else {
+    console.log(
+      '[Info] Controller.hasInternet() was not passed a valid callback.',
+      'Ignoring request.'
+    )
+  }
+
+  // This callback actually is invoked several times per internet check
+  // as the ready state advances from:
+  //
+  //    1 (connection loading)
+  //    2 (response headers received)
+  //    3 (some data received)
+  //    4 (request complete)
+  //
+  // Typically I only see states 1, 2, and 4.
+
+  function handleResponse(e) {
+    let doneState = 4 // All expected data received over the connection.
+    if (xhr.readyState === doneState) {
+      let httpRqstSucceeded = 200
+      let httpRqstRedirected = 300
+      if (xhr.status >= httpRqstSucceeded && xhr.status < httpRqstRedirected) {
+        callback(true)  // :-)
+      } else {
+        // Encountered a server-related issue.  We alias this to
+        // offline status but it could belie an issue with the request.
+        callback(false) // :-(  no internet
+      }
+    }
+  }
+}
+
+Controller.prototype.setOnlineStatus = function(status) {
+  if (typeof status === 'boolean') {
+    this.isOnline = status
+  } else {
+    this.isOnline = 'unknown'
+  }
+}
+
+Controller.prototype.getOnlineStatus = function() {
+  let status = (typeof this.isOnline === 'boolean') ? this.isOnline : 'unknown'
+  return status
+}

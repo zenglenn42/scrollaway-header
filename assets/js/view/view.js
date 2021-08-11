@@ -112,6 +112,8 @@ function View(
   getNoResults,
   getNoResultsImg,
   getNoResultsAdvice,
+  getNoMapView,
+  getMissingCityImg,
   getMonetizeHere,
   getMonetizeLearnMore,
   getMonetizeImg,
@@ -125,7 +127,9 @@ function View(
   getChartLabelPolitics,
   getListLabelHappiness,
   getListLabelAffordability,
-  getListLabelPolitics
+  getListLabelPolitics,
+  checkInternet,
+  getOnlineStatus
 ) {
 
   this.fabModel = fabModel
@@ -210,6 +214,8 @@ function View(
   this.getNoResults = getNoResults
   this.getNoResultsImg = getNoResultsImg
   this.getNoResultsAdvice = getNoResultsAdvice
+  this.getNoMapView = getNoMapView
+  this.getMissingCityImg = getMissingCityImg
   this.getMonetizeHere = getMonetizeHere
   this.getMonetizeLearnMore = getMonetizeLearnMore
   this.getMonetizeImg = getMonetizeImg
@@ -224,6 +230,11 @@ function View(
   this.getListLabelHappiness = getListLabelHappiness
   this.getListLabelAffordability = getListLabelAffordability
   this.getListLabelPolitics = getListLabelPolitics
+
+  // Bind to network interface
+
+  this.checkInternet = checkInternet
+  this.getOnlineStatus = getOnlineStatus
 
   this.bodyDivId = bodyDivId
   this.rankedList = []

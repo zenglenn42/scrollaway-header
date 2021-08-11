@@ -276,10 +276,10 @@ View.prototype.marshallModelData = function(rank, cityData) {
   // console.log(cityProperties[0].img["imgSrc"])
   let cityName = Object.keys(cityData)[0]
   cityParams.rank = rank
-  if (cityProperties[0].img) {
+  if (cityProperties[0].img && this.getOnlineStatus() === true) {
     cityParams.img = cityProperties[0].img["imgSrc"]
   } else {
-    cityParams.img = "https://placehold.it/300x150"
+    cityParams.img = this.getMissingCityImg()
   }
   cityParams.titleText = cityName.replace(/['"]+/g, "")
   cityParams.happiness = cityProperties[0].happiness
@@ -470,8 +470,68 @@ View.prototype.createResultsNoPrioritiesCard = function(params) {
   return p
 }
 
+View.prototype.getMapViewLinkHtml = function(offline, isActive = "") {
+  let mapTooltipHtml = ""
+  let disableAttr = ""
+  let linkId = "map-view"
+
+  if (offline) {
+    linkId += "-disabled"
+    disableAttr = "disabled"
+    mapTooltip = this.getNoMapView()
+    mapTooltipHtml = `
+        <div style="text-transform: none;"
+              class="mdl-tooltip mdl-tooltip--medium mdl-tooltip--top" 
+              data-mdl-for="map-button">
+          ${mapTooltip}
+        </div>`
+  }
+
+  let html = `
+        <a id="${linkId}" href="#map-button" class="mdl-tabs__tab view-link" ${isActive}>
+          <div ${disableAttr} id="map-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
+            <i class="material-icons view-icons">map</i>
+          </div>
+          ${mapTooltipHtml}
+        </a>`
+
+  return html
+}
+
+View.prototype.getViewLinkHtml = function(linkProps) {
+  let html =`
+      <a id="${linkProps.id}" href="${linkProps.href}" class="mdl-tabs__tab view-link ${linkProps.isActive}">
+        <div id="${linkProps.buttonId}" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
+          <i class="material-icons view-icons">${linkProps.icon}</i>
+        </div>
+      </a>`
+  return html
+}
+
+View.prototype.getSpacerViewLinkHtml = function() {
+  let html =`
+      <a id="hidden-view" href="#hidden-button" class="mdl-tabs__tab view-link" style="visibility: hidden">
+        <div
+        role="button"
+        aria-expanded="false"
+        style="visibility: hidden; margin-left: 1.5em; margin-right: 1.5em;"
+      >
+          <i class="material-icons view-icons">place</i>
+        </div>
+      </a>
+  `
+  return html
+}
+
 View.prototype.createResultsFooter = function() {
   let fab = this.createFAB()
+
+  let offline = (this.getOnlineStatus() !== true)
+  let photoLinkHtml = this.getViewLinkHtml({id: "photo-view", href: "#photo-button", buttonId: "photo-button", icon: "photo", isActive: "is-active"})
+  let listLinkHtml = this.getViewLinkHtml({id: "list-view", href: "#list-button", buttonId: "list-button", icon: "list", isActive: ""})
+  let spacingLinkHtml = this.getSpacerViewLinkHtml()
+  let chartLinkHtml = this.getViewLinkHtml({id: "chart-view", href: "#chart-button", buttonId: "chart-button", icon: "insert_chart", isActive: ""})
+  let mapLinkHtml = this.getMapViewLinkHtml(offline)
 
   let f = document.createElement("footer")
   f.classList.add("mdl-mini-foote")
@@ -479,35 +539,11 @@ View.prototype.createResultsFooter = function() {
       ${fab}
       <div class="view-buttons mdl-tabs mdl-js-tabs">
         <div class="mdl-tabs__tab-bar view-button-tab-bar">
-          <a id="photo-view" href="#photo-button" class="mdl-tabs__tab view-link is-active">
-            <div id="photo-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
-              <i class="material-icons view-icons">photo</i>
-            </div>
-          </a>
-          <a id="list-view" href="#list-button" class="mdl-tabs__tab view-link">
-            <div id="list-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
-              <i class="material-icons view-icons">list</i>
-            </div>
-          </a>
-          <a id="hidden-view" href="#hidden-button" class="mdl-tabs__tab view-link" style="visibility: hidden">
-            <div
-            role="button"
-            aria-expanded="false"
-            style="visibility: hidden; margin-left: 1.5em; margin-right: 1.5em;"
-          >
-              <i class="material-icons view-icons">place</i>
-            </div>
-          </a>
-          <a id="chart-view" href="#chart-button" class="mdl-tabs__tab view-link">
-            <div id="chart-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
-              <i class="material-icons view-icons">insert_chart</i>
-            </div>
-          </a>
-          <a id="map-view" href="#map-button" class="mdl-tabs__tab view-link">
-            <div id="map-button" class="view-button mdl-button mdl-js-button" role="button" aria-expanded="false">
-              <i class="material-icons view-icons">map</i>
-            </div>
-          </a>
+          ${photoLinkHtml}
+          ${listLinkHtml}
+          ${spacingLinkHtml}
+          ${chartLinkHtml}
+          ${mapLinkHtml}
         </div>
       </div>
     `

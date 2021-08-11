@@ -33,7 +33,14 @@ Controller.prototype.addResultsPageEventListeners = function() {
   if (viewButtons) {
     for (let i = 0; i < viewButtons.length; ++i) {
       let el = viewButtons[i]
-      el.addEventListener("click", this.getViewButtonEventListener())
+      let useCapture = true // Otherwise precedence is given to the low-level tab component
+                            // event handler and focus may shift to a disabled view-button.
+                            //
+                            // We want the latitude to pre-empt the flow of events to 3rd-party
+                            // components that don't understand our high-level visualization
+                            // policy.
+
+      el.addEventListener("click", this.getViewButtonEventListener(), useCapture)
     }
   }
 
@@ -44,15 +51,22 @@ Controller.prototype.addResultsPageEventListeners = function() {
 
 Controller.prototype.getViewButtonEventListener = function() {
   let that = this
-  function innerFunction() {
-    let clickedViewId = this.getAttribute("id")
+  function innerFunction(e) {
+    let requestedView = this.getAttribute("id")
+    let currentView = that.results.getActiveDataView()
 
-    // Update model based upon view-button just clicked.
-    that.results.setActiveDataView(clickedViewId)
+    if (requestedView !== currentView && !requestedView.endsWith("disabled")) {
+      // Update model based upon view-button just clicked.
+      that.results.setActiveDataView(requestedView)
 
-    // Update view according to model.
-    that.view.setActiveDataView(that.results.getActiveDataView())
-    that.view.createPageBody("results")
+      // Update view according to model.
+      that.view.setActiveDataView(that.results.getActiveDataView())
+      that.view.createPageBody("results")
+    } else {
+      e.stopPropagation() // Otherwise event will propagate down to tab component and
+                          // draw focus to disabled view-button.
+      e.preventDefault()  // Otherwise index.html#map-button shows up as location in browser.
+    }
   }
   return innerFunction
 }

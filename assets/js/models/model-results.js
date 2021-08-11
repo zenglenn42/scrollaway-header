@@ -38,12 +38,14 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
   this.msgCatalog = {
     "all": {
       noResultsImg: "assets/img/chess-failure.jpg",
-      monetizeImg: "assets/img/monetize.jpg"
+      monetizeImg: "assets/img/monetize.jpg",
+      missingCityImg: "assets/img/welcome-moon.png"
     },
     "en-US": {
       title: "Your best bets ...",
       noResults: "No results available.",
       noResultsAdvice: "Please go back and specify one or more priorities.",
+      noMapView: "The map view requires internet. Please reload when you're reconnected.",
       monetizeHere: "Monetize here $",
       monetizeLearnMore: "Learn More",
       photoLabelHappiness: "Civic Happiness",
@@ -62,6 +64,7 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
       title: "आपके सबसे अच्छे शहर ...",
       noResults: "कोई परिणाम उपलब्ध नहीं है।",
       noResultsAdvice: "कृपया वापस जाएं और एक या अधिक प्राथमिकताएं निर्दिष्ट करें।",
+      noMapView: "मानचित्र के लिए इंटरनेट का उपयोग आवश्यक है। कृपया पुन: कनेक्ट होने पर पुनः लोड करें।",
       monetizeHere: "यहाँ विज्ञापन दें। ₹",
       monetizeLearnMore: "और अधिक जानें",
       photoLabelHappiness: "नागरिक खुशी",
@@ -80,6 +83,7 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
       title: "Tus mejores apuestas ...",
       noResults: "No hay resultados disponibles.",
       noResultsAdvice: "Regrese y especifique una o más prioridades, por favor.",
+      noMapView: "El mapa requiere acceso a Internet. Vuelva a cargar cuando vuelva a conectarse.",
       monetizeHere: "Monetiza aquí $",
       monetizeLearnMore: "Aprende Más",
       photoLabelHappiness: "Felicidad Cívica",
@@ -98,6 +102,7 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
       title: "你最好的赌注 ...",
       noResults: "没有可用的结果。",
       noResultsAdvice: "请返回并指定一个或多个优先级。",
+      noMapView: "地图需要互联网接入。 重新连接后请重新加载。",
       monetizeHere: "在这里获利",
       monetizeLearnMore: "学到更多",
       photoLabelHappiness: "公民幸福",
@@ -129,6 +134,13 @@ ModelResults.prototype.isValidDataView = function(dataView) {
          dataView === "map-view"
 }
 
+ModelResults.prototype.isValidDisabledDataView = function(dataView) {
+  return dataView === "photo-view-disabled" ||
+         dataView === "list-view-disabled"  ||
+         dataView === "chart-view-disabled" ||
+         dataView === "map-view-disabled"
+}
+
 ModelResults.prototype.getActiveDataView = function() {
   return this.activeDataView
 }
@@ -139,7 +151,11 @@ ModelResults.prototype.setActiveDataView = function(dataView) {
     this.activeDataView = dataView
     result = true
   } else {
-    console.log('[Info] ModelResults.setActiveDataView.  Ignoring invalid dataView:', dataView)
+    // Sometimes we disable a data view because inet is down.
+    // Detect for that versus an error condition.
+    if (!this.isValidDisabledDataView(dataView)) {
+      console.log('[Info] ModelResults.setActiveDataView.  Ignoring invalid dataView:', dataView)
+    }
   }
   return result
 }
@@ -209,6 +225,19 @@ ModelResults.prototype.getNoResultsImg = function() {
   return result
 }
 
+ModelResults.prototype.getMissingCityImg = function() {
+  let result = "missing_missingCityImg"
+  if (this.isValidLocaleProperty('all', 'missingCityImg')) {
+    result = this.msgCatalog['all'].missingCityImg
+  } else if (this.isValidLocaleProperty('all', 'missingCityImg')) {
+    result = this.msgCatalog['all'].missingCityImg
+  } else {
+    result = result + "_" + 'all'
+    console.log("ModelPriorities:getMissingCityImg() Error ", result)
+  }
+  return result
+}
+
 ModelResults.prototype.getNoResultsAdvice = function() {
   let result = "missing_noResultsAdvice"
   let locale = this.getLocale()
@@ -219,6 +248,20 @@ ModelResults.prototype.getNoResultsAdvice = function() {
   } else {
     result = (locale) ? result + "_" + locale : result
     console.log("ModelPriorities:getNoResultsAdvice() Error ", result)
+  }
+  return result
+}
+
+ModelResults.prototype.getNoMapView = function() {
+  let result = "missing_noMapView"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'noMapView')) {
+    result = this.msgCatalog[locale].noMapView
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'noMapView')) {
+    result = this.msgCatalog[this.dfltLocale].noMapView
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelPriorities:getNoMapView() Error ", result)
   }
   return result
 }
