@@ -1083,6 +1083,7 @@ But the city images are pulled in real-time from wikepedia and without the net, 
 ![alt](docs/img/inet-unaware.png)
 
 And clicking on the map-view without the net often brings up a partially rendered, blocky canvas of fail.  
+
 Trying to zoom in or zoom out is also a bad idea at this stage, unleashing an avalanche of angry load-errors in the dev console.
 
 So I add some [logic](https://github.com/zenglenn42/CityMatch/commit/c9e985c637bb2a088ec85805315d692ef817c447) for detecting online status at controller-instantiation time and backfill the missing images with our default langing page image:
