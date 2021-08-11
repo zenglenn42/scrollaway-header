@@ -1008,6 +1008,8 @@ With a conducive pattern in place, I add localization for 4 of the world's most 
 ![alt](docs/img/art-wall-kittenprint-9Wq1HpghQ4A-unsplash.jpg)
 Photo by Art Wall - Kittenprint
 
+### I should remember what language you prefer.
+
 The localization work is more satisfying if changes to the locale (and any other setting, really) are remembered across CityMatch sessions.  So I add a [commit](https://github.com/zenglenn42/CityMatch/commit/f4e7800da7d16171ecc0c6740eb449ec62ab9279) to persist settings state to local storage whenever that state changes.
 
 At application start-up, the controller detects for valid, locally cached settings and updates runtime state accordingly:
@@ -1038,8 +1040,14 @@ Of course, saving settings implies the need to clear settings, so I add a menu b
 ![alt](docs/img/clear-cache.png)
 
 Once you clear the cache, the button presents as disabled since there is nothing to clear.
-I should run through the same exercise with user priorities, but that is left as an exercise to the motivated reader.
 
+### I should remember your latest City-related priority values
+
+The same ethos of app settings persistence holds for user priorities as well.  At some point, I could see offering a feature to save your various searches over time, but for now I want to at least capture the last set of slider-card values you specified.
+
+With this [commit](https://github.com/zenglenn42/CityMatch/commit/386fb155f90e5423ef73fcab51659185e99c0c19) and this [bug fix](https://github.com/zenglenn42/CityMatch/commit/f1d1e13321b642ec312f0a63c4051a054ec88bd1) I now persist user priority settings to local storage and restore those at the next invocation of the app.  I also reflect current priority values in the menu itself:
+
+![alt](docs/img/persistent-priorities.png)
 
 ## Thanks for reading
 
