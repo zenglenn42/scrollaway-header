@@ -1086,7 +1086,7 @@ And clicking on the map-view without the net often brings up a partially rendere
 
 Trying to zoom in or zoom out is also a bad idea at this stage, unleashing an avalanche of angry load-errors in the dev console.
 
-So I add some [logic](https://github.com/zenglenn42/CityMatch/commit/c9e985c637bb2a088ec85805315d692ef817c447) for detecting online status at controller-instantiation time and backfill the missing images with our default langing page image:
+So I add some [logic](https://github.com/zenglenn42/CityMatch/commit/c9e985c637bb2a088ec85805315d692ef817c447) for detecting online status at controller-instantiation time and backfill the missing images with our default landing page image:
 
 ![alt](docs/img/inet-resilient.png)
 
