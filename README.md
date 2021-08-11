@@ -904,6 +904,7 @@ I create my own drop-down selection element since Material Design Lite (MDL) doe
 I do a little poking around on github and find a snazzier dropdown selection element [here](https://creativeit.github.io/getmdl-select) that works with the legacy MDL I'm using.  
 
 The [integration](https://github.com/zenglenn42/CityMatch/commit/0de475bd546cb23f894008ce4c291752178c5779) is actually pretty interesting since it forces me to think about how to get my app-level click handler to co-exist with the low-level, 3rd-party click handler for the selection component.  
+
 I step through the 3rd party code and mess with their js map files (since their sourceRoot references an ```e:``` drive and I don't roll that way).  I learn the locale selection values I want to fetch from within my event handler are stored in a /hidden/ input component.  Interesting design.  I'd prefer they hooked into the standard `<select>` tag so on mobile you'd get the native select idiom, but the result is certainly an improvement over what I had thrown together:
 
 ![alt](docs/img/better-dropdowns.png)
