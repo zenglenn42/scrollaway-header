@@ -23,29 +23,38 @@ View.prototype.tooltipJobSearchId = "tooltip-jobsearch"
 View.prototype.createPrioritiesBody = function createPrioritiesBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
   this.removeChildNodes(bodyDiv)
+
   let title = this.getAppName()
   let subTitle  = this.getPrioritiesTitle()
-  let header = this.createHeader(title, [
-        {id: 'nav-lang-button', icon: 'language',       tooltip: 'language', enabled: false},
-        {id: 'nav-acct-button', icon: 'account_circle', tooltip: 'login',    enabled: false}],
-        subTitle)
+  let header = this.createHeader(title, subTitle)
   let menuDrawer = this.createMenuDrawer()
-  this.addMenuDrawerEventListeners()
-  let hamburgerMenu = this.createHamburgerMenu()
-  let mainPriorities = this.createPrioritiesMain()
+  let main = this.createPrioritiesMain()
   let footer = this.createFooter()
 
-  this.addHeader(bodyDiv, header, menuDrawer, hamburgerMenu)
-  bodyDiv.appendChild(mainPriorities)
+  bodyDiv.appendChild(header)
+  bodyDiv.appendChild(menuDrawer)
+  bodyDiv.appendChild(main)
   bodyDiv.appendChild(footer)
 
+  this.addMenuDrawerEventListeners()
+  this.addHeaderEventListeners()
   this.addPrioritiesPageEventListeners()
+  getmdlSelect.init('.getmdl-select') // Event listeners for 3rd-party dropdown elements.
 }
 
 View.prototype.createPrioritiesMain = function() {
   let m = document.createElement("main")
   m.setAttribute("id", "main")
-  m.classList.add("maxy-main")
+  m.classList.add("mdl-layout__content")  // TODO: seems to cause nuisance repaints.
+                                          //       with menu activity. Slider cards
+                                          //       drop in and out.
+
+  //m.classList.add("maxy-main")          // This /was/ my work-around but it behaves
+                                          // oddly on iOS safari, sadly.  FAB is occluded
+                                          // by Apple's browser bottom appbar, compromising
+                                          // usability when switching between priorities
+                                          // and results.
+
   let child = document.createElement("div")
   child.classList.add("grid-content")
   m.appendChild(child)

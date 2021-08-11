@@ -58,33 +58,6 @@ View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
   mdHeader.innerHTML += "</div>"
   md.appendChild(mdHeader)
 
-  /*
-  // create clickable links in nav
-  let nav = document.createElement("nav")
-  nav.classList.add("mdl-navigation")
-  let invariantMenuHtml = invariantMenuItems.map(item => {
-    let anchor = document.createElement("a")
-    anchor.classList.add("mdl-navigation__link")
-    anchor.setAttribute("href", "")
-    anchor.innerHTML = `${item}`
-    return anchor
-  })
-  invariantMenuHtml.map(html => {
-    md.appendChild(html)
-  })
-  let menuHtml = menuItemsArray.map(item => {
-    let anchor = document.createElement("a")
-    anchor.classList.add("mdl-navigation__link")
-    anchor.setAttribute("href", "")
-    anchor.innerHTML = `${item}`
-    return anchor
-    // return `<a class="mdl-navigation__link" href="">${item}</a>`
-  })
-  menuHtml.map(html => {
-    md.appendChild(html)
-  })
-  */
-
   //------------------------------------------------------------
   // VIEW
   //------------------------------------------------------------

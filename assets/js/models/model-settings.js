@@ -43,21 +43,25 @@ function ModelSettings(locale = "en-US", numCities, maxResults, countryCode) {
     "en-US": {
       name: "English",
       enName: "English",
+      flag: "🇺🇸",   // Flag emoji from: https://emojipedia.org/flags/
       supported: true
     },
     "es-ES": {
       name: "Español",
       enName: "Spanish",
+      flag: "🇪🇸",
       supported: true  // May be used by view to gray out a selection list option.
     },
     "hi-IN": {
       name: "हिंदी",
       enName: "Hindi",
+      flag: "🇮🇳",
       supported: true
     },
     "zh-CN": {
       name: "普通话",
       enName: "Mandarin",
+      flag: "🇨🇳",
       supported: true  // May be used by view to gray out a selection list option.
     }
   }
@@ -74,17 +78,20 @@ function ModelSettings(locale = "en-US", numCities, maxResults, countryCode) {
   this.countryOptionsMap = {
     "US": {
       name: "United States",
+      flag: "🇺🇸",
       supported: true,
       currency: "USD"
     },
     "IN": {
       name: "India",
-      supported: false,
+      flag: "🇮🇳",
+      supported: false, // May be used to gray-out in user interface.
       currency: "USD"   // Should probably be rupies for full localization.
     },
     "CR": {
       name: "Costa Rica",
-      supported: false, // Grayed out in user interface.
+      flag: "🇨🇷",
+      supported: false, // May be used to gray-out in user interface.
       currency: "CRC"
     }
   }

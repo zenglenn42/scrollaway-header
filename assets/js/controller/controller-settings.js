@@ -16,16 +16,6 @@ Controller.prototype.getSettingsPageEventListeners = function() {
 }
 
 Controller.prototype.addSettingsPageEventListeners = function() {
-  let homeTitleEl = document.getElementById("nav-title-text")
-  if (homeTitleEl) {
-    this.delegatedHandlers.addEventListener(document, "click", "#nav-title-text", (e) => {
-        this.FAB.set({pageState: "dontcare_landing"})
-        this.cache.setFAB(this.FAB.get())
-        this.view.createPageBody("landing")
-      }
-    )
-  }
-
   fabEl = this.view.getFAB()
   if (fabEl) {
     this.delegatedHandlers.addEventListener(

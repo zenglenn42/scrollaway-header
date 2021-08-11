@@ -2,38 +2,28 @@
 // Landing Page
 //
 // These view methods update the browser DOM to render the initial screen when
-// the user starts the app.
+// the user starts the app (in the absence of persisted state).
 //----------------------------------------------------------------------------------
 
 View.prototype.createLandingBody = function() {
   let bodyDiv = document.getElementById(this.bodyDivId)
   this.removeChildNodes(bodyDiv)
 
-  let appName = this.getAppName()
-  let slogan = this.getSlogan()
-  let blurb = this.getBlurb()
-  let header = this.createHeader(appName, [
-        {id: 'nav-lang-button', icon: 'language',       tooltip: 'language', enabled: false},
-        {id: 'nav-acct-button', icon: 'account_circle', tooltip: 'login',    enabled: false}])
-
-  // Split newline-delimited sentences from blurb text into
-  // separate array entries for more latitude with html formatting.
-  let delimitedBlurb = blurb.split("\n")
-
+  let title = this.getAppName()
+  let header = this.createHeader(title)
   let menuDrawer = this.createMenuDrawer()
-  this.addMenuDrawerEventListeners()
-
-  let hamburgerMenu = this.createHamburgerMenu()
-  let mainLanding = this.createLandingMain(
-    slogan,
-    delimitedBlurb
-  )
+  let main = this.createLandingMain(this.getSlogan(), this.getBlurb().split("\n"))
   let footer = this.createFooter()
-  this.addHeader(bodyDiv, header, menuDrawer, hamburgerMenu)
-  bodyDiv.appendChild(mainLanding)
+
+  bodyDiv.appendChild(header)
+  bodyDiv.appendChild(menuDrawer)
+  bodyDiv.appendChild(main)
   bodyDiv.appendChild(footer)
 
+  this.addMenuDrawerEventListeners()
+  this.addHeaderEventListeners()
   this.addLandingPageEventListeners()
+  getmdlSelect.init('.getmdl-select') // Event listeners for 3rd-party dropdown elements.
 }
 
 
@@ -42,7 +32,9 @@ View.prototype.createLandingMain = function(slogan, blurbArray) {
   m.classList.add("content")
   m.setAttribute("id", "main")
 
-  // Present each blurb array text element as a separate html paragraph.
+  // Present each blurb array text element as a separate html
+  // paragraph for better whitespace control.
+
   let blurbParagraphs = blurbArray.reduce((acc, blurbItem) => {
       acc += `<p>${blurbItem}</p>`
       return acc

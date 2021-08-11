@@ -157,7 +157,7 @@ function ModelPriorities(getLocale = () => {return locale="en-US"},
       jobSearchPlaceholder: "नौकरी का शीर्षक" + " " + "(विकलांग)"
     },
     "es-ES": {
-      title: "Comparta sus prioridades", // TODO: Shorten? Getting clipped on iPhone SE.
+      title: "Comparta sus prioridades ...", // TODO: Shorten? Getting clipped on iPhone SE.
       happinessTitle: "Felicidad Cívica",
       happinessTooltip: "Utilice el control deslizante a continuación para ajustar esta prioridad. " +
                         "Basado en un estudio de WalletHub de 2019 en muchas dimensiones, incluido el bienestar general, el empleo y la comunidad.",

@@ -33,43 +33,35 @@ View.prototype.setLanguage = function() {
   // TODO: Not crazy about this.  Really should be happening as a result
   //       of state change in the model rather than element change in view.
 
-  this.createSettingsBody()
+  this.render()
 }
 
 View.prototype.createSettingsBody = function createSettingsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
-
   this.removeChildNodes(bodyDiv)
 
   let title = this.getAppName()
   let subTitle  = this.getSettingsTitle()
-  let header = this.createHeader(title, [
-        {id: 'nav-lang-button', icon: 'language',       tooltip: 'language', enabled: false},
-        {id: 'nav-acct-button', icon: 'account_circle', tooltip: 'login',    enabled: false}],
-        subTitle)
-
+  let header = this.createHeader(title, subTitle)
   let menuDrawer = this.createMenuDrawer()
-  this.addMenuDrawerEventListeners()
-  let hamburgerMenu = this.createHamburgerMenu()
-  let mainSettings = this.createSettingsMain()
+  let main = this.createSettingsMain()
   let footer = this.createFooter()
 
-  this.addHeader(bodyDiv, header, menuDrawer, hamburgerMenu)
-  bodyDiv.appendChild(mainSettings)
+  bodyDiv.appendChild(header)
+  bodyDiv.appendChild(menuDrawer)
+  bodyDiv.appendChild(main)
   bodyDiv.appendChild(footer)
 
+  this.addMenuDrawerEventListeners()
+  this.addHeaderEventListeners()
   this.addSettingsPageEventListeners()
-
-  // Add event listeners for dynamically added 3rd party dropdown-selection 
-  // elements.
-  //
-  // TODO:  Add some abstraction around this.
-  getmdlSelect.init('.getmdl-select')
+  getmdlSelect.init('.getmdl-select') // Event listeners for 3rd-party dropdown elements.
 }
 
 View.prototype.getLangListItems = function(langMap) {
   let langListItems = Object.keys(langMap).reduce((acc, langKey, i) => {
     let name = langMap[langKey].name
+    let flag = langMap[langKey].flag
     let supported = langMap[langKey].supported
     let currentKey = this.getLocale()
     let selected = (currentKey === langKey) ? `data-selected="true"` : ''
@@ -82,7 +74,7 @@ View.prototype.getLangListItems = function(langMap) {
 
     let li = `<li id="language-${i+1}" data-val="${langKey}" data-value="${langKey}" ${selected} ${disabled}
                   class="mdl-menu__item">
-                  ${name}
+                  ${name} ${flag}
               </li>`
     acc += li
     return acc
@@ -98,7 +90,7 @@ View.prototype.getLangDropdown = function(langListItems) {
         <input id="settings-language" type="text" value="" class="mdl-textfield__input" readonly>
         <input type="hidden" value="" name="settings-language"/>
         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-        <label class="mdl-textfield__label" for="settings-language">Select language</label>
+        <label class="mdl-textfield__label" for="settings-language">Select language / locale</label>
         <ul for="settings-language" class="mdl-menu mdl-menu--bottom-right mdl-js-menu">
             ${langListItems}
         </ul>
@@ -123,13 +115,14 @@ View.prototype.getEditLangSetting = function(langLabel, langDropdown) {
 View.prototype.getCountryListItems = function(countryMap) {
   let countryListItems = Object.keys(countryMap).reduce((acc, countryKey, i) => {
     let name = countryMap[countryKey].name
+    let flag = countryMap[countryKey].flag
     let currentKey = this.getCountryCode()
     let selected = (currentKey === countryKey) ? `data-selected="true"` : ''
     let supported = countryMap[countryKey].supported
     if (supported) {
       let li = `<li id="country-${i+1}" data-val="${countryKey}" data-value="${countryKey}" ${selected}
                     class="mdl-menu__item">
-                    ${name}
+                    ${name} ${flag}
                 </li>`
       acc += li
     }

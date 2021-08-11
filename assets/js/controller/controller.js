@@ -81,6 +81,7 @@ function Controller(bodyDivId, locale = "en-US") {
     bodyDivId,
     this.FAB,
     this.getMenuDrawerEventListeners().bind(this),
+    this.getHeaderEventListeners().bind(this),
     this.getLandingPageEventListeners().bind(this),
     this.getPrioritiesPageEventListeners().bind(this),
     this.getResultsPageEventListeners().bind(this),

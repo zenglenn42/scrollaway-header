@@ -8,34 +8,58 @@
 // TODO: Prevent map-view if internet is not available since leaflet is inet dep.
 //----------------------------------------------------------------------------------
 
-View.prototype.createResultsBody = function createResultsBody() {
+View.prototype.createResultsBody = function() {
   let bodyDiv = document.getElementById(this.bodyDivId)
   this.removeChildNodes(bodyDiv)
 
   let title = this.getAppName()
-  let subTitle  = `<i class="fas fa-trophy"></i>&nbsp;&nbsp;`
-      subTitle += this.getResultsTitle()
-  let header = this.createHeader(title, [
-        {id: 'nav-lang-button', icon: 'language',       tooltip: 'language', enabled: false},
-        {id: 'nav-acct-button', icon: 'account_circle', tooltip: 'login',    enabled: false}],
-        subTitle)
-
+  let subTitle = this.getResultsSubtitle()
+  let header = this.createHeader(title, subTitle)
   let menuDrawer = this.createMenuDrawer()
-  this.addMenuDrawerEventListeners()
-  let hamburgerMenu = this.createHamburgerMenu()
-  this.addHeader(bodyDiv, header, menuDrawer, hamburgerMenu)
-  this.resultsMain = this.createResultsMain(bodyDiv)
+  let main = this.createResultsMain()
   let footer = this.createResultsFooter()
+
+  bodyDiv.appendChild(header)
+  bodyDiv.appendChild(menuDrawer)
+  bodyDiv.appendChild(main)
+  this.appendLatentView(main)
   bodyDiv.appendChild(footer)
 
   // Update presentation of results based upon data-view in model.
   // TODO: We really should be persisting this state between sessions.
   this.setActiveDataView(this.getActiveDataView())
 
+  this.addMenuDrawerEventListeners()
+  this.addHeaderEventListeners()
   this.addResultsPageEventListeners()
+  getmdlSelect.init('.getmdl-select') // Event listeners for 3rd-party dropdown elements.
 }
 
-View.prototype.createResultsMain = function(bodyDiv) {
+View.prototype.getResultsSubtitle = function() {
+  let subTitle  = `<i class="fas fa-trophy"></i>&nbsp;&nbsp; ${this.getResultsTitle()}`
+  return subTitle
+}
+
+// Some advanced views require the main div to already be
+// connected to the DOM before we can build-out the view.
+
+View.prototype.appendLatentView = function(mainEl) {
+  let view = mainEl.getAttribute("data-view")
+  switch(view) {
+    case "chart":
+      this.createChartView()
+      break
+    case "map":
+      this.createMapView()
+      break
+    case "photo":
+    case "list":
+    default:
+      break
+  }
+}
+
+View.prototype.createResultsMain = function() {
   let m = document.createElement("main")
   m.setAttribute("id", "main")
   m.classList.add("mdl-layout__content")
@@ -55,7 +79,7 @@ View.prototype.createResultsMain = function(bodyDiv) {
     g.classList.add("mdl-grid")
     g.appendChild(c)
     m.appendChild(g)
-    bodyDiv.appendChild(m)
+    m.setAttribute("data-view", "fail")
   } else {
     this.rankedList = this.cityRankModelCB(userPriorities)
     this.rankedList.length = this.getMaxResults()
@@ -65,7 +89,7 @@ View.prototype.createResultsMain = function(bodyDiv) {
         let ol = this.createListView(userPriorities)
         child.appendChild(ol)
         m.appendChild(child)
-        bodyDiv.appendChild(m)
+        m.setAttribute("data-view", "list")
         break
       case "chart-view":
         let chartId = "myChart"
@@ -73,8 +97,7 @@ View.prototype.createResultsMain = function(bodyDiv) {
           <canvas id="${chartId}" style="height: 73vh"></canvas>
         `
         m.appendChild(child)
-        bodyDiv.appendChild(m)
-        this.createChartView(chartId)
+        m.setAttribute("data-view", "chart")
         break
       case "map-view":
         {
@@ -82,8 +105,7 @@ View.prototype.createResultsMain = function(bodyDiv) {
           child.setAttribute("id", mapId)
           child.setAttribute("style", "height: 80vh")
           m.appendChild(child)
-          bodyDiv.appendChild(m)
-          this.createMapView(mapId)
+          m.setAttribute("data-view", "map")
         }
         break
       case "photo-view":
@@ -113,10 +135,11 @@ View.prototype.createResultsMain = function(bodyDiv) {
           let c = this.createResultsCityCard(cityParams)
           g.appendChild(c)
         })
-        bodyDiv.appendChild(m)
+        m.setAttribute("data-view", "photo")
         break
     }
   }
+  return m
 }
 
 View.prototype.createListView = function(userPriorities, rank = 1) {
@@ -144,7 +167,7 @@ View.prototype.createListView = function(userPriorities, rank = 1) {
   return ol
 }
 
-View.prototype.createChartView = function(chartId) {
+View.prototype.createChartView = function(chartId = "myChart") {
   var ctx = document.getElementById(chartId).getContext("2d")
   let cityLabels = []
   let happinessData = []
@@ -221,7 +244,7 @@ View.prototype.createChartView = function(chartId) {
   })
 }
 
-View.prototype.createMapView = function(mapId) {
+View.prototype.createMapView = function(mapId = "mapid") {
   let map = L.map(mapId).setView([38, -96], 3)
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution:

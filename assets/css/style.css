@@ -4,6 +4,12 @@
   color: white;
 }
 
+/* Disable annoying white drawer outline that fails   */
+/* with mdl-menu--bottom-right for nav language icon. */
+#dropdown-nav-language > div > div {
+  display: none
+}
+
 .mdl-layout__header-row {
   padding: 0 16px 0 16px;
 }
@@ -22,7 +28,7 @@
      edge of the menu icon instead of the right, causing the
      header text to drift left by the width of the icon.
   */
-  margin-left: 48px;  /* TODO: Calc me.  Function of right-nav icons. */
+  margin-left: 60px;  /* TODO: Calc me.  Function of right-nav icons. */
 }
 
 @media screen and (max-width: 320px) {

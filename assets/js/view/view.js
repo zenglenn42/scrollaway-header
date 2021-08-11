@@ -28,6 +28,7 @@ function View(
   bodyDivId,
   fabModel,
   addMenuDrawerEventListeners,
+  addHeaderEventListeners,
   addLandingPageEventListeners,
   addPrioritiesPageEventListeners,
   addResultsPageEventListeners,
@@ -227,6 +228,7 @@ function View(
   this.bodyDivId = bodyDivId
   this.rankedList = []
   this.addMenuDrawerEventListeners = addMenuDrawerEventListeners
+  this.addHeaderEventListeners = addHeaderEventListeners
   this.addLandingPageEventListeners = addLandingPageEventListeners
   this.addPrioritiesPageEventListeners = addPrioritiesPageEventListeners
   this.addResultsPageEventListeners = addResultsPageEventListeners
@@ -298,55 +300,6 @@ View.prototype.removeChildNodes = function(parentNode) {
   while (parentNode.firstChild) {
     parentNode.removeChild(parentNode.firstChild);
   }
-}
-
-View.prototype.createNav = function(navItems = []) {
-  let navInnerHtml = navItems.map((navItem) => {
-    let navItemId = navItem.id
-    let navIcon = navItem.icon || 'warning'
-    let disabled = (!navItem.enabled || navItem.enabled === false) ? "disabled" : ""
-    let html = `
-          <button id="${navItemId}" 
-                  class="mdl-navigation__link mdl-button mdl-js-button mdl-button--icon"
-                  ${disabled} >
-            <i class='material-icons header-icons'>${navIcon}</i>
-          </button>
-          <div class="mdl-tooltip" for="${navItemId}">${navItem.tooltip}</div>
-    `
-    return html
-  }).join('')
-  let navHtml = `<nav class="mdl-navigation">${navInnerHtml}</nav>`
-  return navHtml
-}
-
-View.prototype.createHeader = function(title, navItems = [], subTitle) {
-  let h = document.createElement("header")
-  let navHtml = this.createNav(navItems)
-  let centerBelowTitle = "&nbsp".repeat(0)  // Slightly more pleasing subTitle centering. TODO: Do this in CSS.
-  let subTitleHtml = (subTitle) 
-                        ? `<section style="padding: 0.25em 0; background-color: gray; text-align: center">${centerBelowTitle}${subTitle}</section>`
-                        : ''
-
-  h.classList += "mdl-layout__header"
-  h.innerHTML = `
-      <div class="mdl-layout__header-row">
-      <div class="mdl-layout__header-left-spacer"></div>
-      <div class="mdl-layout-spacer"></div>
-      <span id="nav-title-text" class="mdl-layout-title mdl-button" style="color:white; text-transform: none; padding-top: 8px;">
-          ${title}
-      </span>
-      <div class="mdl-layout-spacer"></div>
-      ${navHtml}
-      </div>
-      ${subTitleHtml}
-    `
-  return h
-}
-
-View.prototype.addHeader = function(bodyDiv, header, menuDrawer, hamburgerMenu) {
-  bodyDiv.appendChild(header)
-  bodyDiv.appendChild(menuDrawer)
-  bodyDiv.appendChild(hamburgerMenu)
 }
 
 // Some view models maintain ascii icons (since models are inherently more abstract).
