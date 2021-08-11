@@ -1065,6 +1065,30 @@ With this [commit](https://github.com/zenglenn42/CityMatch/commit/386fb155f90e54
 
 ![alt](docs/img/persistent-priorities.png)
 
+## Harden app if internet goes down
+
+It's a complicated world and sometimes the precious internet is not available.  
+
+How should the app respond?  Naively?  Haphazardly?  Gracefully?
+
+In an ideal world, this would be a progressive web-app with service workers and the ability to work offline.  But I'm not really there yet.
+But I can at least make things **incrementally** better if the net happens to go down after the app has loaded.  This is really a thick-client app and we really should be able to get by better on browser-cached content.
+
+But the city images are pulled in real-time from wikepedia and without the net, you get:
+
+![alt](docs/img/inet-unaware.png)
+
+And clicking on the map-view without the net often brings up a partially rendered, blocky canvas of fail.  
+Trying to zoom in or zoom out is also a bad idea at this stage, unleashing an avalanche of angry load-errors in the dev console.
+
+So I add some [logic](https://github.com/zenglenn42/CityMatch/commit/c9e985c637bb2a088ec85805315d692ef817c447) for detecting online status at controller-instantiation time and backfill the missing images with our default langing page image:
+
+![alt](docs/img/inet-resilient.png)
+
+You'll also notice the map button on the bottom app-bar gets disabled and some tooltip text gives you a clue as to why.
+
+Imlementing this in a clean way requires an understanding of the difference between event capture versus event bubbling.  Otherwise, I notice the user can still click on the disabled button and the focus, controlled by the low-level MDL tab element's event handler, visually shifts to what should be unselectable!  The trick is to enable capture in my parent event handler (so it fires /before/ the MDL tab handler) and to stop event propagation entirely to prevent the event from reaching the tab event handler entirely in the absence of internet.
+
 ## Thanks for reading
 
 I still need to make the models observable by the view for canonical MVC synchronization of state from model to view.  This would make integration of persistence relatively easy.  For now, though, view updates are handled explicitly by the mediating controller on significant event boundaries. 
