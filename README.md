@@ -1092,7 +1092,7 @@ So I add some [logic](https://github.com/zenglenn42/CityMatch/commit/c9e985c637b
 
 You'll also notice the map button on the bottom app-bar gets disabled and some tooltip text gives you a clue as to why.
 
-Imlementing this in a clean way requires an understanding of the difference between event capture versus event bubbling.  Otherwise, I notice the user can still click on the disabled button and the focus, controlled by the low-level MDL tab element's event handler, visually shifts to what should be unselectable!  The trick is to enable capture in my parent event handler (so it fires /before/ the MDL tab handler) and to stop event propagation entirely to prevent the event from reaching the tab event handler entirely in the absence of internet.
+Imlementing this in a clean way requires an understanding of the difference between event capture versus event bubbling.  Otherwise, I notice the user can still click on the disabled button and the focus, controlled by the low-level MDL tab element's event handler, visually shifts to what should be unselectable!  The trick is to enable capture in my parent event handler (so it fires /before/ the MDL tab handler) and to subsequently stop event propagation to prevent the event from reaching the tab event handler in the absence of internet.
 
 ## Thanks for reading
 
