@@ -886,6 +886,7 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
 Photo by Priscilla Du Preez
 
 ## Menu refactor
+
 For all the cool potential this little app has, I think it's time to move on to other projects.  As a parting farewell, I give some love to the hamburger menu, factoring in some recent usability feedback.
 
 What started out as a modest, hardcoded mock-up ...
@@ -898,7 +899,11 @@ morphs into something which allows menu-based navigation (through the 'View' sub
 
 I create my own drop-down selection element since Material Design Lite (MDL) doesn't provide one, yet another reason to upgrade to Material Components.  
 
-Maybe I'll do that in the fullness of time.  
+I do a little poking around on github and find a snazzier dropdown selection element [here](https://creativeit.github.io/getmdl-select) that works with the legacy MDL I'm using.  
+
+The [integration](https://github.com/zenglenn42/CityMatch/commit/0de475bd546cb23f894008ce4c291752178c5779) is actually pretty interesting since it forces me to think about how to get my app-level click handler to coexist with the low-level 3rd-party click handler for the selection component.  I end up having to step through the 3rd party code, but first mess with some js map files (since their source sourceRoot was referencing an e: drive and I don't roll that way).  I figure out that the selection values I really want to fetch from within my event handlers are stored in a hidden/shadow component.  Plus I figure out that my dynamically generated DOM elements require me to manually invoke the 3rd-party selection element's init method from within my code.  I'd prefer they hook into the standard <select> tag so mobile would behave more canonically, but the result is certainly an improvement over what I had thrown together:
+
+![alt](docs/img/better-dropdowns.png)
 
 ## Granular MVC-ification
 
