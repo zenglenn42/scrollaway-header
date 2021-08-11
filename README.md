@@ -1096,6 +1096,6 @@ Imlementing this in a clean way requires an understanding of the difference betw
 
 ## Thanks for reading
 
-I still need to make the models observable by the view for canonical MVC synchronization of state from model to view.  This would make integration of persistence relatively easy.  For now, though, view updates are handled explicitly by the mediating controller on significant event boundaries. 
+I still need to make the models observable by the view for canonical MVC synchronization of state from model to view.  This would make responsive desktop easier to implement. For now, though, view updates are handled explicitly by the mediating controller on significant event boundaries using flow-synchronization as beautifully [elaborated](https://martinfowler.com/eaaDev/uiArchs.html#ModelViewController) by Martin Fowler.
 
 I may noodle around with this app at the margins, but the next big lift would probably be a full-stack rollout with React front-end.  Stay tuned and thanks for reading. (-;
