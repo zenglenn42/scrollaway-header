@@ -1072,7 +1072,7 @@ It's a complicated world and sometimes the precious internet is not available.
 How should the app respond?  Naively?  Haphazardly?  Gracefully?
 
 In an ideal world, this would be a progressive web-app with service workers and the ability to work offline.  But I'm not really there yet.
-But I can at least make things **incrementally** better if the net happens to go down after the app has loaded.  This is really a thick-client app and we really should be able to get by better on browser-cached content.
+But I can at least make things **incrementally** better if the net happens to go down after the app has loaded.  This is a thick-client app and we really should be able to get by better on browser-cached content.
 
 But the city images are pulled in real-time from wikepedia and without the net, you get:
 
