@@ -127,14 +127,14 @@ function ModelPriorities(getLocale = () => {return locale="en-US"},
       happinessTitle: "Civic Happiness",
       happinessTooltip: "Use slider below to adjust this priority. " +
                         "Based upon a 2019 study by WalletHub across dimensions including " +
-                        "overall well-being, employment, and community.",
+                        "overall well-being, employment, and community in the U.S.",
       politicsTitle: "Prevailing Politics",
       politicsTooltip: "Use slider below to adjust this priority of desired prevailing " +
-                       "political environment.  Based upon county-level 2016 Presidential " +
+                       "political environment.  Based upon county-level 2016 U.S. Presidential " +
                        "election data published by opendatasoft.",
       affordabilityTitle: "Cost of Living",
       affordabilityTooltip: "Use slider below to specify desired relative cost of living. " +
-                            "Based upon 2017 median home price by county published by US Census.",
+                            "Based upon 2017 median home price by county published by U.S. Census.",
       jobSearchTitle: "Job Outlook",
       //jobSearchTooltip: "This feature is currently unavailable.",
       jobSearchTooltip: "You must be logged in to use this feature.",
