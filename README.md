@@ -901,7 +901,9 @@ I create my own drop-down selection element since Material Design Lite (MDL) doe
 
 I do a little poking around on github and find a snazzier dropdown selection element [here](https://creativeit.github.io/getmdl-select) that works with the legacy MDL I'm using.  
 
-The [integration](https://github.com/zenglenn42/CityMatch/commit/0de475bd546cb23f894008ce4c291752178c5779) is actually pretty interesting since it forces me to think about how to get my app-level click handler to coexist with the low-level 3rd-party click handler for the selection component.  I end up having to step through the 3rd party code, but first mess with some js map files (since their source sourceRoot was referencing an e: drive and I don't roll that way).  I figure out that the selection values I really want to fetch from within my event handlers are stored in a hidden/shadow component.  Plus I figure out that my dynamically generated DOM elements require me to manually invoke the 3rd-party selection element's init method from within my code.  I'd prefer they hook into the standard `<select>` tag so mobile would behave more canonically, but the result is certainly an improvement over what I had thrown together:
+The [integration](https://github.com/zenglenn42/CityMatch/commit/0de475bd546cb23f894008ce4c291752178c5779) is actually pretty interesting since it forces me to think about how to get my app-level click handler to co-exist with the low-level, 3rd-party click handler for the selection component.  
+
+I end up stepping through the 3rd party code, but first must mess with their js map files (since their source sourceRoot was referencing an e: drive and I don't roll that way).  I figure out that the selection values I really want to fetch from within my event handler are stored in a hidden/shadow component.  Also, my dynamically generated DOM elements require me to manually invoke the 3rd-party selection element's init method before I get expected behavior beyond the initial page load from the server.  I'd prefer they hook into the standard `<select>` tag so mobile would behave more canonically, but the result is certainly an improvement over what I had thrown together:
 
 ![alt](docs/img/better-dropdowns.png)
 
@@ -1007,6 +1009,15 @@ View.prototype.createHeader = function(title, rightNavIcon) {
 With a conducive pattern in place, I add localization for 4 of the world's most common languages, though I still need to run the translations by some native speakers since I likely made some funny choices, despite google translate's general prowess.
 
 ![alt](docs/img/l10n-refactor.png)
+
+### Easier language selection
+
+I enlist a friend to checkout my lame Chinese translation but he comments that he doesn't see where to change the language/locale.  It's a moment of miopic-comeuppance for me since I feel like I've been very patternful in creating a menu drawer with a Settings tab (complete with conventional 'gear' icon) ... and then, um,  an 'Edit' item to bring up the page where the language can /actually/ be changed. :-(
+
+Hmm.  I see his point.  He's got to click down through 4 layers to do that.  Most folks wouldn't even /know/ you had taken the trouble to localize your app with all that indirection.  So I decide to add a tasty language-dropdown on the main nav itself:
+
+![alt](docs/img/l10n-nav.png)
+
 
 ## Local Persistence
 
