@@ -1089,7 +1089,7 @@ So I add some [logic](https://github.com/zenglenn42/CityMatch/commit/c9e985c637b
 
 ![alt](docs/img/inet-resilient.png)
 
-You'll also notice the map button on the bottom app-bar gets disabled and some tooltip text gives you a clue as to why.
+You'll also notice the map button on the bottom app-bar gets disabled and some tooltip text gives you a clue as to why.  Once the net is back and the user reloads, the images are fetched and the map button is re-enabled.  The next refinement would be to periodically poll network status and have the view observe and respond to any state changes accordingly.
 
 Imlementing this in a clean way requires an understanding of the difference between event capture versus event bubbling.  Peter-Paul Koch writes about this on his [blog](https://www.quirksmode.org/js/events_order.html#link4).  Here's [another resource](https://javascript.info/bubbling-and-capturing) that nicely depicts the capture, target, and bubbling phases of event processing.
 
