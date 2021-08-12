@@ -955,7 +955,7 @@ The view gets similar treatment:
 
 The methods herein read state from the view-models and render the view accordingly.
 
-I really ***should*** leverage client-side modules given all the work that has gone into making that possible over the past few years.  I really would like the attendant namespace'ing and data-hiding goodness.  I've been reading Addy Osmani's book, ```Learning JavaScript Design Patterns```, and Matt Frisbie's ```Professional JavaScript for Web Developers```.  So I know there is a ***lot*** of stuff I should be doing to craft exemplary designs and code.
+I really ***should*** leverage client-side modules given all the work that has gone into making that possible over the past few years.  I'd like the attendant namespace'ing and data-hiding goodness.  I've been reading Addy Osmani's book, ```Learning JavaScript Design Patterns,``` and Matt Frisbie's ```Professional JavaScript for Web Developers.```  So I know there is a ***lot*** of stuff I should be doing to craft exemplary designs and code.
 
 But a more granular file structure is an incremental and relatively easy win for now.  I know immediately where I have to go when something relates to state, versus presentation, or event handling.
 
