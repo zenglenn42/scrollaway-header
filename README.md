@@ -870,7 +870,7 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
 
 ## Harden
 
-  - I really have a dependency upon javascript and even the internet here (since icons are pulled from google).  There should be a test for these dependencies and either feedback to the user or a gentle degradation in the user experience.
+  - I clearly have a dependency upon javascript and even the internet here (since city images and map navigation need the net, among other things).  There should be a test for these dependencies and either feedback to the user or a gentle degradation in the user experience.
 
 ## Tasty Features
 
@@ -915,7 +915,7 @@ So I step through the 3rd party code (and mess with their js map files since the
 
 ![alt](docs/img/better-dropdowns.png)
 
-Also, my dynamically generated DOM elements require a manual invocation of the 3rd-party selection element's ```init()``` method before I'm rewarded with desired behavior.  Otherwise state was only correct upon initial app-load.
+Also, my dynamically generated DOM elements require a manual invocation of the 3rd-party selection element's ```init()``` method before I'm rewarded with desired behavior.  Otherwise state was only correct upon initial app-load and not so much for subsequent, generated views.
 
 As I write this, I realize I should be responding to 'change' events off the ```<input>``` control and not clicks on the parent ```<div>``` since I should only mutate state on ***changed*** values.  I think I wrote that before I entirely understood how to horse-whisper the W3C event capture / bubbling system.  Meh, next time. (-;
 
@@ -923,7 +923,7 @@ As I write this, I realize I should be responding to 'change' events off the ```
 
 Sometimes the best feature is nicely structured code.  It makes thinking about and updating the codebase ***so*** much easier.
 
-Currently, I'm partitioning code into separate files along model, view, and controller boundaries.  But the standard quip is MVC stands for "Massive View Controller" and my controller is up past 1000 lines, so it's past time to refactor.
+Currently, I'm partitioning code into three separate files along model, view, and controller boundaries.  But the standard quip is MVC stands for "Massive View Controller" and my controller is up past 1000 lines, so it's past time to refactor.
 
 I start by creating view-models for the screens and menu:
 
@@ -963,7 +963,7 @@ But a more granular file structure is an incremental and relatively easy win for
 
 ![alt](docs/img/l10n-settings.png)
 
-All the MVC and view-model work facilitate multi-language support.  Since all the strings you see on the screen are now pulled from the view model, it's relatively easy to organize these by locale:
+The MVC and view-model work facilitate multi-language support.  Since all the strings you see on the screen are now pulled from the view model, it's relatively easy to organize these by locale:
 
 ```
 assets/js/models/models-landing.js
@@ -1085,7 +1085,9 @@ With this [commit](https://github.com/zenglenn42/CityMatch/commit/386fb155f90e54
 
 ![alt](docs/img/persistent-priorities.png)
 
-## Harden app if internet goes down
+## UI/UX finesse
+
+### Harden app if internet goes down
 
 It's a complicated world and sometimes the precious internet is not available.  
 
@@ -1105,16 +1107,33 @@ So I add some [logic](https://github.com/zenglenn42/CityMatch/commit/c9e985c637b
 
 ![alt](docs/img/inet-resilient.png)
 
-You'll also notice the map button on the bottom app-bar gets disabled and some tooltip text gives you a clue as to why.  Once the net is back and the user reloads, the images are fetched and the map button is re-enabled.  The next refinement would be to periodically poll network status and have the view observe and respond to any state changes accordingly.
+You'll also notice the map button on the bottom app-bar gets disabled and some tooltip text gives you a clue as to why.  Once the net is back and the user reloads, the images are fetched and the map button is re-enabled.  The next refinement would be to [periodically poll](https://gist.github.com/gitdagray/f310be81be217750fc9d2b233e2ae70c#gistcomment-3819167) network status and have the view observe and respond to any state changes accordingly.
 
-Imlementing this in a clean way requires an understanding of the difference between event capture versus event bubbling.  Peter-Paul Koch writes about this on his [blog](https://www.quirksmode.org/js/events_order.html#link4).  Here's [another resource](https://javascript.info/bubbling-and-capturing) that nicely depicts the capture, target, and bubbling phases of event processing.
+Implementing this in a clean way requires an understanding of the difference between event capture versus event bubbling.  Peter-Paul Koch writes about this on his [blog](https://www.quirksmode.org/js/events_order.html#link4).  Here's [another resource](https://javascript.info/bubbling-and-capturing) that nicely depicts the capture, target, and bubbling phases of event processing.
 
 Without this fu, I notice the user may still click on the disabled button and the focus indicator, controlled by the low-level MDL tab components's event handler, visually shifts to what should be unselectable!
 
 The trick is to enable capture in my parent element event handler (so it fires /before/ the MDL tab handler) and then stop event propagation in the absence of internet.
+
+### Disable the slider for disabled priorities
+
+Users have the ability to completely disable any of the input priorities they don't like.  Maybe they don't care about politics or money is no object.  They simply click-off a switch in the upper right portion of the priority card and the associated image thoughtfully grays out; that attribute no longer affects the ranking calculation.
+
+However, my UI/UX person noticed the ***slider*** could still acquire focus and be mutated.
+
+![alt](docs/img/disabled-priority.png)
+
+So ***now*** I turn off the lights, [freeze](https://github.com/zenglenn42/CityMatch/commit/574d0c5540a293c05da35ddda9d56da5b8a85c72) the slider, and [gray-out/strike-through](https://github.com/zenglenn42/CityMatch/commit/62afe887218512439dd25beaaca9e3019388f9a1) the corresponding menu item to more completely reflect disabled status.
+
+The other subtlety I address is ***disallowing*** selection and hover styling for the read-only priority values within the menu drawer.  Otherwise they behave like clickable things but aren't.  All these little details add up to a less confusing, more refined experience for the user.  
 
 ## Thanks for reading
 
 I still need to make the models observable by the view for canonical MVC synchronization of state from model to view.  This would make responsive desktop easier to implement. For now, though, view updates are handled explicitly by the mediating controller on significant event boundaries using flow-synchronization as beautifully [elaborated](https://martinfowler.com/eaaDev/uiArchs.html#ModelViewController) by Martin Fowler.
 
 I may noodle around with this app at the margins, but the next big lift would probably be a full-stack rollout with React front-end.  Stay tuned and thanks for reading. (-;
+
+It takes a tremendous amount of work and care to create something that's beautiful, functional, adaptable, and resilient whether it's a website, a relationship, or a democracy.
+
+![alt](docs/img/toufic-mobarak-Kx2IgM3Q5jA-unsplash.jpg)
+Photo by Toufic Mobarak
