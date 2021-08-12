@@ -978,7 +978,7 @@ The view gets similar treatment:
 
 The methods herein read state from the view-models and render the view accordingly.
 
-I also segregate my persistence code into it's own area since storage is somewhat orthogonal to classic MVC as I understand it:
+Eventually, I segregate newly written persistence code into it's own area since storage is somewhat orthogonal to classic MVC as I understand it:
 
 * storage/local-storage.js
 
@@ -1140,7 +1140,7 @@ Implementing this in a clean way requires an understanding of the difference bet
 
 Without this fu, I notice the user may still click on the disabled button and the focus indicator, controlled by the low-level MDL tab components's event handler, visually shifts to what should be unselectable!
 
-The trick is to enable capture in my parent element event handler (so it fires /before/ the MDL tab handler) and then stop event propagation in the absence of internet.
+The trick is to [enable capture](https://github.com/zenglenn42/CityMatch/blob/21d8093eb442e337ba021a875ffc31281f08520a/assets/js/controller/controller-results.js#L36) in my parent element event handler (so it fires /before/ the MDL tab handler) and then [stop event propagation](https://github.com/zenglenn42/CityMatch/blob/21d8093eb442e337ba021a875ffc31281f08520a/assets/js/controller/controller-results.js#L67) for that particular click in the absence of internet so the downstream tab component handler never sees the click.
 
 ### Disable the slider for disabled priorities
 
