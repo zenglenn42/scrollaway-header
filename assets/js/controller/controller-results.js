@@ -63,6 +63,15 @@ Controller.prototype.getViewButtonEventListener = function() {
       that.view.setActiveDataView(that.results.getActiveDataView())
       that.view.createPageBody("results")
     } else {
+
+      // A visually-disabled view-button was clicked so we don't change model
+      // state or the view itself.  Furthermore, we stop event propagation so
+      // tab focus is not drawn to the disabled button by a lower-level handler
+      // listening for the same event.
+      //
+      // BTW, we allow disabled buttons to be clicked because it brings up a
+      // helpful tooltip explaing why the button is disabled.
+
       e.stopPropagation() // Otherwise event will propagate down to tab component and
                           // draw focus to disabled view-button.
       e.preventDefault()  // Otherwise index.html#map-button shows up as location in browser.

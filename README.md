@@ -882,12 +882,14 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
 
 # [Declaring Victory](#contents)
 
+For all the cool potential this little app has, I think it's time to move on to other projects.  
+
 ![alt](docs/img/priscilla-du-preez-tQagUWpAx5k-unsplash.jpg)
 Photo by Priscilla Du Preez
 
-## Menu refactor
+As a parting farewell, I give some love to several areas highlighted by the UI/UX review along with a few features.
 
-For all the cool potential this little app has, I think it's time to move on to other projects.  As a parting farewell, I give some love to the hamburger menu, factoring in some recent usability feedback.
+## Menu refactor
 
 What started out as a modest, hardcoded mock-up ...
 
@@ -903,9 +905,13 @@ I create my own drop-down selection element since Material Design Lite (MDL) doe
 
 I do a little poking around on github and find a snazzier dropdown selection element [here](https://creativeit.github.io/getmdl-select) that works with the legacy MDL I'm using.  
 
-The [integration](https://github.com/zenglenn42/CityMatch/commit/0de475bd546cb23f894008ce4c291752178c5779) is actually pretty interesting since it forces me to think about how to get my app-level click handler to co-exist with the low-level, 3rd-party click handler for the selection component.  
+The [integration](https://github.com/zenglenn42/CityMatch/commit/0de475bd546cb23f894008ce4c291752178c5779) is actually pretty interesting since it forces me to think about how to get my app-level click handler to co-exist with the low-level, 3rd-party click handler for the selection component.  They have a click handlerfor managing the visual aspects of the control, but _I_ have a model and view which need to mutate in response to those clicks and I clearly don't want to dump my app code into their handler.
 
-I step through the 3rd party code and mess with their js map files (since their sourceRoot references an ```e:``` drive and I don't roll that way).  I learn the locale selection values I want to fetch from within my event handler are stored in a /hidden/ input component.  Interesting design.  I'd prefer they hooked into the standard `<select>` tag so on mobile you'd get the native select idiom, but the result is certainly an improvement over what I had thrown together:
+The key is to add my own event handlers off the parent ```<div>```'s that wrapper the ```<input>``` and ```<ul>``` elements used to implement the dropdown and to rely upon event bubbling to ensure my handler fires **after** visual state is mutated by the dropdown's handler so I can then fetch the newly selected value from the control and update my application model state and view accordingly.
+
+But **where** exactly do the tasty new dropdown value settings reside from a DOM perspective?  I see they are using **two** ```<input>``` elements in their implementation, one of which is actually hidden.  What's that about?
+
+So I step through the 3rd party code (and mess with their js map files since their sourceRoot references an ```e:``` drive and I don't roll that way).  I learn the selection values I want to fetch from within my event handler are stored in that hidden input component so that's what I target in my event handler.  Interesting design, btw.  I do wonder if there would have been a way to leverage or decorate the standard `<select>` element for better, more native, behavior on mobile.  I'd prefer the Safari spin-wheel selector to appear on iOS, for example.  However this is way better than what I cobbled together:
 
 ![alt](docs/img/better-dropdowns.png)
 
