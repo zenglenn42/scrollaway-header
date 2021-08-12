@@ -1196,7 +1196,7 @@ Obviously the runtime is not garbage collecting the old event handlers in the wa
 
 I ***could*** spend a bunch of time scooping up all my dynamically added event listeners and add those before building out views below the body ```<div>```.  I may end up doing that if that's the best practice.  However I do figure out a way to extend the code for attaching event handlers to dynamically created nodes to only register an event handler ***once***.  And that instantly stops the insanity.
 
-I'm pretty happy with this code because it also gives me a chance to play with this singleton pattern:
+I'm pretty happy with this code because it also gives me a chance to play with the singleton pattern:
 
 ```
 //
