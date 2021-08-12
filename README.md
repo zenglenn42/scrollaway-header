@@ -921,39 +921,66 @@ As I write this, I realize I should be responding to 'change' events off the ```
 
 ## Granular MVC-ification
 
-Sometimes the best feature is nicely structured code.  It makes thinking about and updating the codebase ***so*** much easier.
+Sometimes the best feature is nicely organized code arranged in a sensible way across the filesystem.  It makes thinking about and updating the codebase ***so*** much easier.  But the standard quip is MVC stands for "Massive View Controller" and my controller is up past 1000 lines, so it's past time to refactor.  
 
-Currently, I'm partitioning code into three separate files along model, view, and controller boundaries.  But the standard quip is MVC stands for "Massive View Controller" and my controller is up past 1000 lines, so it's past time to refactor.
+Currently, I'm partitioning code into three separate files along model, view, and controller boundaries:
+
+* model.js
+* view.js
+* controller.js
+
+I also have a separate file for code that simulates a data endpoint with city metrics:
+
+* static-model.js
+
+I do a ton of reading about MVC and related patterns such as Model View Presenter (MVP) and Model View View-Model (MVVM).  I'm also curious about how the notion of persistence (both local and server-side) relates to the discussion of how to organize my code sensibly across my dev filesystem.  
+
+The other wrinkle is I'm currently geared for a thick client.  How will code organization morph in a fullstack context? I have this sense that parts of my model and controller will eventually cleave across the client / server boundary and want a file strcuture that facilitates that evolution.
+
+As usual, there's a lot of noise and [differing opinion](https://softwareengineering.stackexchange.com/questions/134820/in-an-mvc-system-where-should-the-database-persistence-code-sit) out there, but the following folks guide me out of the fog:
+
+* [GUI Architectures](https://martinfowler.com/eaaDev/uiArchs.html) by Martin Fowler 
+* [Understanding MVVM - A Guide for JavaScript Developers](https://addyosmani.com/blog/understanding-mvvm-a-guide-for-javascript-developers/) by Addy Osmani
+* [The Model-View-Controller Architecture](https://drstearns.github.io/tutorials/mvc/) by Dave Stearns
 
 I start by creating view-models for the screens and menu:
 
-* model-menu.js
-* model-settings.js
-* model-landing.js
-* model-priorities.js
-* model-results.js
+* models/model-menu.js
+* models/model-settings.js
+* models/model-landing.js
+* models/model-priorities.js
+* models/model-results.js
 
 These manage frontend state instance variables through getters and setters.  I also aggregate my model-specific localization messages catalogs here.  The catalogs are simple javascript maps, keyed by locale (e.g., 'en-US'), with translated strings as value.
 
-I partition the controller along similar file boundaries.  These files define event handlers that set model state in response to user activity.
+My domain model (stuff that will likely go on the backend some day) still gets grouped with the view-models:
 
-* controller.js
-* controller-menu.js
-* controller-settings.js
-* controller-landing.js
-* controller-priorities.js
-* controller-results.js
+* models/model-cities.js
+* models/model-static-cities.js
+
+I partition the controller along similar file boundaries.  These files define event handlers that set model state in response to user activity.  This really is where are the calls to model setters (for mutating state) happens:
+
+* controller/controller.js
+* controller/controller-menu.js
+* controller/controller-settings.js
+* controller/controller-landing.js
+* controller/controller-priorities.js
+* controller/controller-results.js
 
 The view gets similar treatment:
 
-* view.js
-* view-menu.js
-* view-landing.js
-* view-priorities.js
-* view-results.js
-* view-settings.js
+* view/view.js
+* view/view-menu.js
+* view/view-landing.js
+* view/view-priorities.js
+* view/view-results.js
+* view/view-settings.js
 
 The methods herein read state from the view-models and render the view accordingly.
+
+I also segregate my persistence code into it's own area since storage is somewhat orthogonal to classic MVC as I understand it:
+
+* storage/local-storage.js
 
 I really ***should*** leverage client-side modules given all the work that has gone into making that possible over the past few years.  I'd like the attendant namespace'ing and data-hiding goodness.  I've been reading Addy Osmani's book, ```Learning JavaScript Design Patterns,``` and Matt Frisbie's ```Professional JavaScript for Web Developers.```  So I know there is a ***lot*** of stuff I should be doing to craft exemplary designs and code.
 
