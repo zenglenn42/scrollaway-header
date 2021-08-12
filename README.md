@@ -903,9 +903,9 @@ I create my own drop-down selection element since Material Design Lite (MDL) doe
 
 ## A better dropdown-select component
 
-I do a little poking around on github and find a snazzier dropdown selection element [here](https://creativeit.github.io/getmdl-select) that works with the legacy MDL I'm using.  
+I do a little poking around on github and find a snazzier dropdown [here](https://creativeit.github.io/getmdl-select) that works with MDL.
 
-The [integration](https://github.com/zenglenn42/CityMatch/commit/0de475bd546cb23f894008ce4c291752178c5779) is actually pretty interesting since it forces me to think about how to get my app-level click handler to co-exist with the low-level, 3rd-party click handler for the selection component.  They have a click handlerfor managing the visual aspects of the control, but _I_ have a model and view which need to mutate in response to those clicks and I clearly don't want to dump my app code into their handler.
+The [integration](https://github.com/zenglenn42/CityMatch/commit/0de475bd546cb23f894008ce4c291752178c5779) is actually pretty interesting since it forces me to think about how to get my app-level click handler to co-exist with the low-level, 3rd-party click handler for the selection component.  They have an event handler for managing the visual aspects of the control, but **I** have a model and view which need to mutate in response to those changed-value events and I clearly don't want to dump my app code into their handler.
 
 The key is to add my own event handlers off the parent ```<div>```'s that wrapper the ```<input>``` and ```<ul>``` elements used to implement the dropdown and to rely upon event bubbling to ensure my handler fires **after** visual state is mutated by the dropdown's handler so I can then fetch the newly selected value from the control and update my application model state and view accordingly.
 
@@ -916,6 +916,8 @@ So I step through the 3rd party code (and mess with their js map files since the
 ![alt](docs/img/better-dropdowns.png)
 
 Also, my dynamically generated DOM elements require a manual invocation of the 3rd-party selection element's ```init()``` method before I'm rewarded with desired behavior.  Otherwise state was only correct upon initial app-load.
+
+As I write this, I realize I should be responding to 'change' events off the ```<input>``` control and not clicks on the parent ```<div>``` since I should only mutate state on ***changed*** values.  I think I wrote that before I entirely understood how to horse-whisper the W3C event capture / bubbling system.  Meh, next time. (-;
 
 ## Granular MVC-ification
 
