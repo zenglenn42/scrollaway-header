@@ -921,7 +921,9 @@ As I write this, I realize I should be responding to 'change' events off the ```
 
 ## Granular MVC-ification
 
-The standard quip is MVC stands for "Massive View Controller".  My controller is up past 1000 lines, so it's time for some refactor.
+Sometimes the best feature is nicely structured code.  It makes thinking about and updating the codebase ***so*** much easier.
+
+Currently, I'm partitioning code into separate files along model, view, and controller boundaries.  But the standard quip is MVC stands for "Massive View Controller" and my controller is up past 1000 lines, so it's past time to refactor.
 
 I start by creating view-models for the screens and menu:
 
@@ -952,6 +954,10 @@ The view gets similar treatment:
 * view-settings.js
 
 The methods herein read state from the view-models and render the view accordingly.
+
+I leverage client-side modules given all the work that has gone into making that possible over the past few years.  I really would like the attendant namespace'ing and data-hiding goodness.  I've been reading Addy Osmani's book, ```Learning JavaScript Design Patterns```, and Matt Frisbie's ```Professional JavaScript for Web Developers```.  So I know there is a ***lot*** of stuff I should be doing to craft exemplary designs and code.
+
+But a more granular file structure is an incremental and relatively easy win for now.  I know immediately where I have to go when something relates to state, versus presentation, or event handling.
 
 ## Localization (l10n)
 
