@@ -958,7 +958,7 @@ My domain model (stuff that will likely go on the backend some day) still gets g
 * models/model-cities.js
 * models/model-static-cities.js
 
-I partition the controller along similar file boundaries.  These files define event handlers that set model state in response to user activity.  This really is where are the calls to model setters (for mutating state) happens:
+I partition the controller along similar file boundaries.  These files define event handlers that set model state in response to user activity.  This really is where calls to model setters (for mutating state) happens:
 
 * controller/controller.js
 * controller/controller-menu.js
