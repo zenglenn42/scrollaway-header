@@ -1030,7 +1030,7 @@ With a conducive pattern in place, I add localization for 4 of the world's most 
 
 ### Easier language selection
 
-I enlist a friend to checkout my lame Chinese translation but he comments that he doesn't see where to change the language/locale.  It's a moment of miopic-comeuppance for me since I feel like I've been very patternful in creating a menu drawer with a Settings tab (complete with conventional 'gear' icon) ... and then, um,  an 'Edit' item to bring up the page where the language can /actually/ be changed. :-(
+I enlist a friend to review one of my _probably-sketchy_ translations but he comments that he doesn't see **where** to change the language/locale.  It's a moment of miopic-comeuppance for me since I feel like I've been very patternful in creating a menu drawer with a Settings tab (complete with conventional 'gear' icon) ... and then, um,  an 'Edit' item to bring up the page where the language can _actually_ be changed. :-(
 
 Hmm.  I see his point.  He's got to click down through 4 layers to do that.  Most folks wouldn't even /know/ you had taken the trouble to localize your app with all that indirection.  So I decide to add a tasty language-dropdown on the main nav itself:
 
@@ -1133,7 +1133,7 @@ I still need to make the models observable by the view for canonical MVC synchro
 
 I may noodle around with this app at the margins, but the next big lift would probably be a full-stack rollout with React front-end.  Stay tuned and thanks for reading. (-;
 
-It takes a tremendous amount of work and care to create something that's beautiful, functional, adaptable, and resilient whether it's a website, a relationship, or a democracy.
+It takes a tremendous amount of work and care to create something that's beautiful, functional, adaptable, and resilient whether it's a website, a relationship, or a civil society.
 
 ![alt](docs/img/toufic-mobarak-Kx2IgM3Q5jA-unsplash.jpg)
 Photo by Toufic Mobarak
