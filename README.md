@@ -1036,6 +1036,8 @@ Hmm.  I see his point.  He's got to click down through 4 layers to do that.  Mos
 
 ![alt](docs/img/l10n-nav.png)
 
+I probably should detect/discover locale from the browser environment and set that intelligently if it happens to match one of my supported locales, defaulting to English otherwise.
+
 
 ## Local Persistence
 
