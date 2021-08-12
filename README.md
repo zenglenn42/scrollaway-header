@@ -1154,6 +1154,132 @@ So ***now*** I turn off the lights, [freeze](https://github.com/zenglenn42/CityM
 
 The other subtlety I address is ***disallowing*** selection and hover styling for the read-only priority values within the menu drawer.  Otherwise they behave like clickable things but aren't.  All these little details add up to a less confusing, more refined experience for the user.  
 
+## Unknown unknowns
+
+You don't know what you don't know.  
+
+But I guess there's a certain wisdom in knowing that.  It leaves room for learning, it battles the impulse toward arrogance, and it enables a dose of humility ... all of which makes you easier to tolerate amongst your fellow striving humans.
+
+But sometimes I forget and start to feel sassy about my steadily evolving code children.  They really are above average and should go to Harvard one day.
+
+Then this happens ...
+
+![alt](docs/img/bad-clicks.png)
+
+You know how you wire up a new event listener and you throw this in there ...
+
+```
+console.log('click')
+```
+
+just so you can get feedback that it's actually firing when you click the mouse? ...that the miracle of leptons and quarks, coalescing into atoms, repurposed into enlightened silicon, now animating your sketchy code across countless layers of abstraction is actually working-ish?
+
+Well, I do that too, but the problem here is that it's working ***too*** well.
+
+I only click the mouse once but ***my click handler appears to be firing 8 times***!  Or maybe I somehow have 8 ***copies*** of the same click handler responding to the same event?
+
+And the story gets worse as I mouse and click around the app.  The click count jumps by ever-increasing multiples.  On mobile, the app eventually grinds to a halt.
+
+### Proliferating click handlers :-(
+
+I ***think*** I have one special robot child click handler, but I've actually created a proliferating factory of them.
+
+![alt](docs/img/legion-listeners.png)
+
+I do the deep dive and learn about care and handling of click handlers and eventually come across this nugget:
+
+![alt](docs/img/sage-advice.png)
+
+But that's essentially what I'm doing when I use the FAB's click handler, for example, to advance to a new page by tearing down what's currently anchored off of the body ```<div>``` and dynamically building a new view of DOM nodes ***including*** new event listeners.
+
+Obviously the runtime is not garbage collecting the old event handlers in the way I naively expect.  Simplistically nulling out the innerHTML of the body ```<div>``` is bad form since it doesn't clear out event handlers.  But even writing my own code to remove child nodes recursively doesn't get me out of hot water.
+
+I ***could*** spend a bunch of time scooping up all my dynamically added event listeners and add those before building out views below the body ```<div>```.  I may end up doing that if that's the best practice.  However I do figure out a way to extend the code for attaching event handlers to dynamically created nodes to only register an event handler ***once***.  And that instantly stops the insanity.
+
+I'm pretty happy with this code because it also gives me a chance to play with this singleton pattern:
+
+```
+//
+// Prevents duplicate listeners from being added to dynamically created
+// DOM elements.  We need this in the absence of jQuery's $.on() method.
+//
+// Inspired by: 
+// Learning Javascript Design Patterns by Addy Osmani
+// https://stackoverflow.com/questions/30880757/javascript-equivalent-to-on
+// https://www.jimmycuadra.com/posts/keeping-track-of-javascript-event-handlers
+//
+// TODO: Is there a more canonical way to do this in 2021? :-) 
+
+Controller.prototype.ManagedEventHandlers = (function() {
+  var _singleton
+
+  function createInstance() {
+      let _registered = {}  // private key-value store for registered event handlers
+    }   
+
+    return {
+      isAlreadyAdded: function(evt, sel) {
+        let key = `${evt}_${sel}`
+        return _registered.hasOwnProperty(key)
+      },  
+
+      track: function(evt, sel, handler) {
+        let key = `${evt}_${sel}`
+        if (!this.isAlreadyAdded(key)) {
+          _registered[key] = []
+          _registered[key].push(handler)
+        }   
+      },  
+
+      // Add event handlers for dynamically created elements.
+      // See: https://stackoverflow.com/questions/30880757/javascript-equivalent-to-on
+
+      addEventListener: function(el, evt, sel, handler) {
+
+        // Track requests for adding delegated event handlers to
+        // dynamically-created DOM elements so we can avoid adding duplicates.
+        //  
+        // Otherwise, the view code as written may register duplicate handlers
+        // and we'll see performance steadily degrade as the DOM runs the same
+        // event through all of them. :-| 
+
+        let alreadyAdded = this.isAlreadyAdded(evt, sel)
+
+        if (!alreadyAdded) {
+          this.track(evt, sel, handler)
+          el.addEventListener(evt, function(event) {
+            let t = event.target
+            while (t && t !== this) {
+              if (t.matches(sel)) {
+                handler.call(t, event)
+              }   
+              t = t.parentNode
+            }   
+          })  
+        }   
+      }   
+    }   
+  }
+  return {
+    getSingleton: function() {
+      if (!_singleton) {
+        _singleton = createInstance()
+      }
+      return _singleton
+    }
+  }
+})()
+```
+
+now I can blithely add delegated event listeners even in my event completion handlers,
+knowing that only the first instance of these will actually get registered and I'll go
+back to having just one special robot child again.
+
+The other thing I learn is that Safari, as a dev environment, frequently needs to be restarted when debugging event handler code.  Same with dropping the cache.  I click the tasty 'Empty Caches' item off the Developer submenu, but sometimes the old context / code is still lurking around.
+
+I'll find a more exemplary way to manage event handlers, but I'm out of the ditch for now.
+
+
 ## Thanks for reading
 
 I still need to make the models observable by the view for canonical MVC synchronization of state from model to view.  This would make responsive desktop easier to implement. For now, though, view updates are handled explicitly by the mediating controller on significant event boundaries using flow-synchronization as beautifully [elaborated](https://martinfowler.com/eaaDev/uiArchs.html#ModelViewController) by Martin Fowler.
