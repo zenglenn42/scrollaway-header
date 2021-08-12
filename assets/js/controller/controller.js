@@ -300,6 +300,12 @@ Controller.prototype.ManagedEventHandlers = (function() {
 //
 // See also:
 // www.freecodecamp.org/news/how-to-check-internet-connection-status-with-javascript
+//
+// TODO: Consider adopting this more nuanced approach:
+//       https://gist.github.com/gitdagray/f310be81be217750fc9d2b233e2ae70c#gistcomment-3819167
+//       Modify to use 'HEAD' since I'm not a fan of downloading a 1pixel image file.
+//
+// TODO: Consider moving this to an assets/js/network directory
 
 Controller.prototype.checkInternet = function(
           checkUrl = "",
