@@ -1270,9 +1270,7 @@ Controller.prototype.ManagedEventHandlers = (function() {
 })()
 ```
 
-now I can blithely add delegated event listeners even in my event completion handlers,
-knowing that only the first instance of these will actually get registered and I'll go
-back to having just one special robot child again.
+now I can blithely add delegated event listeners [anywhere in my code](https://github.com/zenglenn42/CityMatch/blob/efbda0d7a5e9fee46eb1259a4dc39db72372e325/assets/js/controller/controller-landing.js#L17) knowing that only the first instance of these will actually get registered with the DOM and I'll go back to having just one special robot child again.
 
 The other thing I learn is that Safari, as a dev environment, frequently needs to be restarted when debugging event handler code.  Same with dropping the cache.  I click the tasty 'Empty Caches' item off the Developer submenu, but sometimes the old context / code is still lurking around.
 
