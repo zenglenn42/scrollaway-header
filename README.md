@@ -917,7 +917,7 @@ So I step through the 3rd party code (and mess with their js map files since the
 
 Also, my dynamically generated DOM elements require a manual invocation of the 3rd-party selection element's ```init()``` method before I'm rewarded with desired behavior.  Otherwise state was only correct upon initial app-load and not so much for subsequent, generated views.
 
-As I write this, I realize I should be responding to 'change' events off the ```<input>``` control and not clicks on the parent ```<div>``` since I should only mutate state on ***changed*** values.  I think I wrote that before I entirely understood how to horse-whisper the W3C event capture / bubbling system.  Meh, next time. (-;
+As I write this, I realize I should be responding to 'change' events off the ```<input>``` control and not clicks from the parent ```<div>``` since I should only mutate state on ***changed*** values.  I wrote that code before I entirely understood how to horse-whisper the W3C event capture / bubbling system and probably had this vague notion that event handlers off the same element could get dicey.  My way is at least deterministic though it clearly sacrifices efficiency and probably explains some edge case behavoir I'm seeing with the arrow indicator thinking the dropdown is open when it's actually closed.  Meh, next time. (-; Still a net win to add the nicer control.
 
 ## Granular MVC-ification
 
