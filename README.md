@@ -1214,8 +1214,7 @@ Controller.prototype.ManagedEventHandlers = (function() {
   var _singleton
 
   function createInstance() {
-      let _registered = {}  // private key-value store for registered event handlers
-    }   
+    let _registered = {}  // private key-value store for registered event handlers
 
     return {
       isAlreadyAdded: function(evt, sel) {
