@@ -197,6 +197,18 @@ function Controller(bodyDivId, locale = "en-US") {
     this.getOnlineStatus.bind(this)
   )
 
+  // Reload the app if orientation changes (typically on mobile)
+  // between landscape and portrait.  Otherwise we get content
+  // clipping.  May need a polyfill here since orientationchange
+  // is iOS-specific according to Matt Frisbie's Professional
+  // JAvaScript for Web Developers book, circa 2020.
+
+  window.addEventListener("load", (e) => {
+    window.addEventListener("orientationchange", (e) => {
+      window.location.reload()
+    })
+  })
+
   this.view.render()
 }
 
@@ -332,6 +344,14 @@ Controller.prototype.checkInternet = function(
     if (runAsynchronously) {
       xhr.timeout = 5000  // Cancel request if nothing back after 5 seconds.
     }
+
+    // TODO: Fix It!
+    //
+    // My synchronous xhr.open is raising eyebrows (especially on firefox).
+    // Synchronous XMLHttpRequest on the main thread is deprecated because of
+    // its detrimental effects to the end user’s experience.
+    // For more help http://xhr.spec.whatwg.org/
+
     xhr.open(httpMethod, rqstUrl, runAsynchronously)
     try {
       xhr.send()
