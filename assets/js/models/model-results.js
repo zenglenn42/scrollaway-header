@@ -22,7 +22,7 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
   }
   this.isValidCityListFn = isValidCityListFn
 
-  this.dfltDataView = "photo-view" // photo-view | list-view | chart-view | map-view
+  this.dfltDataView = "photo-view" // photo-view | table-view | chart-view | map-view
   this.activeDataView = (this.isValidDataView(dataView)) ? dataView : this.dfltDataView
 
   this.dfltRankedList = []
@@ -58,7 +58,12 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
       chartLabelPolitics: "Politics",
       listLabelHappiness: "Civic Happiness",      
       listLabelAffordability: "Median Home Price",      
-      listLabelPolitics: ""
+      listLabelPolitics: "",
+      tableLabelRank: "Ranking",
+      tableLabelCity: "City",
+      tableLabelHappiness: "Happiness",
+      tableLabelAffordability: "Cost",
+      tableLabelPolitics: "Politics"
     },
     "hi-IN": {
       title: "आपके सबसे अच्छे शहर ...",
@@ -77,7 +82,12 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
       chartLabelPolitics: "राजनीति",
       listLabelHappiness: "नागरिक खुशी",   
       listLabelAffordability: "मेडियन होम प्राइस",  
-      listLabelPolitics: ""
+      listLabelPolitics: "",
+      tableLabelRank: "श्रेणी",
+      tableLabelCity: "शहर",
+      tableLabelHappiness: "नागरिक खुशी",   
+      tableLabelAffordability: "लागत",
+      tableLabelPolitics: "राजनीति"
     },
     "es-ES": {
       title: "Tus mejores apuestas ...",
@@ -96,7 +106,12 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
       chartLabelPolitics: "Política",
       listLabelHappiness: "Felicidad Cívica",      
       listLabelAffordability: "Precio medio de la vivienda",
-      listLabelPolitics: ""
+      listLabelPolitics: "",
+      tableLabelRank: "Clasificación",
+      tableLabelCity: "Ciudad",
+      tableLabelHappiness: "Felicidad",
+      tableLabelAffordability: "Costo",
+      tableLabelPolitics: "Política"
     },
     "zh-CN": {
       title: "你最好的赌注 ...",
@@ -115,7 +130,12 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
       chartLabelPolitics: "政治",
       listLabelHappiness: "公民幸福",
       listLabelAffordability: "房价中位数",
-      listLabelPolitics: ""
+      listLabelPolitics: "",
+      tableLabelRank: "排行",
+      tableLabelCity: "城市",
+      tableLabelHappiness: "幸福",
+      tableLabelAffordability: "代价",
+      tableLabelPolitics: "政治"
     }
   }
 }
@@ -129,14 +149,16 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
 
 ModelResults.prototype.isValidDataView = function(dataView) {
   return dataView === "photo-view" ||
-         dataView === "list-view"  ||
+      // dataView === "list-view"  ||
+         dataView === "table-view" ||
          dataView === "chart-view" ||
          dataView === "map-view"
 }
 
 ModelResults.prototype.isValidDisabledDataView = function(dataView) {
   return dataView === "photo-view-disabled" ||
-         dataView === "list-view-disabled"  ||
+      // dataView === "list-view-disabled"  ||
+         dataView === "table-view-disabled" ||
          dataView === "chart-view-disabled" ||
          dataView === "map-view-disabled"
 }
@@ -461,6 +483,76 @@ ModelResults.prototype.getListLabelPolitics = function() {
   return result
 }
 
+ModelResults.prototype.getTableLabelRank = function() {
+  let result = "missing_tableLabelRank"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'tableLabelRank')) {
+    result = this.msgCatalog[locale].tableLabelRank
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'tableLabelRank')) {
+    result = this.msgCatalog[this.dfltLocale].tableLabelRank
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelPriorities:getTableLabelRank() Error ", result)
+  }
+  return result
+}
+
+ModelResults.prototype.getTableLabelCity = function() {
+  let result = "missing_tableLabelCity"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'tableLabelCity')) {
+    result = this.msgCatalog[locale].tableLabelCity
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'tableLabelCity')) {
+    result = this.msgCatalog[this.dfltLocale].tableLabelCity
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelPriorities:getTableLabelCity() Error ", result)
+  }
+  return result
+}
+
+ModelResults.prototype.getTableLabelHappiness = function() {
+  let result = "missing_tableLabelHappiness"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'tableLabelHappiness')) {
+    result = this.msgCatalog[locale].tableLabelHappiness
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'tableLabelHappiness')) {
+    result = this.msgCatalog[this.dfltLocale].tableLabelHappiness
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelPriorities:getTableLabelHappiness() Error ", result)
+  }
+  return result
+}
+
+ModelResults.prototype.getTableLabelAffordability = function() {
+  let result = "missing_tableLabelAffordability"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'tableLabelAffordability')) {
+    result = this.msgCatalog[locale].tableLabelAffordability
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'tableLabelAffordability')) {
+    result = this.msgCatalog[this.dfltLocale].tableLabelAffordability
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelPriorities:getTableLabelAffordability() Error ", result)
+  }
+  return result
+}
+
+ModelResults.prototype.getTableLabelPolitics = function() {
+  let result = "missing_tableLabelPolitics"
+  let locale = this.getLocale()
+  if (this.isValidLocaleProperty(locale, 'tableLabelPolitics')) {
+    result = this.msgCatalog[locale].tableLabelPolitics
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'tableLabelPolitics')) {
+    result = this.msgCatalog[this.dfltLocale].tableLabelPolitics
+  } else {
+    result = (locale) ? result + "_" + locale : result
+    console.log("ModelPriorities:getTableLabelPolitics() Error ", result)
+  }
+  return result
+}
+
 //----------------------------------------------------------------------------------
 // Unit Test
 //----------------------------------------------------------------------------------
@@ -609,12 +701,12 @@ function UnitTestModelResults() {
   try {
     cut = "ModelResults(ctor)"
     console.log(' Verifying object construction with valid non-default data-view ...')
-    let model = new ModelResults(() => {return "en-US"}, cityModel.isValidCityList, "list-view")
+    let model = new ModelResults(() => {return "en-US"}, cityModel.isValidCityList, "table-view")
 
-    if (model.activeDataView !== "list-view" ||
+    if (model.activeDataView !== "table-view" ||
         JSON.stringify(model.rankedList) !== JSON.stringify([]) || 
         model.getLocale() !== 'en-US') {
-        failure = "Expected properties of ['en-US','list-view', [],].  Got " +
+        failure = "Expected properties of ['en-US','table-view', [],].  Got " +
                   JSON.stringify([model.getLocale(), model.activeDataView, model.rankedList])
     }
 

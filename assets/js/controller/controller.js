@@ -188,6 +188,11 @@ function Controller(bodyDivId, locale = "en-US") {
     this.results.getListLabelHappiness.bind(this.results),
     this.results.getListLabelAffordability.bind(this.results),
     this.results.getListLabelPolitics.bind(this.results),
+    this.results.getTableLabelRank.bind(this.results),
+    this.results.getTableLabelCity.bind(this.results),
+    this.results.getTableLabelHappiness.bind(this.results),
+    this.results.getTableLabelAffordability.bind(this.results),
+    this.results.getTableLabelPolitics.bind(this.results),
     this.checkInternet.bind(this),
     this.getOnlineStatus.bind(this)
   )

@@ -128,6 +128,11 @@ function View(
   getListLabelHappiness,
   getListLabelAffordability,
   getListLabelPolitics,
+  getTableLabelRank,
+  getTableLabelCity,
+  getTableLabelHappiness,
+  getTableLabelAffordability,
+  getTableLabelPolitics,
   checkInternet,
   getOnlineStatus
 ) {
@@ -230,6 +235,11 @@ function View(
   this.getListLabelHappiness = getListLabelHappiness
   this.getListLabelAffordability = getListLabelAffordability
   this.getListLabelPolitics = getListLabelPolitics
+  this.getTableLabelRank = getTableLabelRank
+  this.getTableLabelCity = getTableLabelCity
+  this.getTableLabelHappiness = getTableLabelHappiness
+  this.getTableLabelAffordability = getTableLabelAffordability
+  this.getTableLabelPolitics = getTableLabelPolitics
 
   // Bind to network interface
 

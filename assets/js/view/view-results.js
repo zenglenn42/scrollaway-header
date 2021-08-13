@@ -54,6 +54,7 @@ View.prototype.appendLatentView = function(mainEl) {
       break
     case "photo":
     case "list":
+    case "table":
     default:
       break
   }
@@ -90,6 +91,14 @@ View.prototype.createResultsMain = function() {
         child.appendChild(ol)
         m.appendChild(child)
         m.setAttribute("data-view", "list")
+        break
+      case "table-view":
+        child.setAttribute("style", "overflow: scroll")
+        let table = this.createTableView(userPriorities)
+        table.setAttribute("style", "margin: 2em auto;")
+        child.appendChild(table)
+        m.appendChild(child)
+        m.setAttribute("data-view", "table")
         break
       case "chart-view":
         let chartId = "myChart"
@@ -149,22 +158,45 @@ View.prototype.createListView = function(userPriorities, rank = 1) {
   ol.setAttribute("style", "width: 95%")
   //console.log("normalized user priorities passed to model =", userPriorities)
 
-  // let monetizationPosition1 = 3
-  // let monetizationPosition2 = 8
   this.rankedList.map(cityData => {
-    // if (rank == monetizationPosition1 || rank == monetizationPosition2) {
-    //   let monetizeParams = {
-    //     img: "assets/img/monetize.jpg",
-    //     titleText: "Monetize here $"
-    //   }
-    //   let mc = this.createResultsMonetizeCard(monetizeParams)
-    //   g.appendChild(mc)
-    // }
     let cityParams = this.marshallModelData(rank++, cityData)
     let li = this.createResultsListItem(cityParams)
     ol.appendChild(li)
   })
   return ol
+}
+
+View.prototype.createTableView = function(userPriorities, rank = 1) {
+  //console.log("table-view")
+  let table = document.createElement("table")
+  table.classList.add("mdl-data-table",
+                      "mdl-js-data-table",
+                      /*"mdl-data-table--selectable",*/
+                      "mdl-shadow--2dp")
+  table.setAttribute("style", "width: 95%")
+  let thead = document.createElement("thead")
+  let house = '<i class="fas fa-home fa-sm black-text pr-3" aria-hidden="true"></i>'
+
+  thead.innerHTML = `
+    <tr>
+      <th class="mdl-data-table__cell--non-numeric">${this.getTableLabelRank()}</th>
+      <th class="" style="text-align: left;">${this.getTableLabelCity()}</th>
+      <th class="">${this.getTableLabelHappiness()}</th>
+      <th class="" style="text-align: center;">${this.getTableLabelPolitics()}</th>
+      <th class="" style="text-align: center;">${house} ${this.getTableLabelAffordability()}</th>
+    </tr>
+  `
+
+  let tbody = document.createElement("tbody")
+  this.rankedList.map(cityData => {
+    let cityParams = this.marshallModelData(rank++, cityData)
+    let tr = this.createResultsTableRow(cityParams)
+    tbody.appendChild(tr)
+  })
+
+  table.appendChild(thead)
+  table.appendChild(tbody)
+  return table
 }
 
 View.prototype.createChartView = function(chartId = "myChart") {
@@ -439,6 +471,27 @@ View.prototype.createResultsListItem = function(cityParams) {
   return li
 }
 
+View.prototype.createResultsTableRow = function(cityParams) {
+  let happiness = this.getResultsFormattedHappiness(cityParams.happiness)
+  let donkey =
+    '<i class="fas fa-democrat fa-sm blue-text pr-3" aria-hidden="true"></i>'
+  let elephant =
+    '<i class="fas fa-republican fa-sm red-text pr-3" aria-hidden="true"></i>'
+  let politics = 
+    `${donkey} ${cityParams.politics.demFraction}%  &nbsp; ${elephant} ${cityParams.politics.repFraction}%`
+  let affordability = this.formatter.format(cityParams.affordability)
+
+  let tr = document.createElement("tr")
+  tr.innerHTML = `
+    <td>${cityParams.rank}</td>
+    <td class="mdl-data-table__cell--non-numeric">${cityParams.titleText}</td>
+    <td class="mdl-data-table__cell--non-numeric">${happiness}</td>
+    <td class="mdl-data-table__cell--non-numeric">${politics}</td>
+    <td>${affordability}</td>
+  `
+  return tr
+}
+
 View.prototype.createResultsNoPrioritiesCard = function(params) {
   let p = document.createElement("div")
   p.classList.add("mdl-cell")
@@ -528,10 +581,15 @@ View.prototype.createResultsFooter = function() {
 
   let offline = (this.getOnlineStatus() !== true)
   let photoLinkHtml = this.getViewLinkHtml({id: "photo-view", href: "#photo-button", buttonId: "photo-button", icon: "photo", isActive: "is-active"})
-  let listLinkHtml = this.getViewLinkHtml({id: "list-view", href: "#list-button", buttonId: "list-button", icon: "list", isActive: ""})
+  let tableLinkHtml = this.getViewLinkHtml({id: "table-view", href: "#table-button", buttonId: "table-button", icon: "table_view", isActive: ""})
   let spacingLinkHtml = this.getSpacerViewLinkHtml()
   let chartLinkHtml = this.getViewLinkHtml({id: "chart-view", href: "#chart-button", buttonId: "chart-button", icon: "insert_chart", isActive: ""})
   let mapLinkHtml = this.getMapViewLinkHtml(offline)
+
+  // List view is kinda lame at the moment so I'm replacing it with table view.
+  // I'd leave it in if spacing for an odd number of bottom-appbar icons was more
+  // pleasing and resilient.
+  // let listLinkHtml = this.getViewLinkHtml({id: "list-view", href: "#list-button", buttonId: "list-button", icon: "list", isActive: ""})
 
   let f = document.createElement("footer")
   f.classList.add("mdl-mini-foote")
@@ -540,7 +598,7 @@ View.prototype.createResultsFooter = function() {
       <div class="view-buttons mdl-tabs mdl-js-tabs">
         <div class="mdl-tabs__tab-bar view-button-tab-bar">
           ${photoLinkHtml}
-          ${listLinkHtml}
+          ${tableLinkHtml}
           ${spacingLinkHtml}
           ${chartLinkHtml}
           ${mapLinkHtml}
@@ -552,7 +610,8 @@ View.prototype.createResultsFooter = function() {
 
 View.prototype.findCurrentDataView = function() {
   // TODO: reconcile with ModelResults enumerated types.
-  let views = ["photo-view", "list-view", "chart-view", "map-view"]
+  //       This array really should be pulled from the view mode.
+  let views = ["photo-view", "list-view", "table-view", "chart-view", "map-view"]
   for (view of views) {
     if (this.isActiveDataView(view)) return view
   }
@@ -560,7 +619,7 @@ View.prototype.findCurrentDataView = function() {
 
 View.prototype.isActiveDataView = function(viewId) {
   let av = document.getElementById(viewId)
-  return av.classList.contains("is-active")
+  return (av) ? av.classList.contains("is-active") : false
 }
 
 View.prototype.setActiveDataView = function(nextViewId) {
@@ -569,8 +628,13 @@ View.prototype.setActiveDataView = function(nextViewId) {
   let currentViewId = this.findCurrentDataView()
   if (currentViewId != nextViewId) {
     let av = document.getElementById(currentViewId)
-    av.classList.remove("is-active")
-    let activeViewId = document.getElementById(nextViewId)
-    activeViewId.classList.add("is-active")
+    if (av) {
+      av.classList.remove("is-active")
+      let activeViewId = document.getElementById(nextViewId)
+      activeViewId.classList.add("is-active")
+    } else {
+      console.log('[Info] View.setActiveDataView(). No DOM element with view id:', currentViewId)
+      console.log('[Info] View.setActiveDataView(). Ignoring request.')
+    }
   }
 }

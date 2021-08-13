@@ -7,9 +7,7 @@
 // Examples of this include:
 //
 //    * returning to the priorities page when the fab (<>) is clicked
-//
-//    * changinge how the results are formatted (e.g., photo-view, list-view,
-//      chart-view, map-view)
+//    * changing how the results are formatted (e.g., photo-view vs. table-view)
 //----------------------------------------------------------------------------------
 // TODO: Add a results model to mutate.
 //----------------------------------------------------------------------------------
