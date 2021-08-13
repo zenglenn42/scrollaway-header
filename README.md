@@ -56,6 +56,10 @@ Basic city ranking and multi-view results work:
   - [Slow Day](#slow-day)
   - [User Experience Review](#user-experience-review)
 - [Near-term Roadmap](#near-term-roadmap)
+  - [Implementation](#implementation)
+  - [Usability](#usability)
+  - [Harden](#harden)
+  - [Tasty Features](#tasty-features)
 - [Declaring Victory](#declaring-victory)
   - [Menu refactor](#menu-refactor)
   - [A better dropdown-select component](#a-better-dropdown-select-component)
@@ -65,9 +69,13 @@ Basic city ranking and multi-view results work:
   - [Local Persistence](#local-persistence)
     - [I should remember what language you prefer](#i-should-remember-what-language-you-prefer)
     - [I should remember your latest City-related priority values](#i-should-remember-your-latest-City-related-priority-values)
+  - [UI/UX finesse](#ui-ux-finesse)
     - [Harden app if internet goes down](#harden-app-if-internet-goes-down)
     - [Disable the slider for disabled priorities](#disable-the-slider-for-disabled-priorities)
   - [Unknown unknowns](#unknown-unknowns)
+    - [Proliferating click handlers](#proliferating-click-handlers)
+    - [Managed event handlers](#managed-event-handlers)
+  - [Thanks for reading](#thanks-for-reading)
 
 -----
 
@@ -857,11 +865,11 @@ I address most of the feedback in a slew of 30+ fixes.  UI/UX work requires a lo
 
 My recent UX review is motivating me.  This app is a portfolio piece so it's more of a sketch as opposed to a production-ready offering.  However, the usability feedback has me thinking about several areas that could be improved or enhanced without costing me a ton of bandwidth.
 
-## Implementation
+## [Implementation](#contents)
 
   - Capture application state in a single structure that can be passed around and persisted through local storage.  This should provide a clean mechanism for supporting some of the usability features below and put us in good stead for scalability down the road.
 
-## Usability
+## [Usability](#contents)
 
   - Flesh-out a non-trivial menu drawer.
 
@@ -879,11 +887,11 @@ My recent UX review is motivating me.  This app is a portfolio piece so it's mor
 
     - Allow user to change input priorities on the same screen as the results for 'live-list' sensitivity analysis.  Dedicated screen real estate for supporting this is more apparent on desktop.  (On mobile, a floating preferences FAB could expand to a semi-transparent modal to achieve the same effect.)
 
-## Harden
+## [Harden](#contents)
 
   - I clearly have a dependency upon javascript and even the internet here (since city images and map navigation need the net, among other things).  There should be a test for these dependencies and either feedback to the user or a gentle degradation in the user experience.
 
-## Tasty Features
+## [Tasty Features](#contents)
 
   - I love adding multi-language support to my apps.  The string catalog for this app would be relatively small and it would be a nice bit of refinement.
 
@@ -1191,7 +1199,7 @@ I only click the mouse once but ***my click handler appears to be firing 8 times
 
 And the story gets worse as I mouse and click around the app.  The click count jumps by ever-increasing multiples.  On mobile, the app eventually grinds to a halt.
 
-### Proliferating click handlers :-(
+### Proliferating click handlers
 
 I ***think*** I have one special robot child click handler, but I've actually created a proliferating factory of them.
 
@@ -1206,6 +1214,8 @@ But that's essentially what I'm doing when I use the FAB's click handler, for ex
 Obviously the runtime is not garbage collecting the old event handlers in the way I naively expect.  Simplistically nulling out the innerHTML of the body ```<div>``` is bad form since it doesn't clear out event handlers.  But even writing my own code to remove child nodes recursively doesn't get me out of hot water.
 
 I ***could*** spend a bunch of time scooping up all my dynamically added event listeners and add those before building out views below the body ```<div>```.  I may end up doing that if that's the best practice.  However I do figure out a way to extend the code for attaching event handlers to dynamically created nodes to only register an event handler ***once***.  And that instantly stops the insanity.
+
+### [Managed event handlers](#contents)
 
 I'm pretty happy with this code because it also gives me a chance to play with the singleton pattern:
 
@@ -1288,7 +1298,7 @@ The other thing I learn is that Safari, as a dev environment, frequently needs t
 I'll find a more exemplary way to manage event handlers, but I'm out of the ditch for now.
 
 
-## Thanks for reading
+## [Thanks for reading](#contents)
 
 I still need to make the models observable by the view for canonical MVC synchronization of state from model to view.  This would make responsive desktop easier to implement. For now, though, view updates are handled explicitly by the mediating controller on significant event boundaries using flow-synchronization as beautifully [elaborated](https://martinfowler.com/eaaDev/uiArchs.html#ModelViewController) by Martin Fowler.
 
