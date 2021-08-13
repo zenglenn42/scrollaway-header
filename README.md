@@ -1199,7 +1199,7 @@ I only click the mouse once but ***my click handler appears to be firing 8 times
 
 And the story gets worse as I mouse and click around the app.  The click count jumps by ever-increasing multiples.  On mobile, the app eventually grinds to a halt.
 
-### Proliferating click handlers
+### [Proliferating click handlers](#contents)
 
 I ***think*** I have one special robot child click handler, but I've actually created a proliferating factory of them.
 
