@@ -57,6 +57,17 @@ Basic city ranking and multi-view results work:
   - [User Experience Review](#user-experience-review)
 - [Near-term Roadmap](#near-term-roadmap)
 - [Declaring Victory](#declaring-victory)
+  - [Menu refactor](#menu-refactor)
+  - [A better dropdown-select component](#a-better-dropdown-select-component)
+  - [Granular MVC-ification](#granular-mvc-ification)
+  - [Localization (l10n)](#localization-l10n)
+    - [Easier language selection](#easier-language-selection)
+  - [Local Persistence](#local-persistence)
+    - [I should remember what language you prefer](#i-should-remember-what-language-you-prefer)
+    - [I should remember your latest City-related priority values](#i-should-remember-your-latest-City-related-priority-values)
+    - [Harden app if internet goes down](#harden-app-if-internet-goes-down)
+    - [Disable the slider for disabled priorities](#disable-the-slider-for-disabled-priorities)
+  - [Unknown unknowns](#unknown-unknowns)
 
 -----
 
@@ -889,7 +900,7 @@ Photo by Priscilla Du Preez
 
 As a parting farewell, I give some love to several areas highlighted by the UI/UX review along with a few features.
 
-## Menu refactor
+## [Menu refactor](#contents)
 
 What started out as a modest, hardcoded mock-up ...
 
@@ -901,7 +912,7 @@ morphs into something which allows menu-based navigation (through the 'View' sub
 
 I create my own drop-down selection element since Material Design Lite (MDL) doesn't provide one, yet another reason to upgrade to Material Components.  
 
-## A better dropdown-select component
+## [A better dropdown-select component](#contents)
 
 I do a little poking around on github and find a snazzier dropdown [here](https://creativeit.github.io/getmdl-select) that works with MDL.
 
@@ -919,7 +930,7 @@ Also, my dynamically generated DOM elements require a manual invocation of the 3
 
 As I write this, I realize I should be responding to 'change' events off the ```<input>``` control and not clicks from the parent ```<div>``` since I should only mutate state on ***changed*** values.  I wrote that code before I entirely understood how to horse-whisper the W3C event capture / bubbling system and probably had this vague notion that event handlers off the same element could get dicey.  My way is at least deterministic though it clearly sacrifices efficiency and probably explains some edge case behavoir I'm seeing with the arrow indicator thinking the dropdown is open when it's actually closed.  Meh, next time. (-; Still a net win to add the nicer control.
 
-## Granular MVC-ification
+## [Granular MVC-ification](#contents)
 
 Sometimes the best feature is nicely organized code arranged in a sensible way across the filesystem.  It makes thinking about and updating the codebase ***so*** much easier.  But the standard quip is MVC stands for "Massive View Controller" and my controller is up past 1000 lines, so it's past time to refactor.  
 
@@ -986,7 +997,7 @@ I really ***should*** leverage client-side modules given all the work that has g
 
 But a more granular file structure is an incremental and relatively easy win for now.  I know immediately where I have to go when something relates to state, versus presentation, or event handling.
 
-## Localization (l10n)
+## [Localization (l10n)](#contents)
 
 ![alt](docs/img/l10n-settings.png)
 
@@ -1055,7 +1066,7 @@ With a conducive pattern in place, I add localization for 4 of the world's most 
 
 ![alt](docs/img/l10n-refactor.png)
 
-### Easier language selection
+### [Easier language selection](#contents)
 
 I enlist a friend to review one of my _probably-sketchy_ translations but he comments that he doesn't see **where** to change the language/locale.  It's a moment of miopic-comeuppance for me since I feel like I've been very patternful in creating a menu drawer with a Settings tab (complete with conventional 'gear' icon) ... and then, um,  an 'Edit' item to bring up the page where the language can _actually_ be changed. :-(
 
@@ -1066,12 +1077,12 @@ Hmm.  I see his point.  He's got to click down through 4 layers to do that.  Mos
 I probably should detect/discover locale from the browser environment and set that intelligently if it happens to match one of my supported locales, defaulting to English otherwise.
 
 
-## Local Persistence
+## [Local Persistence](#contents)
 
 ![alt](docs/img/art-wall-kittenprint-9Wq1HpghQ4A-unsplash.jpg)
 Photo by Art Wall - Kittenprint
 
-### I should remember what language you prefer.
+### [I should remember what language you prefer](#contents)
 
 The localization work is more satisfying if changes to the locale (and any other setting, really) are remembered across CityMatch sessions.  So I add a [commit](https://github.com/zenglenn42/CityMatch/commit/f4e7800da7d16171ecc0c6740eb449ec62ab9279) to persist settings state to local storage whenever that state changes.
 
@@ -1104,7 +1115,7 @@ Of course, saving settings implies the need to clear settings, so I add a menu b
 
 Once you clear the cache, the button presents as disabled since there is nothing to clear.
 
-### I should remember your latest City-related priority values
+### [I should remember your latest City-related priority values](#contents)
 
 The same ethos of app settings persistence holds for user priorities as well.  At some point, I could see offering a feature to save your various searches over time, but for now I want to at least capture the last set of slider-card values you specified.
 
@@ -1112,9 +1123,9 @@ With this [commit](https://github.com/zenglenn42/CityMatch/commit/386fb155f90e54
 
 ![alt](docs/img/persistent-priorities.png)
 
-## UI/UX finesse
+## [UI/UX finesse](#contents)
 
-### Harden app if internet goes down
+### [Harden app if internet goes down](#contents)
 
 It's a complicated world and sometimes the precious internet is not available.  
 
@@ -1142,7 +1153,7 @@ Without this fu, I notice the user may still click on the disabled button and th
 
 The trick is to [enable capture](https://github.com/zenglenn42/CityMatch/blob/21d8093eb442e337ba021a875ffc31281f08520a/assets/js/controller/controller-results.js#L36) in my parent element event handler (so it fires /before/ the MDL tab handler) and then [stop event propagation](https://github.com/zenglenn42/CityMatch/blob/21d8093eb442e337ba021a875ffc31281f08520a/assets/js/controller/controller-results.js#L67) for that particular click in the absence of internet so the downstream tab component handler never sees the click.
 
-### Disable the slider for disabled priorities
+### [Disable the slider for disabled priorities](#contents)
 
 Users have the ability to completely disable any of the input priorities they don't like.  Maybe they don't care about politics or money is no object.  They simply click-off a switch in the upper right portion of the priority card and the associated image thoughtfully grays out; that attribute no longer affects the ranking calculation.
 
@@ -1154,7 +1165,7 @@ So ***now*** I turn off the lights, [freeze](https://github.com/zenglenn42/CityM
 
 The other subtlety I address is ***disallowing*** selection and hover styling for the read-only priority values within the menu drawer.  Otherwise they behave like clickable things but aren't.  All these little details add up to a less confusing, more refined experience for the user.  
 
-## Unknown unknowns
+## [Unknown unknowns](#contents)
 
 You don't know what you don't know.  
 
