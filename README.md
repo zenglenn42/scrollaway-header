@@ -954,7 +954,7 @@ I also have a separate file for code that simulates a data endpoint with city me
 
 I do a ton of reading about MVC and related patterns such as Model View Presenter (MVP) and Model View View-Model (MVVM).  I'm also curious about how the notion of persistence (both local and server-side) relates to the discussion of how to organize my code sensibly across my dev filesystem.  
 
-The other wrinkle is I'm currently geared for a thick client.  How will code organization morph in a fullstack context? I have this sense that parts of my model and controller will eventually cleave across the client / server boundary and want a file strcuture that facilitates that evolution.
+The other wrinkle is I'm currently geared for a thick client.  How will code organization morph in a fullstack context? I have this sense that parts of my model and controller will eventually cleave across the client / server boundary and want a file structure that facilitates that evolution.
 
 As usual, there's a lot of noise and [differing opinion](https://softwareengineering.stackexchange.com/questions/134820/in-an-mvc-system-where-should-the-database-persistence-code-sit) out there, but the following folks guide me out of the fog:
 
