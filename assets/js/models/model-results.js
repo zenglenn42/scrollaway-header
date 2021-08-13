@@ -59,7 +59,7 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
       listLabelHappiness: "Civic Happiness",      
       listLabelAffordability: "Median Home Price",      
       listLabelPolitics: "",
-      tableLabelRank: "Ranking",
+      tableLabelRank: "#",
       tableLabelCity: "City",
       tableLabelHappiness: "Happiness",
       tableLabelAffordability: "Cost",
@@ -83,7 +83,7 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
       listLabelHappiness: "नागरिक खुशी",   
       listLabelAffordability: "मेडियन होम प्राइस",  
       listLabelPolitics: "",
-      tableLabelRank: "श्रेणी",
+      tableLabelRank: "#", // "श्रेणी"
       tableLabelCity: "शहर",
       tableLabelHappiness: "नागरिक खुशी",   
       tableLabelAffordability: "लागत",
@@ -107,7 +107,7 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
       listLabelHappiness: "Felicidad Cívica",      
       listLabelAffordability: "Precio medio de la vivienda",
       listLabelPolitics: "",
-      tableLabelRank: "Clasificación",
+      tableLabelRank: "#", // "Clasificación"
       tableLabelCity: "Ciudad",
       tableLabelHappiness: "Felicidad",
       tableLabelAffordability: "Costo",
@@ -131,7 +131,7 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
       listLabelHappiness: "公民幸福",
       listLabelAffordability: "房价中位数",
       listLabelPolitics: "",
-      tableLabelRank: "排行",
+      tableLabelRank: "#", // "排行"
       tableLabelCity: "城市",
       tableLabelHappiness: "幸福",
       tableLabelAffordability: "代价",
