@@ -58,8 +58,13 @@ function ModelLanding(getLocale = () => {return "en-US"}) {
       copyrightDate: "2021"
     },
     "zh-CN": {
-      appName: "梦想之城", // Dream City
-      slogan: "找到你的城市",
+      appName: "城市配对",   // City Pairing
+      //appName: "城市配合", // City Fit (as in 'fit together')
+      //appName: "梦想之城", // Dream City
+      //appName: "城市适合", // Suitable City
+      //appName: "宜居城市", // Livable City
+      slogan: "寻找宜居城市", // Find a livable city
+      //slogan: "找到你的城市", // Find your city
 
       // NB: Strive to keep blurb text short, ideally not more than 2 sentences
       //     with each sentence < 80 characters.
