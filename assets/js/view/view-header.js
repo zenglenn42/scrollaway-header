@@ -46,6 +46,11 @@ View.prototype.createNav = function(navPropsArray = this.dfltNavPropsArray) {
   return navHtml
 }
 
+// TODO: Add ability to make the subTitle disappear
+//       especially on mobile when swiping up to view content below.
+//       Screen real estate is too previous on small devices to give
+//       preference to a fixed header instead of city results, for example.
+
 View.prototype.createHeader = function(title, subTitle = "", navPropsArray = this.dfltNavPropsArray) {
   let h = document.createElement("header")
   let navHtml = this.createNav(navPropsArray)

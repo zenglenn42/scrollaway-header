@@ -14,6 +14,12 @@ View.prototype.createResultsBody = function() {
 
   let title = this.getAppName()
   let subTitle = this.getResultsSubtitle()
+
+  // TODO: Add ability to make the subTitle disappear in *.createHeader()
+  //       especially on mobile when swiping up to view content below.
+  //       Screen real estate is too previous on small devices to give
+  //       preference to a fixed header instead of city results, for example.
+
   let header = this.createHeader(title, subTitle)
   let menuDrawer = this.createMenuDrawer()
   let main = this.createResultsMain()
@@ -181,7 +187,7 @@ View.prototype.createTableView = function(userPriorities, rank = 1) {
     <tr>
       <th class="mdl-data-table__cell--non-numeric">${this.getTableLabelRank()}</th>
       <th class="" style="text-align: left;">${this.getTableLabelCity()}</th>
-      <th class="">${this.getTableLabelHappiness()}</th>
+      <th class="" style="text-align: center;">${this.getTableLabelHappiness()}</th>
       <th class="" style="text-align: center;">${this.getTableLabelPolitics()}</th>
       <th class="" style="text-align: center;">${house} ${this.getTableLabelAffordability()}</th>
     </tr>
