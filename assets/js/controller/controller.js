@@ -21,9 +21,6 @@
 //
 //       Currently the controller shoulders responsibility for keeping the view
 //       synchronized with the models.
-//
-// TODO: Enable persistence of priority state between user sessions by integrating
-//       storage layer.
 //----------------------------------------------------------------------------------
 
 function Controller(bodyDivId, locale = "en-US") {
@@ -49,9 +46,9 @@ function Controller(bodyDivId, locale = "en-US") {
 
   this.priorities = new ModelPriorities(
     getSettingsLocale,
-    this.cities.getMidAffordabilityValue(), // 
-    this.cities.getMidHappinessValue(),     // TODO: Init these 3 props from cache if avail.
-    this.cities.getMidPoliticsValue(),      // 
+    this.cities.getMidAffordabilityValue(),
+    this.cities.getMidHappinessValue(),
+    this.cities.getMidPoliticsValue(),
     this.cities.getAffordabilityRange(),
     this.cities.getHappinessRange(),
     this.cities.getPoliticsRange()
