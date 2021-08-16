@@ -59,6 +59,8 @@ Controller.prototype.getViewButtonEventListener = function() {
 
       // Update view according to model.
       that.view.setActiveDataView(that.results.getActiveDataView())
+      that.cache.setResults(that.results.get())
+
       that.view.createPageBody("results")
     } else {
 

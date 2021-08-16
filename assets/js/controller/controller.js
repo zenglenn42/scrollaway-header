@@ -24,6 +24,17 @@
 //----------------------------------------------------------------------------------
 
 function Controller(bodyDivId, locale = "en-US") {
+  // Get network status at object creation-time.
+  //
+  // We may want to set this up on an interval, but for now, we just check at
+  // a few significant junctures in the code-flow.
+  //
+  // Check inet status early since this impacts how we interpret
+  // persisted settings that drive the model.
+
+  this.isOnline = 'unknown'
+  this.checkInternet("", this.setOnlineStatus.bind(this))
+
   this.cache = new LocalStorage()
 
   // Instantiate domain model.
@@ -60,7 +71,18 @@ function Controller(bodyDivId, locale = "en-US") {
     this.priorities.set(persistedPriorities)
   }
 
-  this.results = new ModelResults(getSettingsLocale, this.cities.isValidCityList)
+  this.results = new ModelResults(
+    getSettingsLocale,
+    this.cities.isValidCityList,
+    "photo-view")
+  if (this.cache.hasResults()) {
+    // Update results state from cached settings.
+
+    // TODO: Enforce inet check before attempting to restore
+    //       to possibly inet-down disabled view.
+    let persistedResults = this.cache.getResults()
+    this.results.set(persistedResults)
+  }
 
   this.FAB = new ModelFAB(getSettingsLocale)
   if (this.cache.hasFAB()) {
@@ -72,13 +94,6 @@ function Controller(bodyDivId, locale = "en-US") {
 
   this.delegatedHandlers = this.ManagedEventHandlers.getSingleton()
 
-  // Get network status at object creation-time.
-  //
-  // We may want to set this up on an interval, but for now, we just check at
-  // a few significant junctures in the code-flow.
-
-  this.isOnline = 'unknown'
-  this.checkInternet("", this.setOnlineStatus.bind(this))
 
   // Instantiate view, passing in state getters from models.
   this.view = new View(
@@ -198,7 +213,7 @@ function Controller(bodyDivId, locale = "en-US") {
   // between landscape and portrait.  Otherwise we get content
   // clipping.  May need a polyfill here since orientationchange
   // is iOS-specific according to Matt Frisbie's Professional
-  // JAvaScript for Web Developers book, circa 2020.
+  // JavaScript for Web Developers book, circa 2020.
 
   window.addEventListener("load", (e) => {
     window.addEventListener("orientationchange", (e) => {
