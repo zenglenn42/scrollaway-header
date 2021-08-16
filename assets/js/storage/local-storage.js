@@ -58,10 +58,19 @@ LocalStorage.prototype.hasFAB = function() {
   return value
 }
 
+LocalStorage.prototype.hasResults = function() {
+  let value = undefined
+  if (this.hasLocalStorage()) {
+    value = localStorage.getItem(this._RESULTS_KEY)
+  }
+  return value
+}
+
 LocalStorage.prototype.isValidKey = function(key) {
   return (key === this._SETTINGS_KEY   ||
           key === this._PRIORITIES_KEY ||
-          key === this._FAB_KEY)
+          key === this._FAB_KEY        ||
+          key === this._RESULTS_KEY)
 }
 
 LocalStorage.prototype.get = function(key) {
@@ -127,6 +136,17 @@ LocalStorage.prototype.setFAB = function(jsObj) {
   }
 }
 
+LocalStorage.prototype.getResults = function() {
+  return (this.hasResults()) ? this.get(this._RESULTS_KEY) : undefined
+}
+
+LocalStorage.prototype.setResults = function(jsObj) {
+  if (this.hasLocalStorage()) {
+    let jsonObj = (typeof jsObj === 'obj') ? JSON.stringify(jsObj) : jsObj
+    this.set(this._RESULTS_KEY, jsonObj)
+  }
+}
+
 LocalStorage.prototype.clearSettings = function() {
   return this.clear(this._SETTINGS_KEY)
 }
@@ -137,6 +157,10 @@ LocalStorage.prototype.clearPriorities = function() {
 
 LocalStorage.prototype.clearFAB = function() {
   return this.clear(this._FAB_KEY)
+}
+
+LocalStorage.prototype.clearResults = function() {
+  return this.clear(this._RESULTS_KEY)
 }
 
 LocalStorage.prototype.clear = function(localKey) {
