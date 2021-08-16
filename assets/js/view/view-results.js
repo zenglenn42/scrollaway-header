@@ -51,12 +51,17 @@ View.prototype.getResultsSubtitle = function() {
 
 View.prototype.appendLatentView = function(mainEl) {
   let view = mainEl.getAttribute("data-view")
+  let result = false
   switch(view) {
     case "chart":
       this.createChartView()
       break
-    case "map":
-      this.createMapView()
+    case "map": 
+      let mapAppended = this.createMapView()
+      if (!mapAppended) {
+        console.log('[Info] View.appendLatentView(). Map failed.  Leaflet missing due to offline status on reload.')
+      }
+      result = mapAppended
       break
     case "photo":
     case "list":
@@ -64,6 +69,7 @@ View.prototype.appendLatentView = function(mainEl) {
     default:
       break
   }
+  return result
 }
 
 View.prototype.createResultsMain = function() {
@@ -283,29 +289,35 @@ View.prototype.createChartView = function(chartId = "myChart") {
 }
 
 View.prototype.createMapView = function(mapId = "mapid") {
-  let map = L.map(mapId).setView([38, -96], 3)
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    maxZoom: 18
-  }).addTo(map)
-  let rank = 0
-  this.rankedList.map(cityData => {
-    let cityParams = this.marshallModelData(rank++, cityData)
-    let markerText = `${rank}. ${cityParams.titleText}`
-    let lat = cityParams.lat
-    let lng = cityParams.lng
-    if (rank == 1) {
-      L.marker([lat, lng])
-        .addTo(map)
-        .bindPopup(markerText)
-        .openPopup()
-    } else {
-      L.marker([lat, lng])
-        .addTo(map)
-        .bindPopup(markerText)
-    }
-  })
+  if (typeof L === 'undefined') {
+    return false  // leaflet undefined; inet down on reload most likely
+  }
+  else {
+    let map = L.map(mapId).setView([38, -96], 3)
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 18
+    }).addTo(map)
+    let rank = 0
+    this.rankedList.map(cityData => {
+      let cityParams = this.marshallModelData(rank++, cityData)
+      let markerText = `${rank}. ${cityParams.titleText}`
+      let lat = cityParams.lat
+      let lng = cityParams.lng
+      if (rank == 1) {
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(markerText)
+          .openPopup()
+      } else {
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(markerText)
+      }
+    })
+    return true
+  }
 }
 
 View.prototype.marshallModelData = function(rank, cityData) {
@@ -637,7 +649,12 @@ View.prototype.setActiveDataView = function(nextViewId) {
     if (av) {
       av.classList.remove("is-active")
       let activeViewId = document.getElementById(nextViewId)
-      activeViewId.classList.add("is-active")
+      if (activeViewId) {
+        activeViewId.classList.add("is-active")
+      } else {
+        console.log('[Info] View.setActiveDataView() View id missing or invalid:', nextViewId)
+        // TODO: Do something resilient.
+      }
     } else {
       console.log('[Info] View.setActiveDataView(). No DOM element with view id:', currentViewId)
       console.log('[Info] View.setActiveDataView(). Ignoring request.')

@@ -23,6 +23,10 @@ function ModelResults(getLocale = () => {return "en-US"}, isValidCityListFn, dat
   this.isValidCityListFn = isValidCityListFn
 
   this.dfltDataView = "photo-view" // photo-view | table-view | chart-view | map-view
+                                   // TODO: This should always default to a view which can't
+                                   //       be disabled.  We want graceful fallback to this if
+                                   //       persisted data-view corresponds to currently disabled
+                                   //       view.
   this.activeDataView = (this.isValidDataView(dataView)) ? dataView : this.dfltDataView
 
   this.dfltRankedList = []
@@ -180,6 +184,42 @@ ModelResults.prototype.setActiveDataView = function(dataView) {
     }
   }
   return result
+}
+
+ModelResults.prototype.get = function() {
+  // TODO: Add optional schema version as input to validate what props are expected.
+
+  let result = {
+    activeDataView: this.getActiveDataView()
+  }
+  return result
+}
+
+ModelResults.prototype.set = function(jsonObj) {
+  if (jsonObj) {
+    // TODO: Add schema version to validate what props and prop naming we /expect/.
+
+    let props = (typeof jsonObj === 'object') ? jsonObj : JSON.parse(jsonObj)
+
+    // Validate incoming json before mutating state.  Default to current state if invalid input.
+
+    // Disallow setting the active view to a view if it is currently disabled by
+    // temporary circumstances (like inet being down).
+
+    let activeDataView = (
+      props.hasOwnProperty('activeDataView')
+      && (this.isValidDataView(props.activeDataView) &&
+          !this.isValidDisabledDataView(props.activeDataView)))
+                      ? props.activeDataView
+                      : (this.isValidDataView(this.getActiveDataView()) &&
+                         !this.isValidDisabledDataView(this.getActiveDataView()))
+                            ? this.getActiveDataView()
+                            : this.dfltDataView
+
+    this.setActiveDataView(activeDataView)
+  } else {
+    console.log("[Info] ModelResults.set(json): Ignoring set, json parameter is undefined.")
+  }
 }
 
 ModelResults.prototype.isValidLocale = function(locale) {
