@@ -12,6 +12,7 @@ function LocalStorage() {
   this._SETTINGS_KEY = 'settings'     // TODO: Some day I'll be a proper enum.
   this._PRIORITIES_KEY = 'priorities' //       Me too.
   this._FAB_KEY = 'fab'               //       Me too.
+  this._RESULTS_KEY = 'results'       //       Me too.
 }
 
 LocalStorage.prototype.hasLocalStorage = function() {
