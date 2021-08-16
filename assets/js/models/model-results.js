@@ -186,6 +186,11 @@ ModelResults.prototype.setActiveDataView = function(dataView) {
   return result
 }
 
+ModelResults.prototype.restoreDefaults = function() {
+  this.activeDataView = this.dfltDataView
+  this.rankedList = this.dfltRankedList
+}
+
 ModelResults.prototype.get = function() {
   // TODO: Add optional schema version as input to validate what props are expected.
 

@@ -139,6 +139,16 @@ Controller.prototype.addMenuDrawerEventListeners = function() {
       }
     }
 
+    // Forget memory of current results data-view.
+    //
+    // We're kinda aliasing 'restore default settings' to restore /all/ app defaults
+    // except for user priorities.  That gets its own button.
+
+    that.results.restoreDefaults()
+    if (that.cache.hasResults()) {
+      that.cache.clearResults()
+    }
+
     // Update the current view to reflect changes in the settings model.
 
     // Here we're using flow synchronization to keep the view updated.
