@@ -15,12 +15,19 @@
 //----------------------------------------------------------------------------------
 
 Controller.prototype.ManageOrientationChange = function() {
+  this.delegatedHandlers.addEventListener(
+      window,
+      "orientationchange",
+      "#body-div",
+      (e) => { window.location.reload() })
+  /*
   // TODO: Make this a managed/singleton event listener?
   window.addEventListener("load", (e) => {
     window.addEventListener("orientationchange", (e) => {
       window.location.reload()
     })
   })
+  */
 }
 
 //----------------------------------------------------------------------------------
