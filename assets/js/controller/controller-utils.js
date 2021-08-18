@@ -6,22 +6,45 @@
 //----------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------
-// Reload the app if (mobile device) orientation changes from landscape
-// to portrait or vice versa.  Otherwise, we get content clipping especially
-// on iOS.
+// Reload the app on orientation change from portrait to landscape or vice versa.
+// Otherwise, we get content clipping especially on mobile platforms like iOS.
 //
-// We may need a polyfill for Android since the following is iOS-specific.
+// Seems to work okay on iOS and Android, though it leverages a deprecated,
+// iOS-centric event.
+//
 // See: Professional JavaScript for Web Developers by Matt Frisbie (2020)
+// TODO: Evaluate alternate implementation below.
 //----------------------------------------------------------------------------------
 
 Controller.prototype.ManageOrientationChange = function() {
-  // TODO: Make this a managed/singleton event listener?
-  window.addEventListener("load", (e) => {
-    window.addEventListener("orientationchange", (e) => {
-      window.location.reload()
-    })
+  window.addEventListener("orientationchange", (e) => { 
+    window.location.reload()
   })
 }
+
+//----------------------------------------------------------------------------------
+// This solution has the virtue of being testable from my desktop dev environment
+// across safari, firefox, and chrome when in responsive mode.
+//
+// See: https://dev.to/andreseduardop/comment/1ekje
+// TODO: Evaluate this on actual iOS and Android devices. BrowserStack anyone? :-)
+//----------------------------------------------------------------------------------
+//
+// Controller.prototype.orientationMediaQuery = window.matchMedia('(orientation: portrait)')
+// Controller.prototype.ManageOrientationChange = function() {
+//   // Mobile vs desktop check courtesy: https://dev.to/andreseduardop/comment/1ekje
+//   // TODO: Would '(hover: none)' media query be better proxy?
+//
+//   let isMobileRegEx = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Kindle/i
+//   if (isMobileRegEx.test(navigator.userAgent)) {
+//     if (this.orientationMediaQuery) {
+//       this.orientationMediaQuery.addEventListener(
+//         'change',
+//         (e) => {window.location.reload()}
+//       )
+//     }
+//   }
+// }
 
 //----------------------------------------------------------------------------------
 // Manage delegated event handlers with this singleton.
