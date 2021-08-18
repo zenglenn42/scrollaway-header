@@ -53,6 +53,7 @@ View.prototype.createNav = function(navPropsArray = this.dfltNavPropsArray) {
 
 View.prototype.createHeader = function(title, subTitle = "", navPropsArray = this.dfltNavPropsArray) {
   let h = document.createElement("header")
+  h.setAttribute("id", "header-id")
   let navHtml = this.createNav(navPropsArray)
   let centerBelowTitle = "&nbsp".repeat(0)  // Slightly more pleasing subTitle centering. TODO: Do this in CSS.
   let subTitleHtml = (subTitle) 
@@ -64,15 +65,16 @@ View.prototype.createHeader = function(title, subTitle = "", navPropsArray = thi
   h.classList += "mdl-layout__header"
   h.innerHTML = `
       <div class="mdl-layout__header-row">
-      <div class="mdl-layout__header-left-spacer"></div>
-      <div class="mdl-layout-spacer"></div>
-      <span id="nav-title-text" 
+        <div class="mdl-layout__header-left-spacer"></div>
+        <div class="mdl-layout-spacer"></div>
+        <span id="nav-title-text"
             class="mdl-layout-title mdl-button" 
             style="color:white; text-transform: none; padding-top: 8px;">
           ${title}
-      </span>
-      <div class="mdl-layout-spacer"></div>
-      ${navHtml}
+        </span>
+        <div class="mdl-layout-spacer"></div>
+         ${navHtml}
+        </div>
       </div>
       ${subTitleHtml}
     `
