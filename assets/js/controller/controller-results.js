@@ -27,20 +27,19 @@ Controller.prototype.addResultsPageEventListeners = function() {
     )
   }
 
-  viewButtons = document.getElementsByClassName("view-link")
-  if (viewButtons) {
-    for (let i = 0; i < viewButtons.length; ++i) {
-      let el = viewButtons[i]
-      let useCapture = true // Otherwise precedence is given to the low-level tab component
-                            // event handler and focus may shift to a disabled view-button.
-                            //
-                            // We want the latitude to pre-empt the flow of events to 3rd-party
-                            // components that don't understand our high-level visualization
-                            // policy.
 
-      el.addEventListener("click", this.getViewButtonEventListener(), useCapture)
-    }
-  }
+  let useCapture = true // Otherwise precedence is given to the low-level tab component
+                        // event handler and focus may shift to a disabled view-button.
+                        //
+                        // We want the latitude to pre-empt the flow of events to 3rd-party
+                        // components that don't understand our high-level visualization
+                        // policy.
+  this.delegatedHandlers.addEventListener(
+      document,
+      "click",
+      ".view-link",
+      this.getViewButtonEventListener(),
+      useCapture)
 
   /* Make hamburger menu responsive to clicks. */
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"))
