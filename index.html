@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Scroll Study</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="./style.css"
+    />
+  </head>
+  <body>
+    <div id="body-div" class="body__div">
+      <header id="header" class="header">
+        <section id="primary-header" class="header__row">
+           <span class="material-icons header__menu-icon">menu</span>
+           <span class="header__title">Title</span>
+           <nav class="header__nav">
+            <span class="material-icons header__nav-item">search</span>
+            <span class="material-icons header__nav-item">account_circle</span>
+           </nav>
+        </section>
+        <section id="secondary-header" class="header__row subheader__row">
+           <!-- adding spacer icons to keep subtitle aligned with title text above -->
+           <span class="material-icons header__menu-icon subheader__menu-icon">space_bar</span>
+
+           <span class="subheader__title">subtitle</span>
+
+           <!-- adding spacer icons to keep subtitle aligned with title text above -->
+           <nav class="header__nav subheader__nav">
+            <span class="material-icons header__nav-item">space_bar</span>
+            <span class="material-icons header__nav-item">space_bar</span>
+           </nav>
+        </section>
+      </header>
+      <main id="main" class="main">
+        <h1>Main</h1>
+        <h2>Section 1</h2>
+        <p>
+It won't entirely dispense with the pull toward prop proliferation. Sometimes the right prop can simplify the use of a component. With the Accordion, I found myself wishing for `min_viewable_items` and `max_viewable_items`.
+
+But it's not always clear what the right props and features _are_.
+
+For a recursive Accordion, for example, what would `min_viewable_items` _mean_ precisely? Is it the minimum number of items expanded across the entire Accordion (including sub-accordions)? Is it the minimum number of items open at a given depth? If the latter, should we also count items that are expanded parent nodes of sub-accordions?
+
+With inversion of control, the client developer may implement the behavior they _need_, hopefully as a simple extension to code bundled with the component.
+
+Oh yeah, I _did_ turn the nested accordion into a menu drawer as well ...
+        </p>
+        <h2>Section 2</h2>
+        <p>
+It won't entirely dispense with the pull toward prop proliferation. Sometimes the right prop can simplify the use of a component. With the Accordion, I found myself wishing for `min_viewable_items` and `max_viewable_items`.
+
+But it's not always clear what the right props and features _are_.
+
+For a recursive Accordion, for example, what would `min_viewable_items` _mean_ precisely? Is it the minimum number of items expanded across the entire Accordion (including sub-accordions)? Is it the minimum number of items open at a given depth? If the latter, should we also count items that are expanded parent nodes of sub-accordions?
+
+With inversion of control, the client developer may implement the behavior they _need_, hopefully as a simple extension to code bundled with the component.
+
+Oh yeah, I _did_ turn the nested accordion into a menu drawer as well ...
+        </p>
+        <h2>Section 3</h2>
+        <p>
+It won't entirely dispense with the pull toward prop proliferation. Sometimes the right prop can simplify the use of a component. With the Accordion, I found myself wishing for `min_viewable_items` and `max_viewable_items`.
+
+But it's not always clear what the right props and features _are_.
+
+For a recursive Accordion, for example, what would `min_viewable_items` _mean_ precisely? Is it the minimum number of items expanded across the entire Accordion (including sub-accordions)? Is it the minimum number of items open at a given depth? If the latter, should we also count items that are expanded parent nodes of sub-accordions?
+
+With inversion of control, the client developer may implement the behavior they _need_, hopefully as a simple extension to code bundled with the component.
+
+Oh yeah, I _did_ turn the nested accordion into a menu drawer as well ...
+        </p>
+      </main>
+      <footer class="footer">
+        Incremental Industries &copy; 2021
+      </footer>
+    </div>
+    <script rel="text/javascript">
+      let headerEl = document.querySelector('#primary-header')
+      let hasHeader = (headerEl) ? true : false
+
+      let headerHeight = (hasHeader) ? headerEl.getBoundingClientRect().height : undefined
+      let headerStyle = (hasHeader) ? window.getComputedStyle(headerEl) : undefined
+      let headerMaxHeight = (hasHeader) ? headerStyle.getPropertyValue('max-height') : undefined
+      let showHeaderMaxHeight = (hasHeader) ? `max-height: ${headerMaxHeight}` : undefined
+
+      let subheaderEl = document.querySelector('#secondary-header')
+      let hasSubheader = (subheaderEl) ? true : false
+
+      let subheaderHeight = (hasSubheader) ? subheaderEl.getBoundingClientRect().height : undefined
+      let subheaderStyle = (hasSubheader) ? window.getComputedStyle(subheaderEl) : undefined
+      let subheaderMaxHeight = (hasSubheader) ? subheaderStyle.getPropertyValue('max-height') : undefined
+      let showSubheaderMaxHeight = (hasSubheader) ? `max-height: ${subheaderMaxHeight}` : undefined
+
+      let mEl = document.getElementById("main")
+
+      let transition = "max-height 0.1s ease-out"
+
+      function setVisibleStyle(headerEl, headerMaxHeight, subheaderEl, subheaderMaxHeight, transition) {
+        if (headerEl) {
+          headerEl.style.maxHeight = headerMaxHeight
+          headerEl.style.transition = transition
+        }
+
+        if (subheaderEl) {
+          subheaderEl.style.maxHeight = subheaderMaxHeight
+          subheaderEl.style.transition = transition
+        }
+      }
+
+      function setInvisibleStyle(headerEl, subheaderEl, transition) {
+        if (headerEl) {
+          headerEl.style.maxHeight = 0
+          headerEl.style.transition = transition
+        }
+
+        if (subheaderEl) {
+          subheaderEl.style.maxHeight = 0
+          subheaderEl.style.transition = transition
+        }
+      }
+
+      function isInvisible(headerEl) {
+        return headerEl.style.maxHeight.charAt(0) === "0" // "0px or 0em"
+      }
+
+      function isVisible(headerEl) {
+        return !isInvisible(headerEl)
+      }
+
+      function headerWorthy(scrollableEl, headerHeight) {
+        // Scrollable element is large enough to accomodate a header.
+        return scrollableEl.scrollHeight - scrollableEl.clientHeight <= headerHeight
+      }
+
+      if (hasHeader && hasSubheader) {
+        mEl.addEventListener("resize", (e) => {
+            if (isInvisible(headerEl) && headerWorthy(e.target, headerHeight)) {
+                setVisibleStyle(headerEl, headerMaxHeight, subheaderEl, subheaderMaxHeight, transition)
+            }
+        })
+
+        mEl.addEventListener("scroll", (e) => {
+          let preventJitter = headerHeight + subheaderHeight // Hysteresis threshold, otherwise scroll
+                                                             // bounces around for windows that only need a
+                                                             // smidge of vertical scrolling.
+
+          if (e.target.scrollTop === 0 && isInvisible(headerEl)) {
+            setVisibleStyle(headerEl, headerMaxHeight, subheaderEl, subheaderMaxHeight, transition)
+          } else if (e.target.scrollTop  - preventJitter > 0  && isVisible(headerEl)) {
+            setInvisibleStyle(headerEl, subheaderEl, transition)
+          } 
+        })
+      }
+
+    </script>
+  </body>
+</html>
