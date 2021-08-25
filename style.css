@@ -6,7 +6,7 @@ body {
 .body__div {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100%;
 }
 
 .header {
@@ -63,10 +63,11 @@ body {
 }
 
 .main {
-  background-color: #aa77cc; // Light purple
+  background-color: #aa77cc; /* Light purple */
   flex: 1;
-  overflow: scroll;
+  overflow-y: scroll;
   padding: 0 1em;
+  -webkit-overflow-scrolling: touch;
 }
 
 .footer {
