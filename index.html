@@ -3,8 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Scroll Study</title>
     <link
@@ -101,7 +99,6 @@ Oh yeah, I _did_ turn the nested accordion into a menu drawer as well ...
       let showSubheaderMaxHeight = (hasSubheader) ? `max-height: ${subheaderMaxHeight}` : undefined
 
       let mEl = document.getElementById("main")
-      mEl.scrollTo(0, 1) // Attempt to make iOS bottom toolbar disappear.
 
       let transition = "max-height 0.1s ease-out"
 
