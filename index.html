@@ -99,6 +99,7 @@ Oh yeah, I _did_ turn the nested accordion into a menu drawer as well ...
       let showSubheaderMaxHeight = (hasSubheader) ? `max-height: ${subheaderMaxHeight}` : undefined
 
       let mEl = document.getElementById("main")
+      mEl.scrollTo(0, 1) // Attempt to make iOS bottom toolbar disappear.
 
       let transition = "max-height 0.1s ease-out"
 
