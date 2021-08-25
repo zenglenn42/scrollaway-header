@@ -100,12 +100,13 @@ function ModelSettings(locale = "en-US", numCities, maxResults, countryCode) {
     "en-US": {
       title: "Edit settings ...",
       selectLang: "Select language",
+      selectLangTooltip: "Select language locale",
       useLang: "Use",
       selectCountry: "Select country",
       showCities: "Show cities in",
       selectQuantity: "Select quantity",
       showTop: "Show top",
-      showTopCities: "cities"
+      showTopCities: "cities",
     },
     "hi-IN": {
       title: "सेटिंग अपडेट करें ...",
@@ -361,6 +362,19 @@ ModelSettings.prototype.getSelectLang = function() {
   } else {
     result = (this.locale) ? result + "_" + this.locale : result
     console.log("ModelSettings:getSelectLang() Error ", result)
+  }
+  return result
+}
+
+ModelSettings.prototype.getSelectLangTooltip = function() {
+  let result = "missing_selectLangTooltip"
+  if (this.isValidLocaleProperty(this.locale, 'selectLangTooltip')) {
+    result = this.msgCatalog[this.locale].selectLangTooltip
+  } else if (this.isValidLocaleProperty(this.dfltLocale, 'selectLangTooltip')) {
+    result = this.msgCatalog[this.dfltLocale].selectLangTooltip
+  } else {
+    result = (this.locale) ? result + "_" + this.locale : result
+    console.log("ModelSettings:getSelectLangTooltip() Error ", result)
   }
   return result
 }

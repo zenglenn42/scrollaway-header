@@ -56,6 +56,7 @@ function View(
   getCurrency,
   getSettingsTitle,
   getSelectLang,
+  getSelectLangTooltip,
   getUseLang,
   getSelectCountry,
   getShowCities,
@@ -155,6 +156,7 @@ function View(
   this.getCountryOptionsMap = getCountryOptionsMap
   this.getSettingsTitle = getSettingsTitle
   this.getSelectLang = getSelectLang
+  this.getSelectLangTooltip = getSelectLangTooltip
   this.getUseLang = getUseLang
   this.getSelectCountry = getSelectCountry
   this.getShowCities = getShowCities
@@ -286,7 +288,36 @@ View.prototype.render = function() {
   this.createPageBody(page)
 }
 
+View.prototype.resetBody = function() {
+
+  // Explicitly remove /all/ the nodes under body and then recreate the top
+  // body <div> off of which the rest of the application's DOM nodes hang.
+  //
+  // Otherwise, MDL keeps inserting .mdl-layout__container <div>'s between
+  // the body and the application's <div> with each new page render.  Guessing
+  // this is related to a work-around for getting the mdl menu to work
+  // (by downgrading / upgrading MDL elements).
+  //
+  // TODO: Maybe there is a more elegant way to do this.
+  //
+  //       Really, we could create singletons for each page DOM-tree with app-session
+  //       lifetimes and just show/hide them as necessary.  Should see a nice performance
+  //       boost.  Will need this for responsive desktop layout where several
+  //       pages/components may be visible concurrently.
+
+  this.removeChildNodes(document.body)
+
+  let bodyDiv = document.createElement("div")
+  bodyDiv.setAttribute("id", `${this.bodyDivId}`)
+  bodyDiv.setAttribute("class", "body__div mdl-layout mdl-js-layout")
+
+  document.body.appendChild(bodyDiv)
+  bodyDiv.innerHTML = ""
+}
+
 View.prototype.createPageBody = function(page) {
+  this.resetBody()
+
   switch(page) {
     case "landing":
       this.createLandingBody()
@@ -318,8 +349,10 @@ View.prototype.createPageBody = function(page) {
 // same event.
 
 View.prototype.removeChildNodes = function(parentNode) {
-  while (parentNode.firstChild) {
-    parentNode.removeChild(parentNode.firstChild);
+  if (parentNode) {
+    while (parentNode.firstChild) {
+      parentNode.removeChild(parentNode.firstChild);
+    }
   }
 }
 

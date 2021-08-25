@@ -45,8 +45,6 @@ Controller.prototype.addHeaderEventListeners = function() {
           // TODO: This should go away once observer pattern is implemented.
           this.view.setLanguage()
         }
-      } else {
-        console.log("[Info] Event handler for #dropdown-nav-language: Unrecognized locale", locale, "Ignoring")
       }
     }
   )

@@ -4,39 +4,23 @@
   color: white;
 }
 
+/* Used programmatically in controller-results.js to give floating effect */
+/* when header/subheader have transitioned offscreen during scroll down.  */
+
+.mdl-layout__drawer-button--floating {
+  color: black;
+  color: rgba(63, 81, 181, 1.0); /* indigo */
+  background-color: rgba(200, 200, 200, 0.50);  /* Transparent gray */
+  border-radius: 1em;
+  box-shadow: 0 0.150em 0.312em rgba(0, 0, 0, 0.10), 0 0.093em 0.375em rgba(0, 0, 0, 0.14);
+  border: solid 1px lightgray;
+}
+
 /* Disable annoying white drawer outline that fails   */
 /* with mdl-menu--bottom-right for nav language icon. */
+
 #dropdown-nav-language > div > div {
   display: none
-}
-
-.mdl-layout__header-row {
-  padding: 0 16px 0 16px;
-}
-
-/* Centering the app title in the header row is a bit of a dark art */
-/* that factors in the number of right-side nav icons and also      */
-/* compromises for longer titles (like with Spanish).               */
-
-.mdl-layout__header-left-spacer {
-  /* 
-     Allow header title text to be centered despite absolutely
-     positioned hamburger menu (by MDL).
-
-     Otherwise, the left MDL spacer that should center the
-     text nicely will be erroneously aligned with the left
-     edge of the menu icon instead of the right, causing the
-     header text to drift left by the width of the icon.
-  */
-  margin-left: 60px;  /* TODO: Calc me.  Function of right-nav icons. */
-}
-
-@media screen and (max-width: 320px) {
-  /* Without this, the right-side nav icons get clipped with longer */
-  /* titles on smaller screens.                                     */
-  .mdl-layout__header-left-spacer {
-    margin-left: 24px;  /* TODO: Calc me. */
-  }
 }
 
 .mdl-layout-title-nudged {
@@ -61,13 +45,6 @@
   padding: 0px;
 }
 
-/* Left-align menu drawer title and first tier menu items. */
-/* Make consistent with hamburger menu alignment. */
-.mdl-layout__drawer > .mdl-layout-title,
-.mdl-layout__drawer > .mdl-button {
-  padding-left: 24px;
-  text-transform: none;
-}
 
 /* Fix visibility issue with long menu drawer content (especially on landscape mobile). */
 /* Otherwise content blips behind mdl-menu__container's -1 z-index. */
@@ -133,11 +110,6 @@ div.mdl-menu__container > ul > li
   padding-bottom: 0px;
   line-height: 1.25em;
   font-size: 145%;
-}
-
-#header-search {
-  /* Gray-out for now since search is tbd. */
-  color: gray;
 }
 
 .landing-card-wide.mdl-card {
@@ -544,4 +516,8 @@ a .view-button {
   font-size: 2em;
   padding-top: 0.15em;
   color: white;
+}
+
+.main--scrollable {
+  overflow: scroll;
 }

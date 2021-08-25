@@ -22,7 +22,9 @@ View.prototype.tooltipJobSearchId = "tooltip-jobsearch"
 
 View.prototype.createPrioritiesBody = function createPrioritiesBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
-  this.removeChildNodes(bodyDiv)
+  if (bodyDiv && bodyDiv.innerHTML) {
+    this.resetBody()
+  }
 
   let title = this.getAppName()
   let subTitle  = this.getPrioritiesTitle()

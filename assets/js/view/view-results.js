@@ -10,7 +10,9 @@
 
 View.prototype.createResultsBody = function() {
   let bodyDiv = document.getElementById(this.bodyDivId)
-  this.removeChildNodes(bodyDiv)
+  if (bodyDiv && bodyDiv.innerHTML) {
+    this.resetBody()
+  }
 
   let title = this.getAppName()
   let subTitle = this.getResultsSubtitle()
@@ -59,7 +61,9 @@ View.prototype.appendLatentView = function(mainEl) {
     case "map": 
       let mapAppended = this.createMapView()
       if (!mapAppended) {
-        console.log('[Info] View.appendLatentView(). Map failed.  Leaflet missing due to offline status on reload.')
+        let infoMsg  = '[Info] View.appendLatentView(). Map failed.  '
+            infoMsg += 'Leaflet missing due to offline status on reload.'
+        console.log(infoMsg)
       }
       result = mapAppended
       break
@@ -75,7 +79,7 @@ View.prototype.appendLatentView = function(mainEl) {
 View.prototype.createResultsMain = function() {
   let m = document.createElement("main")
   m.setAttribute("id", "main")
-  m.classList.add("mdl-layout__content")
+  m.classList.add("main--scrollable", "mdl-layout__content")
   let child = document.createElement("div")
   let g = document.createElement("div")
 
@@ -105,7 +109,7 @@ View.prototype.createResultsMain = function() {
         m.setAttribute("data-view", "list")
         break
       case "table-view":
-        child.setAttribute("style", "overflow: scroll")
+        //child.setAttribute("style", "overflow: scroll")
         let table = this.createTableView(userPriorities)
         table.setAttribute("style", "margin: 2em auto;")
         child.appendChild(table)

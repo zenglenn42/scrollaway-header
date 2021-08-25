@@ -18,68 +18,112 @@
 //----------------------------------------------------------------------------------
 
 View.prototype.dfltNavPropsArray = [
-        {id: 'nav-lang-button', icon: 'language',       tooltip: '<i class="material-icons header-icons">language</i>Select language / locale', enabled: false},
-        {id: 'nav-acct-button', icon: 'account_circle', tooltip: 'login',    enabled: false}]
-
-View.prototype.createNav = function(navPropsArray = this.dfltNavPropsArray) {
-  let navInnerHtml = navPropsArray.map((navItem) => {
-    let navItemId = navItem.id
-    let navIcon = navItem.icon || 'warning'
-    let disabled = (!navItem.enabled || navItem.enabled === false) ? "disabled" : ""
-    let html = ''
-    if (navItemId === 'nav-lang-button') {
-      let langListItems = this.getLangFlagListItems(this.getLangOptionsMap())
-      html = this.getNavLangDropdown(langListItems, navItem.tooltip)
-    } else {
-      html = `
-          <button id="${navItemId}" 
-                  class="mdl-navigation__link mdl-button mdl-js-button mdl-button--icon"
-                  ${disabled} >
-            <i class='material-icons header-icons'>${navIcon}</i>
-          </button>
-          <div class="mdl-tooltip" for="${navItemId}">${navItem.tooltip}</div>
-      `
+  {
+    id: 'nav-lang-button',
+    icon: 'language',
+    tooltip: (self) => {return self.getSelectLangTooltip()},
+    enabled: false,
+    html: (self, id, icon = 'warning', tooltip = '', disabled = '') => {
+      let tooltipText = (typeof tooltip === 'function') ? tooltip(self) : tooltip
+      let tooltipHTML = `<i class="header__nav-item material-icons">${icon}</i>${tooltipText}`
+      return self.getNavLangDropdown(self.getLangFlagListItems(self.getLangOptionsMap()), tooltipHTML)
     }
-    return html
+  },
+  {
+    id: 'nav-acct-button',
+    icon: 'account_circle',
+    tooltip: 'login',
+    enabled: false,
+    html: (self, id, icon = 'warning', tooltip = '', disabled = '') => {
+      return `<button id="${id}"
+                      class="header__nav-item material-icons  mdl-navigation__link mdl-button mdl-js-button mdl-button--icon"
+                      ${disabled}>
+                  <i class="material-icons">
+                    ${icon}
+                  </i>
+              </button>
+              <div class="mdl-tooltip" for="${id}">${tooltip}</div>`
+    }
+  }
+]
+
+View.prototype.dfltSubnavPropsArray = [
+  {
+    id: '',
+    icon: 'space_bar',
+    tooltip: '',
+    enabled: false
+  },
+  {
+    id: '',
+    icon: 'space_bar',
+    tooltip: '',
+    enabled: false
+  }
+]
+
+View.prototype.createNav = function(propsArray = this.dfltNavPropsArray) {
+  let innerHTML = propsArray.map((item) => {
+      let disabled = (!item.enabled || item.enabled === false) ? "disabled='disabled'" : ""
+      let html = (typeof item.html === 'function')
+                    ? item.html(this, item.id, item.icon, item.tooltip, disabled)
+                    : item.html
+      return html
   }).join('')
-  let navHtml = `<nav class="mdl-navigation">${navInnerHtml}</nav>`
-  return navHtml
+
+  let html = `<nav class="header__nav">${innerHTML}</nav>`
+  return html
 }
 
-// TODO: Add ability to make the subTitle disappear
-//       especially on mobile when swiping up to view content below.
-//       Screen real estate is too previous on small devices to give
-//       preference to a fixed header instead of city results, for example.
+View.prototype.createSubnav = function(propsArray = this.dfltSubnavPropsArray) {
+  let innerHTML = propsArray.map((item) => {
+      let navIcon = item.icon || 'space_bar'
+      let html = `<span class="material-icons header__nav-item">${navIcon}</span>`
+      return html
+  }).join('')
 
-View.prototype.createHeader = function(title, subTitle = "", navPropsArray = this.dfltNavPropsArray) {
+  let html = `<nav class="header__nav subheader__nav">${innerHTML}</nav>`
+  return html
+}
+
+View.prototype.createHeader = function(
+          title,
+          subTitle = "",
+          navPropsArray = this.dfltNavPropsArray) {
+
   let h = document.createElement("header")
   h.setAttribute("id", "header-id")
-  let navHtml = this.createNav(navPropsArray)
-  let centerBelowTitle = "&nbsp".repeat(0)  // Slightly more pleasing subTitle centering. TODO: Do this in CSS.
-  let subTitleHtml = (subTitle) 
-                    ? `<section style="padding: 0.25em 0; background-color: gray; text-align: center">
-                          ${centerBelowTitle}${subTitle}
-                       </section>`
-                    : ''
+  h.setAttribute("class", "header")
 
-  h.classList += "mdl-layout__header"
+  let navHTML = this.createNav(navPropsArray)
+  let subnavHTML = this.createSubnav(navPropsArray)
+
   h.innerHTML = `
-      <div class="mdl-layout__header-row">
-        <div class="mdl-layout__header-left-spacer"></div>
-        <div class="mdl-layout-spacer"></div>
-        <span id="nav-title-text"
-            class="mdl-layout-title mdl-button" 
-            style="color:white; text-transform: none; padding-top: 8px;">
-          ${title}
-        </span>
-        <div class="mdl-layout-spacer"></div>
-         ${navHtml}
-        </div>
-      </div>
-      ${subTitleHtml}
-    `
-  let hamburgerMenu = this.createHamburgerMenu()
-  h.appendChild(hamburgerMenu)
+        <section id="primary-header" class="mdl-layout__header header__row">
+          <!-- MDL manages the hamburger button and associated click handler -->
+          <!-- through classes.  Here, we're just adding an invisible icon   -->
+          <!-- to influence layout of stuff to the right of the menu button. -->
+          <span class="material-icons header__hidden-icon">space_bar</span>
+
+          <span id="nav-title-text" class="header__title header__title-button mdl-button">
+            ${title}
+          </span>
+          ${navHTML}
+        </section>`
+
+  if (subTitle) {
+    h.innerHTML += `
+        <section id="secondary-header" class="header__row subheader__row">
+          <!-- Adding spacer icons to keep subtitle aligned with title text  -->
+          <!-- in primary header.                                            -->
+          <span class="material-icons header__menu-icon subheader__menu-icon">
+            space_bar
+          </span>
+
+          <span class="subheader__title">${subTitle}</span>
+          ${subnavHTML}
+        </section>`
+  }
 
   return h
 }
@@ -98,8 +142,8 @@ View.prototype.getLangFlagListItems = function(langMap) {
     //   disabled="disabled"
     // }
 
-    let li = `<li style="margin: 0; width: 2em;" id="nav-language-${i+1}" data-val="${langKey}" data-value="${langKey}" ${selected} ${disabled}
-                  class="mdl-menu__item">
+    let li = `<li style="margin: 0; width: 2em;" id="nav-language-${i+1}" data-val="${langKey}" data-value="${langKey}"
+                  ${selected} ${disabled} class="mdl-menu__item">
                   ${flag}
               </li>`
     acc += li

@@ -126,7 +126,7 @@ Controller.prototype.ManagedEventHandlers = (function() {
               }
               t = t.parentNode
             }
-          }, useCapture)
+          }, useCapture) /*{capture: useCapture, passive: false}*/
         }
       }
     }

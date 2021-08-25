@@ -22,7 +22,7 @@ Controller.prototype.addLandingPageEventListeners = function() {
     )
   }
 
-  // Make hamburger menu responsive to clicks.
+  // Render hamburger menu and make responsive to clicks.
   componentHandler.downgradeElements(document.querySelector(".mdl-layout"))
   componentHandler.upgradeDom()
 }

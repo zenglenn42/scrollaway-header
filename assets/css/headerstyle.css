@@ -1,0 +1,110 @@
+body {
+  margin: 0;
+}
+
+.body__div {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.header__row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: white;
+  background-color: rgba(63, 81, 181, .97); /* indigo */
+  line-height: 4em;
+  max-height: 4em;
+  padding: 0 0.5em;
+  overflow: visible; /* Required by nav dropdown selection (i.e., lang picker). */
+}
+
+.subheader__row {
+  line-height: 2em;
+  max-height: 2em;
+  background-color: gray;
+}
+
+
+/* Allow header to collapse, especially when scrolling */
+/* down on landscape-oriented mobile devices.          */
+
+.mdl-layout__header {
+  min-height: 0px;
+}
+
+/* Unset a bunch of MDL defaults which are not flex friendly for hamburger menu. */
+
+.mdl-layout__header .mdl-layout__drawer-button {
+  display: inherit;
+  position: inherit;
+  margin: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  width: inherit;
+  height: inherit;
+}
+
+.header__menu-icon {
+  align-self: center; /* Vertically center within header row. */
+}
+
+.header__hidden-icon {
+  visibility: hidden;
+}
+
+.subheader__menu-icon {
+  visibility: hidden;
+}
+
+.header__title {
+  font-size: x-large;
+  align-self: center;
+}
+
+.header__title-button {
+  color: inherit;
+  text-transform: none;
+}
+
+.subheader__title {
+  font-size: medium;
+}
+
+.header__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Vertically center within header row. */
+  font-size: initial;
+}
+
+.subheader__nav {
+  visibility: hidden;
+}
+
+.header__nav-item {
+  padding-left: 0.5em;
+}
+
+/*
+.main {
+  background-color: #aa77cc; // Light purple
+  flex: 1 0;
+  overflow: scroll;
+  padding: 0 1em;
+}
+
+.footer {
+  color: white;
+  background-color: darkgray;
+  font-size: small;
+  padding: 0 0.5em;
+  line-height: 2em;
+}
+*/

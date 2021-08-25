@@ -16,7 +16,185 @@ Controller.prototype.getResultsPageEventListeners = function() {
   return this.addResultsPageEventListeners
 }
 
+Controller.prototype.addScrollEventListener = function() {
+
+  // NB: Must place this /after/ menu redering for floating menu button
+  //     to work since the menu button element is fetched from the DOM
+  //     so style can be updated.
+
+  let mainEl = document.getElementById("main")
+  let headerEl = document.getElementById("header-id")
+  let menuEl = document.querySelector(".mdl-layout__drawer-button")
+  let menuFloatingClass = "mdl-layout__drawer-button--floating"
+
+  if (mainEl && headerEl) {
+    let useCapture = true // Otherwise photo-view header will not disappear on scroll.
+    let headerEl = document.querySelector('#primary-header')
+    let hasHeader = (headerEl) ? true : false
+
+    let headerHeight = (hasHeader) ? headerEl.getBoundingClientRect().height : undefined
+    let headerStyle = (hasHeader) ? window.getComputedStyle(headerEl) : undefined
+    let headerMaxHeight = (hasHeader) ? headerStyle.getPropertyValue('max-height') : undefined
+    // Get nominal visibility of dropdown-selection nav items.
+    let headerOverflow = (hasHeader) ? headerStyle.getPropertyValue('overflow') : 'visible'
+
+    let subheaderEl = document.querySelector('#secondary-header')
+    let hasSubheader = (subheaderEl) ? true : false
+
+    let subheaderHeight = (hasSubheader) ? subheaderEl.getBoundingClientRect().height : undefined
+    let subheaderStyle = (hasSubheader) ? window.getComputedStyle(subheaderEl) : undefined
+    let subheaderMaxHeight = (hasSubheader) ? subheaderStyle.getPropertyValue('max-height') : undefined
+    // Get nominal visibility of dropdown-selection nav items.
+    let subheaderOverflow = (hasSubheader) ? subheaderStyle.getPropertyValue('overflow') : 'visible'
+
+    let transitionOut = "max-height 0.1s ease-out, overflow 0s ease-out"
+    let transitionIn = "max-height 0.1s ease-in, overflow 0s ease-in"
+
+    function setVisibleStyle(headerEl, headerMaxHeight, headerOverflow,
+                             subheaderEl, subheaderMaxHeight, subheaderOverflow, transition,
+                             menuEl, menuFloatingClass) {
+      if (headerEl) {
+        headerEl.style.maxHeight = headerMaxHeight
+
+        // We restore overflow visibility when the header reappears so nav dropdowns
+        // (like the locale picker) work again without occlusion.
+        headerEl.style.overflow = headerOverflow
+
+        headerEl.style.transition = transition
+      }
+
+      if (subheaderEl) {
+        subheaderEl.style.maxHeight = subheaderMaxHeight
+        subheaderEl.style.overflow = subheaderOverflow
+        subheaderEl.style.transition = transition
+      }
+
+      if (menuEl) {
+        menuEl.classList.remove(menuFloatingClass)
+      }
+    }
+
+    function setInvisibleStyle(headerEl, subheaderEl, transition, menuEl, menuFloatingClass) {
+      if (headerEl) {
+        headerEl.style.maxHeight = 0
+
+        // We hide overflow temporarily while header is scroll-disabled otherwise the
+        // nav buttons/icons will drift down into view :-/.
+        headerEl.style.overflow = 'hidden'
+
+        headerEl.style.transition = transition
+      }
+
+      if (subheaderEl) {
+        subheaderEl.style.maxHeight = 0
+        subheaderEl.style.overflow = 'hidden'
+        subheaderEl.style.transition = transition
+      }
+
+      if (menuEl) {
+        menuEl.classList.add(menuFloatingClass)
+      }
+    }
+
+    function isInvisible(headerEl) {
+      return headerEl.style.maxHeight.charAt(0) === "0" // "0px or 0em"
+    }
+
+    function isVisible(headerEl) {
+      return !isInvisible(headerEl)
+    }
+
+    function headerWorthy(scrollableEl, headerHeight) {
+      // Scrollable element is large enough to accomodate a header.
+      return scrollableEl.scrollHeight - scrollableEl.clientHeight <= headerHeight
+    }
+
+    if (hasHeader && hasSubheader) {
+      mainEl.addEventListener("resize", (e) => {
+        if (isInvisible(headerEl) && headerWorthy(e.target, headerHeight)) {
+          setVisibleStyle(headerEl, headerMaxHeight, headerOverflow,
+                          subheaderEl, subheaderMaxHeight, subheaderOverflow, transitionIn,
+                          menuEl, menuFloatingClass)
+        }
+      })
+
+      // Would like to use delegated handler for scroll events but doesn't
+      // work reliably between photo-view and chart-view.  Suspect something
+      // subtle with capture versus bubble is at play ... so having to call
+      // document.addEventListener directly.
+      //
+      // TODO: Get this working pls :-)
+
+      /*
+      this.delegatedHandlers.addEventListener(
+          document,
+          "scroll",
+          "#main",
+          (e) => {
+            let targetClass = e.target.getAttribute("class")
+            if (targetClass && targetClass.startsWith("chartjs-size")) {
+              // blacklist chartjs since it returns scrollTop ~ 1,000,000
+
+              // TODO: Generalize notion of blacklist for views that don't play nicely with
+              //       our humble scroll handler until I can make it smarter. :-/
+              return
+            }
+
+            let preventJitter = headerHeight + subheaderHeight  // Hysteresis threshold, otherwise scroll
+                                                                // bounces around for windows that only need a
+                                                                // smidge of vertical scrolling.
+
+            if (e.target.scrollTop === 0 && isInvisible(headerEl)) {
+              setVisibleStyle(headerEl, headerMaxHeight, headerOverflow,
+                              subheaderEl, subheaderMaxHeight, subheaderOverflow, transitionIn,
+                              menuEl, menuFloatingClass)
+            } else if (e.target.scrollTop  - preventJitter > 0  && isVisible(headerEl)) {
+              setInvisibleStyle(headerEl, subheaderEl, transitionOut, menuEl, menuFloatingClass)
+            }
+          }, useCapture)
+      */
+
+      mainEl.addEventListener("scroll", (e) => {
+        let targetClass = e.target.getAttribute("class")
+        if (targetClass && targetClass.startsWith("chartjs-size")) {
+          // blacklist chartjs since it returns scrollTop ~ 1,000,000
+
+          // TODO: Generalize notion of blacklist for views that don't play nicely with
+          //       our humble scroll handler until I can make it smarter. :-/
+          return
+        }
+
+        let preventJitter = headerHeight + subheaderHeight  // Hysteresis threshold, otherwise scroll
+                                                            // bounces around for windows that only need a
+                                                            // smidge of vertical scrolling.
+
+        if (e.target.scrollTop === 0 && isInvisible(headerEl)) {
+          setVisibleStyle(headerEl, headerMaxHeight, headerOverflow,
+                          subheaderEl, subheaderMaxHeight, subheaderOverflow, transitionIn,
+                          menuEl, menuFloatingClass)
+        } else if (e.target.scrollTop  - preventJitter > 0  && isVisible(headerEl)) {
+          setInvisibleStyle(headerEl, subheaderEl, transitionOut, menuEl, menuFloatingClass)
+        }
+      }, useCapture)
+    }
+  }
+}
+
 Controller.prototype.addResultsPageEventListeners = function() {
+
+  // Render hamburger menu and make responsive to clicks.
+
+  componentHandler.downgradeElements(document.querySelector(".mdl-layout"))
+  componentHandler.upgradeDom()
+
+  // Make header and subheader disappear on scroll down events.
+  //
+  // NB: Must go AFTER rendering menu since it fetches menu button
+  //     from DOM so it can mutate it from fixed to floating visualization
+  //     during scroll down scenario.
+
+  this.addScrollEventListener()
+
   let fabEl = this.view.getFAB()
   if (fabEl) {
     this.delegatedHandlers.addEventListener(
@@ -41,9 +219,6 @@ Controller.prototype.addResultsPageEventListeners = function() {
       this.getViewButtonEventListener(),
       useCapture)
 
-  /* Make hamburger menu responsive to clicks. */
-  componentHandler.downgradeElements(document.querySelector(".mdl-layout"))
-  componentHandler.upgradeDom()
 }
 
 Controller.prototype.getViewButtonEventListener = function() {

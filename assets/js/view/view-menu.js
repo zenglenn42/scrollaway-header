@@ -17,19 +17,6 @@
 //       to state changes therein.
 //----------------------------------------------------------------------------------
 
-View.prototype.createHamburgerMenu = function() {
-  let m = document.createElement("div")
-  m.classList.add("mdl-layout__drawer-button")
-  m.setAttribute("id", "hamburger-menu")
-  m.setAttribute("role", "button")
-  m.setAttribute("aria-expanded", "false")
-  let iconEl = document.createElement("i")
-  iconEl.classList.add("material-icons")
-  iconEl.innerHTML = "menu"
-  m.appendChild(iconEl)
-  return m
-}
-
 View.prototype.createMenuDrawer = function(menuTitle, menuItemsArray=[]) {
 
   //------------------------------------------------------------

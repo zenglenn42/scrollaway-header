@@ -38,7 +38,9 @@ View.prototype.setLanguage = function() {
 
 View.prototype.createSettingsBody = function createSettingsBody() {
   let bodyDiv = document.getElementById(this.bodyDivId)
-  this.removeChildNodes(bodyDiv)
+  if (bodyDiv && bodyDiv.innerHTML) {
+    this.resetBody()
+  }
 
   let title = this.getAppName()
   let subTitle  = this.getSettingsTitle()

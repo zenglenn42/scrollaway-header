@@ -129,6 +129,7 @@ function Controller(bodyDivId, locale = "en-US") {
     this.settings.getCurrency.bind(this.settings),
     this.settings.getTitle.bind(this.settings),
     this.settings.getSelectLang.bind(this.settings),
+    this.settings.getSelectLangTooltip.bind(this.settings),
     this.settings.getUseLang.bind(this.settings),
     this.settings.getSelectCountry.bind(this.settings),
     this.settings.getShowCities.bind(this.settings),

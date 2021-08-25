@@ -7,7 +7,9 @@
 
 View.prototype.createLandingBody = function() {
   let bodyDiv = document.getElementById(this.bodyDivId)
-  this.removeChildNodes(bodyDiv)
+  if (bodyDiv && bodyDiv.innerHTML) {
+    this.resetBody()
+  }
 
   let title = this.getAppName()
   let header = this.createHeader(title)
