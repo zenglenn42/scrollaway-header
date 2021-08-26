@@ -16,6 +16,9 @@ Controller.prototype.getResultsPageEventListeners = function() {
   return this.addResultsPageEventListeners
 }
 
+// Scroll away header (especially on mobile) when we want to devote
+// maximum screen real estate to content.
+
 Controller.prototype.addScrollEventListener = function() {
 
   // NB: Must place this /after/ menu redering for floating menu button
@@ -124,45 +127,36 @@ Controller.prototype.addScrollEventListener = function() {
       // document.addEventListener directly.
       //
       // TODO: Get this working pls :-)
-
-      /*
-      this.delegatedHandlers.addEventListener(
-          document,
-          "scroll",
-          "#main",
-          (e) => {
-            let targetClass = e.target.getAttribute("class")
-            if (targetClass && targetClass.startsWith("chartjs-size")) {
-              // blacklist chartjs since it returns scrollTop ~ 1,000,000
-
-              // TODO: Generalize notion of blacklist for views that don't play nicely with
-              //       our humble scroll handler until I can make it smarter. :-/
-              return
-            }
-
-            let preventJitter = headerHeight + subheaderHeight  // Hysteresis threshold, otherwise scroll
-                                                                // bounces around for windows that only need a
-                                                                // smidge of vertical scrolling.
-
-            if (e.target.scrollTop === 0 && isInvisible(headerEl)) {
-              setVisibleStyle(headerEl, headerMaxHeight, headerOverflow,
-                              subheaderEl, subheaderMaxHeight, subheaderOverflow, transitionIn,
-                              menuEl, menuFloatingClass)
-            } else if (e.target.scrollTop  - preventJitter > 0  && isVisible(headerEl)) {
-              setInvisibleStyle(headerEl, subheaderEl, transitionOut, menuEl, menuFloatingClass)
-            }
-          }, useCapture)
-      */
+      //
+      // this.delegatedHandlers.addEventListener(
+      //    document,
+      //    "scroll",
+      //    "#main",
+      //    (e) => { /* scroll handler goes here */ }, useCapture)
 
       mainEl.addEventListener("scroll", (e) => {
-        let targetClass = e.target.getAttribute("class")
-        if (targetClass && targetClass.startsWith("chartjs-size")) {
-          // blacklist chartjs since it returns scrollTop ~ 1,000,000
 
-          // TODO: Generalize notion of blacklist for views that don't play nicely with
-          //       our humble scroll handler until I can make it smarter. :-/
-          return
+        // Detect which view is active for this scroll event.
+        // TODO: Clean up view detection to something less convoluted.
+
+        let targetView = e.target.getAttribute("data-view")
+        let targetClass = e.target.getAttribute("class")
+        targetView = (targetView) ? targetView  // for photo and table view
+                                  : (targetClass.startsWith("chartjs")) ? "chart"
+                                  : (targetClass.startsWith("leaflet")) ? "map" : undefined
+
+        switch (targetView) {
+          case "photo": // Whitelist these views to use our custom scroll handler.
+          case "table": //
+              break     // Proceed to custom scroll handling
+
+          case "chart": // Blacklist these views from using our custom scroll handler.
+          case "map":   // These views are not playing nicely on mobile, especially map-view
+                        // on Android.  Need better device emulation in dev env. :-)
+          default:
+              return    // Bail out, no custom scroll handling.
         }
+
 
         let preventJitter = headerHeight + subheaderHeight  // Hysteresis threshold, otherwise scroll
                                                             // bounces around for windows that only need a

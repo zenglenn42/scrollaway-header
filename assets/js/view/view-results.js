@@ -129,8 +129,9 @@ View.prototype.createResultsMain = function() {
           let mapId = "mapid"
           child.setAttribute("id", mapId)
           child.setAttribute("style", "height: 80vh")
+          child.setAttribute("data-view", "map")  // needed for scroll handler
           m.appendChild(child)
-          m.setAttribute("data-view", "map")
+          m.setAttribute("data-view", "map")  // need for view buttons
         }
         break
       case "photo-view":
@@ -139,6 +140,7 @@ View.prototype.createResultsMain = function() {
         child.classList.add("grid-content")
         m.appendChild(child)
         g.classList.add("mdl-grid")
+        g.setAttribute("data-view", "photo")  // needed for scroll handler
         m.appendChild(g)
         //-----------------------------------//
         // Call the model to get ranked list

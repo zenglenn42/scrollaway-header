@@ -1,5 +1,7 @@
 {
- "name": "App",
+ "name": "City Match",
+ "short_name": "City Match",
+ "display": "standalone",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
