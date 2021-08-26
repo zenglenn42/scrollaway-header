@@ -1,12 +1,18 @@
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: sans-serif;
+  height: inherit;
 }
 
 .body__div {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100%;
+  height: inherit;
 }
 
 .header {
@@ -19,7 +25,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   color: white;
-  background-color: rebeccapurple;
+  background-color: red;
   line-height: 3em;
   max-height: 3em;
   padding: 0 0.5em;
@@ -63,13 +69,18 @@ body {
 }
 
 .main {
-  background-color: #aa77cc; // Light purple
-  flex: 1 0;
+  background-color: #aa77cc;
+  flex: 1;
   overflow: scroll;
   padding: 0 1em;
 }
 
 .footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+
   color: white;
   background-color: darkgray;
   font-size: small;
